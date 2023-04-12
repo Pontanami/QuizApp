@@ -18,13 +18,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException, ExecutionException, InterruptedException {
         IUserRepository userRepository = new FirebaseUserRepository();
-        userRepository.createUser("test", "test", "test");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("ProgramTest: Write 1 to create user");
+        if(scanner.nextInt() == 1) {
+            System.out.println("Write name");
+            //wait for input
+            String name = scanner.next();
+            System.out.println("Write email");
+            //wait for input
+            String email = scanner.next();
+            System.out.println("Write password");
+            //wait for input
+            String password = scanner.next();
+            userRepository.createUser(name, email, password);
+
+        }
+
 
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
