@@ -1,20 +1,16 @@
 package com.example.quizapp;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.cloud.firestore.Firestore;
 import com.google.auth.oauth2.GoogleCredentials;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class FirebaseUserRepository implements IUserRepository {
@@ -68,7 +64,39 @@ public class FirebaseUserRepository implements IUserRepository {
             e.printStackTrace();
         }
     }
-    public void getUsers() {
 
+    public User getUser(String name) {
+        CollectionReference users = db.collection("users");
+        Query query = users.whereEqualTo("name", name);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        try {
+            for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+                User user = document.toObject(User.class);
+                return user;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public List<User> getUsers() {
+        ApiFuture<QuerySnapshot> future = db.collection("users").get();
+        List<QueryDocumentSnapshot> documents = null;
+        try {
+            documents = future.get().getDocuments();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        List<User> users = new ArrayList<>();
+        for (QueryDocumentSnapshot document : documents) {
+            User user = document.toObject(User.class);
+            users.add(user);
+        }
+
+        return users;
     }
 }

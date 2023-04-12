@@ -2,9 +2,9 @@ package com.example.quizapp;
 
 public class User {
 
-    private final String name;
-    private final String email;
-    private final String password;
+    private String name;
+    private String email;
+    private String password;
 
     public User(String name, String email, String password){
         this.name = name;
