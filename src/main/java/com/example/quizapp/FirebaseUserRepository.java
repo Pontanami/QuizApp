@@ -39,29 +39,35 @@ public class FirebaseUserRepository implements IUserRepository {
         db = FirestoreClient.getFirestore();
     }
 
+    /** Method to create a user and store it in the Firestore database
+     * @param name the username of the user
+     * @param email the email of the user
+     * @param password the password of the user
+     */
     @Override
     public void createUser(String name, String email, String password){
-        DocumentReference docRef = db.collection("users").document(name);
-        Map<String, Object> data = new HashMap<>();
+        CollectionReference docRef = db.collection("users");
         User user = new User(name, email, password);
-        data.put("name", user.getName());
-        data.put("email", user.getEmail());
-        data.put("password", user.getPassword());
         try{
-            docRef.set(data);
+            docRef.add(user);
             System.out.println("User " + name + " created");
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
+    /** Method to log in a user stored in Firestore: Checks if user exists and if password is correct
+     * @param name the username of the user
+     * @param password the password of the user
+     */
     public void loginUser(String name, String password) {
-        DocumentReference docRef = db.collection("users").document(name);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
+        Query q = db.collection("users").whereEqualTo("name", name);
+        ApiFuture<QuerySnapshot> future = q.get();
         try {
-            DocumentSnapshot document = future.get();
-            if(document.exists()) {
-                if(Objects.equals(document.getString("password"), password)) {
+            QuerySnapshot document = future.get();
+            if(document != null) {
+                if(Objects.equals(document.getDocuments().get(0).get("password"), password)) {
+                    // log in user
                     System.out.println("User " + name + " logged in");
                 } else {
                     System.out.println("Wrong password");
@@ -73,16 +79,17 @@ public class FirebaseUserRepository implements IUserRepository {
             e.printStackTrace();
         }
     }
-
+    /** Method to get a user from the Firestore database
+     * @param name the username of the user
+     * @return A {@link User} object with the user's information
+     */
     public User getUser(String name) {
         CollectionReference users = db.collection("users");
         Query query = users.whereEqualTo("name", name);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
-
         try {
             for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
-                User user = document.toObject(User.class);
-                return user;
+                return document.toObject(User.class);
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -90,7 +97,9 @@ public class FirebaseUserRepository implements IUserRepository {
 
         return null;
     }
-
+    /** Method to get all users from the Firestore database
+     * @return A {@link List} of {@link User} objects with the user's information
+     */
     public List<User> getUsers() {
         ApiFuture<QuerySnapshot> future = db.collection("users").get();
         List<QueryDocumentSnapshot> documents = null;
@@ -105,7 +114,6 @@ public class FirebaseUserRepository implements IUserRepository {
             User user = document.toObject(User.class);
             users.add(user);
         }
-
         return users;
     }
 }
