@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class HelloApplication extends Application {
@@ -22,29 +24,60 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("1 - Create flashcards");
-        System.out.println("2 - Show flashcards");
-        System.out.println("3 - Delete flashcard");
-        System.out.println("Q - Exit");
 
 
-        System.out.print("Create your question: ");
-        String question = in.nextLine();
 
-        System.out.print("And the answer: ");
-        String answer = in.nextLine();
+        List<Flashcard> flashcards = new ArrayList<>();
+        boolean isRunning = true;
 
-        clearConsole();
+        while (isRunning){
+            System.out.println("1 - Create flashcards");
+            System.out.println("2 - Show flashcards");
+            System.out.println("3 - Delete flashcard");
+            System.out.println("Q - Exit");
 
-        Flashcard flashcard = new Flashcard(question, answer);
+            String alternative = in.nextLine();
+            switch (alternative.toLowerCase()){
+                case "1":
+                    System.out.print("Create your question: ");
+                    String question = in.nextLine();
 
-        System.out.println(flashcard.getQuestion());
+                    System.out.print("And the answer: ");
+                    String answer = in.nextLine();
 
-        System.out.println("Press S to see the answer");
-        String choice = in.nextLine();
+                    clearConsole();
 
-        if (choice.equalsIgnoreCase("s")){
-            System.out.println(flashcard.getAnswer());
+                    flashcards.add(new Flashcard(question, answer));
+                    break;
+
+                case "2":
+                    for (Flashcard flashcard : flashcards){
+                        System.out.println(flashcard.getQuestion());
+
+                        System.out.println("Enter anything to see the answer");
+                        in.nextLine();
+
+                        System.out.println(flashcard.getAnswer());
+                    }
+                    break;
+                case "3":
+                    for (int i = 0; i < flashcards.size(); i++){
+                        System.out.println(i + " - " + flashcards.get(i).getQuestion());
+                    }
+
+                    System.out.print("Enter the index you want to remove: ");
+                    String removeIndex = in.nextLine();
+
+                    try{
+                        flashcards.remove(Integer.parseInt(removeIndex));
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case "q":
+                    isRunning = false;
+                    break;
+            }
         }
 
 
