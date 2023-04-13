@@ -16,7 +16,16 @@ import java.util.concurrent.ExecutionException;
 public class FirebaseUserRepository implements IUserRepository {
 
     Firestore db;
-    public FirebaseUserRepository(){
+    private static FirebaseUserRepository instance = null;
+
+    public static FirebaseUserRepository getAuth(){
+        if (instance == null)
+            instance = new FirebaseUserRepository();
+
+        return instance;
+    }
+
+    private FirebaseUserRepository(){
         try {
             InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
             FirebaseOptions options = new FirebaseOptions.Builder()
