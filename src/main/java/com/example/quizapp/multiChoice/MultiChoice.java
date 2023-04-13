@@ -1,6 +1,5 @@
 package com.example.quizapp.multiChoice;
 
-import com.example.quizapp.interfaces.IDisplayable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,29 +7,23 @@ import java.util.Scanner;
 /**
  * An instance of this class represents one single multi choice question
  */
-public class MultiChoiceMain implements IDisplayable {
+public class MultiChoice {
     private MultiChoiceModel model;
     private final String question;
 
-    public MultiChoiceMain(String question){
+    public MultiChoice(String question){
         this.question = question;
-        getChoices();
-        getCorrectAnswer();
+        createChoices();
+        createCorrectAnswer();
     }
-
-    //class Question
-    //private string question;
-    //private Answer answer;
-    //public Question(){ answer = new multiChoiceMain(this.question)}
 
     /**
      * Asks the user for four answers to the question
      */
-    private void getChoices(){
+    private void createChoices(){
         String[] answers = new String[4];
         for (int i = 0; i < 4; i++){
             while (true){
-
                 Scanner choice = new Scanner(System.in);  // Create a Scanner object
                 System.out.print("Choice number " + (i+1) + ": ");
                 answers[i] = choice.nextLine();  // Read user input
@@ -46,7 +39,7 @@ public class MultiChoiceMain implements IDisplayable {
     /**
      * Asks the user to specify which of the four specified choices is the correct answer
      */
-    private void getCorrectAnswer(){
+    private void createCorrectAnswer(){
         while (true){
             Scanner correctAns = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Specify the correct answer: ");
@@ -66,7 +59,6 @@ public class MultiChoiceMain implements IDisplayable {
      * Displaying the question and the multiple choices, asking which one is the correct answer to the question.
      * If the user gives the correct answer, add a point for the user, otherwise show the correct answer
      */
-    @Override
     public void displayTest(){
         System.out.println(model.getQuestion() + "\n");
         ArrayList<String> choices = model.getChoices();
