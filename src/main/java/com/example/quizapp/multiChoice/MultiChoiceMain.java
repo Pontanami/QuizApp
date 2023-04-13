@@ -43,6 +43,9 @@ public class MultiChoiceMain implements IDisplayable {
         model = new MultiChoiceModel(question, answers[0], answers[1], answers[2], answers[3]);
     }
 
+    /**
+     * Asks the user to specify which of the four specified choices is the correct answer
+     */
     private void getCorrectAnswer(){
         while (true){
             Scanner correctAns = new Scanner(System.in);  // Create a Scanner object
@@ -72,13 +75,14 @@ public class MultiChoiceMain implements IDisplayable {
             System.out.println("Choice " + i + ": " + choices.get(i));
         }
 
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Which one is the correct answer: ");
-        String correct = myObj.nextLine();  // Read user input
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("\n" + "Which one is the correct answer: ");
+        String correct = myObj.nextLine();
 
         if (correct.equals(model.getCorrectAnswer())){
             model.addPoint();
             System.out.println("That's correct");
+            System.out.println("Your total points: " + model.getPoints());
         } else { //else{ show a hint }
             System.out.println("Sorry, the correct answer is: " + model.getCorrectAnswer());
         }

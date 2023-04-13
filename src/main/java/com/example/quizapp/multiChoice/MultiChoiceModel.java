@@ -41,4 +41,12 @@ public class MultiChoiceModel {
     protected void addPoint(){
         points++;
     }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public int getPoints() {
+        return points;
+    }
 }
