@@ -1,20 +1,20 @@
 package com.example.quizapp;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 public class HelloApplication extends Application {
+
+    private IUserRepository userRepo;
+
     @Override
     public void start(Stage stage) throws IOException {
-        IUserRepository userRepository = new FirebaseUserRepository();
+        userRepo = new FirebaseUserRepository();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("ProgramTest: Write 1 to create user, 2 to login a user");
+        System.out.println("ProgramTest: Write 1 to create user, 2 to login a user, 3 to get user");
         int result = scanner.nextInt();
         if(result == 1) {
             System.out.println("Write name");
@@ -23,16 +23,20 @@ public class HelloApplication extends Application {
             String email = scanner.next();
             System.out.println("Write password");
             String password = scanner.next();
-            userRepository.createUser(name, email, password);
+            userRepo.createUser(name, email, password);
         }
         else if (result == 2) {
             System.out.println("Write name of account");
             String name = scanner.next();
             System.out.println("Write password");
             String password = scanner.next();
-            userRepository.loginUser(name, password);
+            userRepo.loginUser(name, password);
             }
-
+        else if (result == 3) {
+            System.out.println("Write name of account");
+            String name = scanner.next();
+            System.out.println(userRepo.getUser(name));
+        }
 
 
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
