@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.Flashcard;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,34 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        boolean running = true;
+        while (running){
+            Scanner in = new Scanner(System.in);
+            System.out.println("1 - Create a FlashCard quiz");
+            System.out.println("2 - Create a Multiple Choice quiz");
+            System.out.println("q - Exit");
+            System.out.println("Choose an option: ");
+            String choice = in.nextLine();
+            switch (choice) {
+                case "1" -> {
+                    createFlashCardQuiz();
+                }
+                case "2" -> {
+                    createMultiChoiceQuiz();
+                }
+                case "q" -> {
+                    running = false;
+                    System.exit(0);
+                }
+                default -> System.out.println("Please choose 1, 2, or q");
+            }
+        }
+
+        launch();
+
+    }
+
+    private static void createFlashCardQuiz() {
         Scanner in = new Scanner(System.in);
         List<Flashcard> flashCards = new ArrayList<>();
         boolean running = true;
@@ -29,7 +58,7 @@ public class HelloApplication extends Application {
             System.out.println("1 - Create a flashcard");
             System.out.println("2 - Show flashcards");
             System.out.println("3 - Delete flashcard");
-            System.out.println("Q - Exit");
+            System.out.println("q - Exit");
             System.out.print("Pick an option: " );
 
             String option = in.nextLine();
@@ -64,7 +93,7 @@ public class HelloApplication extends Application {
                         System.out.println("1 - Flip flashcard");
                         System.out.println("2 - Go to previous flashcard");
                         System.out.println("3 - Go to next flashcard");
-                        System.out.println("Q - Exit ");
+                        System.out.println("q - Exit ");
                         System.out.print("Pick an option: " );
 
                         option = in.nextLine();
@@ -89,7 +118,7 @@ public class HelloApplication extends Application {
                                     currentFlashCard = 0;
                                 }
                                 break;
-                            case "Q":
+                            case "q":
                                 viewingFlashCards = false;
                                 break;
                         }
@@ -100,19 +129,76 @@ public class HelloApplication extends Application {
                 case "3":
                     System.out.println("Which flashcard do you want to delete?");
                     for (int i = 0; i < flashCards.size(); i++) {
-                    System.out.println(i + " - " + flashCards.get(i).getQuestion());
+                        System.out.println(i + " - " + flashCards.get(i).getQuestion());
                     }
                     int flashcard = Integer.parseInt(in.nextLine());
                     flashCards.remove(flashcard);
                     break;
-                case "Q":
+                case "q":
                     running = false;
                     break;
             }
             System.out.println();
         }
+    }
 
-        launch();
+    private static void createMultiChoiceQuiz(){
+        ArrayList<MultiChoice> questions = new ArrayList<>();
+        String[] options = {"Create a question", "Take a quiz", "Exit"};
+
+        label:
+        while (true){
+            System.out.println("Please choose one of the options below: (1-3) \n");
+
+            for (int i = 0; i < options.length; i++){
+                System.out.println((i+1) + " - " + options[i]);
+            }
+
+            Scanner myOption = new Scanner(System.in);
+            System.out.println("The option you choose is: ");
+            String chosenOption = myOption.next();
+
+            switch (chosenOption) {
+                case "1":
+                    while (true) {
+                        Scanner myQuestion = new Scanner(System.in);
+                        System.out.println("\nWhat is your question: ");
+                        questions.add(new MultiChoice(myQuestion.nextLine()));
+
+                        System.out.println("\nYour question has been created. Choose one of the options below: ");
+                        System.out.println("1 - Create another question");
+                        System.out.println("2 - Finish");
+                        System.out.println("q - Exit");
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.println("The option you choose is: ");
+                        String myChoice = scanner.nextLine();
+
+                        if (myChoice.equals("2")) {
+                            System.out.print("\n");
+                            break;
+                        } else if (myChoice.equals("q")) {
+                            System.exit(0);
+                        }
+                    }
+                    break;
+                case "2":
+                    if (questions.isEmpty()) {
+                        System.out.println("There are no available quiz questions. You need to create them first.\n");
+                    } else {
+                        for (int i = 0; i < questions.size(); i++) {
+                            System.out.println("\nQuestion number " + (i + 1) + ": ");
+                            questions.get(i).displayTest();
+                        }
+                        System.out.print("\n");
+                    }
+                    break;
+                case "3":
+                    break label;
+                default:
+                    System.out.println("Not a valid option.\n");
+                    break;
+            }
+        }
     }
 
 }
