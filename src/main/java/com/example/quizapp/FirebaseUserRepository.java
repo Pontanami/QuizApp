@@ -61,18 +61,17 @@ public class FirebaseUserRepository implements IUserRepository {
      */
     public void loginUser(String name, String password) {
         Query q = db.collection("users").whereEqualTo("name", name);
-        ApiFuture<QuerySnapshot> future = q.get();
+        ApiFuture<QuerySnapshot> documents = q.get();
         try {
-            QuerySnapshot document = future.get();
-            if(document != null) {
-                if(Objects.equals(document.getDocuments().get(0).get("password"), password)) {
-                    // log in user
-                    System.out.println("User " + name + " logged in");
-                } else {
-                    System.out.println("Wrong password");
+            if (documents.get().isEmpty())
+                System.out.println("No matching user");
+            else{
+                for (DocumentSnapshot document : documents.get().getDocuments()) {
+                    if (Objects.equals(document.get("password"), password))
+                        System.out.println("User logged in");
+                    else
+                        System.out.println("Wrong password for user");
                 }
-            } else {
-                System.out.println("No such document!");
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
