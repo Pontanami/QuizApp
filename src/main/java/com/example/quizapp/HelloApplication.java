@@ -61,7 +61,6 @@ public class HelloApplication extends Application {
                     }
                     break;
                 case "2":
-
                     if (questions.isEmpty()) {
                         System.out.println("There are no available quiz questions. You need to create them first.\n");
                     } else {

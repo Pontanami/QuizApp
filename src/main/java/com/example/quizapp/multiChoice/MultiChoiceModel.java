@@ -7,7 +7,7 @@ public class MultiChoiceModel {
     private final ArrayList<String> choices = new ArrayList<>();
     private String correctAnswer;
     private final String question;
-    private int points = 0; // Should be replaced with the user's database point variable
+    private static int points = 0; // Should be replaced with the user's database point variable
 
     protected MultiChoiceModel(String question, String answer1, String answer2, String answer3, String answer4){
         choices.add(answer1);
