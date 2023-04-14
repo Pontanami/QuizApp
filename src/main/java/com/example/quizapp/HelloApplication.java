@@ -81,6 +81,7 @@ public class HelloApplication extends Application {
                                 } else {
                                     currentFlashCard = flashCards.size() - 1;
                                 }
+                                viewingQuestion = true;
                                 break;
                             case "3":
                                 if (currentFlashCard != flashCards.size() - 1) {
@@ -88,9 +89,13 @@ public class HelloApplication extends Application {
                                 } else {
                                     currentFlashCard = 0;
                                 }
+                                viewingQuestion = true;
                                 break;
                             case "Q":
                                 viewingFlashCards = false;
+                                break;
+                            default:
+                                System.out.println("That is not a valid option");
                                 break;
                         }
                         System.out.println();
@@ -107,6 +112,9 @@ public class HelloApplication extends Application {
                     break;
                 case "Q":
                     running = false;
+                    break;
+                default:
+                    System.out.println("That is not a valid option");
                     break;
             }
             System.out.println();
