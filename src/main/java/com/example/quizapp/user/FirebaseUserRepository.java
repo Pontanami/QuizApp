@@ -50,7 +50,12 @@ public class FirebaseUserRepository implements IUserRepository {
         }
         db = FirestoreClient.getFirestore();
     }
-
+    /** Method to get the current user
+     * @return {@link User} object of the current user
+     */
+    public User getCurrentUser() {
+        return currentUser;
+    }
     /** Method to create a user and store it in the Firestore database
      * @param name the username of the user
      * @param email the email of the user
@@ -61,21 +66,21 @@ public class FirebaseUserRepository implements IUserRepository {
         CollectionReference ref = db.collection("users");
         User user = new User(name, email, password);
         try{
-
-            ApiFuture<DocumentReference> result = ref.add(user);
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", name);
+            data.put("email", email);
+            data.put("password", password);
+            ApiFuture<DocumentReference> result = ref.add(data);
             ApiFutures.addCallback(result, new ApiFutureCallback<DocumentReference>() {
                 @Override
                 public void onFailure(Throwable throwable) {
                     System.out.println("couldn't add to database");
                 }
-
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
-                    System.out.println("User " + getUser(name) + " created");
+                    System.out.println("User " + name + " created");
                 }
             });
-
-
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -96,7 +101,7 @@ public class FirebaseUserRepository implements IUserRepository {
             else{
                 for (DocumentSnapshot document : documents) {
                     if (Objects.equals(document.get("password"), password)) {
-                        currentUser = document.toObject(User.class);
+                        currentUser = new User(name, (String) document.get("email"), password);
                         //log in user
                         System.out.println(currentUser.getName() + " logged in");
                     }
@@ -127,14 +132,11 @@ public class FirebaseUserRepository implements IUserRepository {
             QuerySnapshot querySnapshot = query.get();
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
             for (DocumentSnapshot document : documents) {
-                return document.toObject(User.class);
+                return new User(name, (String) document.get("email"), (String) document.get("password"));
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
-        
-
         return null;
     }
     /** Method to get all users from the Firestore database
@@ -152,12 +154,12 @@ public class FirebaseUserRepository implements IUserRepository {
 
         List<User> users = new ArrayList<>();
         for (QueryDocumentSnapshot document : documents) {
-            User user = document.toObject(User.class);
+            User user = new User((String) document.get("name"),
+                    (String) document.get("email"), (String) document.get("password"));
             users.add(user);
         }
         return users;
     }
-
     /**
      * Method to remove a user from the Firestore database
      * @param name the username of the user
