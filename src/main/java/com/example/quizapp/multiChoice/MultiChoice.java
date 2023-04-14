@@ -64,7 +64,7 @@ public class MultiChoice {
         ArrayList<String> choices = model.getChoices();
 
         for (int i = 0; i < choices.size(); i++){
-            System.out.println("Choice " + i + ": " + choices.get(i));
+            System.out.println("Choice " + (i+1) + ": " + choices.get(i));
         }
 
         Scanner myObj = new Scanner(System.in);
