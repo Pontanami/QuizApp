@@ -1,6 +1,8 @@
 package com.example.quizapp.user;
 
 import com.google.api.core.ApiFuture;
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.FirebaseApp;
@@ -56,11 +58,24 @@ public class FirebaseUserRepository implements IUserRepository {
      */
     @Override
     public void createUser(String name, String email, String password){
-        CollectionReference docRef = db.collection("users");
+        CollectionReference ref = db.collection("users");
         User user = new User(name, email, password);
         try{
-            docRef.add(user);
-            System.out.println("User " + name + " created");
+
+            ApiFuture<DocumentReference> result = ref.add(user);
+            ApiFutures.addCallback(result, new ApiFutureCallback<DocumentReference>() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    System.out.println("couldn't add to database");
+                }
+
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    System.out.println("User " + getUser(name) + " created");
+                }
+            });
+
+
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -72,12 +87,14 @@ public class FirebaseUserRepository implements IUserRepository {
     @Override
     public void loginUser(String name, String password) {
         Query q = db.collection("users").whereEqualTo("name", name);
-        ApiFuture<QuerySnapshot> documents = q.get();
+        ApiFuture<QuerySnapshot> query = q.get();
         try {
-            if (documents.get().isEmpty())
+            QuerySnapshot querySnapshot = query.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+            if (documents.isEmpty())
                 System.out.println("No matching user");
             else{
-                for (DocumentSnapshot document : documents.get().getDocuments()) {
+                for (DocumentSnapshot document : documents) {
                     if (Objects.equals(document.get("password"), password)) {
                         currentUser = document.toObject(User.class);
                         //log in user
@@ -104,10 +121,12 @@ public class FirebaseUserRepository implements IUserRepository {
     @Override
     public User getUser(String name) {
         CollectionReference users = db.collection("users");
-        Query query = users.whereEqualTo("name", name);
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        Query q = users.whereEqualTo("name", name);
+        ApiFuture<QuerySnapshot> query = q.get();
         try {
-            for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            QuerySnapshot querySnapshot = query.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+            for (DocumentSnapshot document : documents) {
                 return document.toObject(User.class);
             }
         } catch (InterruptedException | ExecutionException e) {
