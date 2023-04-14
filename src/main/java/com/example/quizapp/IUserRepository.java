@@ -10,5 +10,6 @@ public interface IUserRepository {
     void loginUser(String name, String password);
     List<User> getUsers();
     User getUser(String name);
+    void removeUser(String name);
 
 }

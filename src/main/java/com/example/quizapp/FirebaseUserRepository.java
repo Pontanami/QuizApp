@@ -13,18 +13,27 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Singleton class to handle user data in the Firestore database
+ * @author Felix, Gustav, Pontus
+ */
 public class FirebaseUserRepository implements IUserRepository {
-
-    Firestore db;
+    private final Firestore db;
     private static FirebaseUserRepository instance = null;
 
+    /**
+     * Method to get the instance of the FirebaseUserRepository singleton
+     * @return instance of FirebaseUserRepository
+     */
     public static FirebaseUserRepository getAuth(){
         if (instance == null)
             instance = new FirebaseUserRepository();
 
         return instance;
     }
-
+    /** Constructor for FirebaseUserRepository
+     * Initializes Firestore database
+     */
     private FirebaseUserRepository(){
         try {
             InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
@@ -59,6 +68,7 @@ public class FirebaseUserRepository implements IUserRepository {
      * @param name the username of the user
      * @param password the password of the user
      */
+    @Override
     public void loginUser(String name, String password) {
         Query q = db.collection("users").whereEqualTo("name", name);
         ApiFuture<QuerySnapshot> documents = q.get();
@@ -68,6 +78,7 @@ public class FirebaseUserRepository implements IUserRepository {
             else{
                 for (DocumentSnapshot document : documents.get().getDocuments()) {
                     if (Objects.equals(document.get("password"), password))
+                        //log in user
                         System.out.println("User logged in");
                     else
                         System.out.println("Wrong password for user");
@@ -81,6 +92,7 @@ public class FirebaseUserRepository implements IUserRepository {
      * @param name the username of the user
      * @return A {@link User} object with the user's information
      */
+    @Override
     public User getUser(String name) {
         CollectionReference users = db.collection("users");
         Query query = users.whereEqualTo("name", name);
@@ -100,6 +112,7 @@ public class FirebaseUserRepository implements IUserRepository {
     /** Method to get all users from the Firestore database
      * @return A {@link List} of {@link User} objects with the user's information
      */
+    @Override
     public List<User> getUsers() {
         ApiFuture<QuerySnapshot> future = db.collection("users").get();
         List<QueryDocumentSnapshot> documents = null;
@@ -117,8 +130,16 @@ public class FirebaseUserRepository implements IUserRepository {
         return users;
     }
 
-
-    public void removeUser(String name) throws ExecutionException, InterruptedException {
-        ApiFuture<WriteResult> writeResult = db.collection("users").document(name).delete();
+    /**
+     * Method to remove a user from the Firestore database
+     * @param name the username of the user
+     */
+    @Override
+    public void removeUser(String name){
+        try {
+            db.collection("users").document(name).delete();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
