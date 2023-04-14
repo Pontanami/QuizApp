@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.user;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;

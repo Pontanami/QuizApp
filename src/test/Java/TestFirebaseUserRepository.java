@@ -1,7 +1,7 @@
 package Java;
 
-import com.example.quizapp.FirebaseUserRepository;
-import com.example.quizapp.User;
+import com.example.quizapp.user.FirebaseUserRepository;
+import com.example.quizapp.user.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

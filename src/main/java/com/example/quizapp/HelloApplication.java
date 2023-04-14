@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import com.example.quizapp.user.FirebaseUserRepository;
+import com.example.quizapp.user.IUserRepository;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

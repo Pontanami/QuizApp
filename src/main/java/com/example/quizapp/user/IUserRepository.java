@@ -1,7 +1,6 @@
-package com.example.quizapp;
+package com.example.quizapp.user;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public interface IUserRepository {
 
