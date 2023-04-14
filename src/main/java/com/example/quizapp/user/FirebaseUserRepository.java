@@ -64,23 +64,27 @@ public class FirebaseUserRepository implements IUserRepository {
     @Override
     public void createUser(String name, String email, String password){
         CollectionReference ref = db.collection("users");
-        User user = new User(name, email, password);
         try{
+            String docID = ref.document().getId();
             Map<String, Object> data = new HashMap<>();
+            data.put("id", docID);
             data.put("name", name);
             data.put("email", email);
             data.put("password", password);
-            ApiFuture<DocumentReference> result = ref.add(data);
-            ApiFutures.addCallback(result, new ApiFutureCallback<DocumentReference>() {
+
+            ApiFuture<WriteResult> result = ref.document(docID).set(data);
+            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
                 @Override
                 public void onFailure(Throwable throwable) {
                     System.out.println("couldn't add to database");
                 }
                 @Override
-                public void onSuccess(DocumentReference documentReference) {
+                public void onSuccess(WriteResult writeResult) {
                     System.out.println("User " + name + " created");
+                    currentUser = new User(docID, name, email, password);
                 }
             });
+
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -101,9 +105,10 @@ public class FirebaseUserRepository implements IUserRepository {
             else{
                 for (DocumentSnapshot document : documents) {
                     if (Objects.equals(document.get("password"), password)) {
-                        currentUser = new User(name, (String) document.get("email"), password);
+                        currentUser = createObject(document);
+
                         //log in user
-                        System.out.println(currentUser.getName() + " logged in");
+                        System.out.println(currentUser + " logged in");
                     }
                     else
                         System.out.println("Wrong password for user");
@@ -132,7 +137,7 @@ public class FirebaseUserRepository implements IUserRepository {
             QuerySnapshot querySnapshot = query.get();
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
             for (DocumentSnapshot document : documents) {
-                return new User(name, (String) document.get("email"), (String) document.get("password"));
+                return createObject(document);
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -154,9 +159,7 @@ public class FirebaseUserRepository implements IUserRepository {
 
         List<User> users = new ArrayList<>();
         for (QueryDocumentSnapshot document : documents) {
-            User user = new User((String) document.get("name"),
-                    (String) document.get("email"), (String) document.get("password"));
-            users.add(user);
+            users.add(createObject(document));
         }
         return users;
     }
@@ -171,5 +174,11 @@ public class FirebaseUserRepository implements IUserRepository {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    //Kolla mer på ID och alla doc.get()
+    private User createObject(DocumentSnapshot document){
+        return new User(document.getId(), (String) document.get("name"),
+                        (String) document.get("email"), (String) document.get("password")
+        );
     }
 }
