@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 public class FirebaseUserRepository implements IUserRepository {
     private final Firestore db;
     private static FirebaseUserRepository instance = null;
+    private User currentUser;
 
     /**
      * Method to get the instance of the FirebaseUserRepository singleton
@@ -77,9 +78,11 @@ public class FirebaseUserRepository implements IUserRepository {
                 System.out.println("No matching user");
             else{
                 for (DocumentSnapshot document : documents.get().getDocuments()) {
-                    if (Objects.equals(document.get("password"), password))
+                    if (Objects.equals(document.get("password"), password)) {
+                        currentUser = document.toObject(User.class);
                         //log in user
-                        System.out.println("User logged in");
+                        System.out.println(currentUser.getName() + " logged in");
+                    }
                     else
                         System.out.println("Wrong password for user");
                 }
@@ -88,6 +91,12 @@ public class FirebaseUserRepository implements IUserRepository {
             e.printStackTrace();
         }
     }
+    /*
+     Typ så vi måste göra för att använda queryBuilder för att lägga till vad vi nu vill söka efter
+     for i in range(amount of attributes)
+        if(method.get() != null)
+            r = r.whereEqualTo(method.name, method.get())
+     */
     /** Method to get a user from the Firestore database
      * @param name the username of the user
      * @return A {@link User} object with the user's information
