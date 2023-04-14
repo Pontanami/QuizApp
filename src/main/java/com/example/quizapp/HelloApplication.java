@@ -52,33 +52,37 @@ public class HelloApplication extends Application {
                         break;
                     }
                     boolean viewingFlashCards = true;
+                    boolean viewingQuestion = true;
                     int currentFlashCard = 0;
                     while (viewingFlashCards) {
-                        System.out.println("1 - Show question");
-                        System.out.println("2 - Show answer");
-                        System.out.println("3 - Go to previous flashcard");
-                        System.out.println("4 - Go to next flashcard");
+                        if (viewingQuestion) {
+                            System.out.println("Question: " + flashCards.get(currentFlashCard).getQuestion());
+                        } else {
+                            System.out.println("Answer: " + flashCards.get(currentFlashCard).getAnswer());
+                        }
+
+                        System.out.println("1 - Flip flashcard");
+                        System.out.println("2 - Go to previous flashcard");
+                        System.out.println("3 - Go to next flashcard");
                         System.out.println("Q - Exit ");
                         System.out.print("Pick an option: " );
 
                         option = in.nextLine();
                         System.out.println();
 
+
                         switch (option) {
                             case "1":
-                                System.out.println(flashCards.get(currentFlashCard).getQuestion());
+                                viewingQuestion = !viewingQuestion;
                                 break;
                             case "2":
-                                System.out.println(flashCards.get(currentFlashCard).getAnswer());
-                                break;
-                            case "3":
                                 if (currentFlashCard != 0) {
                                     currentFlashCard--;
                                 } else {
                                     currentFlashCard = flashCards.size() - 1;
                                 }
                                 break;
-                            case "4":
+                            case "3":
                                 if (currentFlashCard != flashCards.size() - 1) {
                                     currentFlashCard++;
                                 } else {
