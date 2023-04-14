@@ -44,7 +44,6 @@ public class FirebaseUserRepository implements IUserRepository {
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
     public void loginUser(String name, String password) {
         DocumentReference docRef = db.collection("users").document(name);
@@ -79,6 +78,8 @@ public class FirebaseUserRepository implements IUserRepository {
             e.printStackTrace();
         }
 
+        
+
         return null;
     }
 
@@ -98,5 +99,10 @@ public class FirebaseUserRepository implements IUserRepository {
         }
 
         return users;
+    }
+
+
+    public void removeUser(String name) throws ExecutionException, InterruptedException {
+        ApiFuture<WriteResult> writeResult = db.collection("users").document(name).delete();
     }
 }
