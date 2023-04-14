@@ -1,6 +1,7 @@
 package com.example.quizapp.multiChoice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class MultiChoiceModel {
@@ -26,11 +27,11 @@ public class MultiChoiceModel {
      * @exception IllegalArgumentException In case of invalid correct answer
      */
     protected void setCorrectAnswer(String correct){
-        if (choices.contains(correct) && !correct.isEmpty()){
+        if (Arrays.asList("1", "2", "3", "4").contains(correct)){
             correctAnswer = correct;
         }
         else{
-            throw new InputMismatchException("the answer " + correct + " is not one of the four choices");
+            throw new InputMismatchException("The alternative " + correct + " is not one of the four choices");
         }
     }
 

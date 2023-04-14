@@ -26,19 +26,17 @@ public class HelloApplication extends Application {
         boolean running = true;
         while (running){
             Scanner in = new Scanner(System.in);
-            System.out.println("Choose an option: ");
             System.out.println("1 - Create a FlashCard quiz");
             System.out.println("2 - Create a Multiple Choice quiz");
             System.out.println("q - Exit");
+            System.out.println("Choose an option: ");
             String choice = in.nextLine();
             switch (choice) {
                 case "1" -> {
                     createFlashCardQuiz();
-                    running = false;
                 }
                 case "2" -> {
                     createMultiChoiceQuiz();
-                    running = false;
                 }
                 case "q" -> {
                     running = false;
@@ -153,7 +151,7 @@ public class HelloApplication extends Application {
             System.out.println("Please choose one of the options below: (1-3) \n");
 
             for (int i = 0; i < options.length; i++){
-                System.out.println((i+1) + ": " + options[i]);
+                System.out.println((i+1) + " - " + options[i]);
             }
 
             Scanner myOption = new Scanner(System.in);
@@ -194,15 +192,13 @@ public class HelloApplication extends Application {
                         System.out.print("\n");
                     }
                     break;
-                case "q":
+                case "3":
                     break label;
                 default:
                     System.out.println("Not a valid option.\n");
                     break;
             }
         }
-
-        System.exit(0);
     }
 
 }

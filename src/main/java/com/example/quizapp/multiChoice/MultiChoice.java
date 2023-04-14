@@ -42,7 +42,7 @@ public class MultiChoice {
     private void createCorrectAnswer(){
         while (true){
             Scanner correctAns = new Scanner(System.in);  // Create a Scanner object
-            System.out.println("Specify the correct answer: ");
+            System.out.println("Specify the correct answer (1-4): ");
             String correct = correctAns.nextLine();  // Read user input
 
             try {
@@ -68,7 +68,7 @@ public class MultiChoice {
         }
 
         Scanner myObj = new Scanner(System.in);
-        System.out.println("\n" + "Which one is the correct answer: ");
+        System.out.println("\n" + "Which one is the correct answer (1-4): ");
         String correct = myObj.nextLine();
 
         if (correct.equals(model.getCorrectAnswer())){
