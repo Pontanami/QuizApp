@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        userRepo = new FirebaseUserRepository();
+        userRepo = FirebaseUserRepository.getAuth();
         Scanner scanner = new Scanner(System.in);
         System.out.println("ProgramTest: Write 1 to create user, 2 to login a user, 3 to get user");
         int result = scanner.nextInt();

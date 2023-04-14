@@ -13,7 +13,7 @@ public class TestFirebaseUserRepository {
     private static FirebaseUserRepository repo;
     @BeforeAll
     public static void setup(){
-        repo = new FirebaseUserRepository();
+        repo = FirebaseUserRepository.getAuth();
     }
 
     @Test
