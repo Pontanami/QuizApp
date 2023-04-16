@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Singleton class to handle user data in the Firestore database
@@ -61,10 +62,18 @@ public class FirebaseUserRepository implements IUserRepository {
      * @param email the email of the user
      * @param password the password of the user
      */
-    @Override
-    public void createUser(String name, String email, String password){
+    public void createUser(String name, String email, String password) {
+        CompletableFuture<User> future = createUserTask(name, email, password);
+        future.thenApply(user -> {
+            System.out.println("User " + user.getName() + " created");
+            return user;
+        }).join();
+    }
+
+    private CompletableFuture<User> createUserTask(String name, String email, String password) {
+        CompletableFuture<User> future = new CompletableFuture<>();
         CollectionReference ref = db.collection("users");
-        try{
+        try {
             String docID = ref.document().getId();
             Map<String, Object> data = new HashMap<>();
             data.put("id", docID);
@@ -73,22 +82,26 @@ public class FirebaseUserRepository implements IUserRepository {
             data.put("password", password);
 
             ApiFuture<WriteResult> result = ref.document(docID).set(data);
-            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
+            ApiFutures.addCallback(result, new ApiFutureCallback<>() {
                 @Override
                 public void onFailure(Throwable throwable) {
-                    System.out.println("couldn't add to database");
+                    System.out.println("Failed to reach Firebase");
+                    future.completeExceptionally(throwable);
                 }
+
                 @Override
                 public void onSuccess(WriteResult writeResult) {
-                    System.out.println("User " + name + " created");
+                    System.out.println("Reached Firebase");
                     currentUser = new User(docID, name, email, password);
+                    future.complete(currentUser);
                 }
             });
-
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return future;
     }
+
     /** Method to log in a user stored in Firestore: Checks if user exists and if password is correct
      * @param name the username of the user
      * @param password the password of the user
