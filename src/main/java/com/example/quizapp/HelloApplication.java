@@ -4,6 +4,7 @@ import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.Flashcard;
+import com.example.quizapp.user.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,32 +19,64 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        userRepo = FirebaseUserRepository.getAuth();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("ProgramTest: Write 1 to create user, 2 to login a user, 3 to get user");
-        int result = scanner.nextInt();
-        if(result == 1) {
-            System.out.println("Write name");
-            String name = scanner.next();
-            System.out.println("Write email");
-            String email = scanner.next();
-            System.out.println("Write password");
-            String password = scanner.next();
-            userRepo.createUser(name, email, password);
-        }
-        else if (result == 2) {
-            System.out.println("Write name of account");
-            String name = scanner.next();
-            System.out.println("Write password");
-            String password = scanner.next();
-            userRepo.loginUser(name, password);
-            }
-        else if (result == 3) {
-            System.out.println("Write name of account");
-            String name = scanner.next();
-            System.out.println(userRepo.getUser(name));
-        }
+        boolean running = true;
+        while(running) {
+            userRepo = FirebaseUserRepository.getAuth();
+            Scanner scanner = new Scanner(System.in);
+            System.out.println(" ");
+            System.out.println("Write 1 to create user,");
+            System.out.println("Write 2 to login");
+            System.out.println("Write 3 to get user");
+            System.out.println("Write 4 get list of all users");
+            System.out.println("Write 5 to remove user");
+            System.out.println("Write q to exit");
+            switch (scanner.next()) {
+                case "1" -> {
+                    System.out.println("Write name");
+                    String name = scanner.next();
+                    System.out.println("Write email");
+                    String email = scanner.next();
+                    System.out.println("Write password");
+                    String password = scanner.next();
+                    userRepo.createUser(name, email, password);
+                }
+                case "2" -> {
+                    System.out.println("Write name of account");
+                    String name = scanner.next();
+                    System.out.println("Write password");
+                    String password = scanner.next();
+                    userRepo.loginUser(name, password);
+                }
+                case "3" -> {
+                    System.out.println("Write name of account");
+                    String name = scanner.next();
+                    User user = userRepo.getUser(name);
+                    System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
+                            " id=" + user.getId());
+                }
+                case "4" -> {
+                    List<String> users = new ArrayList<>();
+                    int i = 1;
+                    for (User user : userRepo.getUsers()) {
+                        users.add("User" + i + ": name=" + user.getName() + " email=" + user.getEmail() +
+                                " id=" + user.getId());
+                        i++;
+                    }
+                    System.out.println(users);
 
+                }
+                case "5" -> {
+                    System.out.println("Write name of account");
+                    String name = scanner.next();
+                    userRepo.removeUser(userRepo.getUser(name).getId());
+                }
+                case "q" -> {
+                    running = false;
+                    System.exit(0);
+                }
+            }
+
+        }
 
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
@@ -58,16 +91,14 @@ public class HelloApplication extends Application {
             Scanner in = new Scanner(System.in);
             System.out.println("1 - Create a FlashCard quiz");
             System.out.println("2 - Create a Multiple Choice quiz");
+            System.out.println("3 - User operations");
             System.out.println("q - Exit");
             System.out.println("Choose an option: ");
             String choice = in.nextLine();
             switch (choice) {
-                case "1" -> {
-                    createFlashCardQuiz();
-                }
-                case "2" -> {
-                    createMultiChoiceQuiz();
-                }
+                case "1" -> createFlashCardQuiz();
+                case "2" -> createMultiChoiceQuiz();
+                case "3" -> launch();
                 case "q" -> {
                     running = false;
                     System.exit(0);
@@ -75,9 +106,7 @@ public class HelloApplication extends Application {
                 default -> System.out.println("Please choose 1, 2, or q");
             }
         }
-
         launch();
-
     }
 
     private static void createFlashCardQuiz() {

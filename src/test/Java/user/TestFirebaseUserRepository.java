@@ -1,4 +1,4 @@
-package Java;
+package user;
 
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.User;
