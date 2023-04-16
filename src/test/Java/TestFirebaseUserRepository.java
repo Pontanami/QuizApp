@@ -2,10 +2,12 @@ package Java;
 
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class TestFirebaseUserRepository {
@@ -19,50 +21,45 @@ public class TestFirebaseUserRepository {
     @Test
     public void testCreateUser_UserIsAdded() {
         User user;
-        try {
-            repo.createUser("user1", "user1@gmail.com", "user321");
-            Thread.sleep(1000);
-            user = repo.getUser("user1");
-            Assertions.assertEquals("user1", user.getName());
-            repo.removeUser("user1");
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        repo.createUser("user1", "user1@gmail.com", "user321");
+        String id = repo.getCurrentUser().getId();
+        user = repo.getUser("user1");
+        Assertions.assertEquals("user1", user.getName());
+        repo.removeUser(id);
     }
 
     @Test
     public void testRemoveUser_UserIsRemoved() {
-        try {
-            repo.createUser("user1", "user1@gmail.com", "user321");
-            Thread.sleep(1000);
-            repo.removeUser("user1");
-            Thread.sleep(1000);
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-
+        repo.createUser("user1", "user1@gmail.com", "user321");
+        String id = repo.getCurrentUser().getId();
+        repo.removeUser(id);
         User user = repo.getUser("user1");
-
         Assertions.assertNull(user);
     }
 
     @Test
     public void testGetUsers(){
         repo.createUser("user1", "user1@gmail.com", "user321");
+        String id = repo.getCurrentUser().getId();
         repo.createUser("user2", "user2@gmail.com", "user321");
-
-        var users = repo.getUsers();
-
+        String id2 = repo.getCurrentUser().getId();
+        List<User> users = repo.getUsers();
         Assertions.assertTrue(users.size() > 1);
-
-        try {
-            repo.removeUser("user1");
-            repo.removeUser("user2");
-        } catch (ExecutionException  | InterruptedException e) {
-            e.printStackTrace();
-        }
+        repo.removeUser(id);
+        repo.removeUser(id2);
     }
 
-
-
+    @Test
+    public void testLogin(){
+        User user;
+        repo.createUser("user1", "user1@gmail.com", "user321");
+        String id = repo.getCurrentUser().getId();
+        user = repo.getCurrentUser();
+        repo.createUser("user2", "user2@gmail.com", "user321");
+        String id2 = repo.getCurrentUser().getId();
+        repo.loginUser("user1", "user321");
+        Assertions.assertEquals(repo.getCurrentUser().getId(), user.getId());
+        repo.removeUser(id);
+        repo.removeUser(id2);
+    }
 }

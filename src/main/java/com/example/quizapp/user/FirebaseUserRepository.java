@@ -1,5 +1,6 @@
 package com.example.quizapp.user;
 
+import com.example.quizapp.OnSuccess;
 import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
@@ -178,16 +179,60 @@ public class FirebaseUserRepository implements IUserRepository {
     }
     /**
      * Method to remove a user from the Firestore database
-     * @param name the username of the user
+     * @param id the username of the user
      */
     @Override
-    public void removeUser(String name){
+    public void removeUser(String id){
+        CompletableFuture<Void> future = removeUserTask(id);
+        future.thenApply(user -> {
+            System.out.println("User removed");
+            return user;
+        }).join();
+    }
+
+
+    private CompletableFuture<Void> removeUserTask(String id){
+        CompletableFuture<Void> future = new CompletableFuture<>();
         try {
-            db.collection("users").document(name).delete();
+            ApiFuture<WriteResult> result = db.collection("users").document(id).delete();
+            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    System.out.println("fail");
+                }
+
+                @Override
+                public void onSuccess(WriteResult writeResult) {
+                    future.complete(null);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return future;
+    }
+    /*
+    remove user with help of callbacks, might be something we want to use
+    public void removeUser(String id, OnSuccess callback){
+        try {
+            ApiFuture<WriteResult> result = db.collection("users").document(id).delete();
+            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    System.out.println("fail");
+                }
+
+                @Override
+                public void onSuccess(WriteResult writeResult) {
+                    callback.OnSucess();
+                }
+            });
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+    */
+
     //Kolla mer på ID och alla doc.get()
     private User createObject(DocumentSnapshot document){
         return new User(document.getId(), (String) document.get("name"),
