@@ -204,7 +204,11 @@ public class HelloApplication extends Application {
     }
 
     private static void createMultiChoiceQuiz(){
-        ArrayList<MultiChoice> questions = new ArrayList<>();
+        Scanner quizNameFetch = new Scanner(System.in);
+        System.out.println("Enter a quiz name: ");
+        String quizName = quizNameFetch.next();
+        Quiz quiz = new Quiz(quizName);
+
         String[] options = {"Create a question", "Take a quiz", "Exit"};
 
         label:
@@ -240,7 +244,7 @@ public class HelloApplication extends Application {
                     }
                     break;
                 case "2":
-                    if (questions.isEmpty()) {
+                    if (quiz.getQuestions().isEmpty()) {
                         System.out.println("There are no available quiz questions. You need to create them first.\n");
                     } else {
                         takeQuiz(quiz);

@@ -19,6 +19,12 @@ public class MultiChoice implements IQuizable {
         createCorrectAnswer();
     }
 
+
+    private void createQuestion(){
+        Scanner ask = new Scanner(System.in);  // Create a Scanner object
+        System.out.print("What is your question :");
+        question = ask.nextLine();  // Read user input
+    }
     /**
      * Asks the user for four answers to the question
      */
