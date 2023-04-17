@@ -1,5 +1,7 @@
 package com.example.quizapp.multiChoice;
 
+import com.example.quizapp.interfaces.IQuizable;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,12 +9,12 @@ import java.util.Scanner;
 /**
  * An instance of this class represents one single multi choice question
  */
-public class MultiChoice {
+public class MultiChoice implements IQuizable {
     private MultiChoiceModel model;
-    private final String question;
+    private String question;
 
-    public MultiChoice(String question){
-        this.question = question;
+    public MultiChoice(){
+        createQuestion();
         createChoices();
         createCorrectAnswer();
     }
@@ -75,10 +77,13 @@ public class MultiChoice {
             model.addPoint();
             System.out.println("That's correct");
             System.out.println("Your total points: " + model.getPoints());
-        } else { //else{ show a hint }
+        } else {
             System.out.println("Sorry, the correct answer is: " + model.getCorrectAnswer());
         }
     }
 
-
+    @Override
+    public void showQuestion() {
+        displayTest();
+    }
 }

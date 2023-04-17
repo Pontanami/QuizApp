@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import com.example.quizapp.interfaces.IQuizable;
+import com.example.quizapp.multiChoice.MultiChoiceModel;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.multiChoice.MultiChoice;
@@ -220,10 +222,7 @@ public class HelloApplication extends Application {
             switch (chosenOption) {
                 case "1":
                     while (true) {
-                        Scanner myQuestion = new Scanner(System.in);
-                        System.out.println("\nWhat is your question: ");
-                        questions.add(new MultiChoice(myQuestion.nextLine()));
-
+                        quiz.addQuestion(new MultiChoice());
                         System.out.println("\nYour question has been created. Choose one of the options below: ");
                         System.out.println("1 - Create another question");
                         System.out.println("2 - Finish");
@@ -244,10 +243,7 @@ public class HelloApplication extends Application {
                     if (questions.isEmpty()) {
                         System.out.println("There are no available quiz questions. You need to create them first.\n");
                     } else {
-                        for (int i = 0; i < questions.size(); i++) {
-                            System.out.println("\nQuestion number " + (i + 1) + ": ");
-                            questions.get(i).displayTest();
-                        }
+                        takeQuiz(quiz);
                         System.out.print("\n");
                     }
                     break;
@@ -258,6 +254,15 @@ public class HelloApplication extends Application {
                     break;
             }
         }
+    }
+
+    private static void takeQuiz(Quiz quiz) {
+        System.out.println("You are taking the quiz " + quiz.name);
+        quiz.nextQuestion().showQuestion();
+        /*
+        for (IQuizable question : quiz.getQuestions()){
+            question.showQuestion();
+        } */
     }
 
 }
