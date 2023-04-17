@@ -1,5 +1,8 @@
 package com.example.quizapp;
 
+import com.example.quizapp.model.FlashcardValidator;
+import com.example.quizapp.model.Scorer;
+import com.example.quizapp.model.UserScore;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.multiChoice.MultiChoice;
@@ -110,29 +113,20 @@ public class HelloApplication extends Application {
     }
 
     private static void createFlashCardQuiz() {
+        UserScore user = new UserScore();
+
         Scanner in = new Scanner(System.in);
         List<Flashcard> flashCards = new ArrayList<>();
         boolean running = true;
         while (running) {
-            System.out.println("1 - Create a flashcard");
-            System.out.println("2 - Show flashcards");
-            System.out.println("3 - Delete flashcard");
-            System.out.println("q - Exit");
-            System.out.print("Pick an option: " );
+            printMenu();
 
             String option = in.nextLine();
             System.out.println();
 
             switch (option) {
                 case "1":
-                    System.out.print("Enter your question: ");
-                    String question = in.nextLine();
-
-                    System.out.print("Enter your answer: ");
-                    String answer = in.nextLine();
-
-
-                    flashCards.add(new Flashcard(question, answer));
+                    constructFlashcard(in, flashCards);
                     break;
                 case "2":
                     if (flashCards.size() == 0) {
@@ -143,10 +137,31 @@ public class HelloApplication extends Application {
                     boolean viewingQuestion = true;
                     int currentFlashCard = 0;
                     while (viewingFlashCards) {
+
                         if (viewingQuestion) {
                             System.out.println("Question: " + flashCards.get(currentFlashCard).getQuestion());
                         } else {
                             System.out.println("Answer: " + flashCards.get(currentFlashCard).getAnswer());
+
+                            System.out.println("Were you correct?" );
+                            System.out.println("1 - Yes" );
+                            System.out.println("2 - No" );
+                            String userInput = in.nextLine();
+
+                            boolean isCorrect = FlashcardValidator.validate(userInput);
+                            int newScore = Scorer.scoreQuestion(user.getScore(), isCorrect);
+                            user.setScore(newScore);
+
+                            System.out.println("Current score: " + user.getScore());
+
+                            if (currentFlashCard != flashCards.size() - 1) {
+                                currentFlashCard++;
+                            } else {
+                                currentFlashCard = 0;
+                            }
+
+                            viewingQuestion = true;
+                            System.out.println("Question: " + flashCards.get(currentFlashCard).getQuestion());
                         }
 
                         System.out.println("1 - Flip flashcard");
@@ -157,7 +172,6 @@ public class HelloApplication extends Application {
 
                         option = in.nextLine();
                         System.out.println();
-
 
                         switch (option) {
                             case "1":
@@ -182,7 +196,6 @@ public class HelloApplication extends Application {
                                 break;
                         }
                         System.out.println();
-
                     }
                     break;
                 case "3":
@@ -199,6 +212,24 @@ public class HelloApplication extends Application {
             }
             System.out.println();
         }
+    }
+
+    private static void constructFlashcard(Scanner in, List<Flashcard> flashCards) {
+        System.out.print("Enter your question: ");
+        String question = in.nextLine();
+
+        System.out.print("Enter your answer: ");
+        String answer = in.nextLine();
+
+        flashCards.add(new Flashcard(question, answer));
+    }
+
+    private static void printMenu() {
+        System.out.println("1 - Create a flashcard");
+        System.out.println("2 - Show flashcards");
+        System.out.println("3 - Delete flashcard");
+        System.out.println("q - Exit");
+        System.out.print("Pick an option: " );
     }
 
     private static void createMultiChoiceQuiz(){
