@@ -50,7 +50,7 @@ public class HelloApplication extends Application {
                 case "3" -> {
                     System.out.println("Write name of account");
                     String name = scanner.next();
-                    User user = userRepo.getUser(name);
+                    User user = (User) userRepo.getUsers(name);
                     System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
                             " id=" + user.getId());
                 }
@@ -68,7 +68,7 @@ public class HelloApplication extends Application {
                 case "5" -> {
                     System.out.println("Write name of account");
                     String name = scanner.next();
-                    userRepo.removeUser(userRepo.getUser(name).getId());
+                    userRepo.removeUser(userRepo.getUsers(name).get(0).getId());
                 }
                 case "q" -> {
                     running = false;

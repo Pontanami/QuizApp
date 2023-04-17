@@ -23,7 +23,7 @@ public class TestFirebaseUserRepository {
         User user;
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
-        user = repo.getUser("user1");
+        user = repo.getUsers("user1").get(0);
         Assertions.assertEquals("user1", user.getName());
         repo.removeUser(id);
     }
@@ -33,7 +33,7 @@ public class TestFirebaseUserRepository {
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
         repo.removeUser(id);
-        User user = repo.getUser("user1");
+        User user = repo.getUsers("user1").get(0);
         Assertions.assertNull(user);
     }
 
