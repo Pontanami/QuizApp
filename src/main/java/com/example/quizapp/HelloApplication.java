@@ -1,9 +1,11 @@
 package com.example.quizapp;
 
+import com.example.quizapp.user.FirebaseUserRepository;
+import com.example.quizapp.user.IUserRepository;
+import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.Flashcard;
+import com.example.quizapp.user.User;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,16 +14,102 @@ import java.util.List;
 import java.util.Scanner;
 
 public class HelloApplication extends Application {
+
+    private IUserRepository userRepo;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        boolean running = true;
+        while(running) {
+            userRepo = FirebaseUserRepository.getAuth();
+            Scanner scanner = new Scanner(System.in);
+            System.out.println(" ");
+            System.out.println("Write 1 to create user,");
+            System.out.println("Write 2 to login");
+            System.out.println("Write 3 to get user");
+            System.out.println("Write 4 get list of all users");
+            System.out.println("Write 5 to remove user");
+            System.out.println("Write q to exit");
+            switch (scanner.next()) {
+                case "1" -> {
+                    System.out.println("Write name");
+                    String name = scanner.next();
+                    System.out.println("Write email");
+                    String email = scanner.next();
+                    System.out.println("Write password");
+                    String password = scanner.next();
+                    userRepo.createUser(name, email, password);
+                }
+                case "2" -> {
+                    System.out.println("Write name of account");
+                    String name = scanner.next();
+                    System.out.println("Write password");
+                    String password = scanner.next();
+                    userRepo.loginUser(name, password);
+                }
+                case "3" -> {
+                    System.out.println("Write name of account");
+                    String name = scanner.next();
+                    User user = userRepo.getUser(name);
+                    System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
+                            " id=" + user.getId());
+                }
+                case "4" -> {
+                    List<String> users = new ArrayList<>();
+                    int i = 1;
+                    for (User user : userRepo.getUsers()) {
+                        users.add("User" + i + ": name=" + user.getName() + " email=" + user.getEmail() +
+                                " id=" + user.getId());
+                        i++;
+                    }
+                    System.out.println(users);
+
+                }
+                case "5" -> {
+                    System.out.println("Write name of account");
+                    String name = scanner.next();
+                    userRepo.removeUser(userRepo.getUser(name).getId());
+                }
+                case "q" -> {
+                    running = false;
+                    System.exit(0);
+                }
+            }
+
+        }
+
+        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        //stage.setTitle("Hello!");
+        //stage.setScene(scene);
+        //stage.show();
     }
 
     public static void main(String[] args) {
+        boolean running = true;
+        while (running){
+            Scanner in = new Scanner(System.in);
+            System.out.println("1 - Create a FlashCard quiz");
+            System.out.println("2 - Create a Multiple Choice quiz");
+            System.out.println("3 - User operations");
+            System.out.println("q - Exit");
+            System.out.println("Choose an option: ");
+            String choice = in.nextLine();
+            switch (choice) {
+                case "1" -> createFlashCardQuiz();
+                case "2" -> createMultiChoiceQuiz();
+                case "3" -> launch();
+                case "q" -> {
+                    running = false;
+                    System.exit(0);
+                }
+                default -> System.out.println("Please choose 1, 2, or q");
+            }
+        }
+        launch();
+    }
+
+    private static void createFlashCardQuiz() {
         Scanner in = new Scanner(System.in);
         List<Flashcard> flashCards = new ArrayList<>();
         boolean running = true;
@@ -29,7 +117,7 @@ public class HelloApplication extends Application {
             System.out.println("1 - Create a flashcard");
             System.out.println("2 - Show flashcards");
             System.out.println("3 - Delete flashcard");
-            System.out.println("Q - Exit");
+            System.out.println("q - Exit");
             System.out.print("Pick an option: " );
 
             String option = in.nextLine();
@@ -64,7 +152,7 @@ public class HelloApplication extends Application {
                         System.out.println("1 - Flip flashcard");
                         System.out.println("2 - Go to previous flashcard");
                         System.out.println("3 - Go to next flashcard");
-                        System.out.println("Q - Exit ");
+                        System.out.println("q - Exit ");
                         System.out.print("Pick an option: " );
 
                         option = in.nextLine();
@@ -91,7 +179,7 @@ public class HelloApplication extends Application {
                                 }
                                 viewingQuestion = true;
                                 break;
-                            case "Q":
+                            case "q":
                                 viewingFlashCards = false;
                                 break;
                             default:
@@ -105,12 +193,12 @@ public class HelloApplication extends Application {
                 case "3":
                     System.out.println("Which flashcard do you want to delete?");
                     for (int i = 0; i < flashCards.size(); i++) {
-                    System.out.println(i + " - " + flashCards.get(i).getQuestion());
+                        System.out.println(i + " - " + flashCards.get(i).getQuestion());
                     }
                     int flashcard = Integer.parseInt(in.nextLine());
                     flashCards.remove(flashcard);
                     break;
-                case "Q":
+                case "q":
                     running = false;
                     break;
                 default:
@@ -119,8 +207,65 @@ public class HelloApplication extends Application {
             }
             System.out.println();
         }
+    }
 
-        launch();
+    private static void createMultiChoiceQuiz(){
+        ArrayList<MultiChoice> questions = new ArrayList<>();
+        String[] options = {"Create a question", "Take a quiz", "Exit"};
+
+        label:
+        while (true){
+            System.out.println("Please choose one of the options below: (1-3) \n");
+
+            for (int i = 0; i < options.length; i++){
+                System.out.println((i+1) + " - " + options[i]);
+            }
+
+            Scanner myOption = new Scanner(System.in);
+            System.out.println("The option you choose is: ");
+            String chosenOption = myOption.next();
+
+            switch (chosenOption) {
+                case "1":
+                    while (true) {
+                        Scanner myQuestion = new Scanner(System.in);
+                        System.out.println("\nWhat is your question: ");
+                        questions.add(new MultiChoice(myQuestion.nextLine()));
+
+                        System.out.println("\nYour question has been created. Choose one of the options below: ");
+                        System.out.println("1 - Create another question");
+                        System.out.println("2 - Finish");
+                        System.out.println("q - Exit");
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.println("The option you choose is: ");
+                        String myChoice = scanner.nextLine();
+
+                        if (myChoice.equals("2")) {
+                            System.out.print("\n");
+                            break;
+                        } else if (myChoice.equals("q")) {
+                            System.exit(0);
+                        }
+                    }
+                    break;
+                case "2":
+                    if (questions.isEmpty()) {
+                        System.out.println("There are no available quiz questions. You need to create them first.\n");
+                    } else {
+                        for (int i = 0; i < questions.size(); i++) {
+                            System.out.println("\nQuestion number " + (i + 1) + ": ");
+                            questions.get(i).displayTest();
+                        }
+                        System.out.print("\n");
+                    }
+                    break;
+                case "3":
+                    break label;
+                default:
+                    System.out.println("Not a valid option.\n");
+                    break;
+            }
+        }
     }
 
 }
