@@ -1,6 +1,6 @@
 package com.example.quizapp.user;
 
-import com.example.quizapp.OnSuccess;
+import com.example.quizapp.UserQuery;
 import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
@@ -33,7 +33,7 @@ public class FirebaseUserRepository implements IUserRepository {
     /**
      * Reference to the collection of users in the Firestore database
      */
-    private final CollectionReference users;
+    private final CollectionReference colRef;
 
     /**
      * Method to get the instance of the FirebaseUserRepository singleton
@@ -60,7 +60,7 @@ public class FirebaseUserRepository implements IUserRepository {
             e.printStackTrace();
         }
         Firestore db = FirestoreClient.getFirestore();
-        users = db.collection("users");
+        colRef = db.collection("users");
     }
     /** Method to get the current user
      * @return {@link User} object of the current user
@@ -85,14 +85,14 @@ public class FirebaseUserRepository implements IUserRepository {
     private CompletableFuture<User> createUserTask(String name, String email, String password) {
         CompletableFuture<User> future = new CompletableFuture<>();
         try {
-            String docID = users.document().getId();
+            String docID = colRef.document().getId();
             Map<String, Object> data = new HashMap<>();
             data.put("id", docID);
             data.put("name", name);
             data.put("email", email);
             data.put("password", password);
 
-            ApiFuture<WriteResult> result = users.document(docID).set(data);
+            ApiFuture<WriteResult> result = colRef.document(docID).set(data);
             ApiFutures.addCallback(result, new ApiFutureCallback<>() {
                 @Override
                 public void onFailure(Throwable throwable) {
@@ -119,7 +119,7 @@ public class FirebaseUserRepository implements IUserRepository {
      */
     @Override
     public void loginUser(String name, String password) {
-        Query q = users.whereEqualTo("name", name);
+        Query q = colRef.whereEqualTo("name", name);
         ApiFuture<QuerySnapshot> query = q.get();
         try {
             QuerySnapshot querySnapshot = query.get();
@@ -142,26 +142,36 @@ public class FirebaseUserRepository implements IUserRepository {
             e.printStackTrace();
         }
     }
-    /*
-     Typ så vi måste göra för att använda queryBuilder för att lägga till vad vi nu vill söka efter
-     for i in range(amount of attributes)
-        if(method.get() != null)
-            r = r.whereEqualTo(method.name, method.get())
-     */
+
     /** Method to get one or several users from the Firestore database based on a query
-     * @param name the username of the user
+
+    */
+    private Query createUserQuery(UserQuery query) throws IllegalAccessException {
+        Query q = colRef;
+        for (String key :query.getNonNullFields().keySet())
+            q = q.whereEqualTo(key,query.getNonNullFields().get(key));
+        return q;
+    }
+
+    /** Method to get a user from the Firestore database
+     * @param query
      * @return A {@link List} of {@link User} objects with the user's information
      */
     @Override
-    public List<User> getUsers(String name) {
-        Query q = users.whereEqualTo("name", name);
-        return UserQuery(q);
+    public List<User> getUsers(UserQuery query) {
+        List<User> user = new ArrayList<>();
+        try {
+            user = UserQuery(createUserQuery(query));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
     /** Method to get all users from the Firestore database
      * @return A {@link List} of {@link User} objects with the user's information
      */
     public List<User>getUsers(){
-        return UserQuery(users);
+        return UserQuery(colRef);
     }
     private List<User> UserQuery(Query q) {
         ApiFuture<QuerySnapshot> query = q.get();
@@ -174,7 +184,7 @@ public class FirebaseUserRepository implements IUserRepository {
         }
 
         List<User> usersList = new ArrayList<>();
-        if (documents != null) {
+        if (documents.size() > 0) {
             for (QueryDocumentSnapshot document : documents) {
                 usersList.add(createObject(document));
             }
@@ -196,7 +206,7 @@ public class FirebaseUserRepository implements IUserRepository {
     private CompletableFuture<Void> removeUserTask(String id){
         CompletableFuture<Void> future = new CompletableFuture<>();
         try {
-            ApiFuture<WriteResult> result = users.document(id).delete();
+            ApiFuture<WriteResult> result = colRef.document(id).delete();
             ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
                 @Override
                 public void onFailure(Throwable throwable) {
