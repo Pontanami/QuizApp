@@ -1,6 +1,6 @@
 package com.example.quizapp.model;
 
-public class TextHint implements IWordHint{
+public class TextHint implements IHint {
     private String hint;
 
     public TextHint(String hint){

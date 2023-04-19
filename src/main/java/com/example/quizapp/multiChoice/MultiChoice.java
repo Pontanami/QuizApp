@@ -1,7 +1,11 @@
 package com.example.quizapp.multiChoice;
 
+import com.example.quizapp.model.IHint;
+import com.example.quizapp.model.TextHint;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -15,6 +19,37 @@ public class MultiChoice {
         this.question = question;
         createChoices();
         createCorrectAnswer();
+        createHint();
+    }
+
+    private void createHint() {
+        System.out.println("What type of hint:");
+        System.out.println("1 - Text hint");
+        System.out.println("2 - Eliminate some choices");
+        System.out.println("3 - No hint");
+        String chosenOption =  new Scanner(System.in).nextLine();
+        String correctAnswer = model.getCorrectAnswer();
+
+        switch(chosenOption){
+            case "1":
+                System.out.println("Enter your text hint:");
+                chosenOption =  new Scanner(System.in).nextLine();
+
+                model = new MultiChoiceModel(question, model.getChoices().get(0), model.getChoices().get(1), model.getChoices().get(2), model.getChoices().get(3), new TextHint(chosenOption));
+                break;
+
+            case "2":
+                EliminateChoiceHint eliminateChoiceHint = new EliminateChoiceHint(model.getChoices(), model.getChoices().get(Integer.parseInt(correctAnswer)-1));
+
+                model = new MultiChoiceModel(question, model.getChoices().get(0), model.getChoices().get(1), model.getChoices().get(2), model.getChoices().get(3), eliminateChoiceHint);
+
+                break;
+            default:
+                model = new MultiChoiceModel(question, model.getChoices().get(0), model.getChoices().get(1), model.getChoices().get(2), model.getChoices().get(3), null);
+                break;
+        }
+        model.setCorrectAnswer(correctAnswer);
+
     }
 
     /**
@@ -33,7 +68,12 @@ public class MultiChoice {
                 }
             }
         }
-        model = new MultiChoiceModel(question, answers[0], answers[1], answers[2], answers[3]);
+        model = new MultiChoiceModel(question, answers[0], answers[1], answers[2], answers[3], null);
+
+
+
+
+        //model = new MultiChoiceModel(question, answers[0], answers[1], answers[2], answers[3]);
     }
 
     /**
@@ -46,13 +86,14 @@ public class MultiChoice {
             String correct = correctAns.nextLine();  // Read user input
 
             try {
-                model.setCorrectAnswer(correct);
+                model.setCorrectAnswer(model.getChoices().get(Integer.parseInt(correct) - 1));
                 break;
 
             }catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
             }
         }
+
     }
 
     /**
@@ -66,12 +107,32 @@ public class MultiChoice {
         for (int i = 0; i < choices.size(); i++){
             System.out.println("Choice " + (i+1) + ": " + choices.get(i));
         }
+        //System.out.println("Show hint: + " + choices.size() + 1);
+        System.out.println("Show hint ("+ (choices.size() + 1) + ")");
+
 
         Scanner myObj = new Scanner(System.in);
-        System.out.println("\n" + "Which one is the correct answer (1-4): ");
-        String correct = myObj.nextLine();
 
-        if (correct.equals(model.getCorrectAnswer())){
+        String alternative = myObj.nextLine();
+
+        System.out.println("\n" + "Which one is the correct answer (1-4): ");
+//        System.out.println("\n" + "Do you want a hint (5): ");
+        // alternative = myObj.nextLine();
+
+        List<String> newChoices = choices;
+        if (alternative.equals(String.valueOf(choices.size() + 1))){
+            newChoices = model.showHint();
+
+            for (int i = 0; i < newChoices.size(); i++){
+                System.out.println("Choice " + (i+1) + ": " + newChoices.get(i));
+            }
+        }
+
+
+        alternative = myObj.nextLine();
+
+
+        if (newChoices.get(Integer.parseInt(alternative)).equals(model.getCorrectAnswer())){
             model.addPoint();
             System.out.println("That's correct");
             System.out.println("Your total points: " + model.getPoints());

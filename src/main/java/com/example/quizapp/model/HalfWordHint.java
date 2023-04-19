@@ -1,6 +1,6 @@
 package com.example.quizapp.model;
 
-public class HalfWordHint implements IWordHint{
+public class HalfWordHint implements IHint<String> {
 
 
     private String answer;

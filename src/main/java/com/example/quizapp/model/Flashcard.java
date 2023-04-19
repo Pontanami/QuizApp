@@ -4,20 +4,20 @@ public class Flashcard implements IQuestion{
 
     private String question;
     private String answer;
-    private IWordHint wordHint;
+    private IHint<String> wordHint;
 
     public Flashcard(String question, String answer) {
         this.question = question;
         this.answer = answer;
     }
 
-    public Flashcard(String question, String answer, IWordHint wordHint) {
+    public Flashcard(String question, String answer, IHint wordHint) {
         this.question = question;
         this.answer = answer;
         this.wordHint = wordHint;
     }
 
-    public IWordHint getWordHint() {
+    public IHint getWordHint() {
         return wordHint;
     }
 

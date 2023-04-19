@@ -8,7 +8,6 @@ import com.example.quizapp.user.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -230,7 +229,7 @@ public class HelloApplication extends Application {
         System.out.println("What kind of hint do you want: \n1. Half of the word hint \n2. First letter of the hint \n3. Text hint");
         String chosenOption = in.nextLine();
 
-        IWordHint hint = null;
+        IHint hint = null;
         switch (chosenOption) {
             case "1":
                 hint = new HalfWordHint(answer);
@@ -282,6 +281,7 @@ public class HelloApplication extends Application {
                     while (true) {
                         Scanner myQuestion = new Scanner(System.in);
                         System.out.println("\nWhat is your question: ");
+                        String question = myQuestion.nextLine();
                         questions.add(new MultiChoice(myQuestion.nextLine()));
 
                         System.out.println("\nYour question has been created. Choose one of the options below: ");

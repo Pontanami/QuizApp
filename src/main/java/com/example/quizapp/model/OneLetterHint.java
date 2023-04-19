@@ -1,6 +1,6 @@
 package com.example.quizapp.model;
 
-public class OneLetterHint implements IWordHint{
+public class OneLetterHint implements IHint {
 
     private String answer;
     private int hintLength;
