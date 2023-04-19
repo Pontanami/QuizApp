@@ -39,7 +39,7 @@ public class MultiChoice {
                 break;
 
             case "2":
-                EliminateChoiceHint eliminateChoiceHint = new EliminateChoiceHint(model.getChoices(), model.getChoices().get(Integer.parseInt(correctAnswer)-1));
+                EliminateChoiceHint eliminateChoiceHint = new EliminateChoiceHint(model.getChoices(), model.getChoices().get(Integer.parseInt(chosenOption)-1));
 
                 model = new MultiChoiceModel(question, model.getChoices().get(0), model.getChoices().get(1), model.getChoices().get(2), model.getChoices().get(3), eliminateChoiceHint);
 
@@ -86,6 +86,7 @@ public class MultiChoice {
             String correct = correctAns.nextLine();  // Read user input
 
             try {
+
                 model.setCorrectAnswer(model.getChoices().get(Integer.parseInt(correct) - 1));
                 break;
 
@@ -132,7 +133,7 @@ public class MultiChoice {
         alternative = myObj.nextLine();
 
 
-        if (newChoices.get(Integer.parseInt(alternative)).equals(model.getCorrectAnswer())){
+        if (newChoices.get(Integer.parseInt(alternative)- 1).equals(model.getCorrectAnswer())){
             model.addPoint();
             System.out.println("That's correct");
             System.out.println("Your total points: " + model.getPoints());
