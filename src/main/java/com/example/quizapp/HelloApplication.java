@@ -68,10 +68,9 @@ public class HelloApplication extends Application {
 
                 }
                 case "5" -> {
-                    System.out.println("Write name of account");
-                    String name = scanner.next();
-                    UserQuery userQ = new UserQuery.UserQueryBuilder().name(name).build();
-                    userRepo.removeUser(userRepo.getUsers(userQ).get(0).getId());
+                    System.out.println("Write id of account");
+                    String id = scanner.next();
+                    userRepo.removeUser(id);
                 }
                 case "q" -> {
                     running = false;

@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Singleton class to handle user data in the Firestore database
  * @author Felix, Gustav, Pontus
  */
-public class FirebaseUserRepository implements IUserRepository {
+public class FirebaseUserRepository extends FirebaseBaseRepository<User> implements IUserRepository {
     /**
      * Instance of the FirebaseUserRepository singleton
      */
@@ -30,10 +30,22 @@ public class FirebaseUserRepository implements IUserRepository {
      * Reference to the current {@link User} object that is signed in
      */
     private User currentUser;
+    private final CollectionReference colRef;
     /**
      * Reference to the collection of users in the Firestore database
      */
-    private final CollectionReference colRef;
+
+
+    public static FirebaseUserRepository getUserRepo(){
+        if (instance == null)
+            instance = new FirebaseUserRepository();
+
+        return instance;
+    };
+
+    private  FirebaseUserRepository(){
+        colRef = getCollection("users");
+    };
 
     /**
      * Method to get the instance of the FirebaseUserRepository singleton
@@ -45,23 +57,7 @@ public class FirebaseUserRepository implements IUserRepository {
 
         return instance;
     }
-    /** Constructor for FirebaseUserRepository
-     * Initializes Firestore database
-     */
-    private FirebaseUserRepository(){
-        try {
-            InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .build();
 
-            FirebaseApp.initializeApp(options);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Firestore db = FirestoreClient.getFirestore();
-        colRef = db.collection("users");
-    }
     /** Method to get the current user
      * @return {@link User} object of the current user
      */
@@ -75,42 +71,14 @@ public class FirebaseUserRepository implements IUserRepository {
      * @param password the password of the user
      */
     public void createUser(String name, String email, String password) {
-        CompletableFuture<User> future = createUserTask(name, email, password);
-        future.thenApply(user -> {
-            System.out.println("User " + user.getName() + " created");
-            return user;
-        }).join();
-    }
+        String docID = getDocumentID(colRef);
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", docID);
+        data.put("name", name);
+        data.put("email", email);
+        data.put("password", password);
 
-    private CompletableFuture<User> createUserTask(String name, String email, String password) {
-        CompletableFuture<User> future = new CompletableFuture<>();
-        try {
-            String docID = colRef.document().getId();
-            Map<String, Object> data = new HashMap<>();
-            data.put("id", docID);
-            data.put("name", name);
-            data.put("email", email);
-            data.put("password", password);
-
-            ApiFuture<WriteResult> result = colRef.document(docID).set(data);
-            ApiFutures.addCallback(result, new ApiFutureCallback<>() {
-                @Override
-                public void onFailure(Throwable throwable) {
-                    System.out.println("Failed to reach Firebase");
-                    future.completeExceptionally(throwable);
-                }
-
-                @Override
-                public void onSuccess(WriteResult writeResult) {
-                    System.out.println("Reached Firebase");
-                    currentUser = new User(docID, name, email, password);
-                    future.complete(currentUser);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return future;
+        addDataToDb(data, colRef, docID);
     }
 
     /** Method to log in a user stored in Firestore: Checks if user exists and if password is correct
@@ -174,22 +142,7 @@ public class FirebaseUserRepository implements IUserRepository {
         return UserQuery(colRef);
     }
     private List<User> UserQuery(Query q) {
-        ApiFuture<QuerySnapshot> query = q.get();
-        List<QueryDocumentSnapshot> documents = null;
-        try {
-            QuerySnapshot querySnapshot = query.get();
-            documents = querySnapshot.getDocuments();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        List<User> usersList = new ArrayList<>();
-        if (documents.size() > 0) {
-            for (QueryDocumentSnapshot document : documents) {
-                usersList.add(createObject(document));
-            }
-        }
-        return usersList;
+        return getQueryResult(q);
     }
     /**
      * Method to remove a user from the Firestore database
@@ -197,32 +150,9 @@ public class FirebaseUserRepository implements IUserRepository {
      */
     @Override
     public void removeUser(String id){
-        CompletableFuture<Void> future = removeUserTask(id);
-        future.thenApply(user -> {
-            System.out.println("User removed");
-            return user;
-        }).join();
+        deleteFromDb(colRef, id);
     }
-    private CompletableFuture<Void> removeUserTask(String id){
-        CompletableFuture<Void> future = new CompletableFuture<>();
-        try {
-            ApiFuture<WriteResult> result = colRef.document(id).delete();
-            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
-                @Override
-                public void onFailure(Throwable throwable) {
-                    System.out.println("fail");
-                }
 
-                @Override
-                public void onSuccess(WriteResult writeResult) {
-                    future.complete(null);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return future;
-    }
     /*
     remove user with help of callbacks, might be something we want to use
     public void removeUser(String id, OnSuccess callback){
@@ -246,7 +176,8 @@ public class FirebaseUserRepository implements IUserRepository {
     */
 
     //Kolla mer på ID och alla doc.get()
-    private User createObject(DocumentSnapshot document){
+    @Override
+    protected User createObject(DocumentSnapshot document){
         return new User(document.getId(), (String) document.get("name"),
                         (String) document.get("email"), (String) document.get("password")
         );

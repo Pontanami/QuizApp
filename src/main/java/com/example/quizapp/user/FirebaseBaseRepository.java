@@ -1,6 +1,5 @@
 package com.example.quizapp.user;
 
-import com.example.quizapp.OnSuccess;
 import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
@@ -17,17 +16,10 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.CompletableFuture;
 
-public class FirebaseBaseRepository {
+public abstract class FirebaseBaseRepository<T> {
     private final Firestore db;
-    private static FirebaseBaseRepository instance = null;
 
-    public static FirebaseBaseRepository getAuth(){
-        if (instance == null)
-            instance = new FirebaseBaseRepository();
-
-        return instance;
-    }
-    private FirebaseBaseRepository(){
+    protected FirebaseBaseRepository(){
         try {
             InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -44,37 +36,89 @@ public class FirebaseBaseRepository {
     public CollectionReference getCollection(String coll){
         return db.collection(coll);
     }
-
-    public DocumentReference getDocument(CollectionReference ref){
-        return ref.document();
-    }
-
-    public DocumentReference getDocumentbyId(CollectionReference ref, String id){
-        return ref.document(id);
-    }
-
     public String getDocumentID(CollectionReference ref){
         return ref.document().getId();
     }
 
-    public String getDocumentID(DocumentReference doc){
-        return doc.getId();
+    public List<T> getQueryResult(Query q){
+        List<T> objects = new ArrayList<>();
+        ApiFuture<QuerySnapshot> query = q.get();
+        try {
+            QuerySnapshot querySnapshot = query.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+            if (documents.isEmpty())
+                System.out.println("No matching documents");
+            else {
+                for (DocumentSnapshot doc : documents){
+                    objects.add(createObject(doc));
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return objects;
     }
 
-    public ApiFuture<WriteResult> inputData(DocumentReference doc, Map<String, Object> data){
-        return doc.set(data);
+    private CompletableFuture<Void> deleteFromDbTask(CollectionReference col, String id){
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        try {
+            ApiFuture<WriteResult> result = col.document(id).delete();
+            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    System.out.println("fail");
+                }
+
+                @Override
+                public void onSuccess(WriteResult writeResult) {
+                    future.complete(null);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return future;
     }
 
-    public ApiFuture<WriteResult> deleteDocument(String ref, String id){
-        return db.collection(ref).document(id).delete();
+    public void deleteFromDb(CollectionReference col, String id){
+        CompletableFuture<Void> future = deleteFromDbTask(col, id);
+        future.thenApply(T -> {
+            System.out.println("Data removed");
+            return T;
+        }).join();
     }
 
-    public Query runQuery(String ref, String field, Object value){
-        return db.collection(ref).whereEqualTo(field, value);
+    private CompletableFuture<Void> addDataTask(Map<String, Object> data, CollectionReference col, String id){
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        try {
+            ApiFuture<WriteResult> result = col.document(id).set(data);
+            ApiFutures.addCallback(result, new ApiFutureCallback<>() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    System.out.println("Failed to reach Firebase");
+                    future.completeExceptionally(throwable);
+                }
+
+                @Override
+                public void onSuccess(WriteResult writeResult) {
+                    System.out.println("Reached Firebase");
+                    future.complete(null);
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return future;
     }
 
-    //Ska denna vara med? För verkar använda snapshot
-    public ApiFuture<QuerySnapshot> querySnapshot(){
-        return null;
+    protected void addDataToDb(Map<String, Object> data, CollectionReference col, String id){
+        CompletableFuture<Void> future = addDataTask(data, col, id);
+        future.thenApply(T -> {
+            System.out.println("Data added");
+            return T;
+        }).join();
     }
+
+    abstract T createObject(DocumentSnapshot doc);
+
 }
