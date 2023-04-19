@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
     private IUserRepository userRepo;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         boolean running = true;
         while(running) {
             userRepo = FirebaseUserRepository.getAuth();
@@ -125,10 +125,8 @@ public class HelloApplication extends Application {
             System.out.println();
 
             switch (option) {
-                case "1":
-                    constructFlashcard(in, flashCards);
-                    break;
-                case "2":
+                case "1" -> constructFlashcard(in, flashCards);
+                case "2" -> {
                     if (flashCards.size() == 0) {
                         System.out.println("No flashcards added.");
                         break;
@@ -143,10 +141,13 @@ public class HelloApplication extends Application {
                         } else {
                             System.out.println("Answer: " + flashCards.get(currentFlashCard).getAnswer());
 
-                            System.out.println("Were you correct?" );
-                            System.out.println("1 - Yes" );
-                            System.out.println("2 - No" );
-                            String userInput = in.nextLine();
+                            String userInput;
+                            do {
+                                System.out.println("Were you correct?");
+                                System.out.println("1 - Yes");
+                                System.out.println("2 - No");
+                                userInput = in.nextLine();
+                            } while (!userInput.equals("1") && !userInput.equals("2"));
 
                             boolean isCorrect = FlashcardValidator.validate(userInput);
                             int newScore = Scorer.scoreQuestion(user.getScore(), isCorrect);
@@ -168,7 +169,7 @@ public class HelloApplication extends Application {
                         System.out.println("2 - Go to previous flashcard");
                         System.out.println("3 - Go to next flashcard");
                         System.out.println("q - Exit ");
-                        System.out.print("Pick an option: " );
+                        System.out.print("Pick an option: ");
 
                         option = in.nextLine();
                         System.out.println();
@@ -197,18 +198,16 @@ public class HelloApplication extends Application {
                         }
                         System.out.println();
                     }
-                    break;
-                case "3":
+                }
+                case "3" -> {
                     System.out.println("Which flashcard do you want to delete?");
                     for (int i = 0; i < flashCards.size(); i++) {
                         System.out.println(i + " - " + flashCards.get(i).getQuestion());
                     }
                     int flashcard = Integer.parseInt(in.nextLine());
                     flashCards.remove(flashcard);
-                    break;
-                case "q":
-                    running = false;
-                    break;
+                }
+                case "q" -> running = false;
             }
             System.out.println();
         }
