@@ -13,6 +13,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.CompletableFuture;
@@ -84,13 +86,14 @@ public class FirebaseUserRepository implements IUserRepository {
 
     private CompletableFuture<User> createUserTask(String name, String email, String password) {
         CompletableFuture<User> future = new CompletableFuture<>();
+        String hashed_password = generateHash(password);
         try {
             String docID = colRef.document().getId();
             Map<String, Object> data = new HashMap<>();
             data.put("id", docID);
             data.put("name", name);
             data.put("email", email);
-            data.put("password", password);
+            data.put("password", hashed_password);
 
             ApiFuture<WriteResult> result = colRef.document(docID).set(data);
             ApiFutures.addCallback(result, new ApiFutureCallback<>() {
@@ -99,7 +102,6 @@ public class FirebaseUserRepository implements IUserRepository {
                     System.out.println("Failed to reach Firebase");
                     future.completeExceptionally(throwable);
                 }
-
                 @Override
                 public void onSuccess(WriteResult writeResult) {
                     System.out.println("Reached Firebase");
@@ -119,7 +121,9 @@ public class FirebaseUserRepository implements IUserRepository {
      */
     @Override
     public void loginUser(String name, String password) {
+
         Query q = colRef.whereEqualTo("name", name);
+        String hashed_password = generateHash(password);
         ApiFuture<QuerySnapshot> query = q.get();
         try {
             QuerySnapshot querySnapshot = query.get();
@@ -128,7 +132,7 @@ public class FirebaseUserRepository implements IUserRepository {
                 System.out.println("No matching user");
             else{
                 for (DocumentSnapshot document : documents) {
-                    if (Objects.equals(document.get("password"), password)) {
+                    if (Objects.equals(document.get("password"), hashed_password)) {
                         currentUser = createObject(document);
 
                         //log in user
@@ -196,32 +200,14 @@ public class FirebaseUserRepository implements IUserRepository {
      * @param id the id of the user
      */
     @Override
-    public void removeUser(String id){
-        CompletableFuture<Void> future = removeUserTask(id);
-        future.thenApply(user -> {
-            System.out.println("User removed");
-            return user;
-        }).join();
-    }
-    private CompletableFuture<Void> removeUserTask(String id){
-        CompletableFuture<Void> future = new CompletableFuture<>();
-        try {
-            ApiFuture<WriteResult> result = colRef.document(id).delete();
-            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
-                @Override
-                public void onFailure(Throwable throwable) {
-                    System.out.println("fail");
-                }
-
-                @Override
-                public void onSuccess(WriteResult writeResult) {
-                    future.complete(null);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return future;
+    public void removeUser(String id) {
+        CompletableFuture.runAsync(() -> {
+            try {
+                colRef.document(id).delete();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }).thenAccept(a -> System.out.println("User removed"));
     }
     /*
     remove user with help of callbacks, might be something we want to use
@@ -250,5 +236,21 @@ public class FirebaseUserRepository implements IUserRepository {
         return new User(document.getId(), (String) document.get("name"),
                         (String) document.get("email"), (String) document.get("password")
         );
+    }
+
+    //Väldigt simpel och inte säker lösning, men vi undviker att lagra lösenord i klartext
+    /** Method to generate a hash of a password
+     * @param password the password to be hashed
+     * @return a {@link String} with the hashed password
+     */
+    private String generateHash(String password){
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            generatedPassword = Base64.getEncoder().encodeToString(md.digest(password.getBytes(StandardCharsets.UTF_8)));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return generatedPassword;
     }
 }
