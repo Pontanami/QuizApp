@@ -1,12 +1,9 @@
 package com.example.quizapp;
 
-import com.example.quizapp.model.FlashcardValidator;
-import com.example.quizapp.model.Scorer;
-import com.example.quizapp.model.UserScore;
+import com.example.quizapp.model.*;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.multiChoice.MultiChoice;
-import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.user.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -117,6 +114,7 @@ public class HelloApplication extends Application {
 
         Scanner in = new Scanner(System.in);
         List<Flashcard> flashCards = new ArrayList<>();
+
         boolean running = true;
         while (running) {
             printMenu();
@@ -167,6 +165,9 @@ public class HelloApplication extends Application {
                         System.out.println("1 - Flip flashcard");
                         System.out.println("2 - Go to previous flashcard");
                         System.out.println("3 - Go to next flashcard");
+                        if (flashCards.get(currentFlashCard).getWordHint() != null) {
+                            System.out.println("4 - Show hint");
+                        }
                         System.out.println("q - Exit ");
                         System.out.print("Pick an option: " );
 
@@ -191,6 +192,12 @@ public class HelloApplication extends Application {
                                     currentFlashCard = 0;
                                 }
                                 break;
+                            case "4":
+                                if (flashCards.get(currentFlashCard).getWordHint() != null){
+                                    System.out.println("The hint is: " + flashCards.get(currentFlashCard).showHint());
+                                }
+                                break;
+
                             case "q":
                                 viewingFlashCards = false;
                                 break;
@@ -221,7 +228,25 @@ public class HelloApplication extends Application {
         System.out.print("Enter your answer: ");
         String answer = in.nextLine();
 
-        flashCards.add(new Flashcard(question, answer));
+        System.out.print("What kind of hint do you want: \n1. Half of the word hint \n2. First letter of the hint");
+        String chosenOption = in.nextLine();
+
+        IWordHint hint = null;
+        switch (chosenOption) {
+            case "1":
+                //hint = new HalfWordHint(answer);
+                break;
+            case "2":
+                hint = new OneLetterHint(answer);
+                break;
+        }
+
+        if(hint == null){
+            flashCards.add(new Flashcard(question, answer));
+        } else {
+            flashCards.add(new Flashcard(question, answer, hint));
+        }
+
     }
 
     private static void printMenu() {
