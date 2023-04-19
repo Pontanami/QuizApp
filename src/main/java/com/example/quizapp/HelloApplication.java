@@ -227,7 +227,7 @@ public class HelloApplication extends Application {
         System.out.print("Enter your answer: ");
         String answer = in.nextLine();
 
-        System.out.print("What kind of hint do you want: \n1. Half of the word hint \n2. First letter of the hint");
+        System.out.println("What kind of hint do you want: \n1. Half of the word hint \n2. First letter of the hint \n3. Text hint");
         String chosenOption = in.nextLine();
 
         IWordHint hint = null;
@@ -237,6 +237,11 @@ public class HelloApplication extends Application {
                 break;
             case "2":
                 hint = new OneLetterHint(answer);
+                break;
+            case "3":
+                System.out.print("Enter your hint: ");
+                String hintText = in.nextLine();
+                hint = new TextHint(hintText);
                 break;
         }
 
