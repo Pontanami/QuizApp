@@ -233,7 +233,7 @@ public class HelloApplication extends Application {
         IWordHint hint = null;
         switch (chosenOption) {
             case "1":
-                //hint = new HalfWordHint(answer);
+                hint = new HalfWordHint(answer);
                 break;
             case "2":
                 hint = new OneLetterHint(answer);
