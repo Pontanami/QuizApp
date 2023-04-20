@@ -81,29 +81,18 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      */
     @Override
     public void loginUser(String name, String password) {
-
         Query q = colRef.whereEqualTo("name", name);
         String hashed_password = generateHash(password);
-        ApiFuture<QuerySnapshot> query = q.get();
-        try {
-            QuerySnapshot querySnapshot = query.get();
-            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-            if (documents.isEmpty())
-                System.out.println("No matching user");
-            else{
-                for (DocumentSnapshot document : documents) {
-                    if (Objects.equals(document.get("password"), hashed_password)) {
-                        currentUser = createObject(document);
-
-                        //log in user
-                        System.out.println(currentUser.getName() + " logged in");
-                    }
-                    else
-                        System.out.println("Wrong password for user");
-                }
+        List<User> user = UserQuery(q);
+        if (user.isEmpty())
+            System.out.println("No matching user");
+        else{
+            if (Objects.equals(user.get(0).getPassword(), hashed_password)) {
+                currentUser = user.get(0);
+                System.out.println(currentUser.getName() + " logged in");
             }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            else
+                System.out.println("Wrong password for user");
         }
     }
 
