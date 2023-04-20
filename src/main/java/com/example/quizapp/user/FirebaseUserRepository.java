@@ -2,17 +2,7 @@ package com.example.quizapp.user;
 
 import com.example.quizapp.UserQuery;
 import com.google.api.core.ApiFuture;
-import com.google.api.core.ApiFutureCallback;
-import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.*;
-import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.auth.oauth2.GoogleCredentials;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.CompletableFuture;
@@ -30,19 +20,13 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      * Reference to the current {@link User} object that is signed in
      */
     private User currentUser;
-    private final CollectionReference colRef;
     /**
      * Reference to the collection of users in the Firestore database
      */
-
-
-    public static FirebaseUserRepository getUserRepo(){
-        if (instance == null)
-            instance = new FirebaseUserRepository();
-
-        return instance;
-    };
-
+    private final CollectionReference colRef;
+    /**
+     * Private constructor to create the singleton and initialize the collection reference
+     */
     private  FirebaseUserRepository(){
         colRef = getCollection("users");
     };
@@ -78,7 +62,14 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
         data.put("email", email);
         data.put("password", password);
 
-        addDataToDb(data, colRef, docID);
+        CompletableFuture<Void> future = addDataToDb(data, colRef, docID);
+        try {
+            future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        currentUser = new User(docID, name, email, password);
+        System.out.println("User created");
     }
 
     /** Method to log in a user stored in Firestore: Checks if user exists and if password is correct
@@ -130,8 +121,8 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
         List<User> user = new ArrayList<>();
         try {
             user = UserQuery(createUserQuery(query));
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return user;
     }
@@ -150,9 +141,14 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      */
     @Override
     public void removeUser(String id){
-        deleteFromDb(colRef, id);
+       CompletableFuture<Void> future = deleteFromDb(colRef, id);
+        try {
+            future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        System.out.println("User removed");
     }
-
     /*
     remove user with help of callbacks, might be something we want to use
     public void removeUser(String id, OnSuccess callback){

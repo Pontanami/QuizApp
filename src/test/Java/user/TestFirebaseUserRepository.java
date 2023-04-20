@@ -34,10 +34,9 @@ public class TestFirebaseUserRepository {
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
         repo.removeUser(id);
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-            UserQuery userQ = new UserQuery.UserQueryBuilder().id(id).build();
-            repo.getUsers(userQ).get(0);
-        });
+        UserQuery userQ = new UserQuery.UserQueryBuilder().id(id).build();
+        List<User> users = repo.getUsers(userQ);
+        Assertions.assertTrue(users.isEmpty());
     }
 
     @Test

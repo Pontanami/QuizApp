@@ -16,7 +16,14 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Base class for all repositories that handles the connection to the Firestore database
+ * @author Alex, Felix, Pontus
+ */
 public abstract class FirebaseBaseRepository<T> {
+    /**
+     * Reference to the Firestore database
+     */
     private final Firestore db;
 
     protected FirebaseBaseRepository(){
@@ -33,13 +40,21 @@ public abstract class FirebaseBaseRepository<T> {
         db = FirestoreClient.getFirestore();
     }
 
+    /**
+     * Method to retrieve a {@link CollectionReference} from the Firestore database
+     * @param coll the name of the collection
+     */
     public CollectionReference getCollection(String coll){
         return db.collection(coll);
     }
     public String getDocumentID(CollectionReference ref){
         return ref.document().getId();
     }
-
+    /**
+     * Method to get the result of a query from the Firestore database
+     * @param q the {@link Query} to get the result from
+     * @return a {@link List} of the objects that were retrieved from the database
+     */
     public List<T> getQueryResult(Query q){
         List<T> objects = new ArrayList<>();
         ApiFuture<QuerySnapshot> query = q.get();
@@ -47,78 +62,69 @@ public abstract class FirebaseBaseRepository<T> {
             QuerySnapshot querySnapshot = query.get();
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
             if (documents.isEmpty())
-                System.out.println("No matching documents");
+                throw new RuntimeException("No documents found");
             else {
                 for (DocumentSnapshot doc : documents){
                     objects.add(createObject(doc));
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
         return objects;
     }
-
-    private CompletableFuture<Void> deleteFromDbTask(CollectionReference col, String id){
+    /**
+     * Method to delete a document from the Firestore database
+     * @param col the {@link CollectionReference} to delete the document from
+     * @param id the id of the document
+     * @return a {@link CompletableFuture} that will be completed when the document has been deleted
+     */
+    protected CompletableFuture<Void> deleteFromDb(CollectionReference col, String id){
         CompletableFuture<Void> future = new CompletableFuture<>();
-        try {
-            ApiFuture<WriteResult> result = col.document(id).delete();
-            ApiFutures.addCallback(result, new ApiFutureCallback<WriteResult>() {
-                @Override
-                public void onFailure(Throwable throwable) {
-                    System.out.println("fail");
-                }
-
-                @Override
-                public void onSuccess(WriteResult writeResult) {
-                    future.complete(null);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        ApiFuture<WriteResult> result = col.document(id).delete();
+        ApiFutures.addCallback(result, new ApiFutureCallback<>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("Failed to reach Firebase in deleteFromDb");
+                future.completeExceptionally(throwable);
+            }
+            @Override
+            public void onSuccess(WriteResult writeResult) {
+                System.out.println("Reached Firebase");
+                future.complete(null);
+            }
+        });
+        return future;
+    }
+    /**
+     * Method to add data to the Firestore database
+     * @param data the data to be added
+     * @param col the collection to add the data to
+     * @param id the id of the document
+     * @return a {@link CompletableFuture} that will be completed when the data has been added
+     */
+    protected CompletableFuture<Void> addDataToDb(Map<String, Object> data, CollectionReference col, String id){
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        ApiFuture<WriteResult> result = col.document(id).set(data);
+        ApiFutures.addCallback(result, new ApiFutureCallback<>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("Failed to reach Firebase in addDataToDb");
+                future.completeExceptionally(throwable);
+            }
+            @Override
+            public void onSuccess(WriteResult writeResult) {
+                System.out.println("Reached Firebase");
+                future.complete(null);
+            }
+        });
         return future;
     }
 
-    public void deleteFromDb(CollectionReference col, String id){
-        CompletableFuture<Void> future = deleteFromDbTask(col, id);
-        future.thenApply(T -> {
-            System.out.println("Data removed");
-            return T;
-        }).join();
-    }
-
-    private CompletableFuture<Void> addDataTask(Map<String, Object> data, CollectionReference col, String id){
-        CompletableFuture<Void> future = new CompletableFuture<>();
-        try {
-            ApiFuture<WriteResult> result = col.document(id).set(data);
-            ApiFutures.addCallback(result, new ApiFutureCallback<>() {
-                @Override
-                public void onFailure(Throwable throwable) {
-                    System.out.println("Failed to reach Firebase");
-                    future.completeExceptionally(throwable);
-                }
-
-                @Override
-                public void onSuccess(WriteResult writeResult) {
-                    System.out.println("Reached Firebase");
-                    future.complete(null);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return future;
-    }
-
-    protected void addDataToDb(Map<String, Object> data, CollectionReference col, String id){
-        CompletableFuture<Void> future = addDataTask(data, col, id);
-        future.thenApply(T -> {
-            System.out.println("Data added");
-            return T;
-        }).join();
-    }
-
+    /**
+     * Method to create an object of type T from a {@link DocumentSnapshot}
+     * @param doc the {@link DocumentSnapshot} retrieved from Firestore
+     * @return an object of type T
+     */
     abstract T createObject(DocumentSnapshot doc);
-
 }
