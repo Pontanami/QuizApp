@@ -6,11 +6,22 @@ public class Flashcard implements IQuestion{
     private String answer;
     private IHint<String> wordHint;
 
+    /**
+     * Creates a flashcard object, with a question and answer.
+     * @param question flashcard question
+     * @param answer answer to question
+     */
     public Flashcard(String question, String answer) {
         this.question = question;
         this.answer = answer;
     }
 
+    /**
+     * Creates a flashcard object, with a question, answer and a hint.
+     * @param question flashcard question
+     * @param answer answer to question
+     * @param wordHint the type of hint that is used for the flashcard.
+     */
     public Flashcard(String question, String answer, IHint wordHint) {
         this.question = question;
         this.answer = answer;
@@ -21,6 +32,10 @@ public class Flashcard implements IQuestion{
         return wordHint;
     }
 
+    /**
+     * Fetches different kinds of hints, depending on the hint type
+     * @return hint to question
+     */
     public String showHint(){
         return wordHint.showHint();
     }
