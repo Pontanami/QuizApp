@@ -59,7 +59,7 @@ public class TestFirebaseUserRepository {
         user = repo.getCurrentUser();
         repo.createUser("user2", "user2@gmail.com", "user321");
         String id2 = repo.getCurrentUser().getId();
-        repo.loginUser("user1", "user321");
+        repo.loginUser("user1@gmail.com", "user321");
         Assertions.assertEquals(repo.getCurrentUser().getId(), user.getId());
         repo.removeUser(id);
         repo.removeUser(id2);

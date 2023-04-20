@@ -1,5 +1,6 @@
 package com.example.quizapp.user;
 
+import com.example.quizapp.OnSuccess;
 import com.example.quizapp.UserQuery;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -57,33 +58,37 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      * @param password the password of the user
      */
     public void createUser(String name, String email, String password) {
-        String docID = getDocumentID(colRef);
-        String hashed_password = generateHash(password);
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", docID);
-        data.put("name", name);
-        data.put("email", email);
-        data.put("password", hashed_password);
-        CompletableFuture<Void> future = addDataToDb(data, colRef, docID);
-        try {
-            future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        if (getUsers(new UserQuery.UserQueryBuilder().email(email).build()).size() > 0)
+            System.out.println("email is not unique, already exists");
+        else {
+            String docID = getDocumentID(colRef);
+            String hashed_password = generateHash(password);
+            Map<String, Object> data = new HashMap<>();
+            data.put("id", docID);
+            data.put("name", name);
+            data.put("email", email);
+            data.put("password", hashed_password);
+            CompletableFuture<Void> future = addDataToDb(data, colRef, docID);
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
 
+            }
+            currentUser = new User(docID, name, email, password);
+            System.out.println("User created");
         }
-        currentUser = new User(docID, name, email, password);
-        System.out.println("User created");
     }
 
     /** Method to log in a user stored in Firestore: Checks if user exists and if password is correct
-     * @param name the username of the user
+     * @param email the email of the user
      * @param password the password of the user
      */
     @Override
-    public void loginUser(String name, String password) {
-        Query q = colRef.whereEqualTo("name", name);
+    public void loginUser(String email, String password) {
+        Query q = colRef.whereEqualTo("email", email);
         String hashed_password = generateHash(password);
-        List<User> user = UserQuery(q);
+        List<User> user = getQueryResult(q);
         if (user.isEmpty())
             System.out.println("No matching user");
         else{
@@ -114,7 +119,7 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
     public List<User> getUsers(UserQuery query) {
         List<User> user = new ArrayList<>();
         try {
-            user = UserQuery(createUserQuery(query));
+            user = getQueryResult(createUserQuery(query));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -124,10 +129,7 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      * @return A {@link List} of {@link User} objects with the user's information
      */
     public List<User>getUsers(){
-        return UserQuery(colRef);
-    }
-    private List<User> UserQuery(Query q) {
-        return getQueryResult(q);
+        return getQueryResult(colRef);
     }
     /**
      * Method to remove a user from the Firestore database
