@@ -21,11 +21,12 @@ import java.util.concurrent.CompletableFuture;
  * @author Alex, Felix, Pontus
  */
 public abstract class FirebaseBaseRepository<T> {
-    /**
-     * Reference to the Firestore database
-     */
+
     private final Firestore db;
 
+    /**
+     * Creates the connection to firestore
+     */
     protected FirebaseBaseRepository(){
         try {
             InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");

@@ -41,7 +41,7 @@ public class UserQuery extends FetchQuery {
         private String name, email, password, id;
 
         /**
-         * Method for adding an id we want the query to search for
+         * Method for adding an id we want the query to search for2
          * @param id the id we want to search in the database for
          * @return a UserQueryBuilder object containing information used to query the id of the user
          */

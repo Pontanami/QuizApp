@@ -1,5 +1,8 @@
 package com.example.quizapp.user;
 
+/**
+ * Class for holding information about a user
+ */
 public class User {
     private String id,name,email,password;
 
