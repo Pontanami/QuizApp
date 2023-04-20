@@ -1,8 +1,6 @@
 package com.example.quizapp.user;
 
-import com.example.quizapp.OnSuccess;
 import com.example.quizapp.UserQuery;
-import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -112,7 +110,7 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
     }
 
     /** Method to get a user from the Firestore database
-     * @param query
+     * @param query the query to use to get the user
      * @return A {@link List} of {@link User} objects with the user's information
      */
     @Override
