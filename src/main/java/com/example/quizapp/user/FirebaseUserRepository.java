@@ -58,11 +58,12 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      */
     public void createUser(String name, String email, String password) {
         String docID = getDocumentID(colRef);
+        String hashed_password = generateHash(password);
         Map<String, Object> data = new HashMap<>();
         data.put("id", docID);
         data.put("name", name);
         data.put("email", email);
-        data.put("password", password);
+        data.put("password", hashed_password);
         CompletableFuture<Void> future = addDataToDb(data, colRef, docID);
         try {
             future.get();
