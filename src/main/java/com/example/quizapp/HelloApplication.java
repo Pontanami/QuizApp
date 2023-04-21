@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
     private IUserRepository userRepo;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, IllegalAccessException {
         boolean running = true;
         while(running) {
             userRepo = FirebaseUserRepository.getAuth();
@@ -50,7 +50,9 @@ public class HelloApplication extends Application {
                 case "3" -> {
                     System.out.println("Write name of account");
                     String name = scanner.next();
-                    User user = userRepo.getUser(name);
+                    UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setName(name);
+                    List<User> users = userRepo.getUsers(userQ.build());
+                    for (User user : users)
                     System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
                             " id=" + user.getId());
                 }
@@ -66,9 +68,9 @@ public class HelloApplication extends Application {
 
                 }
                 case "5" -> {
-                    System.out.println("Write name of account");
-                    String name = scanner.next();
-                    userRepo.removeUser(userRepo.getUser(name).getId());
+                    System.out.println("Write id of account");
+                    String id = scanner.next();
+                    userRepo.removeUser(id);
                 }
                 case "q" -> {
                     running = false;
