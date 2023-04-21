@@ -45,7 +45,7 @@ public class UserQuery extends FetchQuery {
          * @param id the id we want to search in the database for
          * @return a UserQueryBuilder object containing information used to query the id of the user
          */
-        public UserQueryBuilder id(String id){
+        public UserQueryBuilder setId(String id){
             this.id = id;
             return this;
         }
@@ -55,7 +55,7 @@ public class UserQuery extends FetchQuery {
          * @param name the name we want to search in the database for
          * @return a UserQueryBuilder object containing information used to query the name of the user
          */
-        public UserQueryBuilder name(String name){
+        public UserQueryBuilder setName(String name){
             this.name = name;
             return this;
         }
@@ -65,7 +65,7 @@ public class UserQuery extends FetchQuery {
          * @param email the email we want to search in the database for
          * @return a UserQueryBuilder object containing information used to query the email of the user
          */
-        public UserQueryBuilder email(String email){
+        public UserQueryBuilder setEmail(String email){
             this.email = email;
             return this;
         }
@@ -75,7 +75,7 @@ public class UserQuery extends FetchQuery {
          * @param password the password we want to search in the database for
          * @return a UserQueryBuilder object containing information used to query the password of the user
          */
-        public UserQueryBuilder password(String password){
+        public UserQueryBuilder setPassword(String password){
             this.password = password;
             return this;
         }

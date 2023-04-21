@@ -50,7 +50,7 @@ public class HelloApplication extends Application {
                 case "3" -> {
                     System.out.println("Write name of account");
                     String name = scanner.next();
-                    UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().name(name);
+                    UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setName(name);
                     List<User> users = userRepo.getUsers(userQ.build());
                     for (User user : users)
                     System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +

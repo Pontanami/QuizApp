@@ -56,7 +56,7 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      * @param password the password of the user
      */
     public void createUser(String name, String email, String password) {
-        if (getUsers(new UserQuery.UserQueryBuilder().email(email).build()).size() > 0)
+        if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email).build()).size() > 0)
             System.out.println("email is not unique, already exists");
         else {
             String docID = getDocumentID(colRef);
