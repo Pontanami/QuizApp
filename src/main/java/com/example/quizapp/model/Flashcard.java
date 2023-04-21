@@ -6,7 +6,7 @@ public class Flashcard implements IQuizable<String> {
 
     private String question;
     private String answer;
-    private IHint<String> wordHint;
+    private IHint<String> hint;
 
     /**
      * Creates a flashcard object, with a question and answer.
@@ -22,16 +22,16 @@ public class Flashcard implements IQuizable<String> {
      * Creates a flashcard object, with a question, answer and a hint.
      * @param question flashcard question
      * @param answer answer to question
-     * @param wordHint the type of hint that is used for the flashcard.
+     * @param hint the type of hint that is used for the flashcard.
      */
-    public Flashcard(String question, String answer, IHint wordHint) {
+    public Flashcard(String question, String answer, IHint hint) {
         this.question = question;
         this.answer = answer;
-        this.wordHint = wordHint;
+        this.hint = hint;
     }
 
     public IHint getWordHint() {
-        return wordHint;
+        return hint;
     }
 
     /**
@@ -39,7 +39,9 @@ public class Flashcard implements IQuizable<String> {
      * @return hint to question
      */
     public String showHint(){
-        return wordHint.showHint();
+        if(hint != null)
+            return hint.showHint();
+        return "No hint available";
     }
 
     @Override
