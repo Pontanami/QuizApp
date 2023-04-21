@@ -5,7 +5,7 @@ import com.example.quizapp.interfaces.IQuizable;
 import java.util.*;
 
 public class Quiz {
-    public final String name;
+    private final String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
     private List<Subjects> tags = new ArrayList<>();
     private int currentQuestionIndex = 0;
@@ -28,6 +28,10 @@ public class Quiz {
      */
     public Quiz(String name){
         this.name = name;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public List<IQuizable<?>> getQuestions(){
@@ -54,10 +58,6 @@ public class Quiz {
         questions.add(question);
     }
 
-    /**
-     *
-     * @param index
-     */
     public void removeQuestion(int index){
         questions.remove(index);
         if (currentQuestionIndex > questions.size()-1){

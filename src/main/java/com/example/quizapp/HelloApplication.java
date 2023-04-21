@@ -111,7 +111,6 @@ public class HelloApplication extends Application {
     }
 
     private static void createFlashCardQuiz() {
-        //List<Flashcard> flashCards = new ArrayList<>();
         Scanner quizNameFetch = new Scanner(System.in);
         System.out.println("Enter a quiz name: ");
         String quizName = quizNameFetch.next();
@@ -257,7 +256,6 @@ public class HelloApplication extends Application {
                         answers[4] = scanner.nextLine();
 
                         MultiChoice model = new MultiChoice(question, answers);
-                        //MultiChoiceView view = new MultiChoiceView(model);
                         quiz.addQuestion(model);
 
                         System.out.println("\nYour question has been created. Choose one of the options below: ");
