@@ -1,6 +1,8 @@
 package com.example.quizapp.model;
 
-public class Flashcard {
+import com.example.quizapp.interfaces.IQuizable;
+
+public class Flashcard implements IQuizable<String> {
 
     private String question;
     private String answer;

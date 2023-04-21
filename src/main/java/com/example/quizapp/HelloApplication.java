@@ -1,17 +1,16 @@
 package com.example.quizapp;
 
+import com.example.quizapp.interfaces.IQuizable;
+import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
-import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.user.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class HelloApplication extends Application {
 
@@ -112,8 +111,20 @@ public class HelloApplication extends Application {
     }
 
     private static void createFlashCardQuiz() {
+        Scanner quizNameFetch = new Scanner(System.in);
+        System.out.println("Enter a quiz name: ");
+        String quizName = quizNameFetch.next();
+        Quiz quiz = new Quiz(quizName);
+
+        System.out.println("How many subject does the quiz have: ");
+        String tagNumber = quizNameFetch.next();
+        for (int i = 0; i < Integer.parseInt(tagNumber); i++){
+            System.out.println("Please add a tag here: ");
+            quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));
+        }
+
         Scanner in = new Scanner(System.in);
-        List<Flashcard> flashCards = new ArrayList<>();
+
         boolean running = true;
         while (running) {
             System.out.println("1 - Create a flashcard");
@@ -127,28 +138,29 @@ public class HelloApplication extends Application {
 
             switch (option) {
                 case "1":
+
                     System.out.print("Enter your question: ");
                     String question = in.nextLine();
 
                     System.out.print("Enter your answer: ");
                     String answer = in.nextLine();
 
+                    quiz.addQuestion(new Flashcard(question, answer));
 
-                    flashCards.add(new Flashcard(question, answer));
                     break;
                 case "2":
-                    if (flashCards.size() == 0) {
+                    if (quiz.getQuestions().size() == 0) {  //Changed from flashcards list
                         System.out.println("No flashcards added.");
                         break;
                     }
                     boolean viewingFlashCards = true;
                     boolean viewingQuestion = true;
-                    int currentFlashCard = 0;
-                    while (viewingFlashCards) {
+                    //int currentFlashCard = 0;
+                        while (viewingFlashCards) {
                         if (viewingQuestion) {
-                            System.out.println("Question: " + flashCards.get(currentFlashCard).getQuestion());
+                            System.out.println("Question: " + quiz.getCurrentQuestion().getQuestion());
                         } else {
-                            System.out.println("Answer: " + flashCards.get(currentFlashCard).getAnswer());
+                            System.out.println("Question: " + quiz.getCurrentQuestion().getAnswer());
                         }
 
                         System.out.println("1 - Flip flashcard");
@@ -166,34 +178,26 @@ public class HelloApplication extends Application {
                                 viewingQuestion = !viewingQuestion;
                                 break;
                             case "2":
-                                if (currentFlashCard != 0) {
-                                    currentFlashCard--;
-                                } else {
-                                    currentFlashCard = flashCards.size() - 1;
-                                }
+                                quiz.prevQuestion();
                                 break;
                             case "3":
-                                if (currentFlashCard != flashCards.size() - 1) {
-                                    currentFlashCard++;
-                                } else {
-                                    currentFlashCard = 0;
-                                }
+                                quiz.nextQuestion();
                                 break;
                             case "q":
                                 viewingFlashCards = false;
                                 break;
                         }
                         System.out.println();
-
                     }
                     break;
                 case "3":
                     System.out.println("Which flashcard do you want to delete?");
-                    for (int i = 0; i < flashCards.size(); i++) {
-                        System.out.println(i + " - " + flashCards.get(i).getQuestion());
+                    for (int i = 0; i < quiz.getQuestions().size(); i++){
+                        System.out.println(i + " - " + quiz.getQuestions().get(i));
                     }
+
                     int flashcard = Integer.parseInt(in.nextLine());
-                    flashCards.remove(flashcard);
+                    quiz.removeQuestion(flashcard);
                     break;
                 case "q":
                     running = false;
@@ -204,7 +208,18 @@ public class HelloApplication extends Application {
     }
 
     private static void createMultiChoiceQuiz(){
-        ArrayList<MultiChoice> questions = new ArrayList<>();
+        Scanner quizNameFetch = new Scanner(System.in);
+        System.out.println("Enter a quiz name: ");
+        String quizName = quizNameFetch.next();
+        Quiz quiz = new Quiz(quizName);
+
+        System.out.println("How many subject does the quiz have: ");
+        String tagNumber = quizNameFetch.next();
+        for (int i = 0; i < Integer.parseInt(tagNumber); i++){
+            System.out.println("Please add a tag here: ");
+            quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));
+        }
+
         String[] options = {"Create a question", "Take a quiz", "Exit"};
 
         label:
@@ -222,15 +237,32 @@ public class HelloApplication extends Application {
             switch (chosenOption) {
                 case "1":
                     while (true) {
-                        Scanner myQuestion = new Scanner(System.in);
-                        System.out.println("\nWhat is your question: ");
-                        questions.add(new MultiChoice(myQuestion.nextLine()));
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.print("What is your question :");
+                        String question = scanner.nextLine();  // Read user input
+
+                        String[] answers = new String[5];
+                        for (int i = 0; i < 4; i++){
+                            while (true){
+                                System.out.print("Choice number " + (i+1) + ": ");
+                                answers[i] = scanner.nextLine();  // Read user input
+
+                                if (!answers[i].isEmpty()){
+                                    break;
+                                }
+                            }
+                        }
+                        System.out.println("\n" + "Which one is the correct answer (1-4): ");
+                        answers[4] = scanner.nextLine();
+
+                        MultiChoice model = new MultiChoice(question, answers);
+                        quiz.addQuestion(model);
 
                         System.out.println("\nYour question has been created. Choose one of the options below: ");
                         System.out.println("1 - Create another question");
                         System.out.println("2 - Finish");
                         System.out.println("q - Exit");
-                        Scanner scanner = new Scanner(System.in);
+
                         System.out.println("The option you choose is: ");
                         String myChoice = scanner.nextLine();
 
@@ -243,13 +275,30 @@ public class HelloApplication extends Application {
                     }
                     break;
                 case "2":
-                    if (questions.isEmpty()) {
+                    Scanner scanner = new Scanner(System.in);
+                    if (quiz.getQuestions().isEmpty()) {
                         System.out.println("There are no available quiz questions. You need to create them first.\n");
                     } else {
-                        for (int i = 0; i < questions.size(); i++) {
-                            System.out.println("\nQuestion number " + (i + 1) + ": ");
-                            questions.get(i).displayTest();
+
+                        for (IQuizable<?> ques : quiz.getQuestions()) {
+                            MultiChoice currentQues = (MultiChoice) ques;
+                            System.out.println(quiz.getCurrentQuestion().getQuestion());
+                            for (int j = 0; j < 4; j++) {
+
+                                System.out.println("Choice " + (j + 1) + ": " + currentQues.getAnswer()[j]);
+                            }
+
+                            System.out.println("\n" + "Which one is the correct answer (1-4): ");
+                            String correct = scanner.nextLine();
+
+                            if (correct.equals(currentQues.getAnswer()[4])) {
+                                System.out.println("That's correct");
+                            } else {
+                                System.out.println("Sorry, the correct answer is: " + currentQues.getAnswer()[4]);
+                            }
+                            quiz.nextQuestion();
                         }
+
                         System.out.print("\n");
                     }
                     break;
@@ -261,5 +310,6 @@ public class HelloApplication extends Application {
             }
         }
     }
+
 
 }
