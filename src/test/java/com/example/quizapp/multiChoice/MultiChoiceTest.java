@@ -1,59 +1,29 @@
+
 package com.example.quizapp.multiChoice;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.Assertions;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Random;
 
 class MultiChoiceTest {
-    private MultiChoiceModel mul;
-
-    Random random = new Random();
 
     @ParameterizedTest
-    @CsvSource({"What is the water's freezing temp in C, non-answer, 0, 212, 100, 32",
-                "What is the earth's diameter in km, 3, 12352, 12742, 14576, 15667"})
-    void isCorrectlySetup(String questionEx, String externalAns, String answer1, String answer2, String answer3, String answer4) {
+    @CsvSource({"What is the water's freezing temp in C, 0, 212, 100, 32, 1",
+                "What is the earth's diameter in km, 12352, 12742, 14576, 15667, 2"})
+    void isCorrectlySetup(String questionEx, String answer1, String answer2, String answer3, String answer4, String correct) {
         //externalAns represents an answer that is not one of the four choices which is expected to throw and
-        mul = new MultiChoiceModel(questionEx, answer1, answer2, answer3, answer4);
-        ArrayList<String> expectedChoices = new ArrayList<String>(){
-            {
-                add(answer1);
-                add(answer2);
-                add(answer3);
-                add(answer4);
-            }
-        };
-        Assertions.assertArrayEquals(expectedChoices.toArray(), mul.getChoices().toArray());
+        String[] expectedChoices = new String[]{answer1, answer2, answer3, answer4, correct};
+        MultiChoice mul = new MultiChoice(questionEx, expectedChoices);
+        Assertions.assertArrayEquals(expectedChoices, mul.getAnswer());
 
-        int ran = random.nextInt(0, 4);
-        String ranVal = expectedChoices.get(ran);
-        mul.setCorrectAnswer(ranVal);
-
+        Assertions.assertEquals(5, mul.getAnswer().length);
         Assertions.assertEquals(questionEx, mul.getQuestion());
-        Assertions.assertEquals(expectedChoices.get(ran), mul.getCorrectAnswer());
-        Assertions.assertThrows(InputMismatchException.class, () -> mul.setCorrectAnswer(externalAns));
-    }
+        Assertions.assertEquals(expectedChoices[4], mul.getAnswer()[4]);
 
-    @Test
-    void addPoinTest(){
-        MultiChoiceModel mul = new MultiChoiceModel("Waht is", "1", "2", "3", "4");
-        Assertions.assertEquals(0, mul.getPoints());
-        mul.addPoint();
-        Assertions.assertEquals(1, mul.getPoints());
+        String[] falseCorrectAnswer = new String[]{answer1, answer2, answer3, answer4, "5"}; //5 is not a valid alternative
+        Assertions.assertThrows(InputMismatchException.class, () -> new MultiChoice(questionEx, falseCorrectAnswer));
     }
 }
-
-
-
-
-
-
-
-
-
-
 

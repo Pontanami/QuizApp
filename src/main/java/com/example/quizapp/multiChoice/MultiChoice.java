@@ -1,23 +1,22 @@
 package com.example.quizapp.multiChoice;
 
-import com.example.quizapp.model.IHint;
-import com.example.quizapp.model.TextHint;
+import com.example.quizapp.interfaces.IQuizable;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
 
-/**
- * An instance of this class represents one single multi choice question
- */
-public class MultiChoice {
-    private MultiChoiceModel model;
+public class MultiChoice implements IQuizable<String[]> {
+    private final String[] choices;
     private final String question;
 
-    public MultiChoice(String question){
+    public MultiChoice(String question, String[] answers){
+        choices = answers;
+
+        if (!Arrays.asList("1", "2", "3", "4").contains(choices[4])){
+            throw new InputMismatchException("The alternative " + choices[4] + " is not one of the four choices");
+        }
+
         this.question = question;
-        createChoices();
         createCorrectAnswer();
         createHint();
     }
@@ -51,29 +50,9 @@ public class MultiChoice {
         model.setCorrectAnswer(correctAnswer);
 
     }
-
-    /**
-     * Asks the user for four answers to the question
-     */
-    private void createChoices(){
-        String[] answers = new String[4];
-        for (int i = 0; i < 4; i++){
-            while (true){
-                Scanner choice = new Scanner(System.in);  // Create a Scanner object
-                System.out.print("Choice number " + (i+1) + ": ");
-                answers[i] = choice.nextLine();  // Read user input
-
-                if (!answers[i].isEmpty()){
-                    break;
-                }
-            }
-        }
-        model = new MultiChoiceModel(question, answers[0], answers[1], answers[2], answers[3], null);
-
-
-
-
-        //model = new MultiChoiceModel(question, answers[0], answers[1], answers[2], answers[3]);
+    @Override
+    public String[] getAnswer() {
+        return choices;
     }
 
     /**
@@ -86,60 +65,18 @@ public class MultiChoice {
             String correct = correctAns.nextLine();  // Read user input
 
             try {
-
-                model.setCorrectAnswer(model.getChoices().get(Integer.parseInt(correct) - 1));
+                model.setCorrectAnswer(correct);
                 break;
 
             }catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
             }
         }
-
     }
 
-    /**
-     * Displaying the question and the multiple choices, asking which one is the correct answer to the question.
-     * If the user gives the correct answer, add a point for the user, otherwise show the correct answer
-     */
-    public void displayTest(){
-        System.out.println(model.getQuestion() + "\n");
-        ArrayList<String> choices = model.getChoices();
-
-        for (int i = 0; i < choices.size(); i++){
-            System.out.println("Choice " + (i+1) + ": " + choices.get(i));
-        }
-        //System.out.println("Show hint: + " + choices.size() + 1);
-        System.out.println("Show hint ("+ (choices.size() + 1) + ")");
-
-
-        Scanner myObj = new Scanner(System.in);
-
-        String alternative = myObj.nextLine();
-
-        System.out.println("\n" + "Which one is the correct answer (1-4): ");
-//        System.out.println("\n" + "Do you want a hint (5): ");
-        // alternative = myObj.nextLine();
-
-        List<String> newChoices = choices;
-        if (alternative.equals(String.valueOf(choices.size() + 1))){
-            newChoices = model.showHint();
-
-            for (int i = 0; i < newChoices.size(); i++){
-                System.out.println("Choice " + (i+1) + ": " + newChoices.get(i));
-            }
-        }
-
-
-        alternative = myObj.nextLine();
-
-
-        if (newChoices.get(Integer.parseInt(alternative)- 1).equals(model.getCorrectAnswer())){
-            model.addPoint();
-            System.out.println("That's correct");
-            System.out.println("Your total points: " + model.getPoints());
-        } else { //else{ show a hint }
-            System.out.println("Sorry, the correct answer is: " + model.getCorrectAnswer());
-        }
+    @Override
+    public String getQuestion() {
+        return question;
     }
 
 

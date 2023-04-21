@@ -1,6 +1,8 @@
 package com.example.quizapp.model;
 
-public class Flashcard implements IQuestion{
+import com.example.quizapp.interfaces.IQuizable;
+
+public class Flashcard implements IQuizable<String> {
 
     private String question;
     private String answer;
@@ -49,4 +51,5 @@ public class Flashcard implements IQuestion{
     public String getAnswer(){
         return answer;
     }
+
 }

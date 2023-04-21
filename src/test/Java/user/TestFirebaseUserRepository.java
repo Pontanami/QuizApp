@@ -1,18 +1,18 @@
 package user;
 
+import com.example.quizapp.UserQuery;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.User;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class TestFirebaseUserRepository {
 
     private static FirebaseUserRepository repo;
+    UserQuery userQ = new UserQuery.UserQueryBuilder().setName("user1").build();
     @BeforeAll
     public static void setup(){
         repo = FirebaseUserRepository.getAuth();
@@ -23,7 +23,8 @@ public class TestFirebaseUserRepository {
         User user;
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
-        user = repo.getUser("user1");
+
+        user = repo.getUsers(userQ).get(0);
         Assertions.assertEquals("user1", user.getName());
         repo.removeUser(id);
     }
@@ -33,8 +34,9 @@ public class TestFirebaseUserRepository {
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
         repo.removeUser(id);
-        User user = repo.getUser("user1");
-        Assertions.assertNull(user);
+        UserQuery userQ = new UserQuery.UserQueryBuilder().setId(id).build();
+        List<User> users = repo.getUsers(userQ);
+        Assertions.assertTrue(users.isEmpty());
     }
 
     @Test
@@ -57,7 +59,7 @@ public class TestFirebaseUserRepository {
         user = repo.getCurrentUser();
         repo.createUser("user2", "user2@gmail.com", "user321");
         String id2 = repo.getCurrentUser().getId();
-        repo.loginUser("user1", "user321");
+        repo.loginUser("user1@gmail.com", "user321");
         Assertions.assertEquals(repo.getCurrentUser().getId(), user.getId());
         repo.removeUser(id);
         repo.removeUser(id2);
