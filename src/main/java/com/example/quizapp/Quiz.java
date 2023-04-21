@@ -14,7 +14,12 @@ public class Quiz {
     public enum Subjects {
         MATH,
         SCIENCE,
-        BIOLOGY
+        BIOLOGY,
+        ENGLISH,
+        HISTORY,
+        PHYSICS,
+        GEOGRAPHY,
+        CHEMISTRY
     }
 
     /**
@@ -45,7 +50,7 @@ public class Quiz {
         return tags.remove(tag);
     }
 
-    public void addQuestion(IQuizable question){
+    public void addQuestion(IQuizable<?> question){
         questions.add(question);
     }
 
@@ -60,21 +65,32 @@ public class Quiz {
         }
     }
 
-    public IQuizable getCurrentQuestion(){
-        return questions.get(currentQuestionIndex);
+    public IQuizable<?> getCurrentQuestion(){
+        try {
+            return questions.get(currentQuestionIndex);
+        }catch (IndexOutOfBoundsException e){
+            throw new IndexOutOfBoundsException("there is no questions to get");
+        }
     }
 
-    public IQuizable nextQuestion(){
-        if (questions.size() == 0){
+    public IQuizable<?> nextQuestion(){
+        if (isInvalidQuestionsSize()){
             return getCurrentQuestion();
         }
-        currentQuestionIndex = (currentQuestionIndex + 1) % questions.size();
+        currentQuestionIndex = Math.abs((currentQuestionIndex + 1) % questions.size());
         return getCurrentQuestion();
     }
 
-    public IQuizable prevQuestion(){
+    public IQuizable<?> prevQuestion(){
+        if (isInvalidQuestionsSize()){
+            return getCurrentQuestion();
+        }
         currentQuestionIndex = Math.abs((currentQuestionIndex - 1) % questions.size());
         return getCurrentQuestion();
+    }
+
+    private boolean isInvalidQuestionsSize(){
+        return (questions.size() == 1 || questions.size() == 0);
     }
     public void addPoint(){
         points++;

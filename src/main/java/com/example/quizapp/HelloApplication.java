@@ -10,10 +10,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class HelloApplication extends Application {
 
@@ -99,7 +96,7 @@ public class HelloApplication extends Application {
             String choice = in.nextLine();
             switch (choice) {
                 case "1" -> createFlashCardQuiz();
-                //case "2" -> createMultiChoiceQuiz();
+                case "2" -> createMultiChoiceQuiz();
                 case "3" -> launch();
                 case "q" -> {
                     running = false;
@@ -208,7 +205,7 @@ public class HelloApplication extends Application {
             System.out.println();
         }
     }
-    /*
+
     private static void createMultiChoiceQuiz(){
         Scanner quizNameFetch = new Scanner(System.in);
         System.out.println("Enter a quiz name: ");
@@ -282,21 +279,22 @@ public class HelloApplication extends Application {
                     if (quiz.getQuestions().isEmpty()) {
                         System.out.println("There are no available quiz questions. You need to create them first.\n");
                     } else {
-                        for (IQuizable ques : quiz.getQuestions()) {
 
+                        for (IQuizable<?> ques : quiz.getQuestions()) {
+                            MultiChoice currentQues = (MultiChoice) ques;
                             System.out.println(quiz.getCurrentQuestion().getQuestion());
-
                             for (int j = 0; j < 4; j++) {
-                                System.out.println("Choice " + (j + 1) + ": " + quiz.getCurrentQuestion().getAnswer()[j]);
+
+                                System.out.println("Choice " + (j + 1) + ": " + currentQues.getAnswer()[j]);
                             }
 
                             System.out.println("\n" + "Which one is the correct answer (1-4): ");
                             String correct = scanner.nextLine();
 
-                            if (correct.equals(quiz.getCurrentQuestion().getAnswer()[4])) {
+                            if (correct.equals(currentQues.getAnswer()[4])) {
                                 System.out.println("That's correct");
                             } else {
-                                System.out.println("Sorry, the correct answer is: " + quiz.getCurrentQuestion().getAnswer()[4]);
+                                System.out.println("Sorry, the correct answer is: " + currentQues.getAnswer()[4]);
                             }
                             quiz.nextQuestion();
                         }
@@ -312,6 +310,6 @@ public class HelloApplication extends Application {
             }
         }
     }
-     */
+
 
 }
