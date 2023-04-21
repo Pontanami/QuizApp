@@ -13,8 +13,5 @@ public class Scorer {
             return ++userPoints;
         }
         return userPoints;
-
     }
-
-
 }
