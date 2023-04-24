@@ -1,17 +1,12 @@
 package com.example.quizapp;
 
-import com.example.quizapp.controllers.CreateQuiz;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.*;
-import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.model.Flashcard;
-import com.example.quizapp.multiChoice.MultiChoice;
-import com.example.quizapp.user.User;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -89,7 +84,7 @@ public class HelloApplication extends Application {
 
         }*/
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createQuiz.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/createQuiz.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);

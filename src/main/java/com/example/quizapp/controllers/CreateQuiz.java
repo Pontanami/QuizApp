@@ -1,10 +1,7 @@
 package com.example.quizapp.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-
-import java.io.IOException;
 
 public class CreateQuiz extends AnchorPane{
 
@@ -26,7 +23,7 @@ public class CreateQuiz extends AnchorPane{
     }*/
 
     @FXML
-    public void navigateToCreateFlashcard(){
+    public void navigateToCreateFlashcard() {
         rootpane.getChildren().clear();
         rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
     }
