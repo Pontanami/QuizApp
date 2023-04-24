@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.multiChoiceController">
+   <children>
+      <Label fx:id="quizName" layoutX="74.0" layoutY="35.0" text="Quiz Name">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="quizProgress" layoutX="74.0" layoutY="88.0" prefHeight="20.0" prefWidth="434.0" progress="0.0" />
+      <Pane fx:id="quizPane" layoutX="74.0" layoutY="127.0" prefHeight="200.0" prefWidth="434.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <children>
+            <Label fx:id="multiQuestion" alignment="TOP_CENTER" layoutY="27.0" prefHeight="17.0" prefWidth="434.0" text="Question" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="choice1" layoutX="171.0" layoutY="70.0" mnemonicParsing="false" text="choice1" textFill="#fcf7f7">
+               <toggleGroup>
+                  <ToggleGroup fx:id="choices" />
+               </toggleGroup>
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="choice2" layoutX="171.0" layoutY="100.0" mnemonicParsing="false" text="choice2" textFill="#f5f0f0" toggleGroup="$choices">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="choice3" layoutX="171.0" layoutY="129.0" mnemonicParsing="false" text="choice3" textFill="#fcf9f9" toggleGroup="$choices">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="choice4" layoutX="171.0" layoutY="158.0" mnemonicParsing="false" text="choice4" textFill="#fcf8f8" toggleGroup="$choices">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></RadioButton>
+         </children>
+      </Pane>
+      <Button fx:id="checkAnswer" layoutX="394.0" layoutY="340.0" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="29.0" prefWidth="114.0" text="Check Answer">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

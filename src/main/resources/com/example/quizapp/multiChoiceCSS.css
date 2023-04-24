@@ -1,0 +1,9 @@
+.radio-button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+}
+
+#quizPane {
+    -fx-background-color: linear-gradient(to right, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+}
