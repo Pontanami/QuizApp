@@ -4,6 +4,7 @@ import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.*;
+import com.example.quizapp.user.FirebaseQuizRepository;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.model.Flashcard;
@@ -106,6 +107,10 @@ public class HelloApplication extends Application {
                 case "1" -> createFlashCardQuiz();
                 case "2" -> createMultiChoiceQuiz();
                 case "3" -> launch();
+                case "4" -> {
+                    FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
+                    quizrepo.getQuiz();
+                }
                 case "q" -> {
                     running = false;
                     System.exit(0);
@@ -144,6 +149,8 @@ public class HelloApplication extends Application {
                 }
 
                 case "2" -> {
+                    FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
+                    quizrepo.uploadQuiz(quiz);
                     if (quiz.getQuestions().size() == 0) {  //Changed from flashcards list
                         System.out.println("No flashcards added.");
                         break;
