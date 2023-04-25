@@ -21,13 +21,14 @@ import java.util.Scanner;
 
 public class HelloApplication extends Application {
 
-    private IUserRepository userRepo;
+    private static final IUserRepository userRepo = FirebaseUserRepository.getAuth();
+
+
 
     @Override
     public void start(Stage stage) throws IOException, IllegalAccessException {
         boolean running = true;
         while(running) {
-            userRepo = FirebaseUserRepository.getAuth();
             Scanner scanner = new Scanner(System.in);
             System.out.println(" ");
             System.out.println("Write 1 to create user,");
@@ -109,7 +110,7 @@ public class HelloApplication extends Application {
                 case "3" -> launch();
                 case "4" -> {
                     FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
-                    quizrepo.getQuiz();
+                    quizrepo.getQuiz("18xWvPahtOvtZ029Fc28");
                 }
                 case "q" -> {
                     running = false;
@@ -149,8 +150,13 @@ public class HelloApplication extends Application {
                 }
 
                 case "2" -> {
+                    System.out.println("Write name of account");
+                    String name = in.next();
+                    System.out.println("Write password");
+                    String password = in.next();
+                    userRepo.loginUser(name, password);
                     FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
-                    quizrepo.uploadQuiz(quiz);
+                    quizrepo.uploadQuiz(quiz, userRepo.getCurrentUser());
                     if (quiz.getQuestions().size() == 0) {  //Changed from flashcards list
                         System.out.println("No flashcards added.");
                         break;

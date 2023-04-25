@@ -8,8 +8,12 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -39,52 +43,34 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository implements IQ
     }
 
 
-    public Quiz getQuiz() {
+    public Quiz getQuiz(String id) {
         Quiz quiz = null;
         try {
-            DocumentReference s = colref.document("WWuZnbdwnFQe3s8UGq9t");
-            quiz = gson.fromJson(s.get().get().getString("quiz"), Quiz.class);
-            System.out.println(quiz.getName());
+            DocumentReference s = colref.document(id);
+            Type listType = new TypeToken<ArrayList<IQuizable<?>>>(){}.getType();
+            DocumentSnapshot doc = s.get().get();
+            String json = doc.getString("quiz");
+            List<IQuizable<?>> questionList = gson.fromJson(json, listType);
+            quiz = new Quiz((String)doc.get("name"), questionList, (List)doc.get("tags"), (String)doc.get("id")
+            , (String)doc.get("createdBy"));
+
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return quiz;
     }
 
-    public void uploadQuiz(Quiz quiz){
-        /*
-        Map<String, Object> data = new HashMap<>();
-        data.put("name", quiz.getName());
-        data.put("tags", quiz.getTags());
-        List<Map<String, Object>> questions = new ArrayList<>();
-        for (IQuizable question :quiz.getQuestions()){
-            Map<String, Object> questionMap = new HashMap<>();
-            questionMap.put("question_type",question.getClass().getName());
-            questionMap.put("question",question.getQuestion());
-            questionMap.put("answer",question.getAnswer());
-            Object classname = question.getHint().getClass().getName();
-            if(classname.equals("com.example.quizapp.model.TextHint"))
-                classname = question.showHint();
-            questionMap.put("hint", classname);
-            questions.add(questionMap);
-        }
-        data.put("questions", questions);
-        String docID = getDocumentID(colref);
-        CompletableFuture<Void> future = addDataToDb(data, colref, docID);
-        try {
-            future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-
-        }
-         */
-        String json = gson.toJson(quiz);
+    public void uploadQuiz(Quiz quiz, User currentUser){
+        String json = gson.toJson(quiz.getQuestions(), new TypeToken<List<IQuizable<?>>>() {}.getType());
         System.out.println(json);
         Map<String, Object> data = new HashMap<>();
+        String docID = getDocumentID(colref);
         data.put("quiz", json);
         data.put("name", quiz.getName());
         data.put("tags", quiz.getTags());
-        String docID = getDocumentID(colref);
+        data.put("id", docID);
+        data.put("createdBy", currentUser.getId());
+
         CompletableFuture<Void> future = addDataToDb(data, colref, docID);
         try {
             future.get();

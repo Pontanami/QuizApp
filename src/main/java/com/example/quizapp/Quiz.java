@@ -10,6 +10,8 @@ public class Quiz {
     private List<Subjects> tags = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int points = 0;
+    private String id, createdBy;
+
 
     public enum Subjects {
         MATH,
@@ -30,6 +32,13 @@ public class Quiz {
         this.name = name;
     }
 
+    public Quiz(String name, List<IQuizable<?>> questions, List<Subjects> tags, String id, String createdBy){
+        this.name = name;
+        this.questions = questions;
+        this.tags = tags;
+        this.id = id;
+        this.createdBy = createdBy;
+    }
     public String getName(){
         return name;
     }
