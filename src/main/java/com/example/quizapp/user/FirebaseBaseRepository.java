@@ -22,22 +22,14 @@ import java.util.concurrent.CompletableFuture;
  */
 public abstract class FirebaseBaseRepository<T> {
 
+    private FirebaseConnection conn;
     private final Firestore db;
 
     /**
      * Creates the connection to firestore
      */
     protected FirebaseBaseRepository(){
-        try {
-            InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .build();
-
-            FirebaseApp.initializeApp(options);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        conn = FirebaseConnection.getInstance();
         db = FirestoreClient.getFirestore();
     }
 
