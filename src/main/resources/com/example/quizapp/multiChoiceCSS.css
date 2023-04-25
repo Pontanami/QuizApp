@@ -1,9 +1,18 @@
-.radio-button {
+.radioButton {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-font-family: Arial;
+    -fx-text-fill: white;
 }
 
 #quizPane {
     -fx-background-color: linear-gradient(to right, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+}
+
+#answer{
+    -fx-text-fill: rgba(60,157,35,1) 100%;
+}
+
+#wrongAnswer{
+    -fx-text-fill: rgba(237,32,84,1) 100%;
 }

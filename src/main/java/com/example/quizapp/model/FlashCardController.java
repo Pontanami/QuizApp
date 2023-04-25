@@ -23,10 +23,10 @@ public class FlashCardController {
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
     private final double rotationTime = 1000;
 
-    /* public void initializeData(Flashcard card){
+    public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
         termDef[1] = card.getAnswer();
-    } */
+    }
 
     public void revealCardAnswer(){
         RotateTransition rotator = createRotator(clickablePane);

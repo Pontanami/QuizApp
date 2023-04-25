@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import com.example.quizapp.model.FlashCardController;
+import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.multiChoice.MultiChoice;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,11 +23,21 @@ public class TakeQuizController{
     private BorderPane QuizHolder;
 
     private Quiz quiz;
+    private boolean isFlashCard = false;
+    private boolean isMultiChoice = false;
+
+    public void setAsFlashCardQuiz(){
+        isFlashCard = true;
+        isMultiChoice = false;
+    }
+    public void setAsMultiChoiceQuiz(){
+        isMultiChoice = true;
+        isFlashCard = false;
+    }
 
     public void initializeData(Quiz quiz){
         this.quiz = quiz;
         showQuestion();
-
     }
 
     public void showNext(){
@@ -41,10 +53,19 @@ public class TakeQuizController{
     private void showQuestion() {
         AnchorPane pane = new AnchorPane();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
-            pane = fxmlLoader.load();
-            MultiChoiceController controller = fxmlLoader.getController();
-            controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
+            if (isMultiChoice) { //Maybe do a check with instanceOF?
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
+                pane = fxmlLoader.load();
+
+                MultiChoiceController controller = fxmlLoader.getController();
+                controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
+            } else if (isFlashCard){ //Maybe do a check with instanceOF?
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
+                pane = fxmlLoader.load();
+
+                FlashCardController controller = fxmlLoader.getController();
+                controller.initializeData((Flashcard) quiz.getCurrentQuestion());
+            }
 
         } catch (IOException e){
             e.printStackTrace();
