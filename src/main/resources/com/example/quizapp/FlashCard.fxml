@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.model.FlashCardController">
+   <children>
+      <AnchorPane id="TextAnchorPane" fx:id="clickablePane" onMouseClicked="#revealCardAnswer" prefHeight="200.0" prefWidth="300.0" styleClass="colorable" stylesheets="@mainColor.css">
+          <children>
+              <Label id="labelChangable" fx:id="txtLabel" alignment="CENTER" prefHeight="114.0" prefWidth="300.0" text="This is an example question (front side). This sentence is made a little longer to test multiple lines functionalit" textAlignment="CENTER" wrapText="true" />
+          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
+   </children>
+</AnchorPane>

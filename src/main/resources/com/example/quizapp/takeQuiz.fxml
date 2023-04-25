@@ -5,9 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.takeQuizController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.TakeQuizController">
    <children>
       <Label fx:id="QuizName" layoutX="50.0" layoutY="34.0" text="Name">
          <font>
@@ -16,9 +17,8 @@
       </Label>
       <Accordion layoutX="186.0" layoutY="129.0" />
       <ProgressBar fx:id="QuizProgress" layoutX="53.0" layoutY="87.0" prefHeight="27.0" prefWidth="494.0" progress="0.0" />
-      <AnchorPane fx:id="QuizHolder" layoutX="50.0" layoutY="129.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: purple;" />
+      <BorderPane fx:id="QuizHolder" layoutX="50.0" layoutY="129.0" prefHeight="200.0" prefWidth="500.0" styleClass="colorable" stylesheets="@mainColor.css" />
       <Button fx:id="QuizPrevious" layoutX="50.0" layoutY="348.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="34.0" prefWidth="81.0" text="Previous" />
-      <Button fx:id="QuizAnswer" layoutX="248.0" layoutY="348.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="105.0" text="Show Answer" />
       <Button fx:id="QuizNext" layoutX="469.0" layoutY="348.0" mnemonicParsing="false" onAction="#showNext" prefHeight="34.0" prefWidth="81.0" text="Next" />
    </children>
 </AnchorPane>
