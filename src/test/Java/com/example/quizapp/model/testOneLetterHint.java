@@ -16,7 +16,7 @@ public class testOneLetterHint {
     }
 
     @Test
-    public void testShowHint_calledOnce_shouldReturnMultipleLetters(){
+    public void testShowHint_calledThreeTimes_shouldReturnThreeLetters(){
         OneLetterHint oneLetterHint = new OneLetterHint("answer");
 
         oneLetterHint.showHint();
