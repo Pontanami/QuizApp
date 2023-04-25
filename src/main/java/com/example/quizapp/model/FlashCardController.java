@@ -26,20 +26,26 @@ public class FlashCardController {
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
         termDef[1] = card.getAnswer();
+        
+        setText();
+    }
+
+    private void setText(){
+        txtLabel.setText(termDef[textIndex]);
     }
 
     public void revealCardAnswer(){
         RotateTransition rotator = createRotator(clickablePane);
         rotator.play();
         txtLabel.setText("");
+        textIndex = Math.abs((textIndex+1) % 2);
+
         rotator.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                textIndex = Math.abs((textIndex+1) % 2);
-                txtLabel.setText(termDef[textIndex]);
+                setText();
             }
         });
-
     }
 
     private RotateTransition createRotator(Node card) {
@@ -49,7 +55,8 @@ public class FlashCardController {
         rotator.setToAngle(180);
         rotator.setInterpolator(Interpolator.LINEAR);
         rotator.setCycleCount(1);
-        txtLabel.setScaleX(-1);
+
+        card.setScaleX(-1);
 
         return rotator;
     }

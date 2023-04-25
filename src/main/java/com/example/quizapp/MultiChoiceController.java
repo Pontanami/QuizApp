@@ -63,6 +63,9 @@ public class MultiChoiceController {
     public void checkAnswer(){
         for (RadioButton rb : radioButtons){
             if (rb.getText().equals(ques.getAnswer())){
+                if(rb.isSelected()){
+                    System.out.println("thats correct"); //Somehow communicate with TakeQuizController to call quiz.addPoint()
+                }
                 rb.setId("answer");
             }
             else {

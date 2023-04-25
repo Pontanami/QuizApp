@@ -85,8 +85,12 @@ public class HelloApplication extends Application {
 
         }*/
         Quiz quiz = new Quiz("no name");
+        Quiz quiz2 = new Quiz("no name flash");
+
         IHint<List<String>> hint1 = new EliminateChoiceHint(new ArrayList<>(Arrays.asList("1", "2",
                 "3", "4")), "2");
+        IHint<List<String>> hint2 = new EliminateChoiceHint(new ArrayList<>(Arrays.asList("One", "Two",
+                "Three", "4")), "4");
 
         quiz.addQuestion(new MultiChoice("test question", "2", new ArrayList<String>(){
             {
@@ -98,14 +102,18 @@ public class HelloApplication extends Application {
             {
                 add("One");add("Two");add("three");add("4");
             }
-        }, hint1));
+        }, hint2));
+
+        quiz2.addQuestion(new Flashcard("this is a test question", "this is a test answer"));
+        quiz2.addQuestion(new Flashcard("this is a test question2", "this is a test answer2"));
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("takeQuiz.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         TakeQuizController controller = fxmlLoader.getController();
-        controller.setAsMultiChoiceQuiz();
-        controller.initializeData(quiz);
+        controller.setAsFlashCardQuiz();
+        //controller.setAsMultiChoiceQuiz();
+        controller.initializeData(quiz2);
 
         stage.setTitle("Quiz App");
         stage.setScene(scene);
