@@ -42,11 +42,11 @@
                </font></RadioButton>
             <RadioButton fx:id="choice3" layoutX="171.0" layoutY="129.0" mnemonicParsing="false" text="choice3" textFill="#fcf9f9" toggleGroup="$choices">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Arial Bold" size="14.0" />
                </font></RadioButton>
             <RadioButton fx:id="choice4" layoutX="171.0" layoutY="158.0" mnemonicParsing="false" text="choice4" textFill="#fcf8f8" toggleGroup="$choices">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font size="14.0" />
                </font></RadioButton>
          </children>
       </Pane>

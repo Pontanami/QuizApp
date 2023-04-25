@@ -1,6 +1,5 @@
 package com.example.quizapp;
 
-import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.IHint;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
@@ -9,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.util.Duration;
 
 import java.math.BigDecimal;
@@ -34,7 +32,8 @@ public class multiChoiceController {
     @FXML
     private ProgressBar quizProgress;
 
-    private RadioButton[] radioButtons;
+
+    private final RadioButton[] radioButtons;
 
     BigDecimal progress = new BigDecimal("0.0");
 
@@ -59,10 +58,6 @@ public class multiChoiceController {
 
         radioButtons = new RadioButton[4];
 
-    }
-
-    public void clicked(){
-        System.out.println("In");
     }
 
     private void changeQuizName(){
