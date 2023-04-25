@@ -25,6 +25,15 @@ public class MultiChoiceController {
 
     public void initializeData(MultiChoice ques){
         this.ques = ques;
+
+        changeQuestionName();
+
+        radioButtons[0] = choice1;
+        radioButtons[1] = choice2;
+        radioButtons[2] = choice3;
+        radioButtons[3] = choice4;
+
+        changeRadioButtonNames();
     }
 
     private void changeQuestionName(){
@@ -51,18 +60,6 @@ public class MultiChoiceController {
                 rb.setStyle("-fx-text-fill: rgba(237,32,84,1) 100%");
             }
         }
-    }
-
-    @FXML
-    public void initialize() {
-        changeQuestionName();
-
-        radioButtons[0] = choice1;
-        radioButtons[1] = choice2;
-        radioButtons[2] = choice3;
-        radioButtons[3] = choice4;
-
-        changeRadioButtonNames();
     }
 
 }

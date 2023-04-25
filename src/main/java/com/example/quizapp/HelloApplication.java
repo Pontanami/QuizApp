@@ -88,7 +88,7 @@ public class HelloApplication extends Application {
         IHint<List<String>> hint1 = new EliminateChoiceHint(new ArrayList<>(Arrays.asList("1990", "1996",
                 "1995", "1992")), "3");
 
-        quiz.addQuestion(new MultiChoice("test question", "no answer given", new ArrayList<String>(){
+        quiz.addQuestion(new MultiChoice("test question", "2", new ArrayList<String>(){
             {
                 add("1");add("2");add("3");add("4");
             }
@@ -98,7 +98,8 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         TakeQuizController controller = fxmlLoader.getController(); //null????
-        controller.setQuiz(quiz);
+        controller.initializeData(quiz);
+
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

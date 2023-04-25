@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TakeQuizController implements Initializable {
+public class TakeQuizController{
 
     @FXML
     private Label QuizName;
@@ -22,8 +22,10 @@ public class TakeQuizController implements Initializable {
 
     private Quiz quiz;
 
-    public void setQuiz(Quiz quiz){
+    public void initializeData(Quiz quiz){
         this.quiz = quiz;
+        showQuestion();
+
     }
 
     public void showNext(){
@@ -41,20 +43,14 @@ public class TakeQuizController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
             pane = fxmlLoader.load();
-
             MultiChoiceController controller = fxmlLoader.getController();
             controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
 
         } catch (IOException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
         QuizHolder.setCenter(pane);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        showQuestion();
     }
 
 
