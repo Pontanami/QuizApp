@@ -55,8 +55,9 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
     Query createQuery(QuizQuery query) throws IllegalAccessException {
         Query q = colref;
         for (String key :query.getNonNullFields().keySet())
-            if (Objects.equals(key, "tags"))
+            if (Objects.equals(key, "tags")) {
                 q = q.whereArrayContainsAny(key, (List) query.getNonNullFields().get(key));
+            }
             else
                 q = q.whereEqualTo(key,query.getNonNullFields().get(key));
         return q;

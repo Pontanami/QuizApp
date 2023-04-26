@@ -40,7 +40,7 @@ public class QuizQuery extends FetchQuery {
      */
     public static class QuizQueryBuilder implements IBuilder<QuizQuery> {
         private String name, createdBy, id;
-        private List<Quiz.Subjects> tags = new ArrayList<>();
+        private List<Quiz.Subjects> tags;
 
         /**
          * Method for adding an id we want the query to search for2
@@ -79,6 +79,8 @@ public class QuizQuery extends FetchQuery {
          * @return a UserQueryBuilder object containing information used to query the password of the user
          */
         public QuizQueryBuilder setTags(List<Quiz.Subjects> tags) {
+            if(tags == null)
+                tags = new ArrayList<>();
             this.tags.addAll(tags);
             return this;
         }

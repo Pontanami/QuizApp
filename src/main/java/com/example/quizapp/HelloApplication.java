@@ -110,15 +110,10 @@ public class HelloApplication extends Application {
                 case "3" -> launch();
                 case "4" -> {
                     FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
-                    List<Quiz.Subjects> tags = new ArrayList<>();
-                    List<Quiz.Subjects> tag2 = new ArrayList<>();
-                    tag2.add(Quiz.Subjects.valueOf("SCIENCE"));
-                    QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setTags(tag2);
+                    QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder();
                     List<Quiz> quiz = quizrepo.getQuiz(query);
                     System.out.println(quiz);
-                    tags.add(Quiz.Subjects.valueOf("MATH"));
-                    query.setTags(tags);
-                    quiz = quizrepo.getQuiz(query);
+                    quiz = QuizSearch.search(quiz, "quiz");
                     System.out.println(quiz);
 
 
