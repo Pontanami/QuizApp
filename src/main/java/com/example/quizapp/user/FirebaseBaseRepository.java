@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Base class for all repositories that handles the connection to the Firestore database
  * @author Alex, Felix, Pontus
  */
-public abstract class FirebaseBaseRepository<T> {
+public abstract class FirebaseBaseRepository<T, E> {
 
     private FirebaseConnection conn;
     private final Firestore db;
@@ -113,4 +113,6 @@ public abstract class FirebaseBaseRepository<T> {
      * @return an object of type T
      */
     abstract T createObject(DocumentSnapshot doc);
+
+    abstract Query createQuery(E query) throws IllegalAccessException;
 }

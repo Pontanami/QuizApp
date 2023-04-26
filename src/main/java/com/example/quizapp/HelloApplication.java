@@ -58,7 +58,7 @@ public class HelloApplication extends Application {
                     System.out.println("Write name of account");
                     String name = scanner.next();
                     UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setName(name);
-                    List<User> users = userRepo.getUsers(userQ.build());
+                    List<User> users = userRepo.getUsers(userQ);
                     for (User user : users)
                     System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
                             " id=" + user.getId());
@@ -110,7 +110,21 @@ public class HelloApplication extends Application {
                 case "3" -> launch();
                 case "4" -> {
                     FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
-                    quizrepo.getQuiz("18xWvPahtOvtZ029Fc28");
+                    List<Quiz.Subjects> tags = new ArrayList<>();
+                    List<Quiz.Subjects> tag2 = new ArrayList<>();
+                    tag2.add(Quiz.Subjects.valueOf("SCIENCE"));
+                    QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setTags(tag2);
+                    List<Quiz> quiz = quizrepo.getQuiz(query);
+                    System.out.println(quiz);
+                    tags.add(Quiz.Subjects.valueOf("MATH"));
+                    query.setTags(tags);
+                    quiz = quizrepo.getQuiz(query);
+                    System.out.println(quiz);
+
+
+
+                    //List<Quiz> quiz = quizrepo.getQuiz(query);
+
                 }
                 case "q" -> {
                     running = false;
@@ -163,6 +177,8 @@ public class HelloApplication extends Application {
                     }
                     boolean viewingFlashCards = true;
                     boolean viewingQuestion = true;
+                    //"18xWvPahtOvtZ029Fc28"
+                    //quiz = quizrepo.getQuiz();
                     while (viewingFlashCards) {
 
                         if (viewingQuestion) {

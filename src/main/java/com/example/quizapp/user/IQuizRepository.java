@@ -1,8 +1,11 @@
 package com.example.quizapp.user;
 
 import com.example.quizapp.Quiz;
+import com.example.quizapp.QuizQuery;
+
+import java.util.List;
 
 public interface IQuizRepository {
-    Quiz getQuiz(String id);
+    List<Quiz> getQuiz(QuizQuery.QuizQueryBuilder query);
     void uploadQuiz(Quiz quiz, User currentUser);
 }

@@ -1,24 +1,25 @@
 package com.example.quizapp.user;
 
 import com.example.quizapp.Quiz;
+import com.example.quizapp.QuizQuery;
+import com.example.quizapp.UserQuery;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.IHint;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Query;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class FirebaseQuizRepository extends FirebaseBaseRepository implements IQuizRepository {
+public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQuery> implements IQuizRepository {
 
     private CollectionReference colref;
 
@@ -30,31 +31,38 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository implements IQ
     }
 
     @Override
-    Object createObject(DocumentSnapshot doc) {
-
+    Quiz createObject(DocumentSnapshot doc) {
+        Quiz quiz;
+        Type listType = new TypeToken<ArrayList<IQuizable<?>>>(){}.getType();
+        String json = doc.getString("quiz");
+        List<IQuizable<?>> questionList = gson.fromJson(json, listType);
+        quiz = new Quiz((String)doc.get("name"), questionList, (List)doc.get("tags"), (String)doc.get("id")
+                , (String)doc.get("createdBy"));
         /*
-        Class<?> c = Class.forName("mypackage.MyClass");
-        Constructor<?> cons = c.getConstructor(String.class);
-        Object object = cons.newInstance("MyAttributeValue");
-         */
         Quiz quiz = gson.fromJson(doc.getString("quiz"), Quiz.class);
-        System.out.println(quiz.getName());
-        return null;
+        System.out.println(quiz.getName());*/
+        return quiz;
+
+    }
+
+    Query createQuery(QuizQuery query) throws IllegalAccessException {
+        Query q = colref;
+        for (String key :query.getNonNullFields().keySet())
+            if (Objects.equals(key, "tags"))
+                q = q.whereArrayContainsAny(key, (List) query.getNonNullFields().get(key));
+            else
+                q = q.whereEqualTo(key,query.getNonNullFields().get(key));
+        return q;
     }
 
 
-    public Quiz getQuiz(String id) {
-        Quiz quiz = null;
-        try {
-            DocumentReference s = colref.document(id);
-            Type listType = new TypeToken<ArrayList<IQuizable<?>>>(){}.getType();
-            DocumentSnapshot doc = s.get().get();
-            String json = doc.getString("quiz");
-            List<IQuizable<?>> questionList = gson.fromJson(json, listType);
-            quiz = new Quiz((String)doc.get("name"), questionList, (List)doc.get("tags"), (String)doc.get("id")
-            , (String)doc.get("createdBy"));
+    public List<Quiz> getQuiz(QuizQuery.QuizQueryBuilder query) {
 
-        } catch (InterruptedException | ExecutionException e) {
+        List<Quiz> quiz = new ArrayList<>();
+        try {
+            quiz = getQueryResult(createQuery(query.build()));
+
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         return quiz;

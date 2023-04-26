@@ -12,7 +12,7 @@ import java.util.List;
 public class TestFirebaseUserRepository {
 
     private static FirebaseUserRepository repo;
-    UserQuery userQ = new UserQuery.UserQueryBuilder().setName("user1").build();
+    UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setName("user1");
     @BeforeAll
     public static void setup(){
         repo = FirebaseUserRepository.getAuth();
@@ -34,7 +34,7 @@ public class TestFirebaseUserRepository {
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
         repo.removeUser(id);
-        UserQuery userQ = new UserQuery.UserQueryBuilder().setId(id).build();
+        UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setId(id);
         List<User> users = repo.getUsers(userQ);
         Assertions.assertTrue(users.isEmpty());
     }
