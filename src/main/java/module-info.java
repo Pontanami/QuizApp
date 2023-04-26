@@ -15,4 +15,6 @@ module com.example.quizapp {
     exports com.example.quizapp;
     exports com.example.quizapp.user;
     opens com.example.quizapp.user to javafx.fxml;
+    exports com.example.quizapp.interfaces;
+    opens com.example.quizapp.interfaces to javafx.fxml;
 }

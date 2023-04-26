@@ -21,7 +21,7 @@ class QuizTest {
 
     @BeforeEach
     void setUp(){
-        quiz = new Quiz("QuizTest");
+        quiz = new Quiz();
     }
 
     @Test
@@ -89,7 +89,7 @@ class QuizTest {
         IQuizable<String> flash = new Flashcard("QuestionOne", "AnswerOne");
         IQuizable<String> flashSecond = new Flashcard("QuestionTwo", "AnswerTwo");
 
-        Quiz quiz1 = new Quiz("navigation quiz");
+        Quiz quiz1 = new Quiz();
 
         Assertions.assertThrows(IndexOutOfBoundsException.class, quiz1::nextQuestion);
         Assertions.assertThrows(IndexOutOfBoundsException.class, quiz1::getCurrentQuestion);
@@ -114,7 +114,7 @@ class QuizTest {
 
     @Test
     void quizPointsTest(){
-        Quiz quiz = new Quiz("points system test");
+        Quiz quiz = new Quiz();
 
         Assertions.assertEquals(0, quiz.getPoints());
         quiz.addPoint();

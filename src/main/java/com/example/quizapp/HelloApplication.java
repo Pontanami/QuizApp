@@ -121,7 +121,7 @@ public class HelloApplication extends Application {
         Scanner quizNameFetch = new Scanner(System.in);
         System.out.println("Enter a quiz name: ");
         String quizName = quizNameFetch.nextLine();
-        Quiz quiz = new Quiz(quizName);
+        Quiz quiz = new Quiz();
 
         System.out.println("How many subject does the quiz have: ");
 
@@ -267,7 +267,7 @@ public class HelloApplication extends Application {
         Scanner quizNameFetch = new Scanner(System.in);
         System.out.println("Enter a quiz name: ");
         String quizName = quizNameFetch.nextLine();
-        Quiz quiz = new Quiz(quizName);
+        Quiz quiz = new Quiz();
 
         System.out.println("How many subject does the quiz have: ");
         String tagNumber = quizNameFetch.nextLine();

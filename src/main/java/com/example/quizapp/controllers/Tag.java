@@ -17,7 +17,9 @@ public class Tag extends AnchorPane {
     Quiz quiz;
     Subject subject;
 
-    public Tag(Subject subject) {
+    private boolean isApplied = false;
+
+    public Tag(Subject subject, Quiz quiz) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tag.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -27,12 +29,21 @@ public class Tag extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
+        this.subject = subject;
         this.quiz = quiz;
         tagButton.setText(String.valueOf(subject));
     }
 
     @FXML
     private void tagClicked(){
-        quiz.addTag(subject);
+        if (!isApplied){
+            System.out.println(this);
+            quiz.addTag(subject);
+            isApplied = true;
+        }
+        else{
+            quiz.removeTag(subject);
+            isApplied = false;
+        }
     }
 }
