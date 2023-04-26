@@ -2,16 +2,21 @@ package com.example.quizapp.controllers;
 
 
 import com.example.quizapp.interfaces.IFlashcardManager;
+import com.example.quizapp.model.Subject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+
 import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager {
+public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager, Initializable {
 
     private AnchorPane rootpane;
 
@@ -27,6 +32,12 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     @FXML
     private ScrollPane flashcardScrollpane;
 
+    @FXML
+    private FlowPane tagBox;
+
+    @FXML
+    private VBox appliedTagBox;
+
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
         fxmlLoader.setRoot(this);
@@ -38,6 +49,8 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
         }
 
         this.rootpane = rootpane;
+
+
     }
 
     @FXML
@@ -72,5 +85,16 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     @FXML
     private void navigateToFlashcard(){
         flashcardPane.toFront();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tagBox.setHgap(10);
+        tagBox.setVgap(10);
+
+        for (Subject subject : Subject.values()){
+            tagBox.getChildren().add(new Tag(subject));
+        }
     }
 }

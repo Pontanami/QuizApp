@@ -128,7 +128,7 @@ public class HelloApplication extends Application {
         String tagNumber = quizNameFetch.nextLine();
         for (int i = 0; i < Integer.parseInt(tagNumber); i++){
             System.out.println("Please add a tag here: ");
-            quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));
+           /* quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));*/
         }
 
         Scanner in = new Scanner(System.in);
@@ -273,7 +273,7 @@ public class HelloApplication extends Application {
         String tagNumber = quizNameFetch.nextLine();
         for (int i = 0; i < Integer.parseInt(tagNumber); i++){
             System.out.println("Please add a tag here: ");
-            quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));
+            /*quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));*/
         }
 
         String[] options = {"Create a question", "Take a quiz", "Exit"};
