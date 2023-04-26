@@ -1,19 +1,26 @@
 package com.example.quizapp.controllers;
 
+
+import com.example.quizapp.interfaces.IObserver;
+import com.example.quizapp.model.Subject;
 import com.example.quizapp.Quiz;
-import com.example.quizapp.interfaces.IQuestionManager;
+import com.example.quizapp.interfaces.ICreateQuestion;
+import com.example.quizapp.interfaces.IQuizManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager {
-
+public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<CreateFlashcard>, Initializable, IObserver {
     private AnchorPane rootpane;
 
     @FXML
@@ -31,7 +38,15 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager 
     private ScrollPane flashcardScrollpane;
 
     @FXML
+
+    private FlowPane tagBox;
+
+    @FXML
+    private VBox appliedTagBox;
+
     private TextField quizName;
+
+    private Quiz quiz = new Quiz();
 
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
@@ -44,24 +59,37 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager 
         }
 
         this.rootpane = rootpane;
+
+        quiz.subscribe(this);
     }
 
+    //todo Move to quiz model
     @FXML
     public void addQuestion(){
         CreateFlashcard flashcard = new CreateFlashcard(this);
         questions.add(flashcard);
-        refreshView();
+        //update(); remove
     }
 
-    public void removeQuestion(CreateFlashcard flashcard){
+    public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
+        //quiz.removeQuestion(flashcard);
+
         questions.remove(flashcard);
-        refreshView();
+        update();
     }
 
-    public void refreshView(){
+    @Override
+    public void update(){
         items.getChildren().clear();
         items.getChildren().addAll(questions);
         flashcardScrollpane.setContent(items);
+
+        appliedTagBox.getChildren().clear();
+        for (Subject subject : quiz.getTags()){
+            Tag tag = new Tag(subject, quiz);
+            appliedTagBox.getChildren().add(tag);
+        }
+
     }
 
     @FXML
@@ -73,11 +101,13 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager 
     }
 
     private void createQuiz(){
-        Quiz quiz = new Quiz(quizName.getText());
+        Quiz quiz = new Quiz();
         for (var item : questions) {
             var question = item.createQuestion();
             quiz.addQuestion(question);
         }
+
+
 
         var q = quiz;
     }
@@ -92,4 +122,18 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager 
     private void navigateToFlashcard(){
         flashcardPane.toFront();
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tagBox.setHgap(10);
+        tagBox.setVgap(10);
+
+        appliedTagBox.setSpacing(10);
+
+        for (Subject subject : Subject.values()){
+            tagBox.getChildren().add(new Tag(subject, quiz));
+        }
+    }
+
 }

@@ -121,14 +121,14 @@ public class HelloApplication extends Application {
         Scanner quizNameFetch = new Scanner(System.in);
         System.out.println("Enter a quiz name: ");
         String quizName = quizNameFetch.nextLine();
-        Quiz quiz = new Quiz(quizName);
+        Quiz quiz = new Quiz();
 
         System.out.println("How many subject does the quiz have: ");
 
         String tagNumber = quizNameFetch.nextLine();
         for (int i = 0; i < Integer.parseInt(tagNumber); i++){
             System.out.println("Please add a tag here: ");
-            quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));
+           /* quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));*/
         }
 
         Scanner in = new Scanner(System.in);
@@ -269,13 +269,13 @@ public class HelloApplication extends Application {
         Scanner quizNameFetch = new Scanner(System.in);
         System.out.println("Enter a quiz name: ");
         String quizName = quizNameFetch.nextLine();
-        Quiz quiz = new Quiz(quizName);
+        Quiz quiz = new Quiz();
 
         System.out.println("How many subject does the quiz have: ");
         String tagNumber = quizNameFetch.nextLine();
         for (int i = 0; i < Integer.parseInt(tagNumber); i++){
             System.out.println("Please add a tag here: ");
-            quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));
+            /*quiz.addTag(Quiz.Subjects.valueOf(quizNameFetch.next().toUpperCase(Locale.ROOT)));*/
         }
 
         String[] options = {"Create a question", "Take a quiz", "Exit"};

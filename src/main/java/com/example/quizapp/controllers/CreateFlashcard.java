@@ -1,7 +1,7 @@
 package com.example.quizapp.controllers;
 
 import com.example.quizapp.interfaces.ICreateQuestion;
-import com.example.quizapp.interfaces.IQuestionManager;
+import com.example.quizapp.interfaces.IQuizManager;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.Flashcard;
 import javafx.fxml.FXML;
@@ -13,11 +13,11 @@ import java.io.IOException;
 
 public class CreateFlashcard extends AnchorPane implements ICreateQuestion<String> {
 
-    private IQuestionManager questionManager;
+    private IQuizManager questionManager;
     @FXML private TextField frontSide;
     @FXML private TextField backSide;
 
-    public CreateFlashcard(IQuestionManager questionManager) {
+    public CreateFlashcard(IQuizManager questionManager) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

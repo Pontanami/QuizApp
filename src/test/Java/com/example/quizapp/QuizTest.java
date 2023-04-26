@@ -2,6 +2,7 @@ package com.example.quizapp;
 
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.Flashcard;
+import com.example.quizapp.model.Subject;
 import com.example.quizapp.multiChoice.MultiChoice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,7 @@ class QuizTest {
 
     @BeforeEach
     void setUp(){
-        quiz = new Quiz("QuizTest");
+        quiz = new Quiz();
     }
 
     @Test
@@ -41,27 +42,27 @@ class QuizTest {
 
     @Test
     void getTags() {
-        String tag = "BIOLOGY";
-        assertTrue(quiz.addTag(Quiz.Subjects.valueOf(tag)));
+        String tag = "Biology";
+        assertTrue(quiz.addTag(Subject.valueOf(tag)));
 
-        List<Quiz.Subjects> tags = quiz.getTags();
+        List<Subject> tags = quiz.getTags();
         assertEquals(1, tags.size());
-        assertEquals(Quiz.Subjects.valueOf(tag), tags.get(0));
+        assertEquals(Subject.valueOf(tag), tags.get(0));
     }
 
     @Test
     void addTag() {
-        String tag1 = "BIOLOGY";
-        assertTrue(quiz.addTag(Quiz.Subjects.valueOf(tag1)));
-        assertFalse(quiz.addTag(Quiz.Subjects.valueOf(tag1)));
+        String tag1 = "Biology";
+        assertTrue(quiz.addTag(Subject.valueOf(tag1)));
+        assertFalse(quiz.addTag(Subject.valueOf(tag1)));
         assertEquals(1, quiz.getTags().size());
     }
 
     @Test
     void removeTag() {
-        String tag = "BIOLOGY";
-        assertTrue(quiz.addTag(Quiz.Subjects.valueOf(tag)));
-        assertTrue(quiz.removeTag(Quiz.Subjects.valueOf(tag)));
+        String tag = "Biology";
+        assertTrue(quiz.addTag(Subject.valueOf(tag)));
+        assertTrue(quiz.removeTag(Subject.valueOf(tag)));
         assertEquals(0, quiz.getTags().size());
     }
 
@@ -88,7 +89,7 @@ class QuizTest {
         IQuizable<String> flash = new Flashcard("QuestionOne", "AnswerOne");
         IQuizable<String> flashSecond = new Flashcard("QuestionTwo", "AnswerTwo");
 
-        Quiz quiz1 = new Quiz("navigation quiz");
+        Quiz quiz1 = new Quiz();
 
         Assertions.assertThrows(IndexOutOfBoundsException.class, quiz1::nextQuestion);
         Assertions.assertThrows(IndexOutOfBoundsException.class, quiz1::getCurrentQuestion);
@@ -113,7 +114,7 @@ class QuizTest {
 
     @Test
     void quizPointsTest(){
-        Quiz quiz = new Quiz("points system test");
+        Quiz quiz = new Quiz();
 
         Assertions.assertEquals(0, quiz.getPoints());
         quiz.addPoint();

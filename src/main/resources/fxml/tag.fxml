@@ -4,13 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="223.0" style="-fx-background-color: D9D9D9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: D9D9D9;" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="-1.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="223.0" style="-fx-background-color: transparent;" text="Math">
+      <Button fx:id="tagButton" layoutX="-1.0" mnemonicParsing="false" onAction="#tagClicked" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="tagButton">
          <font>
-            <Font size="20.0" />
+            <Font size="17.0" />
          </font>
       </Button>
    </children>
-</AnchorPane>
+</fx:root>
