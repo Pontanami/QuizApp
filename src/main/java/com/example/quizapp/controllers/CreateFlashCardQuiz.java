@@ -1,22 +1,28 @@
 package com.example.quizapp.controllers;
 
 
-import com.example.quizapp.interfaces.IFlashcardManager;
 import com.example.quizapp.model.Subject;
+
+import com.example.quizapp.Quiz;
+import com.example.quizapp.interfaces.IQuestionManager;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager, Initializable {
 
-public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager, Initializable {
 
     private AnchorPane rootpane;
 
@@ -29,14 +35,20 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     @FXML
     private VBox items;
 
+    private List<CreateFlashcard> questions = new ArrayList<>();
+
     @FXML
     private ScrollPane flashcardScrollpane;
 
     @FXML
+
     private FlowPane tagBox;
 
     @FXML
     private VBox appliedTagBox;
+
+    private TextField quizName;
+
 
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
@@ -54,26 +66,39 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     }
 
     @FXML
-    private void createFlashcard(){
+    public void addQuestion(){
         CreateFlashcard flashcard = new CreateFlashcard(this);
-
-        items.getChildren().add(flashcard);
-        items.setSpacing(10);
-
-        flashcardScrollpane.setContent(items);
+        questions.add(flashcard);
+        refreshView();
     }
 
-    public void removeQuestion(Pane flashcard){
+    public void removeQuestion(CreateFlashcard flashcard){
+        questions.remove(flashcard);
+        refreshView();
+    }
 
-        items.getChildren().remove(flashcard);
-        items.setSpacing(10);
-
+    public void refreshView(){
+        items.getChildren().clear();
+        items.getChildren().addAll(questions);
         flashcardScrollpane.setContent(items);
     }
 
     @FXML
     public void navigateToTagPane() {
         tagPane.toFront();
+
+        //todo remove
+        createQuiz();
+    }
+
+    private void createQuiz(){
+        Quiz quiz = new Quiz(quizName.getText());
+        for (var item : questions) {
+            var question = item.createQuestion();
+            quiz.addQuestion(question);
+        }
+
+        var q = quiz;
     }
 
     @FXML
