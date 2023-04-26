@@ -1,17 +1,23 @@
 package com.example.quizapp.controllers;
 
-import com.example.quizapp.interfaces.IFlashcardManager;
+import com.example.quizapp.interfaces.ICreateQuestion;
+import com.example.quizapp.interfaces.IQuestionManager;
+import com.example.quizapp.interfaces.IQuizable;
+import com.example.quizapp.model.Flashcard;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class CreateFlashcard extends AnchorPane{
+public class CreateFlashcard extends AnchorPane implements ICreateQuestion<String> {
 
-    private IFlashcardManager quiz;
+    private IQuestionManager questionManager;
+    @FXML private TextField frontSide;
+    @FXML private TextField backSide;
 
-    public CreateFlashcard(IFlashcardManager quiz) {
+    public CreateFlashcard(IQuestionManager questionManager) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -21,12 +27,15 @@ public class CreateFlashcard extends AnchorPane{
             throw new RuntimeException(exception);
         }
 
-        this.quiz = quiz;
+        this.questionManager = questionManager;
     }
 
+    public IQuizable<String> createQuestion(){
+        return new Flashcard(frontSide.getText(), backSide.getText());
+    }
 
     @FXML
-    public void removeFlashcard(){
-        quiz.removeQuestion(this);
+    public void removeQuestion(){
+        questionManager.removeQuestion(this);
     }
 }
