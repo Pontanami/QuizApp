@@ -27,4 +27,26 @@ public class CreateQuiz extends AnchorPane{
         rootpane.getChildren().clear();
         rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
     }
+
+
+
+    @FXML
+    public void navigateBack() {
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(new CreateQuiz());
+    }
+
+    @FXML
+    public void navigateBackd() {
+        rootpane.toFront();
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
+    }
+
+    @FXML
+    public void navigateNext() {
+        rootpane.toBack();
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
+    }
 }
