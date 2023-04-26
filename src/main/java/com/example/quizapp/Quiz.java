@@ -13,6 +13,7 @@ public class Quiz {
     private String id, createdBy;
 
 
+
     public enum Subjects {
         MATH,
         SCIENCE,
@@ -106,6 +107,14 @@ public class Quiz {
     }
     public int getPoints(){
         return points;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
     }
 
 }

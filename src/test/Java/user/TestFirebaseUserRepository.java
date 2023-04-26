@@ -23,7 +23,7 @@ public class TestFirebaseUserRepository {
         User user;
         repo.createUser("user1", "user1@gmail.com", "user321");
         String id = repo.getCurrentUser().getId();
-
+        System.out.println(id);
         user = repo.getUsers(userQ).get(0);
         Assertions.assertEquals("user1", user.getName());
         repo.removeUser(id);

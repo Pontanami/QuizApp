@@ -105,4 +105,14 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
 
         }
     }
+
+    public void removeQuiz(String id){
+        CompletableFuture<Void> future = deleteFromDb(colref, id);
+        try {
+            future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Quiz removed");
+    }
 }
