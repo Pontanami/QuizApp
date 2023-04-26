@@ -43,4 +43,22 @@ public class TestFirebaseQuizRepo {
         Assertions.assertEquals(quiz.getName(), "testQuiz");
         repo.removeQuiz(currentQuiz.getId());
     }
+
+    @Test
+    public void testGetQuizFromUser() {
+        repo.uploadQuiz(quiz, currentUser);
+        Quiz currentQuiz = repo.getQuiz(query.setCreatedBy("123")).get(0);
+        Assertions.assertEquals(quiz.getName(), "testQuiz");
+        repo.removeQuiz(currentQuiz.getId());
+    }
+
+    @Test
+    public void testRemoveQuiz() {
+        repo.uploadQuiz(quiz, currentUser);
+        Quiz currentQuiz = repo.getQuiz(query.setCreatedBy("123")).get(0);
+        repo.removeQuiz(currentQuiz.getId());
+        Assertions.assertTrue(repo.getQuiz(query.setCreatedBy("123")).isEmpty());
+    }
+
+
 }

@@ -47,8 +47,10 @@ public abstract class FirebaseBaseRepository<T, E> {
         try {
             QuerySnapshot querySnapshot = query.get();
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-            if (documents.isEmpty())
-                throw new RuntimeException("No documents found");
+            if (documents.isEmpty()) {
+                System.out.println("No documents found");
+                return objects;
+            }
             else {
                 for (DocumentSnapshot doc : documents){
                     objects.add(createObject(doc));
