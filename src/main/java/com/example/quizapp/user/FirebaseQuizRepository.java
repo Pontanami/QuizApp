@@ -2,26 +2,27 @@ package com.example.quizapp.user;
 
 import com.example.quizapp.Quiz;
 import com.example.quizapp.QuizQuery;
-import com.example.quizapp.UserQuery;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.IHint;
 import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Class for handling operations to the quiz collection in the database
+ * @author Pontus, Felix
+ */
 public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQuery> implements IQuizRepository {
 
-    private CollectionReference colref;
+    private final CollectionReference colref;
 
     Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(IQuizable.class, new QuizableTypeAdapter())
             .registerTypeAdapter(IHint.class, new HintTypeAdapter()).create();
@@ -30,6 +31,11 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         colref = getCollection("quizzes");
     }
 
+    /**
+     * Method for creating a quiz object from a document snapshot from Firestore
+     * @param doc the {@link DocumentSnapshot} we want to create the object from
+     * @return a {@link Quiz} object
+     */
     @Override
     Quiz createObject(DocumentSnapshot doc) {
         Quiz quiz;
@@ -38,13 +44,14 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         List<IQuizable<?>> questionList = gson.fromJson(json, listType);
         quiz = new Quiz((String)doc.get("name"), questionList, (List)doc.get("tags"), (String)doc.get("id")
                 , (String)doc.get("createdBy"));
-        /*
-        Quiz quiz = gson.fromJson(doc.getString("quiz"), Quiz.class);
-        System.out.println(quiz.getName());*/
         return quiz;
-
     }
-
+     /**
+      * Method for creating a query based on the query object
+      * @param query the query object we want to use to create the query
+      * @return a query object that can be used to get the data from the database
+      */
+    @Override
     Query createQuery(QuizQuery query) throws IllegalAccessException {
         Query q = colref;
         for (String key :query.getNonNullFields().keySet())
@@ -55,7 +62,12 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         return q;
     }
 
-
+    /**
+     * Method for getting a quiz from the database
+     * @param query the query we want to use to get the quiz
+     * @return a {@link List} of {@link Quiz} objects that match the query
+     */
+    @Override
     public List<Quiz> getQuiz(QuizQuery.QuizQueryBuilder query) {
 
         List<Quiz> quiz = new ArrayList<>();
@@ -68,6 +80,11 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         return quiz;
     }
 
+    /**
+     * Method for uploading a quiz to the database
+     * @param quiz the {@link Quiz} we want to upload
+     * @param currentUser the {@link User} that is uploading the quiz
+     */
     public void uploadQuiz(Quiz quiz, User currentUser){
         String json = gson.toJson(quiz.getQuestions(), new TypeToken<List<IQuizable<?>>>() {}.getType());
         System.out.println(json);
@@ -86,6 +103,5 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
             e.printStackTrace();
 
         }
-
     }
 }
