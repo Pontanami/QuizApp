@@ -19,6 +19,9 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     private AnchorPane tagPane;
 
     @FXML
+    private AnchorPane flashcardPane;
+
+    @FXML
     private VBox items;
 
     @FXML
@@ -58,5 +61,16 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     @FXML
     public void navigateToTagPane() {
         tagPane.toFront();
+    }
+
+    @FXML
+    private void navigateToMenu(){
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(new CreateQuiz());
+    }
+
+    @FXML
+    private void navigateToFlashcard(){
+        flashcardPane.toFront();
     }
 }

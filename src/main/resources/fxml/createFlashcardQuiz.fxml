@@ -9,8 +9,16 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="tagPane" prefHeight="700.0" prefWidth="1497.0" style="-fx-background-color: GRAY;" />
-      <AnchorPane prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="tagPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: GRAY;">
+         <children>
+            <Button layoutX="30.0" layoutY="636.0" mnemonicParsing="false" onAction="#navigateToFlashcard" prefHeight="35.0" prefWidth="100.0" text="BACK" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="638.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="flashcardPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name">
                <font>
@@ -22,7 +30,7 @@
                   <VBox fx:id="items" prefHeight="200.0" prefWidth="100.0" />
                </content>
             </ScrollPane>
-            <Button layoutX="31.0" layoutY="638.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="101.0" text="BACK">
+            <Button layoutX="31.0" layoutY="638.0" mnemonicParsing="false" onAction="#navigateToMenu" prefHeight="35.0" prefWidth="100.0" text="BACK" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="638.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
