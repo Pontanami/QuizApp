@@ -114,5 +114,11 @@ public abstract class FirebaseBaseRepository<T, E> {
      */
     abstract T createObject(DocumentSnapshot doc);
 
+
+    /**
+     * Method to create an query of type E from a {@link FetchQuery}
+     * @param query the query we want to fetch from
+     * @return a Query containing the searchpath
+     */
     abstract Query createQuery(E query) throws IllegalAccessException;
 }
