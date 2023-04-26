@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.controllers.LoginController">
+   <children>
+      <TextField fx:id="emailField" layoutX="810.0" layoutY="518.0" promptText="Email" />
+      <TextField fx:id="passwordField" layoutX="808.0" layoutY="575.0" promptText="password" />
+      <Button fx:id="loginBtn" layoutX="857.0" layoutY="654.0" mnemonicParsing="false" onAction="#login" text="Log in" />
+   </children>
+</AnchorPane>

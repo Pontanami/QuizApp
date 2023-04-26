@@ -84,7 +84,7 @@ public class HelloApplication extends Application {
 
         }*/
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/createQuiz.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1500, 700);
         stage.setTitle("Hello!");
         stage.setScene(scene);
