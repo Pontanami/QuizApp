@@ -11,13 +11,13 @@
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label fx:id="QuizName" layoutX="53.0" layoutY="28.0" text="Name">
+            <Label fx:id="quizName" layoutX="53.0" layoutY="28.0" text="Name">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
             </Label>
             <ProgressBar fx:id="quizProgress" layoutX="53.0" layoutY="70.0" prefHeight="27.0" prefWidth="494.0" progress="0.0" />
-            <BorderPane fx:id="QuizHolder" layoutX="50.0" layoutY="110.0" prefHeight="200.0" prefWidth="500.0" />
+            <BorderPane fx:id="quizHolder" layoutX="50.0" layoutY="110.0" prefHeight="200.0" prefWidth="500.0" />
             <Button fx:id="quizPrevious" layoutX="53.0" layoutY="339.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="34.0" prefWidth="81.0" text="Previous" textAlignment="CENTER" />
             <Button fx:id="answerButton" layoutX="300.0" layoutY="339.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="97.0" text="Reveal answer" textAlignment="CENTER" />
             <Button fx:id="quizNext" layoutX="469.0" layoutY="339.0" mnemonicParsing="false" onAction="#showNext" prefHeight="34.0" prefWidth="81.0" text="Next" textAlignment="CENTER" />

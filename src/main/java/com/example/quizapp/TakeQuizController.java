@@ -6,7 +6,6 @@ import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.multiChoice.MultiChoice;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -16,13 +15,12 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.HashMap;
 
 public class TakeQuizController{
 
-    @FXML private Label QuizName;
-    @FXML private BorderPane QuizHolder;
+    @FXML private Label quizName;
+    @FXML private BorderPane quizHolder;
     @FXML private ProgressBar quizProgress;
     @FXML private Button quizNext;
     @FXML private Button answerButton;
@@ -31,6 +29,7 @@ public class TakeQuizController{
 
 
     private IAnswerable specificController;
+    private final HashMap<String, AnchorPane> controllers = new HashMap<>();
 
     private Quiz quiz;
     private boolean isFlashCard = false;
@@ -48,37 +47,40 @@ public class TakeQuizController{
 
     public void initializeData(Quiz quiz){
         this.quiz = quiz;
-        QuizName.setText(quiz.getName());
-        quizNext.setDisable(true);
+        quizName.setText(quiz.getName());
         quizPrevious.setDisable(true);
         showQuestion();
     }
 
     public void showNext(){
         quiz.nextQuestion();
-        increaseProgress();
-        showQuestion();
-        quizNext.setDisable(true);
-        answerButton.setDisable(false);
-        hintButton.setDisable(false);
+        if (!controllers.containsKey(quiz.getCurrentQuestion().getQuestion())) {
+            showQuestion();
+        }else{
+            retrieveQuestion();
+        }
         quizPrevious.setDisable(false);
     }
 
     public void showPrevious(){
         quiz.prevQuestion();
-        showQuestion();
+        retrieveQuestion();
+        if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
+            quizPrevious.setDisable(true);
+        }
+    }
+
+    private void retrieveQuestion() {
+        quizHolder.setCenter(controllers.get(quiz.getCurrentQuestion().getQuestion()));
     }
 
     public void showHint(){
         specificController.showHint();
-        hintButton.setDisable(true);
     }
 
     public void showAnswer(){
         specificController.revealAnswer();
-        quizNext.setDisable(false);
-        answerButton.setDisable(true);
-        hintButton.setDisable(true);
+        increaseProgress();
     }
 
     private void showQuestion() {
@@ -99,12 +101,12 @@ public class TakeQuizController{
                 controller.initializeData((Flashcard) quiz.getCurrentQuestion());
                 specificController = controller;
             }
-
+            controllers.put(quiz.getCurrentQuestion().getQuestion(), pane);
+            quizHolder.setCenter(pane);
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        QuizHolder.setCenter(pane);
     }
 
     private void increaseProgress(){
