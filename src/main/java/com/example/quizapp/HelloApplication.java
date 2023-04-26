@@ -4,12 +4,11 @@ import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.*;
-import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.model.Flashcard;
-import com.example.quizapp.multiChoice.MultiChoice;
-import com.example.quizapp.user.User;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, IllegalAccessException {
-        boolean running = true;
+/*        boolean running = true;
         while(running) {
             userRepo = FirebaseUserRepository.getAuth();
             Scanner scanner = new Scanner(System.in);
@@ -83,17 +82,19 @@ public class HelloApplication extends Application {
                 }
             }
 
-        }
+        }*/
 
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        //stage.setTitle("Hello!");
-        //stage.setScene(scene);
-        //stage.show();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 700);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
     }
 
+
+
     public static void main(String[] args) {
-        boolean running = true;
+        /*boolean running = true;
         while (running){
             Scanner in = new Scanner(System.in);
             System.out.println("1 - Create a FlashCard quiz");
@@ -112,7 +113,7 @@ public class HelloApplication extends Application {
                 }
                 default -> System.out.println("Please choose 1, 2, or q");
             }
-        }
+        }*/
         launch();
     }
 

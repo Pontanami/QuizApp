@@ -8,6 +8,9 @@ module com.example.quizapp {
     requires com.google.auth;
     requires google.cloud.core;
 
+    exports com.example.quizapp.controllers;
+    opens com.example.quizapp.controllers to javafx.fxml;
+
     opens com.example.quizapp to javafx.fxml;
     exports com.example.quizapp;
     exports com.example.quizapp.user;
