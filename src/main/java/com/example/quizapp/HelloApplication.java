@@ -145,6 +145,8 @@ public class HelloApplication extends Application {
                 }
 
                 case "2" -> {
+
+                    QuizAttempt quizAttempt = new QuizAttempt(quiz);
                     if (quiz.getQuestions().size() == 0) {  //Changed from flashcards list
                         System.out.println("No flashcards added.");
                         break;
@@ -154,10 +156,10 @@ public class HelloApplication extends Application {
                     while (viewingFlashCards) {
 
                         if (viewingQuestion) {
-                            System.out.println("Question: " + quiz.getCurrentQuestion().getQuestion());
+                            System.out.println("Question: " + quizAttempt.getCurrentQuestion().getQuestion());
                         } else {
-                            System.out.println("Question: " + quiz.getCurrentQuestion().getQuestion());
-                            System.out.println("Answer: " + quiz.getCurrentQuestion().getAnswer());
+                            System.out.println("Question: " + quizAttempt.getCurrentQuestion().getQuestion());
+                            System.out.println("Answer: " + quizAttempt.getCurrentQuestion().getAnswer());
 
                             String userInput;
                             do {
@@ -169,13 +171,13 @@ public class HelloApplication extends Application {
 
                             boolean isCorrect = FlashcardValidator.validate(userInput);
                             if(isCorrect)
-                                quiz.addPoint();
+                                quizAttempt.addPoint();
 
-                            System.out.println("Current score: " + quiz.getPoints());
+                            System.out.println("Current score: " + quizAttempt.getPoints());
 
                             viewingQuestion = true;
-                            System.out.println("Question: " + quiz.getCurrentQuestion().getQuestion());
-                            System.out.println("Answer: " + quiz.getCurrentQuestion().getAnswer());
+                            System.out.println("Question: " + quizAttempt.getCurrentQuestion().getQuestion());
+                            System.out.println("Answer: " + quizAttempt.getCurrentQuestion().getAnswer());
                         }
 
                         System.out.println("1 - Flip flashcard");
@@ -193,13 +195,13 @@ public class HelloApplication extends Application {
                                 viewingQuestion = !viewingQuestion;
                                 break;
                             case "2":
-                                quiz.prevQuestion();
+                                quizAttempt.prevQuestion();
                                 break;
                             case "3":
-                                quiz.nextQuestion();
+                                quizAttempt.nextQuestion();
                                 break;
                             case "4":
-                                System.out.println("The hint is: " + quiz.getCurrentQuestion().showHint());
+                                System.out.println("The hint is: " + quizAttempt.getCurrentQuestion().showHint());
                                 break;
                             case "q":
                                 viewingFlashCards = false;
@@ -333,6 +335,7 @@ public class HelloApplication extends Application {
                     }
                     break;
                 case "2":
+                    QuizAttempt quizAttempt = new QuizAttempt(quiz);
                     Scanner scanner = new Scanner(System.in);
                     if (quiz.getQuestions().isEmpty()) {
                         System.out.println("There are no available quiz questions. You need to create them first.\n");
@@ -340,7 +343,7 @@ public class HelloApplication extends Application {
 
                         for (IQuizable<?> ques : quiz.getQuestions()) {
                             MultiChoice currentQues = (MultiChoice) ques;
-                            System.out.println(quiz.getCurrentQuestion().getQuestion());
+                            System.out.println(quizAttempt.getCurrentQuestion().getQuestion());
                             for (int j = 0; j < 4; j++) {
 
                                 System.out.println("Choice " + (j + 1) + ": " + currentQues.getChoices().get(j));
@@ -369,7 +372,7 @@ public class HelloApplication extends Application {
                             } else {
                                 System.out.println("Sorry, the correct answer is: " + currentQues.getAnswer());
                             }
-                            quiz.nextQuestion();
+                            quizAttempt.nextQuestion();
                         }
 
                         System.out.print("\n");
