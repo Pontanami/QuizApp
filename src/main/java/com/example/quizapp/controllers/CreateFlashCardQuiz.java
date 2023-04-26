@@ -1,5 +1,6 @@
 package com.example.quizapp.controllers;
 
+
 import com.example.quizapp.interfaces.IFlashcardManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +8,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
+
 
 public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager {
 
