@@ -1,26 +1,16 @@
 package com.example.quizapp;
 
 import com.example.quizapp.interfaces.IQuizable;
+import com.example.quizapp.model.Subject;
 
 import java.util.*;
 
 public class Quiz {
     private final String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
-    private List<Subjects> tags = new ArrayList<>();
+    private List<Subject> tags = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int points = 0;
-
-    public enum Subjects {
-        MATH,
-        SCIENCE,
-        BIOLOGY,
-        ENGLISH,
-        HISTORY,
-        PHYSICS,
-        GEOGRAPHY,
-        CHEMISTRY
-    }
 
     /**
      * A class that includes a collection of questions of the type IQuizable
@@ -38,11 +28,11 @@ public class Quiz {
         return questions;
     }
 
-    public List<Subjects> getTags() {
+    public List<Subject> getTags() {
         return tags;
     }
 
-    public boolean addTag(Subjects tag){
+    public boolean addTag(Subject tag){
         if (!tags.contains(tag)) {
             tags.add(tag);
             return true;
@@ -50,7 +40,7 @@ public class Quiz {
         return false;
     }
 
-    public boolean removeTag(Subjects tag){
+    public boolean removeTag(Subject tag){
         return tags.remove(tag);
     }
 

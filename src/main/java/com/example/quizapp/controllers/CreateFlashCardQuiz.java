@@ -1,20 +1,26 @@
 package com.example.quizapp.controllers;
 
+
+import com.example.quizapp.model.Subject;
 import com.example.quizapp.Quiz;
 import com.example.quizapp.interfaces.ICreateQuestion;
 import com.example.quizapp.interfaces.IQuizManager;
+import com.example.quizapp.interfaces.IQuestionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<CreateFlashcard> {
-
+public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<CreateFlashcard>, Initializable {
     private AnchorPane rootpane;
 
     @FXML
@@ -32,7 +38,14 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     private ScrollPane flashcardScrollpane;
 
     @FXML
+
+    private FlowPane tagBox;
+
+    @FXML
+    private VBox appliedTagBox;
+
     private TextField quizName;
+
 
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
@@ -45,6 +58,8 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         }
 
         this.rootpane = rootpane;
+
+
     }
 
     @FXML
@@ -94,5 +109,16 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     @FXML
     private void navigateToFlashcard(){
         flashcardPane.toFront();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        tagBox.setHgap(10);
+        tagBox.setVgap(10);
+
+        for (Subject subject : Subject.values()){
+            tagBox.getChildren().add(new Tag(subject));
+        }
     }
 }
