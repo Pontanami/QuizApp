@@ -20,7 +20,7 @@
       </AnchorPane>
       <AnchorPane fx:id="flashcardPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name">
+            <TextField fx:id="quizName" alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name">
                <font>
                   <Font size="23.0" />
                </font>

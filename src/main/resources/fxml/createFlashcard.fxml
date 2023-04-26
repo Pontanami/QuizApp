@@ -9,7 +9,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" text="What is a flashcard?">
+      <TextField fx:id="frontSide" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" text="What is a flashcard?">
          <font>
             <Font size="20.0" />
          </font>
@@ -20,7 +20,7 @@
          </font>
       </Text>
       <Line endX="-40.4000244140625" endY="147.00003051757812" layoutX="756.0" layoutY="53.0" startX="-40.4000244140625" startY="-52.99998474121094" strokeWidth="0.5" />
-      <TextField layoutX="755.0" layoutY="6.0" prefHeight="63.0" prefWidth="660.0" text="What is a flashcard?">
+      <TextField fx:id="backSide" layoutX="755.0" layoutY="6.0" prefHeight="63.0" prefWidth="660.0" text="What is a flashcard?">
          <font>
             <Font size="20.0" />
          </font>

@@ -1,14 +1,20 @@
 package com.example.quizapp.controllers;
 
 
+import com.example.quizapp.Quiz;
 import com.example.quizapp.interfaces.IFlashcardManager;
+import com.example.quizapp.model.IQuestion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager {
@@ -24,8 +30,13 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
     @FXML
     private VBox items;
 
+    private List<CreateFlashcard> questions = new ArrayList<>();
+
     @FXML
     private ScrollPane flashcardScrollpane;
+
+    @FXML
+    private TextField quizName;
 
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
@@ -38,11 +49,13 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
         }
 
         this.rootpane = rootpane;
+
     }
 
     @FXML
     private void createFlashcard(){
         CreateFlashcard flashcard = new CreateFlashcard(this);
+        questions.add(flashcard);
 
         items.getChildren().add(flashcard);
         items.setSpacing(10);
@@ -50,17 +63,33 @@ public class CreateFlashCardQuiz extends AnchorPane implements IFlashcardManager
         flashcardScrollpane.setContent(items);
     }
 
-    public void removeQuestion(Pane flashcard){
+    public void removeQuestion(CreateFlashcard flashcard){
+        questions.remove(flashcard);
 
-        items.getChildren().remove(flashcard);
-        items.setSpacing(10);
+    }
 
+    public void refreshView(){
+
+        items.getChildren().clear();
         flashcardScrollpane.setContent(items);
     }
 
     @FXML
     public void navigateToTagPane() {
         tagPane.toFront();
+
+        //todo remove
+        createQuiz();
+    }
+
+    private void createQuiz(){
+        Quiz quiz = new Quiz(quizName.getText());
+        for (var item : questions) {
+            var question = item.createCard();
+            quiz.addQuestion(question);
+        }
+
+        var q = quiz;
     }
 
     @FXML
