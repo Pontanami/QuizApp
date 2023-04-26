@@ -104,7 +104,7 @@ public class HelloApplication extends Application {
             }
         }, hint2));
 
-        quiz2.addQuestion(new Flashcard("this is a test question", "this is a test answer"));
+        quiz2.addQuestion(new Flashcard("this is a test question", "this is a test answer", new HalfWordHint("this is a test answer")));
         quiz2.addQuestion(new Flashcard("this is a test question2", "this is a test answer2"));
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("takeQuiz.fxml"));
@@ -112,8 +112,8 @@ public class HelloApplication extends Application {
 
         TakeQuizController controller = fxmlLoader.getController();
         controller.setAsFlashCardQuiz();
-        //controller.setAsMultiChoiceQuiz();
-        controller.initializeData(quiz2);
+        controller.setAsMultiChoiceQuiz();
+        controller.initializeData(quiz);
 
         stage.setTitle("Quiz App");
         stage.setScene(scene);

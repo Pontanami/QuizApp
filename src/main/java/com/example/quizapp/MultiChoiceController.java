@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.interfaces.IAnswerable;
 import com.example.quizapp.model.IHint;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
@@ -9,14 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import java.util.List;
 
-public class MultiChoiceController {
+public class MultiChoiceController implements IAnswerable {
 
     @FXML
     private Label multiQuestion;
-    @FXML
-    private Button hintButton;
-    @FXML
-    private Button showAnswerButton;
 
     @FXML
     private RadioButton choice1, choice2, choice3, choice4;
@@ -42,6 +39,8 @@ public class MultiChoiceController {
         radioButtons[3] = choice4;
 
         changeRadioButtonNames();
+
+
     }
 
     private void changeQuestionName(){
@@ -60,7 +59,14 @@ public class MultiChoiceController {
         }
     }
 
-    public void checkAnswer(){
+    @Override
+    public void showHint() {
+        choices = ques.showHint();
+        init();
+    }
+
+    @Override
+    public void revealAnswer(){
         for (RadioButton rb : radioButtons){
             if (rb.getText().equals(ques.getAnswer())){
                 if(rb.isSelected()){
@@ -73,14 +79,6 @@ public class MultiChoiceController {
                 rb.setId("wrongAnswer");
             }
         }
-        showAnswerButton.setDisable(true);
-        hintButton.setDisable(true);
-    }
-
-    public void useHint(){
-        choices = ques.showHint();
-        hintButton.setDisable(true);
-        init();
     }
 
 }

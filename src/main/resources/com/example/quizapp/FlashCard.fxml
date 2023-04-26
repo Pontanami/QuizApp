@@ -5,18 +5,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.model.FlashCardController">
+<AnchorPane id="AnchorMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.model.FlashCardController">
    <children>
-      <AnchorPane id="quizPane" fx:id="clickablePane" onMouseClicked="#revealCardAnswer" prefHeight="200.0" prefWidth="300.0" stylesheets="@multiChoiceCSS.css">
-          <children>
-              <Label id="labelChangable" fx:id="txtLabel" alignment="CENTER" prefHeight="180.0" prefWidth="300.0" textAlignment="CENTER" wrapText="true">
+      <AnchorPane prefHeight="200.0" prefWidth="400.0">
+         <children>
+            <AnchorPane id="quizPane" fx:id="clickablePane" onMouseClicked="#revealAnswer" prefHeight="200.0" prefWidth="300.0" stylesheets="@multiChoiceCSS.css">
+                <children>
+                    <Label id="labelChangable" fx:id="txtLabel" alignment="CENTER" prefHeight="180.0" prefWidth="300.0" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </AnchorPane>
+            <Label fx:id="hintLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="30.0" prefHeight="141.0" prefWidth="97.0" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font size="24.0" />
-               </font></Label>
-          </children>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
       </AnchorPane>
    </children>
 </AnchorPane>

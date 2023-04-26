@@ -1,5 +1,6 @@
 package com.example.quizapp.model;
 
+import com.example.quizapp.interfaces.IAnswerable;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
@@ -15,37 +16,25 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FlashCardController {
+public class FlashCardController implements IAnswerable {
     @FXML private AnchorPane clickablePane;
     @FXML private Label txtLabel;
+    @FXML private Label hintLabel;
 
     private int textIndex = 0;
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
-    private final double rotationTime = 1000;
+    private Flashcard card;
 
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
         termDef[1] = card.getAnswer();
-        
+        this.card = card;
+        hintLabel.setVisible(false);
         setText();
     }
 
     private void setText(){
         txtLabel.setText(termDef[textIndex]);
-    }
-
-    public void revealCardAnswer(){
-        RotateTransition rotator = createRotator(clickablePane);
-        rotator.play();
-        txtLabel.setText("");
-        textIndex = Math.abs((textIndex+1) % 2);
-
-        rotator.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                setText();
-            }
-        });
     }
 
     private RotateTransition createRotator(Node card) {
@@ -59,5 +48,26 @@ public class FlashCardController {
         card.setScaleX(-1);
 
         return rotator;
+    }
+
+    @Override
+    public void showHint() {
+        hintLabel.setText(card.showHint());
+        hintLabel.setVisible(true);
+    }
+
+    @Override
+    public void revealAnswer() {
+        RotateTransition rotator = createRotator(clickablePane);
+        rotator.play();
+        txtLabel.setText("");
+        textIndex = Math.abs((textIndex+1) % 2);
+
+        rotator.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                setText();
+            }
+        });
     }
 }
