@@ -1,6 +1,5 @@
 package com.example.quizapp.controllers;
 
-import com.example.quizapp.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -8,10 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class CreateFlashCardQuiz extends AnchorPane{
 
@@ -41,5 +37,11 @@ public class CreateFlashCardQuiz extends AnchorPane{
         items.setSpacing(10);
 
         flashcardScrollpane.setContent(items);
+    }
+
+    @FXML
+    public void navigateToAddTags() {
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(new AddTags(rootpane));
     }
 }
