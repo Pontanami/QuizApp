@@ -88,7 +88,6 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
      */
     public void uploadQuiz(Quiz quiz, User currentUser){
         String json = gson.toJson(quiz.getQuestions(), new TypeToken<List<IQuizable<?>>>() {}.getType());
-        System.out.println(json);
         Map<String, Object> data = new HashMap<>();
         String docID = getDocumentID(colref);
         data.put("quiz", json);

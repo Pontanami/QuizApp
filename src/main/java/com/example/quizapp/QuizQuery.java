@@ -79,8 +79,8 @@ public class QuizQuery extends FetchQuery {
          * @return a UserQueryBuilder object containing information used to query the password of the user
          */
         public QuizQueryBuilder setTags(List<Quiz.Subjects> tags) {
-            if(tags == null)
-                tags = new ArrayList<>();
+            if(this.tags == null)
+                this.tags = new ArrayList<>();
             this.tags.addAll(tags);
             return this;
         }
