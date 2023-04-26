@@ -54,10 +54,12 @@ public class Quiz implements IObservable {
 
     public void addQuestion(IQuizable<?> question){
         questions.add(question);
+        notifySubscribers();
     }
 
     public void removeQuestion(IQuizable question){
         questions.remove(question);
+        notifySubscribers();
     }
 
     public void removeQuestion(int index){
