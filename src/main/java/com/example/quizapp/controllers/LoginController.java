@@ -24,5 +24,13 @@ public class LoginController extends AnchorPane{
         String email = emailField.getText();
         String pw = passwordField.getText();
         ur.loginUser(email, pw);
+        navigateToMyProfile();
+    }
+
+    @FXML
+    private void navigateToMyProfile(){
+        MyProfileController myProfileController = new MyProfileController(rootpane);
+        rootpane.getChildren().setAll(myProfileController);
     }
 }
+
