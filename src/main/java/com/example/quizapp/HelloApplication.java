@@ -108,7 +108,10 @@ public class HelloApplication extends Application {
         quiz2.addQuestion(new Flashcard("this is a test question2", "this is a test answer2"));
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("takeQuiz.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1920, 940);
+
+        String css = Objects.requireNonNull(this.getClass().getResource("multiChoiceCSS.css")).toExternalForm();
+        scene.getStylesheets().add(css);
 
         TakeQuizController controller = fxmlLoader.getController();
         controller.setAsFlashCardQuiz();

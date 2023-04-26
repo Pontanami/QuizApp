@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,17 +9,50 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.TakeQuizController">
+<AnchorPane fx:id="mainPane" prefHeight="940.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.TakeQuizController">
    <children>
-      <Label fx:id="QuizName" layoutX="50.0" layoutY="34.0" text="Name">
+      <Label fx:id="QuizName" layoutX="386.0" layoutY="93.0" prefHeight="74.0" prefWidth="763.0" text="Name">
          <font>
-            <Font name="Arial" size="24.0" />
+            <Font name="Arial" size="50.0" />
          </font>
       </Label>
       <Accordion layoutX="186.0" layoutY="129.0" />
-      <ProgressBar fx:id="QuizProgress" layoutX="53.0" layoutY="87.0" prefHeight="27.0" prefWidth="494.0" progress="0.0" />
-      <BorderPane fx:id="QuizHolder" layoutX="50.0" layoutY="129.0" prefHeight="200.0" prefWidth="500.0" />
-      <Button fx:id="QuizPrevious" layoutX="50.0" layoutY="348.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="34.0" prefWidth="81.0" text="Previous" />
-      <Button fx:id="QuizNext" layoutX="469.0" layoutY="348.0" mnemonicParsing="false" onAction="#showNext" prefHeight="34.0" prefWidth="81.0" text="Next" />
+      <ProgressBar fx:id="QuizProgress" layoutX="387.0" layoutY="209.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" />
+      <BorderPane fx:id="QuizHolder" layoutX="389.0" layoutY="305.0" prefHeight="343.0" prefWidth="1131.0" />
+      <Button fx:id="QuizPrevious" layoutX="386.0" layoutY="770.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" text="Previous" textFill="#fffdfd">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="QuizNext" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#showNext" prefHeight="65.0" prefWidth="235.0" text="Next" textFill="#fffbfb">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="QuizHint" layoutX="388.0" layoutY="648.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="1133.0" text="Hint" textFill="#fcf9f9">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="QuizAnswer" layoutX="388.0" layoutY="681.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="1133.0" text="Show Answer" textFill="#fffefe">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label fx:id="QuizPoints" layoutX="1161.0" layoutY="92.0" prefHeight="74.0" prefWidth="355.0" text="Points: ">
+         <font>
+            <Font name="Arial" size="50.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

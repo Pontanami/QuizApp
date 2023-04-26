@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -9,40 +8,38 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.MultiChoiceController">
+<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.MultiChoiceController">
    <children>
-      <Pane id="quizPane" fx:id="quizPane" layoutX="2.0" prefHeight="220.0" prefWidth="500.0" stylesheets="@multiChoiceCSS.css">
+      <Pane id="quizPane" fx:id="quizPane" layoutX="-6.0" layoutY="-17.0" prefHeight="343.0" prefWidth="1131.0" stylesheets="@multiChoiceCSS.css">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
          <children>
-            <Button fx:id="showAnswerButton" alignment="CENTER" contentDisplay="CENTER" layoutY="194.0" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="20.0" prefWidth="500.0" text="Reaveal answer" textAlignment="CENTER" />
-            <Label fx:id="multiQuestion" alignment="CENTER" layoutX="31.0" layoutY="14.0" prefHeight="17.0" prefWidth="434.0" text="Question" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="multiQuestion" alignment="CENTER" layoutX="280.0" layoutY="38.0" prefHeight="44.0" prefWidth="619.0" text="Question" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="24.0" />
+                  <Font size="36.0" />
                </font>
             </Label>
-            <RadioButton fx:id="choice1" layoutX="172.0" layoutY="56.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice1" textFill="#fcf7f7">
+            <RadioButton fx:id="choice1" layoutX="523.0" layoutY="111.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice1" textFill="#fcf7f7">
                <toggleGroup>
                   <ToggleGroup fx:id="choices" />
                </toggleGroup>
                <font>
-                  <Font name="Arial Bold" size="14.0" />
+                  <Font name="Arial Bold" size="20.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="choice2" layoutX="172.0" layoutY="86.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice2" textFill="#f5f0f0" toggleGroup="$choices">
+            <RadioButton fx:id="choice2" layoutX="523.0" layoutY="169.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice2" textFill="#f5f0f0" toggleGroup="$choices">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="choice3" layoutX="172.0" layoutY="115.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice3" textFill="#fcf9f9" toggleGroup="$choices">
+            <RadioButton fx:id="choice3" layoutX="523.0" layoutY="223.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice3" textFill="#fcf9f9" toggleGroup="$choices">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="choice4" layoutX="172.0" layoutY="144.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice4" textFill="#fcf8f8" toggleGroup="$choices">
+            <RadioButton fx:id="choice4" layoutX="523.0" layoutY="276.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice4" textFill="#fcf8f8" toggleGroup="$choices">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <Button fx:id="hintButton" alignment="CENTER" contentDisplay="CENTER" layoutY="169.0" mnemonicParsing="false" onAction="#useHint" prefHeight="20.0" prefWidth="500.0" text="Show hint" textAlignment="CENTER" />
          </children>
       </Pane>
    </children>
