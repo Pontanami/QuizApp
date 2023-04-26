@@ -5,7 +5,6 @@ import com.example.quizapp.model.Subject;
 import com.example.quizapp.Quiz;
 import com.example.quizapp.interfaces.ICreateQuestion;
 import com.example.quizapp.interfaces.IQuizManager;
-import com.example.quizapp.interfaces.IQuestionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -67,6 +66,16 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         CreateFlashcard flashcard = new CreateFlashcard(this);
         questions.add(flashcard);
         refreshView();
+    }
+
+    @Override
+    public void addTag() {
+
+    }
+
+    @Override
+    public void removeTag() {
+
     }
 
     public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
