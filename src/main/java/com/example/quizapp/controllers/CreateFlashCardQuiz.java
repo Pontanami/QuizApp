@@ -1,7 +1,8 @@
 package com.example.quizapp.controllers;
 
 import com.example.quizapp.Quiz;
-import com.example.quizapp.interfaces.IQuestionManager;
+import com.example.quizapp.interfaces.ICreateQuestion;
+import com.example.quizapp.interfaces.IQuizManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager {
+public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<CreateFlashcard> {
 
     private AnchorPane rootpane;
 
@@ -53,7 +54,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager 
         refreshView();
     }
 
-    public void removeQuestion(CreateFlashcard flashcard){
+    public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
         questions.remove(flashcard);
         refreshView();
     }
@@ -78,6 +79,8 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuestionManager 
             var question = item.createQuestion();
             quiz.addQuestion(question);
         }
+
+
 
         var q = quiz;
     }

@@ -4,5 +4,5 @@ import com.example.quizapp.model.Flashcard;
 
 public interface ICreateQuestion<T> {
     IQuizable<T> createQuestion();
-    void removeQuestion();
+    void removeQuestion(T question);
 }
