@@ -21,17 +21,9 @@ public class LoginController extends AnchorPane{
     PasswordField passwordField;
     @FXML
     Button loginBtn;
+    @FXML
+    Button registerBtn;
 
-    public LoginController(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
 
     @FXML
     public void login(){
@@ -46,5 +38,12 @@ public class LoginController extends AnchorPane{
         MyProfileController myProfileController = new MyProfileController(rootpane);
         rootpane.getChildren().setAll(myProfileController);
     }
+
+    @FXML
+    private void register(){
+        RegisterController registerController = new RegisterController();
+        rootpane.getChildren().setAll(registerController);
+    }
+
 }
 

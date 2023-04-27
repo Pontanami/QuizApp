@@ -5,6 +5,7 @@ import com.example.quizapp.user.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -19,6 +20,8 @@ public class MyProfileController extends AnchorPane {
     Text nameText;
     @FXML
     Button signOutBtn;
+    @FXML
+    TextField emailField;
 
     public MyProfileController(AnchorPane rp){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
@@ -31,6 +34,7 @@ public class MyProfileController extends AnchorPane {
         }
         this.rootpane = rp;
         nameText.setText(currentUser.getName());
+        emailField.setText(currentUser.getEmail());
     }
 
     @FXML
