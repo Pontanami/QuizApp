@@ -33,8 +33,8 @@ public class TestFirebaseQuizRepo {
         questions.add(flashcard2);
         currentUser = new User("123", "bob", "bob@gmail.com", "bob");
         query = new QuizQuery.QuizQueryBuilder();
-        quiz = new Quiz("testQuiz", questions, List.of(Subject.Mathematics, Subject.Economics), "1", currentUser.getId());
-        quiz2 = new Quiz("testQuiz", questions, List.of(Subject.Mathematics), "1", currentUser.getId());
+        quiz = new Quiz("testQuiz", questions, Set.of(Subject.Mathematics, Subject.Economics), "1", currentUser.getId());
+        quiz2 = new Quiz("testQuiz", questions, Set.of(Subject.Mathematics), "1", currentUser.getId());
     }
     @Test
     public void testUploadQuiz() {
