@@ -39,7 +39,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="QuizHint" layoutX="383.0" layoutY="648.0" mnemonicParsing="false" onAction="#showHint" prefHeight="34.0" prefWidth="1133.0" stylesheets="@mainColor.css" text="Hint" textFill="#fcf9f9">
+      <Button fx:id="QuizHint" layoutX="388.0" layoutY="648.0" mnemonicParsing="false" onAction="#showHint" prefHeight="34.0" prefWidth="1133.0" stylesheets="@mainColor.css" text="Hint" textFill="#fcf9f9">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -47,7 +47,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="QuizAnswer" layoutX="383.0" layoutY="681.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" stylesheets="@mainColor.css" text="Show Answer" textFill="#fffefe">
+      <Button fx:id="QuizAnswer" layoutX="388.0" layoutY="681.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" stylesheets="@mainColor.css" text="Show Answer" textFill="#fffefe">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
