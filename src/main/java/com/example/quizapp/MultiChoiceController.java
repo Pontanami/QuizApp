@@ -40,8 +40,6 @@ public class MultiChoiceController implements IAnswerable {
         radioButtons[3] = choice4;
 
         changeRadioButtonNames();
-
-
     }
 
     private void changeQuestionName(){

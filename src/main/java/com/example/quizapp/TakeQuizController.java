@@ -30,6 +30,8 @@ public class TakeQuizController{
 
     @FXML private Button answerButton;
     @FXML private Button hintButton;
+    @FXML private Button finishButton;
+
     @FXML
     private BorderPane QuizHolder;
     @FXML
@@ -74,11 +76,18 @@ public class TakeQuizController{
         }else{
             retrieveQuestion();
         }
+        if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(quiz.getQuestions().size()-1).getQuestion())) {
+            QuizNext.setVisible(false);
+            finishButton.setVisible(true);
+
+        }
         QuizPrevious.setDisable(false);
     }
 
     public void showPrevious(){
         quiz.prevQuestion();
+        QuizNext.setVisible(true);
+        finishButton.setVisible(false);
         retrieveQuestion();
         if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
             QuizPrevious.setDisable(true);
@@ -96,6 +105,7 @@ public class TakeQuizController{
     public void showAnswer(){
         if (specificController.revealAnswer()){
             points++;
+            QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         }
         increaseProgress();
     }
@@ -109,8 +119,6 @@ public class TakeQuizController{
 
                 MultiChoiceController controller = fxmlLoader.getController();
                 controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
-
-                QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
                 specificController = controller;
             } else if (isFlashCard){ //Maybe do a check with instanceOF?
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
@@ -138,6 +146,10 @@ public class TakeQuizController{
             progress = new BigDecimal(Double.toString(progress.doubleValue() + progressStep));
             QuizProgress.setProgress(progress.doubleValue());
         }
+    }
+
+    public void finish(){
+        Platform.exit();
     }
 
 }

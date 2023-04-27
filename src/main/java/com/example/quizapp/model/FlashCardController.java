@@ -15,6 +15,7 @@ import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -24,14 +25,19 @@ import java.util.ResourceBundle;
 public class FlashCardController implements IAnswerable {
     @FXML private AnchorPane clickablePane;
     @FXML private Label txtLabel;
+    @FXML private ImageView thumbsUp;
+    @FXML private ImageView thumbsDown;
 
     private int textIndex = 0;
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
     private Flashcard card;
+    private boolean isCorrect = false;
 
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
         termDef[1] = card.getAnswer();
+        thumbsDown.setVisible(false);
+        thumbsUp.setVisible(false);
         this.card = card;
         setText();
     }
@@ -65,7 +71,7 @@ public class FlashCardController implements IAnswerable {
             a.setHeaderText("MISSING");
         }
         a.setContentText(card.showHint());
-        Parent parentPane = clickablePane.getParent().getParent().getParent().getParent();
+        Parent parentPane = clickablePane.getParent().getParent().getParent();
 
         a.setOnShowing(new EventHandler<DialogEvent>() {
             @Override
@@ -84,20 +90,41 @@ public class FlashCardController implements IAnswerable {
 
     }
 
-
     @Override
     public boolean revealAnswer() {
         RotateTransition rotator = createRotator(clickablePane);
         rotator.play();
         txtLabel.setText("");
         textIndex = Math.abs((textIndex+1) % 2);
-
+        if (textIndex == 0){
+            showFeedback();
+        }
         rotator.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 setText();
+                if(textIndex == 1) {
+                    showFeedback();
+                }
             }
         });
-        return false;
+
+        return isCorrect;
+    }
+
+    private void showFeedback(){
+        if (textIndex == 1){
+            thumbsDown.setVisible(true);
+            thumbsUp.setVisible(true);
+        } else {
+            thumbsDown.setVisible(false);
+            thumbsUp.setVisible(false);
+        }
+    }
+
+    public void validateAnswer(){
+        thumbsDown.setVisible(false);
+        thumbsUp.setVisible(false);
+        isCorrect = true;
     }
 }
