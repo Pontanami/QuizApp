@@ -86,7 +86,7 @@ public class FlashCardController implements IAnswerable {
 
 
     @Override
-    public void revealAnswer() {
+    public boolean revealAnswer() {
         RotateTransition rotator = createRotator(clickablePane);
         rotator.play();
         txtLabel.setText("");
@@ -98,5 +98,6 @@ public class FlashCardController implements IAnswerable {
                 setText();
             }
         });
+        return false;
     }
 }

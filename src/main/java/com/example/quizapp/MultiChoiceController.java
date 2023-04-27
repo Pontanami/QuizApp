@@ -66,11 +66,13 @@ public class MultiChoiceController implements IAnswerable {
     }
 
     @Override
-    public void revealAnswer(){
+    public boolean revealAnswer(){
+        boolean answer = false;
         for (RadioButton rb : radioButtons){
             if (rb.getText().equals(ques.getAnswer())){
                 if(rb.isSelected()){
                     System.out.println("thats correct"); //Somehow communicate with TakeQuizController to call quiz.addPoint()
+                    answer = true;
                 }
                 rb.setId("answer");
             }
@@ -79,6 +81,7 @@ public class MultiChoiceController implements IAnswerable {
                 rb.setId("wrongAnswer");
             }
         }
+        return answer;
     }
 
 }

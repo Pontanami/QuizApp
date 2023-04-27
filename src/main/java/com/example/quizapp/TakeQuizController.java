@@ -30,6 +30,7 @@ public class TakeQuizController{
 
     private IAnswerable specificController;
     private final HashMap<String, AnchorPane> controllers = new HashMap<>();
+    private int points = 0;
 
     private Quiz quiz;
     private boolean isFlashCard = false;
@@ -79,7 +80,9 @@ public class TakeQuizController{
     }
 
     public void showAnswer(){
-        specificController.revealAnswer();
+        if (specificController.revealAnswer()){
+            points++;
+        }
         increaseProgress();
     }
 
