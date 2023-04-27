@@ -65,6 +65,7 @@ public class TakeQuizController{
         this.quiz = quiz;
         QuizName.setText(quiz.getName());
         QuizPrevious.setDisable(true);
+        QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         showQuestion();
 
     }
