@@ -69,7 +69,7 @@ public class FlashCardController implements IAnswerable {
         a.setTitle("Hint");
         a.setContentText(card.showHint());
 
-        Parent parentPane = clickablePane.getParent().getParent().getParent();
+        Parent parentPane = clickablePane.getParent();
         parentPane.setOpacity(0.2);
         a.showAndWait();
         parentPane.setOpacity(1);
@@ -94,7 +94,7 @@ public class FlashCardController implements IAnswerable {
         a.setHeaderText("The answer is " + card.getAnswer() + ". Were you right?");
         a.setTitle("Answer");
 
-        Parent parentPane = clickablePane.getParent().getParent().getParent();
+        Parent parentPane = clickablePane.getParent();
         parentPane.setOpacity(0.2);
         Optional<ButtonType> result = a.showAndWait();
         parentPane.setOpacity(1);

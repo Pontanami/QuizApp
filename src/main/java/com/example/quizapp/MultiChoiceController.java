@@ -21,13 +21,14 @@ public class MultiChoiceController implements IAnswerable {
     private final RadioButton[] radioButtons = new RadioButton[4];
 
     private MultiChoice ques;
-    List<String> choiceAnswers;
+    private List<String> choiceAnswers;
+    private List<String> hintAnswers;
 
 
     public void initializeData(MultiChoice ques){
         this.ques = ques;
         choiceAnswers = ques.getChoices();
-
+        hintAnswers = ques.showHint();
         init();
     }
 
@@ -60,7 +61,7 @@ public class MultiChoiceController implements IAnswerable {
 
     @Override
     public void showHint() {
-        choiceAnswers = ques.showHint();
+        choiceAnswers = hintAnswers;
         init();
     }
 
