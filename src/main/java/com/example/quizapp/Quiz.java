@@ -11,8 +11,8 @@ public class Quiz implements IObservable {
     private List<IObserver> observers = new ArrayList<>();
     private String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
-    private List<Subject> tags = new ArrayList<>();
-
+    private Set<Subject> tags = new HashSet<>();
+    private String id, createdBy;
 
     /**
      * A class that includes a collection of questions of the type IQuizable
@@ -24,6 +24,13 @@ public class Quiz implements IObservable {
         this.name = name;
     }
 
+    public Quiz(String name, List<IQuizable<?>> questions, List<Subject> tags, String id, String createdBy){
+        this.name = name;
+        this.questions = questions;
+        this.tags = tags;
+        this.id = id;
+        this.createdBy = createdBy;
+    }
     public String getName(){
         return name;
     }
@@ -32,14 +39,13 @@ public class Quiz implements IObservable {
         return questions;
     }
 
-    public List<Subject> getTags() {
+    public Set<Subject> getTags() {
         return tags;
     }
 
     public boolean addTag(Subject tag){
         if (!tags.contains(tag)) {
             tags.add(tag);
-            notifySubscribers();
             return true;
         }
         return false;
@@ -47,8 +53,17 @@ public class Quiz implements IObservable {
 
     public boolean removeTag(Subject tag){
         boolean isRemoved = tags.remove(tag);
-        notifySubscribers();
         return isRemoved;
+    }
+
+    public void tagSelected(Subject tag){
+        if (tags.contains(tag)){
+            tags.remove(tag);
+        }
+        else {
+            tags.add(tag);
+        }
+        notifySubscribers();
     }
 
     public void addQuestion(IQuizable<?> question){
@@ -80,4 +95,12 @@ public class Quiz implements IObservable {
             observer.update();
         }
     }
+    public String getId() {
+        return id;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
 }

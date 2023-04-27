@@ -36,14 +36,7 @@ public class Tag extends AnchorPane {
 
     @FXML
     private void tagClicked(){
-        if (!isApplied){
             System.out.println(this);
-            quiz.addTag(subject);
-            isApplied = true;
-        }
-        else{
-            quiz.removeTag(subject);
-            isApplied = false;
-        }
+            quiz.tagSelected(subject);
     }
 }

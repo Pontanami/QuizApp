@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
  * Singleton class to handle user data in the Firestore database
  * @author Felix, Gustav, Pontus
  */
-public class FirebaseUserRepository extends FirebaseBaseRepository<User> implements IUserRepository {
+public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQuery> implements IUserRepository {
     /**
      * Instance of the FirebaseUserRepository singleton
      */
@@ -56,7 +56,7 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      * @param password the password of the user
      */
     public void createUser(String name, String email, String password) {
-        if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email).build()).size() > 0)
+        if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email)).size() > 0)
             System.out.println("email is not unique, already exists");
         else {
             String docID = getDocumentID(colRef);
@@ -102,7 +102,7 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
     /** Method to get one or several users from the Firestore database based on a query
 
     */
-    private Query createUserQuery(UserQuery query) throws IllegalAccessException {
+    Query createQuery(UserQuery query) throws IllegalAccessException {
         Query q = colRef;
         for (String key :query.getNonNullFields().keySet())
             q = q.whereEqualTo(key,query.getNonNullFields().get(key));
@@ -114,10 +114,10 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User> impleme
      * @return A {@link List} of {@link User} objects with the user's information
      */
     @Override
-    public List<User> getUsers(UserQuery query) {
+    public List<User> getUsers(UserQuery.UserQueryBuilder query) {
         List<User> user = new ArrayList<>();
         try {
-            user = getQueryResult(createUserQuery(query));
+            user = getQueryResult(createQuery(query.build()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
