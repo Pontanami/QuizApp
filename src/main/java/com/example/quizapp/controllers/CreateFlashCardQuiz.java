@@ -6,6 +6,10 @@ import com.example.quizapp.model.Subject;
 import com.example.quizapp.Quiz;
 import com.example.quizapp.interfaces.ICreateQuestion;
 import com.example.quizapp.interfaces.IQuizManager;
+import com.example.quizapp.user.FirebaseQuizRepository;
+import com.example.quizapp.user.FirebaseUserRepository;
+import com.example.quizapp.user.IQuizRepository;
+import com.example.quizapp.user.IUserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,9 +47,14 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     @FXML
     private VBox appliedTagBox;
 
+    @FXML
     private TextField quizName;
 
     private Quiz quiz = new Quiz();
+
+    private IQuizRepository quizRepository = new FirebaseQuizRepository();
+    private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+
 
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
@@ -105,12 +114,15 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     @FXML
     private void createQuiz(){
         Quiz quiz = new Quiz();
+        quiz.setName(quizName.getText());
         for (var item : questions) {
             var question = item.createQuestion();
             quiz.addQuestion(question);
         }
 
-        //TODO push quiz to database
+        //TODO remove line below
+        userRepository.loginUser("test", "test");
+        quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
     }
 
     @FXML

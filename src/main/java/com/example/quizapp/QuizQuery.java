@@ -6,6 +6,7 @@ import com.example.quizapp.user.FetchQuery;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class for holding the values of each field the user has specified for the query of a quiz
@@ -79,7 +80,7 @@ public class QuizQuery extends FetchQuery {
          * @param tags the tags we want to search for in the database
          * @return a UserQueryBuilder object containing information used to query the password of the user
          */
-        public QuizQueryBuilder setTags(List<Subject> tags) {
+        public QuizQueryBuilder setTags(Set<Subject> tags) {
             if(this.tags == null)
                 this.tags = new ArrayList<>();
             this.tags.addAll(tags);

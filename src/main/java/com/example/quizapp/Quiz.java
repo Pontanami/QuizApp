@@ -11,8 +11,10 @@ public class Quiz implements IObservable {
     private List<IObserver> observers = new ArrayList<>();
     private String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
-    private Set<Subject> tags = new HashSet<>();
+    private List<Subject> tags = new ArrayList<>();
     private String id, createdBy;
+
+
 
     /**
      * A class that includes a collection of questions of the type IQuizable
@@ -39,7 +41,7 @@ public class Quiz implements IObservable {
         return questions;
     }
 
-    public Set<Subject> getTags() {
+    public List<Subject> getTags() {
         return tags;
     }
 
@@ -70,13 +72,15 @@ public class Quiz implements IObservable {
         questions.add(question);
     }
 
+    public void removeQuestion(IQuizable question){
+        questions.remove(question);
+    }
+
     public void removeQuestion(int index){
         if (index >= 0 && index < questions.size()) {
             questions.remove(index);
         }
     }
-
-
 
 
     @Override
