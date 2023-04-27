@@ -12,7 +12,7 @@
             <Font size="53.0" />
          </font>
       </Text>
-      <Button fx:id="signOutBtn" layoutX="431.0" layoutY="642.0" mnemonicParsing="false" text="Sign Out">
+      <Button fx:id="signOutBtn" layoutX="431.0" layoutY="642.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out">
          <font>
             <Font size="23.0" />
          </font>

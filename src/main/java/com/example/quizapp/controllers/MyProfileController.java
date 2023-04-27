@@ -20,7 +20,7 @@ public class MyProfileController extends AnchorPane {
     @FXML
     Button signOutBtn;
 
-    public MyProfileController(AnchorPane rootpane){
+    public MyProfileController(AnchorPane rp){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -29,16 +29,13 @@ public class MyProfileController extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.rootpane = rootpane;
+        this.rootpane = rp;
         nameText.setText(currentUser.getName());
     }
 
     @FXML
     private void signOut(){
-        //Måste setas i databasen också?
-        //Måste länka tillbaka till login
         navigateToLogin();
-        currentUser = null;
     }
 
     @FXML

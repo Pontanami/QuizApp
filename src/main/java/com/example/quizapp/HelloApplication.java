@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.controllers.LoginController;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
