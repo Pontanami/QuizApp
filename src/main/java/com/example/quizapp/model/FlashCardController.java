@@ -10,16 +10,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogEvent;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FlashCardController implements IAnswerable {
@@ -31,7 +32,7 @@ public class FlashCardController implements IAnswerable {
     private int textIndex = 0;
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
     private Flashcard card;
-    private boolean isCorrect = false;
+    private boolean isCorrect = true;
 
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
@@ -65,11 +66,12 @@ public class FlashCardController implements IAnswerable {
         if (card.getWordHint() != null) {
             String[] hintName = card.getWordHint().getClass().getName().split("\\.");
             a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText(hintName[hintName.length - 1]);
+            a.setHeaderText("Hint type: " + hintName[hintName.length - 1]);
         } else {
             a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("MISSING");
+            a.setHeaderText("Hint type: " + "MISSING");
         }
+        a.setTitle("Hint");
         a.setContentText(card.showHint());
         Parent parentPane = clickablePane.getParent().getParent().getParent();
 
@@ -85,46 +87,37 @@ public class FlashCardController implements IAnswerable {
                 parentPane.setOpacity(1);
             }
         });
-
         a.show();
-
     }
 
-    @Override
-    public boolean revealAnswer() {
+    public void rotate(){
         RotateTransition rotator = createRotator(clickablePane);
         rotator.play();
         txtLabel.setText("");
         textIndex = Math.abs((textIndex+1) % 2);
-        if (textIndex == 0){
-            showFeedback();
-        }
         rotator.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 setText();
-                if(textIndex == 1) {
-                    showFeedback();
-                }
             }
         });
-
-        return isCorrect;
     }
 
-    private void showFeedback(){
-        if (textIndex == 1){
-            thumbsDown.setVisible(true);
-            thumbsUp.setVisible(true);
-        } else {
-            thumbsDown.setVisible(false);
-            thumbsUp.setVisible(false);
-        }
-    }
-
-    public void validateAnswer(){
+    public void validateAnswer(MouseEvent event){
         thumbsDown.setVisible(false);
         thumbsUp.setVisible(false);
         isCorrect = true;
+        event.consume();
+    }
+
+    @Override
+    public boolean revealAnswer(){
+
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.NO, ButtonType.YES);
+        a.setTitle("Answer");
+        a.setHeaderText("The answer is " + card.getAnswer() + ". Were you right?");
+        Optional<ButtonType> result = a.showAndWait();
+
+        return result.get() == ButtonType.YES;
     }
 }

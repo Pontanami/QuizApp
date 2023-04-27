@@ -107,7 +107,6 @@ public class TakeQuizController{
             points++;
             QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         }
-        increaseProgress();
     }
 
     private void showQuestion() {
@@ -129,6 +128,7 @@ public class TakeQuizController{
                 specificController = controller;
             }
             controllers.put(quiz.getCurrentQuestion().getQuestion(), pane);
+            increaseProgress();
             QuizHolder.setCenter(pane);
         } catch (IOException e){
             e.printStackTrace();
