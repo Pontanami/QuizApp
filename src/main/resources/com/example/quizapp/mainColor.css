@@ -1,3 +1,6 @@
 .colorable{
     -fx-background-color: white;
 }
+#outGrayed{
+    -fx-background-color: #565656;
+}

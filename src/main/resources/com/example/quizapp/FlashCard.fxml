@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.model.FlashCardController">
+<AnchorPane id="AnchorMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.model.FlashCardController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="400.0">
+      <AnchorPane prefHeight="200.0" prefWidth="300.0">
          <children>
             <AnchorPane id="quizPane" fx:id="clickablePane" onMouseClicked="#revealAnswer" prefHeight="200.0" prefWidth="300.0" stylesheets="@multiChoiceCSS.css">
                 <children>
@@ -21,11 +21,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </AnchorPane>
-            <Label fx:id="hintLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="30.0" prefHeight="141.0" prefWidth="97.0" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
    </children>
