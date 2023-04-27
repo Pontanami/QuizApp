@@ -2,7 +2,6 @@ package com.example.quizapp.controllers;
 
 
 import com.example.quizapp.interfaces.IObserver;
-import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.Subject;
 import com.example.quizapp.Quiz;
 import com.example.quizapp.interfaces.ICreateQuestion;
@@ -31,7 +30,9 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     private AnchorPane flashcardPane;
 
     @FXML
-    private VBox questions;
+    private VBox items;
+
+    private List<CreateFlashcard> questions = new ArrayList<>();
 
     @FXML
     private ScrollPane flashcardScrollpane;
@@ -58,40 +59,37 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         }
 
         this.rootpane = rootpane;
+
         quiz.subscribe(this);
     }
 
+    //todo Move to quiz model
     @FXML
     public void addQuestion(){
         CreateFlashcard flashcard = new CreateFlashcard(this);
-        quiz.addQuestion(flashcard.getQuestion());
+        questions.add(flashcard);
+        //update(); remove
     }
 
-/*    public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
+    public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
         //quiz.removeQuestion(flashcard);
-        //questions.remove(flashcard);
-        update();
-    }*/
 
-    @Override
-    public void removeQuestion(IQuizable question) {
-        quiz.removeQuestion(question);
+        questions.remove(flashcard);
+        update();
     }
 
     @Override
     public void update(){
+        items.getChildren().clear();
+        items.getChildren().addAll(questions);
+        flashcardScrollpane.setContent(items);
+
         appliedTagBox.getChildren().clear();
         for (Subject subject : quiz.getTags()){
             Tag tag = new Tag(subject, quiz);
             appliedTagBox.getChildren().add(tag);
         }
 
-        questions.getChildren().clear();
-        for(var item : quiz.getQuestions()){
-            CreateFlashcard flashcard = new CreateFlashcard(this);
-            questions.getChildren().add(flashcard);
-        }
-        flashcardScrollpane.setContent(questions);
     }
 
     @FXML
@@ -103,11 +101,14 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     }
 
     private void createQuiz(){
-        /*Quiz quiz = new Quiz();
+        Quiz quiz = new Quiz();
         for (var item : questions) {
             var question = item.createQuestion();
             quiz.addQuestion(question);
-        }*/
+        }
+
+
+
         var q = quiz;
     }
 
