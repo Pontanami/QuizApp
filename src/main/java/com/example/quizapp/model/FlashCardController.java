@@ -26,8 +26,6 @@ import java.util.ResourceBundle;
 public class FlashCardController implements IAnswerable {
     @FXML private AnchorPane clickablePane;
     @FXML private Label txtLabel;
-    @FXML private ImageView thumbsUp;
-    @FXML private ImageView thumbsDown;
 
     private int textIndex = 0;
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
@@ -37,8 +35,6 @@ public class FlashCardController implements IAnswerable {
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
         termDef[1] = card.getAnswer();
-        thumbsDown.setVisible(false);
-        thumbsUp.setVisible(false);
         this.card = card;
         setText();
     }
@@ -101,13 +97,6 @@ public class FlashCardController implements IAnswerable {
                 setText();
             }
         });
-    }
-
-    public void validateAnswer(MouseEvent event){
-        thumbsDown.setVisible(false);
-        thumbsUp.setVisible(false);
-        isCorrect = true;
-        event.consume();
     }
 
     @Override

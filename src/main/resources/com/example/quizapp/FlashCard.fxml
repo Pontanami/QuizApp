@@ -2,8 +2,6 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,16 +13,6 @@
                <font>
                   <Font name="Arial Bold" size="36.0" />
                </font></Label>
-            <ImageView fx:id="thumbsDown" fitHeight="75.0" fitWidth="75.0" layoutX="1050.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@thumbsDown.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="thumbsUp" fitHeight="75.0" fitWidth="75.0" layoutX="963.0" layoutY="7.0" onMouseClicked="#validateAnswer" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@thumbsUp.png" />
-               </image>
-            </ImageView>
           </children>
          <cursor>
             <Cursor fx:constant="HAND" />
