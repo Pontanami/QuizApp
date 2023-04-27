@@ -4,6 +4,7 @@ import com.example.quizapp.interfaces.IAnswerable;
 import com.example.quizapp.model.FlashCardController;
 import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.multiChoice.MultiChoice;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -19,23 +20,35 @@ import java.util.HashMap;
 
 public class TakeQuizController{
 
-    @FXML private Label quizName;
-    @FXML private BorderPane quizHolder;
-    @FXML private ProgressBar quizProgress;
-    @FXML private Button quizNext;
-    @FXML private Button answerButton;
-    @FXML private Button hintButton;
-    @FXML private Button quizPrevious;
+    @FXML
+    private Label QuizName;
 
 
     private IAnswerable specificController;
     private final HashMap<String, AnchorPane> controllers = new HashMap<>();
     private int points = 0;
 
+    @FXML private Button answerButton;
+    @FXML private Button hintButton;
+    @FXML
+    private BorderPane QuizHolder;
+    @FXML
+    private ProgressBar QuizProgress;
+
+    @FXML
+    private Button QuizNext;
+
+    @FXML
+    private Button QuizPrevious;
+
+    @FXML
+    private Label QuizPoints;
+
+    private BigDecimal progress = new BigDecimal("0.0");
+
     private Quiz quiz;
     private boolean isFlashCard = false;
     private boolean isMultiChoice = false;
-    BigDecimal progress = new BigDecimal("0.0");
 
     public void setAsFlashCardQuiz(){
         isFlashCard = true;
@@ -48,9 +61,10 @@ public class TakeQuizController{
 
     public void initializeData(Quiz quiz){
         this.quiz = quiz;
-        quizName.setText(quiz.getName());
-        quizPrevious.setDisable(true);
+        QuizName.setText(quiz.getName());
+        QuizPrevious.setDisable(true);
         showQuestion();
+
     }
 
     public void showNext(){
@@ -60,19 +74,19 @@ public class TakeQuizController{
         }else{
             retrieveQuestion();
         }
-        quizPrevious.setDisable(false);
+        QuizPrevious.setDisable(false);
     }
 
     public void showPrevious(){
         quiz.prevQuestion();
         retrieveQuestion();
         if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
-            quizPrevious.setDisable(true);
+            QuizPrevious.setDisable(true);
         }
     }
 
     private void retrieveQuestion() {
-        quizHolder.setCenter(controllers.get(quiz.getCurrentQuestion().getQuestion()));
+        QuizHolder.setCenter(controllers.get(quiz.getCurrentQuestion().getQuestion()));
     }
 
     public void showHint(){
@@ -95,6 +109,8 @@ public class TakeQuizController{
 
                 MultiChoiceController controller = fxmlLoader.getController();
                 controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
+
+                QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
                 specificController = controller;
             } else if (isFlashCard){ //Maybe do a check with instanceOF?
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
@@ -105,24 +121,23 @@ public class TakeQuizController{
                 specificController = controller;
             }
             controllers.put(quiz.getCurrentQuestion().getQuestion(), pane);
-            quizHolder.setCenter(pane);
+            QuizHolder.setCenter(pane);
         } catch (IOException e){
             e.printStackTrace();
         }
 
     }
 
-    private void increaseProgress(){
-        double n = quiz.getQuestions().size();
-        double step = 1.0 / n;
+    public void increaseProgress(){
+        int numberOfQuestions = quiz.getQuestions().size();
+        double progressStep = 1.0 / numberOfQuestions;
 
         progress = progress.setScale(2, RoundingMode.HALF_EVEN);
 
         if (progress.doubleValue() < 1){
-            progress = new BigDecimal(Double.toString(progress.doubleValue() + step));
-            quizProgress.setProgress(progress.doubleValue());
+            progress = new BigDecimal(Double.toString(progress.doubleValue() + progressStep));
+            QuizProgress.setProgress(progress.doubleValue());
         }
     }
-
 
 }

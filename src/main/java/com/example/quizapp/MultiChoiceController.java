@@ -9,23 +9,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import java.util.List;
+import java.util.concurrent.Flow;
 
 public class MultiChoiceController implements IAnswerable {
 
     @FXML
     private Label multiQuestion;
-
     @FXML
     private RadioButton choice1, choice2, choice3, choice4;
 
     private final RadioButton[] radioButtons = new RadioButton[4];
 
     private MultiChoice ques;
-    List<String> choices;
+    List<String> choiceAnswers;
+
 
     public void initializeData(MultiChoice ques){
         this.ques = ques;
-        choices = ques.getChoices();
+        choiceAnswers = ques.getChoices();
 
         init();
     }
@@ -52,8 +53,8 @@ public class MultiChoiceController implements IAnswerable {
         for (RadioButton rb : radioButtons){
             rb.setVisible(false);
         }
-        for (int i = 0; i < choices.size(); i++){
-            radioButtons[i].setText(choices.get(i));
+        for (int i = 0; i < choiceAnswers.size(); i++){
+            radioButtons[i].setText(choiceAnswers.get(i));
             radioButtons[i].setSelected(false);
             radioButtons[i].setVisible(true);
         }
@@ -61,7 +62,7 @@ public class MultiChoiceController implements IAnswerable {
 
     @Override
     public void showHint() {
-        choices = ques.showHint();
+        choiceAnswers = ques.showHint();
         init();
     }
 
