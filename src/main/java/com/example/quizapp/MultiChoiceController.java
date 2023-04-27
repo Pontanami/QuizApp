@@ -68,10 +68,18 @@ public class MultiChoiceController implements IAnswerable {
     @Override
     public boolean revealAnswer(){
         boolean answer = false;
+        boolean oneIsSelected = false;
         for (RadioButton rb : radioButtons){
+            if (rb.isSelected()){
+                oneIsSelected = true;
+            }
+
             if (rb.getText().equals(ques.getAnswer())){
                 if(rb.isSelected()){
                     answer = true;
+                }
+                else if (!oneIsSelected){
+                    rb.setSelected(true);
                 }
                 rb.setId("answer");
             }

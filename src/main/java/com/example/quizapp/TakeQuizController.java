@@ -31,7 +31,7 @@ public class TakeQuizController{
     private int points = 0;
 
     @FXML private Button QuizAnswer;
-    @FXML private Button hintButton;
+    @FXML private Button QuizHint;
     @FXML private Button finishButton;
 
     @FXML
@@ -76,15 +76,10 @@ public class TakeQuizController{
 
     public void showNext(){
         quiz.nextQuestion();
-        if (!controllers.containsKey(quiz.getCurrentQuestion().getQuestion())) {
-            showQuestion();
-        }else{
-            retrieveQuestion();
-        }
-        if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(quiz.getQuestions().size()-1).getQuestion())) {
+        showQuestion();
+        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(quiz.getQuestions().size()-1).getQuestion())){
             QuizNext.setVisible(false);
             finishButton.setVisible(true);
-
         }
         QuizPrevious.setDisable(false);
         isAnswered();
@@ -94,11 +89,7 @@ public class TakeQuizController{
         quiz.prevQuestion();
         QuizNext.setVisible(true);
         finishButton.setVisible(false);
-        if (quiz.getCurrentQuestion().getClass().equals(MultiChoice.class))
-            retrieveQuestion();
-        else
-            showQuestion();
-
+        showQuestion();
         if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
             QuizPrevious.setDisable(true);
         }
@@ -107,11 +98,16 @@ public class TakeQuizController{
 
     private void retrieveQuestion() {
         QuizHolder.setCenter(controllers.get(quiz.getCurrentQuestion().getQuestion()));
-
     }
 
     public void showHint(){
-        specificController.showHint();
+        if (QuizAnswer.isDisabled()){
+            QuizHint.setDisable(true);
+        }
+        else {
+            specificController.showHint();
+            QuizHint.setDisable(true);
+        }
     }
 
     public void showAnswer(){
@@ -120,6 +116,7 @@ public class TakeQuizController{
             QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         }
         QuizAnswer.setDisable(true);
+        QuizHint.setDisable(true);
         answeredQuestions.add(quiz.getCurrentQuestion().getQuestion());
     }
 
@@ -128,29 +125,38 @@ public class TakeQuizController{
     }
 
     private void showQuestion() {
-        AnchorPane pane = new AnchorPane();
-        try {
-            if (isMultiChoice) { //Maybe do a check with instanceOF?
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
-                pane = fxmlLoader.load();
 
-                MultiChoiceController controller = fxmlLoader.getController();
-                controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
-                specificController = controller;
-            } else if (isFlashCard){ //Maybe do a check with instanceOF?
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
-                pane = fxmlLoader.load();
-
-                FlashCardController controller = fxmlLoader.getController();
-                controller.initializeData((Flashcard) quiz.getCurrentQuestion());
-                specificController = controller;
-            }
-            controllers.put(quiz.getCurrentQuestion().getQuestion(), pane);
-            increaseProgress();
-            QuizHolder.setCenter(pane);
-        } catch (IOException e){
-            e.printStackTrace();
+        if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
+            retrieveQuestion();
+            QuizHint.setDisable(true);
         }
+        else {
+            QuizHint.setDisable(false);
+            AnchorPane pane = new AnchorPane();
+            try {
+                if (isMultiChoice) { //Maybe do a check with instanceOF?
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
+                    pane = fxmlLoader.load();
+
+                    MultiChoiceController controller = fxmlLoader.getController();
+                    controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
+                    specificController = controller;
+                } else if (isFlashCard){ //Maybe do a check with instanceOF?
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
+                    pane = fxmlLoader.load();
+
+                    FlashCardController controller = fxmlLoader.getController();
+                    controller.initializeData((Flashcard) quiz.getCurrentQuestion());
+                    specificController = controller;
+                }
+                controllers.put(quiz.getCurrentQuestion().getQuestion(), pane);
+                increaseProgress();
+                QuizHolder.setCenter(pane);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
