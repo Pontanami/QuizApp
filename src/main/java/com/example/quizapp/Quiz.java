@@ -11,7 +11,7 @@ public class Quiz implements IObservable {
     private List<IObserver> observers = new ArrayList<>();
     private String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
-    private Set<Subject> tags = new HashSet<>();
+    private List<Subject> tags = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int points = 0;
     private String id, createdBy;
@@ -43,7 +43,7 @@ public class Quiz implements IObservable {
         return questions;
     }
 
-    public Set<Subject> getTags() {
+    public List<Subject> getTags() {
         return tags;
     }
 

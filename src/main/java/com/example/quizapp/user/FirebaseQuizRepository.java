@@ -4,6 +4,7 @@ import com.example.quizapp.Quiz;
 import com.example.quizapp.QuizQuery;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.IHint;
+import com.example.quizapp.model.Subject;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
@@ -42,7 +43,7 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         Type listType = new TypeToken<ArrayList<IQuizable<?>>>(){}.getType();
         String json = doc.getString("quiz");
         List<IQuizable<?>> questionList = gson.fromJson(json, listType);
-        quiz = new Quiz((String)doc.get("name"), questionList, (List)doc.get("tags"), (String)doc.get("id")
+        quiz = new Quiz((String)doc.get("name"), questionList, (List<Subject>) doc.get("tags"), (String)doc.get("id")
                 , (String)doc.get("createdBy"));
         return quiz;
     }

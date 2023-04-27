@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class TestFirebaseQuizRepo {
 
@@ -60,9 +61,9 @@ public class TestFirebaseQuizRepo {
     public void testAddTagsToSearch(){
         repo.uploadQuiz(quiz, currentUser);
         repo.uploadQuiz(quiz2, currentUser);
-        List<Quiz> quizzes1 = repo.getQuiz(query.setTags(List.of(Subject.Economics)).setName("testQuiz"));
+        List<Quiz> quizzes1 = repo.getQuiz(query.setTags(Set.of(Subject.Economics)).setName("testQuiz"));
         Assertions.assertEquals(1, quizzes1.size());
-        query.setTags(List.of(Subject.Mathematics));
+        query.setTags(Set.of(Subject.Mathematics));
         List<Quiz> quizzes2 = repo.getQuiz(query);
         Assertions.assertEquals(2, quizzes2.size());
         for (Quiz quiz : quizzes2) {
