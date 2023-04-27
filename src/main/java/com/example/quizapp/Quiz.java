@@ -11,7 +11,7 @@ public class Quiz implements IObservable {
     private List<IObserver> observers = new ArrayList<>();
     private String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
-    private List<Subject> tags = new ArrayList<>();
+    private Set<Subject> tags = new HashSet<>();
     private int currentQuestionIndex = 0;
     private int points = 0;
 
@@ -33,14 +33,13 @@ public class Quiz implements IObservable {
         return questions;
     }
 
-    public List<Subject> getTags() {
+    public Set<Subject> getTags() {
         return tags;
     }
 
     public boolean addTag(Subject tag){
         if (!tags.contains(tag)) {
             tags.add(tag);
-            notifySubscribers();
             return true;
         }
         return false;
@@ -48,8 +47,17 @@ public class Quiz implements IObservable {
 
     public boolean removeTag(Subject tag){
         boolean isRemoved = tags.remove(tag);
-        notifySubscribers();
         return isRemoved;
+    }
+
+    public void tagSelected(Subject tag){
+        if (tags.contains(tag)){
+            tags.remove(tag);
+        }
+        else {
+            tags.add(tag);
+        }
+        notifySubscribers();
     }
 
     public void addQuestion(IQuizable<?> question){

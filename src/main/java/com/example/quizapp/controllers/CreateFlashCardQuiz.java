@@ -38,7 +38,6 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     private ScrollPane flashcardScrollpane;
 
     @FXML
-
     private FlowPane tagBox;
 
     @FXML
@@ -90,6 +89,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
             appliedTagBox.getChildren().add(tag);
         }
 
+        createTagsInPane();
     }
 
     @FXML
@@ -131,7 +131,13 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
 
         appliedTagBox.setSpacing(10);
 
+        createTagsInPane();
+    }
+
+    private void createTagsInPane() {
+        tagBox.getChildren().clear();
         for (Subject subject : Subject.values()){
+            if (!quiz.getTags().contains(subject))
             tagBox.getChildren().add(new Tag(subject, quiz));
         }
     }
