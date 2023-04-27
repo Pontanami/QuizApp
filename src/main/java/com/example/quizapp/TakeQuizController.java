@@ -16,7 +16,9 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TakeQuizController{
 
@@ -28,7 +30,7 @@ public class TakeQuizController{
     private final HashMap<String, AnchorPane> controllers = new HashMap<>();
     private int points = 0;
 
-    @FXML private Button answerButton;
+    @FXML private Button QuizAnswer;
     @FXML private Button hintButton;
     @FXML private Button finishButton;
 
@@ -51,6 +53,8 @@ public class TakeQuizController{
     private Quiz quiz;
     private boolean isFlashCard = false;
     private boolean isMultiChoice = false;
+
+    private final List<String> answeredQuestions = new ArrayList<>();
 
     public void setAsFlashCardQuiz(){
         isFlashCard = true;
@@ -83,20 +87,27 @@ public class TakeQuizController{
 
         }
         QuizPrevious.setDisable(false);
+        isAnswered();
     }
 
     public void showPrevious(){
         quiz.prevQuestion();
         QuizNext.setVisible(true);
         finishButton.setVisible(false);
-        retrieveQuestion();
+        if (quiz.getCurrentQuestion().getClass().equals(MultiChoice.class))
+            retrieveQuestion();
+        else
+            showQuestion();
+
         if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
             QuizPrevious.setDisable(true);
         }
+        isAnswered();
     }
 
     private void retrieveQuestion() {
         QuizHolder.setCenter(controllers.get(quiz.getCurrentQuestion().getQuestion()));
+
     }
 
     public void showHint(){
@@ -108,6 +119,12 @@ public class TakeQuizController{
             points++;
             QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         }
+        QuizAnswer.setDisable(true);
+        answeredQuestions.add(quiz.getCurrentQuestion().getQuestion());
+    }
+
+    private void isAnswered(){
+        QuizAnswer.setDisable(answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion()));
     }
 
     private void showQuestion() {
