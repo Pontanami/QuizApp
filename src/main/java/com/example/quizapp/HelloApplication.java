@@ -4,6 +4,8 @@ import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.*;
+import com.example.quizapp.user.FirebaseQuizRepository;
+import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.model.Flashcard;
 import javafx.application.Application;
@@ -19,7 +21,9 @@ import java.util.Scanner;
 
 public class HelloApplication extends Application {
 
-    private IUserRepository userRepo;
+    private static final IUserRepository userRepo = FirebaseUserRepository.getAuth();
+
+
 
     @Override
     public void start(Stage stage) throws IOException, IllegalAccessException {
@@ -55,7 +59,7 @@ public class HelloApplication extends Application {
                     System.out.println("Write name of account");
                     String name = scanner.next();
                     UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setName(name);
-                    List<User> users = userRepo.getUsers(userQ.build());
+                    List<User> users = userRepo.getUsers(userQ);
                     for (User user : users)
                     System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
                             " id=" + user.getId());
@@ -107,6 +111,19 @@ public class HelloApplication extends Application {
                 case "1" -> createFlashCardQuiz();
                 case "2" -> createMultiChoiceQuiz();
                 case "3" -> launch();
+                case "4" -> {
+                    FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
+                    QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder();
+                    List<Quiz> quiz = quizrepo.getQuiz(query);
+                    System.out.println(quiz);
+                    quiz = QuizSearch.search(quiz, "quiz");
+                    System.out.println(quiz);
+
+
+
+                    //List<Quiz> quiz = quizrepo.getQuiz(query);
+
+                }
                 case "q" -> {
                     running = false;
                     System.exit(0);
@@ -145,12 +162,21 @@ public class HelloApplication extends Application {
                 }
 
                 case "2" -> {
+                    System.out.println("Write name of account");
+                    String name = in.next();
+                    System.out.println("Write password");
+                    String password = in.next();
+                    userRepo.loginUser(name, password);
+                    FirebaseQuizRepository quizrepo = new FirebaseQuizRepository();
+                    quizrepo.uploadQuiz(quiz, userRepo.getCurrentUser());
                     if (quiz.getQuestions().size() == 0) {  //Changed from flashcards list
                         System.out.println("No flashcards added.");
                         break;
                     }
                     boolean viewingFlashCards = true;
                     boolean viewingQuestion = true;
+                    //"18xWvPahtOvtZ029Fc28"
+                    //quiz = quizrepo.getQuiz();
                     while (viewingFlashCards) {
 
                         if (viewingQuestion) {

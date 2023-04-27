@@ -14,6 +14,9 @@ public class Quiz implements IObservable {
     private List<Subject> tags = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int points = 0;
+    private String id, createdBy;
+
+
 
     /**
      * A class that includes a collection of questions of the type IQuizable
@@ -25,6 +28,13 @@ public class Quiz implements IObservable {
         this.name = name;
     }
 
+    public Quiz(String name, List<IQuizable<?>> questions, List<Subject> tags, String id, String createdBy){
+        this.name = name;
+        this.questions = questions;
+        this.tags = tags;
+        this.id = id;
+        this.createdBy = createdBy;
+    }
     public String getName(){
         return name;
     }
@@ -117,4 +127,12 @@ public class Quiz implements IObservable {
             observer.update();
         }
     }
+    public String getId() {
+        return id;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
 }
