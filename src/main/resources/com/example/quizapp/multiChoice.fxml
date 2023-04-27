@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.MultiChoiceController">
    <children>
-      <Pane id="quizPane" fx:id="quizPane" layoutX="-6.0" layoutY="-17.0" prefHeight="343.0" prefWidth="1131.0" stylesheets="@multiChoiceCSS.css">
+      <Pane id="info-rec" fx:id="quizPane" layoutX="-6.0" layoutY="-17.0" prefHeight="343.0" prefWidth="1131.0" stylesheets="@mainColor.css">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>

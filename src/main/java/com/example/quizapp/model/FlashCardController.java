@@ -30,7 +30,6 @@ public class FlashCardController implements IAnswerable {
     private int textIndex = 0;
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
     private Flashcard card;
-    private boolean isCorrect = true;
 
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
@@ -69,21 +68,11 @@ public class FlashCardController implements IAnswerable {
         }
         a.setTitle("Hint");
         a.setContentText(card.showHint());
-        Parent parentPane = clickablePane.getParent().getParent().getParent();
 
-        a.setOnShowing(new EventHandler<DialogEvent>() {
-            @Override
-            public void handle(DialogEvent dialogEvent) {
-                parentPane.setOpacity(0.2);
-            }
-        });
-        a.setOnCloseRequest(new EventHandler<DialogEvent>() {
-            @Override
-            public void handle(DialogEvent dialogEvent) {
-                parentPane.setOpacity(1);
-            }
-        });
-        a.show();
+        Parent parentPane = clickablePane.getParent().getParent().getParent();
+        parentPane.setOpacity(0.2);
+        a.showAndWait();
+        parentPane.setOpacity(1);
     }
 
     public void rotate(){
@@ -101,11 +90,14 @@ public class FlashCardController implements IAnswerable {
 
     @Override
     public boolean revealAnswer(){
-
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.NO, ButtonType.YES);
-        a.setTitle("Answer");
         a.setHeaderText("The answer is " + card.getAnswer() + ". Were you right?");
+        a.setTitle("Answer");
+
+        Parent parentPane = clickablePane.getParent().getParent().getParent();
+        parentPane.setOpacity(0.2);
         Optional<ButtonType> result = a.showAndWait();
+        parentPane.setOpacity(1);
 
         return result.get() == ButtonType.YES;
     }

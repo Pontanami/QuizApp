@@ -5,27 +5,10 @@
     -fx-text-fill: white;
 }
 
-#quizPane {
-    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
-}
-
 #answer{
     -fx-text-fill: rgba(60,157,35,1) 100%;
 }
 
 #wrongAnswer{
     -fx-text-fill: rgba(237,32,84,1) 100%;
-}
-
-.button:hover{
-    -fx-background-color: linear-gradient(to right, rgba(53,137,208,1) 36%, rgba(20,110,139,1) 87%);
-}
-
-.button{
-    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
-    -fx-border-radius: 8px;
-}
-
-#QuizProgress{
-    -fx-accent: #6b0786;
 }

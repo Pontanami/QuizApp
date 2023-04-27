@@ -15,16 +15,16 @@
             <Font name="Arial" size="50.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="QuizProgress" layoutX="387.0" layoutY="209.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" />
+      <ProgressBar fx:id="QuizProgress" layoutX="387.0" layoutY="209.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" stylesheets="@mainColor.css" />
       <BorderPane fx:id="QuizHolder" layoutX="389.0" layoutY="305.0" prefHeight="343.0" prefWidth="1131.0" />
-      <Button fx:id="QuizPrevious" layoutX="386.0" layoutY="770.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" text="Previous" textFill="#fffdfd">
+      <Button fx:id="QuizPrevious" layoutX="386.0" layoutY="770.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" stylesheets="@mainColor.css" text="Previous" textFill="#fffdfd">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="finishButton" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#finish" prefHeight="65.0" prefWidth="235.0" text="Finish" textFill="#fffbfb">
+      <Button fx:id="finishButton" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#finish" prefHeight="65.0" prefWidth="235.0" stylesheets="@mainColor.css" text="Finish" textFill="#fffbfb">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -32,14 +32,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="QuizNext" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#showNext" prefHeight="65.0" prefWidth="235.0" text="Next" textFill="#fffbfb">
+      <Button fx:id="QuizNext" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#showNext" prefHeight="65.0" prefWidth="235.0" stylesheets="@mainColor.css" text="Next" textFill="#fffbfb">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="QuizHint" layoutX="388.0" layoutY="648.0" mnemonicParsing="false" onAction="#showHint" prefHeight="34.0" prefWidth="1133.0" text="Hint" textFill="#fcf9f9">
+      <Button fx:id="QuizHint" layoutX="383.0" layoutY="648.0" mnemonicParsing="false" onAction="#showHint" prefHeight="34.0" prefWidth="1133.0" stylesheets="@mainColor.css" text="Hint" textFill="#fcf9f9">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -47,7 +47,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="QuizAnswer" layoutX="388.0" layoutY="681.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" text="Show Answer" textFill="#fffefe">
+      <Button fx:id="QuizAnswer" layoutX="383.0" layoutY="681.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" stylesheets="@mainColor.css" text="Show Answer" textFill="#fffefe">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
