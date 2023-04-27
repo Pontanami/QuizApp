@@ -3,6 +3,7 @@ package com.example.quizapp;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.model.OneLetterHint;
+import com.example.quizapp.model.Subject;
 import com.example.quizapp.model.TextHint;
 import com.example.quizapp.user.FirebaseQuizRepository;
 import com.example.quizapp.user.User;
@@ -31,8 +32,8 @@ public class TestFirebaseQuizRepo {
         questions.add(flashcard2);
         currentUser = new User("123", "bob", "bob@gmail.com", "bob");
         query = new QuizQuery.QuizQueryBuilder();
-        quiz = new Quiz("testQuiz", questions, List.of(Quiz.Subjects.MATH, Quiz.Subjects.SCIENCE), "1", currentUser.getId());
-        quiz2 = new Quiz("testQuiz", questions, List.of(Quiz.Subjects.MATH), "1", currentUser.getId());
+        quiz = new Quiz("testQuiz", questions, List.of(Subject.Mathematics, Subject.Economics), "1", currentUser.getId());
+        quiz2 = new Quiz("testQuiz", questions, List.of(Subject.Mathematics), "1", currentUser.getId());
     }
     @Test
     public void testUploadQuiz() {
@@ -59,9 +60,9 @@ public class TestFirebaseQuizRepo {
     public void testAddTagsToSearch(){
         repo.uploadQuiz(quiz, currentUser);
         repo.uploadQuiz(quiz2, currentUser);
-        List<Quiz> quizzes1 = repo.getQuiz(query.setTags(List.of(Quiz.Subjects.SCIENCE)).setName("testQuiz"));
+        List<Quiz> quizzes1 = repo.getQuiz(query.setTags(List.of(Subject.Economics)).setName("testQuiz"));
         Assertions.assertEquals(1, quizzes1.size());
-        query.setTags(List.of(Quiz.Subjects.MATH));
+        query.setTags(List.of(Subject.Mathematics));
         List<Quiz> quizzes2 = repo.getQuiz(query);
         Assertions.assertEquals(2, quizzes2.size());
         for (Quiz quiz : quizzes2) {

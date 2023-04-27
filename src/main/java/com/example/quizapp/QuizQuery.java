@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.model.Subject;
 import com.example.quizapp.user.FetchQuery;
 
 import java.lang.reflect.Field;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class QuizQuery extends FetchQuery {
     private String name, createdBy, id;
-    private List<Quiz.Subjects> tags;
+    private List<Subject> tags;
 
 
     private QuizQuery(QuizQueryBuilder builder){
@@ -40,7 +41,7 @@ public class QuizQuery extends FetchQuery {
      */
     public static class QuizQueryBuilder implements IBuilder<QuizQuery> {
         private String name, createdBy, id;
-        private List<Quiz.Subjects> tags;
+        private List<Subject> tags;
 
         /**
          * Method for adding an id we want the query to search for2
@@ -78,7 +79,7 @@ public class QuizQuery extends FetchQuery {
          * @param tags the tags we want to search for in the database
          * @return a UserQueryBuilder object containing information used to query the password of the user
          */
-        public QuizQueryBuilder setTags(List<Quiz.Subjects> tags) {
+        public QuizQueryBuilder setTags(List<Subject> tags) {
             if(this.tags == null)
                 this.tags = new ArrayList<>();
             this.tags.addAll(tags);

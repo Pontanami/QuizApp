@@ -12,8 +12,7 @@ module com.example.quizapp {
     exports com.example.quizapp.controllers;
     opens com.example.quizapp.controllers to javafx.fxml;
 
-    opens com.example.quizapp to javafx.fxml;
-    opens com.example.quizapp to javafx.fxml,com.google.gson;
+    opens com.example.quizapp to javafx.fxml, com.google.gson;
     exports com.example.quizapp;
     exports com.example.quizapp.user;
     opens com.example.quizapp.user to javafx.fxml;

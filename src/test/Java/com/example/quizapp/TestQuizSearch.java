@@ -3,6 +3,7 @@ package com.example.quizapp;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.model.Flashcard;
 import com.example.quizapp.model.OneLetterHint;
+import com.example.quizapp.model.Subject;
 import com.example.quizapp.model.TextHint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,9 +17,9 @@ public class TestQuizSearch {
     Flashcard flashcard1 = new Flashcard("What the capital of Sweden?", "Stockholm", new OneLetterHint("Stockholm"));
     Flashcard flashcard2 = new Flashcard("What is 1+1", "2", new TextHint("ett plus ett är två"));
     List<IQuizable<?>> questions = List.of(flashcard1, flashcard2);
-    Quiz quiz = new Quiz("Quiz1", questions, List.of(Quiz.Subjects.MATH, Quiz.Subjects.SCIENCE), "1", "user1");
-    Quiz quiz2 = new Quiz("ABC", questions, List.of(Quiz.Subjects.MATH, Quiz.Subjects.SCIENCE), "1", "user1");
-    Quiz quiz3 = new Quiz("Quiz3", questions, List.of(Quiz.Subjects.MATH, Quiz.Subjects.SCIENCE), "1", "user1");
+    Quiz quiz = new Quiz("Quiz1", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1");
+    Quiz quiz2 = new Quiz("ABC", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1");
+    Quiz quiz3 = new Quiz("Quiz3", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1");
 
     List<Quiz> quizzes;
 
