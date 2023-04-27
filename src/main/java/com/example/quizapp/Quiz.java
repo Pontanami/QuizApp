@@ -28,7 +28,7 @@ public class Quiz implements IObservable {
         this.name = name;
     }
 
-    public Quiz(String name, List<IQuizable<?>> questions, Set<Subject> tags, String id, String createdBy){
+    public Quiz(String name, List<IQuizable<?>> questions, List<Subject> tags, String id, String createdBy){
         this.name = name;
         this.questions = questions;
         this.tags = tags;
