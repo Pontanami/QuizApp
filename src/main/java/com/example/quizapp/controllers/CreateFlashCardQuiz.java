@@ -58,23 +58,19 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         }
 
         this.rootpane = rootpane;
-
         quiz.subscribe(this);
     }
 
-    //todo Move to quiz model
     @FXML
     public void addQuestion(){
         CreateFlashcard flashcard = new CreateFlashcard(this);
         questions.add(flashcard);
-        //update(); remove
+        updateCreatedQuestions();
     }
 
     public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
-        //quiz.removeQuestion(flashcard);
-
         questions.remove(flashcard);
-        update();
+        updateCreatedQuestions();
     }
 
     @Override
@@ -92,14 +88,21 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         createTagsInPane();
     }
 
+    private void updateCreatedQuestions(){
+        items.getChildren().clear();
+        for (var item : questions){
+            items.getChildren().add(item);
+        }
+
+        flashcardScrollpane.setContent(items);
+    }
+
     @FXML
     public void navigateToTagPane() {
         tagPane.toFront();
-
-        //todo remove
-        createQuiz();
     }
 
+    @FXML
     private void createQuiz(){
         Quiz quiz = new Quiz();
         for (var item : questions) {
@@ -107,9 +110,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
             quiz.addQuestion(question);
         }
 
-
-
-        var q = quiz;
+        //TODO push quiz to database
     }
 
     @FXML
