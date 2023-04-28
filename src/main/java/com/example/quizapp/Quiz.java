@@ -12,8 +12,6 @@ public class Quiz implements IObservable {
     private String name;
     private List<IQuizable<?>> questions = new ArrayList<>();
     private List<Subject> tags = new ArrayList<>();
-    private int currentQuestionIndex = 0;
-    private int points = 0;
     private String id, createdBy;
 
 
@@ -79,45 +77,11 @@ public class Quiz implements IObservable {
     }
 
     public void removeQuestion(int index){
-        questions.remove(index);
-        if (currentQuestionIndex > questions.size()-1){
-            currentQuestionIndex = questions.size()-1;
+        if (index >= 0 && index < questions.size()) {
+            questions.remove(index);
         }
     }
 
-    public IQuizable<?> getCurrentQuestion(){
-        try {
-            return questions.get(currentQuestionIndex);
-        }catch (IndexOutOfBoundsException e){
-            throw new IndexOutOfBoundsException("there is no questions to get");
-        }
-    }
-
-    public IQuizable<?> nextQuestion(){
-        if (isInvalidQuestionsSize()){
-            return getCurrentQuestion();
-        }
-        currentQuestionIndex = Math.abs((currentQuestionIndex + 1) % questions.size());
-        return getCurrentQuestion();
-    }
-
-    public IQuizable<?> prevQuestion(){
-        if (isInvalidQuestionsSize()){
-            return getCurrentQuestion();
-        }
-        currentQuestionIndex = Math.abs((currentQuestionIndex - 1) % questions.size());
-        return getCurrentQuestion();
-    }
-
-    private boolean isInvalidQuestionsSize(){
-        return (questions.size() == 1 || questions.size() == 0);
-    }
-    public void addPoint(){
-        points++;
-    }
-    public int getPoints(){
-        return points;
-    }
 
     @Override
     public void subscribe(IObserver observer) {
