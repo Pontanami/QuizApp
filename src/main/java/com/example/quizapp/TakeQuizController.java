@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -20,118 +19,131 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
+ * The method initializeData() should be called. One of the methods setAsFlashCardQuiz() or setAsMultiChoiceQuiz()
+ * should also be called when initializing the controller.
+ * @see TakeQuizController#initializeData(Quiz)
+ * @see TakeQuizController#setAsFlashCardQuiz()
+ * @see TakeQuizController#setAsMultiChoiceQuiz()
+ */
 public class TakeQuizController{
-
-    @FXML
-    private Label QuizName;
-
-
-    private IAnswerable specificController;
-    private final HashMap<String, AnchorPane> controllers = new HashMap<>();
-    private int points = 0;
-
-    @FXML private Button QuizAnswer;
-    @FXML private Button QuizHint;
+    @FXML private Label quizName;
+    @FXML private Button quizAnswer;
+    @FXML private Button quizHint;
     @FXML private Button finishButton;
+    @FXML private BorderPane quizHolder;
+    @FXML private ProgressBar quizProgress;
+    @FXML private Button quizNext;
+    @FXML private Button quizPrevious;
+    @FXML private Label quizPoints;
 
-    @FXML
-    private BorderPane QuizHolder;
-    @FXML
-    private ProgressBar QuizProgress;
-
-    @FXML
-    private Button QuizNext;
-
-    @FXML
-    private Button QuizPrevious;
-
-    @FXML
-    private Label QuizPoints;
-
-    private BigDecimal progress = new BigDecimal("0.0");
-
-    private Quiz quiz;
-    private boolean isFlashCard = false;
-    private boolean isMultiChoice = false;
-
+    private final HashMap<String, AnchorPane> previousNodes = new HashMap<>();
     private final List<String> answeredQuestions = new ArrayList<>();
+    private BigDecimal progress = new BigDecimal("0.0");
+    private IAnswerable specificController;
+    private boolean isMultiChoice = false;
+    private boolean isFlashCard = false;
+    private int points = 0;
+    private Quiz quiz;
 
+    /**
+     * Establishes the type of questions withing the quiz as {@link Flashcard}.
+     */
     public void setAsFlashCardQuiz(){
         isFlashCard = true;
         isMultiChoice = false;
     }
+
+    /**
+     * Establishes the type of questions withing the quiz as {@link MultiChoice}.
+     */
     public void setAsMultiChoiceQuiz(){
         isMultiChoice = true;
         isFlashCard = false;
     }
 
+    /**
+     * Initializes the values needed when starting a quiz.
+     * @param quiz The {@link Quiz} instance needed to control a quiz.
+     */
     public void initializeData(Quiz quiz){
         this.quiz = quiz;
-        QuizName.setText(quiz.getName());
-        QuizPrevious.setDisable(true);
-        QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
+        quizName.setText(quiz.getName());
+        quizPrevious.setDisable(true);
+        quizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         showQuestion();
-
     }
 
+    /**
+     * Displays the next question according to the order specified in the given questions list.
+     */
     public void showNext(){
         quiz.nextQuestion();
-        showQuestion();
         if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(quiz.getQuestions().size()-1).getQuestion())){
-            QuizNext.setVisible(false);
+            quizNext.setVisible(false);
             finishButton.setVisible(true);
         }
-        QuizPrevious.setDisable(false);
+        quizPrevious.setDisable(false);
+        showQuestion();
         isAnswered();
     }
 
+    /**
+     * Displays the previous question according to the order specified in the given questions list.
+     */
     public void showPrevious(){
         quiz.prevQuestion();
-        QuizNext.setVisible(true);
+        quizNext.setVisible(true);
         finishButton.setVisible(false);
-        showQuestion();
         if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
-            QuizPrevious.setDisable(true);
+            quizPrevious.setDisable(true);
         }
+        showQuestion();
         isAnswered();
     }
 
     private void retrieveQuestion() {
-        QuizHolder.setCenter(controllers.get(quiz.getCurrentQuestion().getQuestion()));
+        quizHolder.setCenter(previousNodes.get(quiz.getCurrentQuestion().getQuestion()));
     }
-
+    /**
+     * Calls the showHint() method from a controller of the type {@link IAnswerable}.
+     * @see IAnswerable#showHint()
+     */
     public void showHint(){
-        if (QuizAnswer.isDisabled()){
-            QuizHint.setDisable(true);
-        }
-        else {
+        if (quizAnswer.isDisabled()){
+            quizHint.setDisable(true);
+        } else {
             specificController.showHint();
-            QuizHint.setDisable(true);
+            quizHint.setDisable(true);
         }
     }
 
+    /**
+     * Calls the revealAnswer() method from a controller of the type {@link IAnswerable}. Handles the point system
+     * according to the response of the controller. Disables answer and hint buttons.
+     * @see IAnswerable#revealAnswer()
+     */
     public void showAnswer(){
         if (specificController.revealAnswer()){
             points++;
-            QuizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
+            quizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
         }
-        QuizAnswer.setDisable(true);
-        QuizHint.setDisable(true);
+        quizAnswer.setDisable(true);
+        quizHint.setDisable(true);
         answeredQuestions.add(quiz.getCurrentQuestion().getQuestion());
     }
 
     private void isAnswered(){
-        QuizAnswer.setDisable(answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion()));
+        quizAnswer.setDisable(answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion()));
     }
 
     private void showQuestion() {
-
         if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
-            QuizHint.setDisable(true);
-        }
-        else {
-            QuizHint.setDisable(false);
+            quizHint.setDisable(true);
+        } else {
+            quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
                 if (isMultiChoice) { //Maybe do a check with instanceOF?
@@ -149,17 +161,18 @@ public class TakeQuizController{
                     controller.initializeData((Flashcard) quiz.getCurrentQuestion());
                     specificController = controller;
                 }
-                controllers.put(quiz.getCurrentQuestion().getQuestion(), pane);
+                previousNodes.put(quiz.getCurrentQuestion().getQuestion(), pane);
                 increaseProgress();
-                QuizHolder.setCenter(pane);
+                quizHolder.setCenter(pane);
             } catch (IOException e){
                 e.printStackTrace();
             }
         }
-
-
     }
 
+    /**
+     * increases the progress bar by one step. The size of the step depends on the total number of questions a quiz has.
+     */
     public void increaseProgress(){
         int numberOfQuestions = quiz.getQuestions().size();
         double progressStep = 1.0 / numberOfQuestions;
@@ -168,10 +181,14 @@ public class TakeQuizController{
 
         if (progress.doubleValue() < 1){
             progress = new BigDecimal(Double.toString(progress.doubleValue() + progressStep));
-            QuizProgress.setProgress(progress.doubleValue());
+            quizProgress.setProgress(progress.doubleValue());
         }
     }
 
+    /**
+     * Calls {@link Platform} class's exit method.
+     * @see Platform#exit()
+     */
     public void finish(){
         Platform.exit();
     }
