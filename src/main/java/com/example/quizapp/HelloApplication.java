@@ -115,8 +115,8 @@ public class HelloApplication extends Application {
 
         TakeQuizController controller = fxmlLoader.getController();
         controller.setAsFlashCardQuiz();
-        //controller.setAsMultiChoiceQuiz();
-        controller.initializeData(quiz2);
+        controller.setAsMultiChoiceQuiz();
+        controller.initializeData(quiz);
 
         stage.setTitle("Quiz App");
         stage.setScene(scene);
