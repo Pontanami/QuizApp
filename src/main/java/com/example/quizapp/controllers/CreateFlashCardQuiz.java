@@ -56,6 +56,10 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     private IUserRepository userRepository = FirebaseUserRepository.getAuth();
 
 
+    /**
+     * Creates a CreateFlashCardQuiz
+     * @param rootpane parent pane of the object
+     */
     public CreateFlashCardQuiz(AnchorPane rootpane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
         fxmlLoader.setRoot(this);
@@ -70,24 +74,32 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         quiz.subscribe(this);
     }
 
+    /**
+     * This method adds a new CreateFlashcard controller to CreateFlashCardQuiz
+     */
     @FXML
+    @Override
     public void addQuestion(){
         CreateFlashcard flashcard = new CreateFlashcard(this);
         questions.add(flashcard);
         updateCreatedQuestions();
     }
 
+    /**
+     * This method removes a question controller from CreateFlashCardQuiz
+     * @param flashcard to be removed
+     */
+    @Override
     public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
         questions.remove(flashcard);
         updateCreatedQuestions();
     }
 
+    /**
+     *  This method updates UI elements based on modifications of model
+     */
     @Override
     public void update(){
-        items.getChildren().clear();
-        items.getChildren().addAll(questions);
-        flashcardScrollpane.setContent(items);
-
         appliedTagBox.getChildren().clear();
         for (Subject subject : quiz.getTags()){
             Tag tag = new Tag(subject, quiz);
@@ -97,6 +109,9 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         createTagsInPane();
     }
 
+    /**
+     * This method updates all CreateFlashCard controllers in scrollpane
+     */
     private void updateCreatedQuestions(){
         items.getChildren().clear();
         for (var item : questions){
@@ -106,11 +121,17 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         flashcardScrollpane.setContent(items);
     }
 
+    /**
+     * This method is used to navigate to TagPane
+     */
     @FXML
     public void navigateToTagPane() {
         tagPane.toFront();
     }
 
+    /**
+     * This method adds all questions to the quiz and pushes the quiz to repository
+     */
     @FXML
     private void createQuiz(){
         quiz.setName(quizName.getText());
@@ -124,28 +145,40 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
     }
 
+    /**
+     * This method is used to navigate to the menu section of the page
+     */
     @FXML
     private void navigateToMenu(){
         rootpane.getChildren().clear();
         rootpane.getChildren().add(new CreateQuiz());
     }
 
+    /**
+     * This method is used to navigate to the flashcard section of the page
+     */
     @FXML
     private void navigateToFlashcard(){
         flashcardPane.toFront();
     }
 
+    /**
+     * Initialize the tag component
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         tagBox.setHgap(10);
         tagBox.setVgap(10);
-
         appliedTagBox.setSpacing(10);
 
         createTagsInPane();
     }
 
+    /**
+     * This method creates all tags to the tag component
+     */
     private void createTagsInPane() {
         tagBox.getChildren().clear();
         for (Subject subject : Subject.values()){
@@ -153,5 +186,4 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
             tagBox.getChildren().add(new Tag(subject, quiz));
         }
     }
-
 }

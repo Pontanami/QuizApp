@@ -22,14 +22,18 @@ public class CreateQuiz extends AnchorPane{
         this.rootpane = rootpane;
     }*/
 
+    /**
+     * This method navigates to the CreateFlashcard section of the page
+     */
     @FXML
     public void navigateToCreateFlashcard() {
         rootpane.getChildren().clear();
         rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
     }
 
-
-
+    /**
+     * This method navigates back one page
+     */
     @FXML
     public void navigateBack() {
         rootpane.getChildren().clear();
