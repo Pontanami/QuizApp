@@ -42,7 +42,7 @@ public class MyProfileController extends AnchorPane implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mv = MainViewController.getInstance();
+        //mv = MainViewController.getInstance();
     }
 
     @FXML

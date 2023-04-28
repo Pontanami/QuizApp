@@ -28,13 +28,22 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane rootpane;
     MainViewController mv;
+    @FXML
+    AnchorPane parent;
 
-    public LoginController(){
-
+    public LoginController(AnchorPane parent){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        this.parent = parent;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mv = MainViewController.getInstance(rootpane);
     }
 
     @FXML

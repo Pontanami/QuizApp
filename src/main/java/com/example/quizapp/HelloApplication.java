@@ -1,6 +1,7 @@
 package com.example.quizapp;
 
 import com.example.quizapp.controllers.LoginController;
+import com.example.quizapp.controllers.MainViewController;
 import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
@@ -84,10 +85,9 @@ public class HelloApplication extends Application {
             }
 
         }*/
+        MainViewController mv = new MainViewController();
+        Scene scene = new Scene(mv, 1920, 1080);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
-        stage.setTitle("QuizApp");
         stage.setScene(scene);
         stage.show();
     }

@@ -3,42 +3,40 @@ package com.example.quizapp.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainViewController extends AnchorPane {
+public class MainViewController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane rootPane;
+    LoginController loginController;
+    //Get instance for other pages
 
-    private static MainViewController instance = null;
 
-    public static MainViewController getInstance(AnchorPane pane) {
-        if (instance == null) {
-            instance = new MainViewController(pane);
+    public MainViewController(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
         }
-        return instance;
     }
-
-    public static MainViewController getInstance() {
-        return instance;
-    }
-
-    private MainViewController(AnchorPane pane){
-        rootPane = pane;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginController = new LoginController(rootPane);
+        navigateToLogin();
     }
 
     @FXML
     public void navigateToLogin(){
-        AnchorPane ap;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-        try {
-            ap = fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
         rootPane.getChildren().clear();
-        rootPane.getChildren().add(ap);
+        rootPane.getChildren().add(loginController);
     }
     @FXML
     public void navigateToMyProfile(){
