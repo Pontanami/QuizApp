@@ -11,20 +11,24 @@ import javafx.scene.control.RadioButton;
 import java.util.List;
 import java.util.concurrent.Flow;
 
+/**
+ * Represents the controller of multiChoice.fxml
+ * Method initializeData(MultiChoice ques) must be called with an instance of MultiChoice
+ * @see MultiChoiceController#initializeData(MultiChoice)
+ */
 public class MultiChoiceController implements IAnswerable {
-
-    @FXML
-    private Label multiQuestion;
-    @FXML
-    private RadioButton choice1, choice2, choice3, choice4;
+    @FXML private Label multiQuestion;
+    @FXML private RadioButton choice1, choice2, choice3, choice4;
 
     private final RadioButton[] radioButtons = new RadioButton[4];
-
     private MultiChoice ques;
     private List<String> choiceAnswers;
     private List<String> hintAnswers;
 
-
+    /**
+     * Initialize the values for the current object with the specified MultiChoice instance
+     * @param ques the MultiChoice object associated with this MultiChoiceController instance
+     */
     public void initializeData(MultiChoice ques){
         this.ques = ques;
         choiceAnswers = ques.getChoices();
@@ -59,12 +63,19 @@ public class MultiChoiceController implements IAnswerable {
         }
     }
 
+    /**
+     * Shows the hint for the current instance of MultiChoice
+     */
     @Override
     public void showHint() {
         choiceAnswers = hintAnswers;
         init();
     }
 
+    /**
+     * Reveals the answer for the current instance of MultiChoice
+     * @return true if answered correctly false otherwise
+     */
     @Override
     public boolean revealAnswer(){
         boolean answer = false;

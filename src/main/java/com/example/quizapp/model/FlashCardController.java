@@ -23,6 +23,11 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Represents the controller of FlashCard.fxml
+ * Method initializeData(Flashcard ques) must be called with an instance of Flashcard
+ * @see FlashCardController#initializeData(Flashcard)
+ */
 public class FlashCardController implements IAnswerable {
     @FXML private AnchorPane clickablePane;
     @FXML private Label txtLabel;
@@ -31,6 +36,10 @@ public class FlashCardController implements IAnswerable {
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
     private Flashcard card;
 
+    /**
+     * Initialize the values for the current object with the specified FlashCard instance
+     * @param card the FlashCard object associated with this FlashCardController instance
+     */
     public void initializeData(Flashcard card){
         termDef[0] = card.getQuestion();
         termDef[1] = card.getAnswer();
@@ -55,6 +64,9 @@ public class FlashCardController implements IAnswerable {
         return rotator;
     }
 
+    /**
+     * Shows the hint for the current instance of Flashcard
+     */
     @Override
     public void showHint() {
         Alert a;
@@ -75,6 +87,9 @@ public class FlashCardController implements IAnswerable {
         parentPane.setOpacity(1);
     }
 
+    /**
+     * Rotates the AnchorPane that holds the question and answer
+     */
     public void rotate(){
         RotateTransition rotator = createRotator(clickablePane);
         rotator.play();
@@ -88,6 +103,10 @@ public class FlashCardController implements IAnswerable {
         });
     }
 
+    /**
+     * Reveals the answer for the current instance of Flashcard
+     * @return true if answered correctly false otherwise
+     */
     @Override
     public boolean revealAnswer(){
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.NO, ButtonType.YES);
