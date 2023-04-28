@@ -1,6 +1,5 @@
 package com.example.quizapp.controllers;
 
-import com.example.quizapp.MainViewController;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.User;
 import javafx.fxml.FXML;
