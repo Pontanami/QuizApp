@@ -2,7 +2,10 @@ package com.example.quizapp.controllers;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class MainViewController extends AnchorPane {
     @FXML
@@ -17,15 +20,25 @@ public class MainViewController extends AnchorPane {
         return instance;
     }
 
+    public static MainViewController getInstance() {
+        return instance;
+    }
+
     private MainViewController(AnchorPane pane){
         rootPane = pane;
     }
 
     @FXML
     public void navigateToLogin(){
-        LoginController loginController = new LoginController();
+        AnchorPane ap;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        try {
+            ap = fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
         rootPane.getChildren().clear();
-        rootPane.getChildren().add(loginController);
+        rootPane.getChildren().add(ap);
     }
     @FXML
     public void navigateToMyProfile(){
