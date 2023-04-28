@@ -113,7 +113,6 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
 
     @FXML
     private void createQuiz(){
-        Quiz quiz = new Quiz();
         quiz.setName(quizName.getText());
         for (var item : questions) {
             var question = item.createQuestion();
