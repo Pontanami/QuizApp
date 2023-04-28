@@ -85,9 +85,9 @@ public class HelloApplication extends Application {
 
         }*/
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/fxml/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1500, 700);
-        stage.setTitle("Hello!");
+        MainViewController mv = new MainViewController();
+        Scene scene = new Scene(mv, 1920, 1080);
+        stage.setTitle("QuizApp");
         stage.setScene(scene);
         stage.show();
     }

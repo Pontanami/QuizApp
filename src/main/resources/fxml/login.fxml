@@ -5,42 +5,28 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.controllers.LoginController">
+<AnchorPane prefHeight="940.0" prefWidth="1920.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.controllers.LoginController">
    <children>
-      <AnchorPane prefHeight="140.0" prefWidth="1920.0" styleClass="header" stylesheets="@../css/my_profile.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Text fill="WHITE" layoutX="76.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="QuizApp">
-               <font>
-                  <Font size="96.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutY="140.0" prefHeight="940.0" prefWidth="1920.0" style="-fx-background-color: #FFFFFF;">
-         <children>
-            <PasswordField fx:id="passwordField" layoutX="708.0" layoutY="523.0" prefHeight="61.0" prefWidth="829.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </PasswordField>
-            <Button fx:id="loginBtn" layoutX="887.0" layoutY="636.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
-               <font>
-                  <Font size="31.0" />
-               </font>
-            </Button>
-            <TextField fx:id="emailField" layoutX="711.0" layoutY="405.0" prefHeight="81.0" prefWidth="821.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
-               <font>
-                  <Font size="33.0" />
-               </font>
-            </TextField>
-            <Button fx:id="registerBtn" layoutX="1174.0" layoutY="636.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
-               <font>
-                  <Font size="31.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
+      <PasswordField fx:id="passwordField" layoutX="708.0" layoutY="523.0" prefHeight="61.0" prefWidth="829.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="loginBtn" layoutX="887.0" layoutY="636.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Button>
+      <TextField fx:id="emailField" layoutX="711.0" layoutY="405.0" prefHeight="81.0" prefWidth="821.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </TextField>
+      <Button fx:id="registerBtn" layoutX="1174.0" layoutY="636.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

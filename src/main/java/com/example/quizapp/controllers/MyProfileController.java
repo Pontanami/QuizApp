@@ -1,5 +1,6 @@
 package com.example.quizapp.controllers;
 
+import com.example.quizapp.MainViewController;
 import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.User;
 import javafx.fxml.FXML;
@@ -13,9 +14,8 @@ import java.io.IOException;
 
 public class MyProfileController extends AnchorPane {
     FirebaseUserRepository ur = FirebaseUserRepository.getAuth();
+
     User currentUser = ur.getCurrentUser();
-    @FXML
-    AnchorPane rootpane;
     @FXML
     Text nameText;
     @FXML
@@ -23,7 +23,7 @@ public class MyProfileController extends AnchorPane {
     @FXML
     TextField emailField;
 
-    public MyProfileController(AnchorPane rp){
+    public MyProfileController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -32,20 +32,12 @@ public class MyProfileController extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.rootpane = rp;
         nameText.setText(currentUser.getName());
         emailField.setText(currentUser.getEmail());
     }
 
     @FXML
     private void signOut(){
-        navigateToLogin();
-    }
 
-    @FXML
-    private void navigateToLogin(){
-        LoginController loginController = new LoginController();
-        rootpane.getChildren().setAll(loginController);
     }
-
 }
