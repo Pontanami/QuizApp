@@ -24,8 +24,10 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
 
     private final CollectionReference colref;
 
-    Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(IQuizable.class, new QuizableTypeAdapter())
-            .registerTypeAdapter(IHint.class, new HintTypeAdapter()).create();
+    Gson gson = new GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(IQuizable.class, new GenericTypeSerializer<IQuizable<?>>())
+            .registerTypeAdapter(IHint.class, new GenericTypeSerializer<IHint<?>>())
+            .create();
 
     public FirebaseQuizRepository(){
         colref = getCollection("quizzes");

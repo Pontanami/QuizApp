@@ -21,7 +21,7 @@ public abstract class FirebaseBaseRepository<T, E> {
      * Creates the connection to firestore
      */
     protected FirebaseBaseRepository(){
-        FirebaseConnection conn = FirebaseConnection.getInstance();
+        FirebaseConnection.getInstance();
         db = FirestoreClient.getFirestore();
     }
 
