@@ -14,8 +14,6 @@ public class MainViewController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane rootPane;
     LoginController loginController;
-    //Get instance for other pages
-
 
     public MainViewController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml"));
@@ -40,13 +38,13 @@ public class MainViewController extends AnchorPane implements Initializable {
     }
     @FXML
     public void navigateToMyProfile(){
-        MyProfileController profileController = new MyProfileController();
+        MyProfileController profileController = new MyProfileController(rootPane);
         rootPane.getChildren().clear();
         rootPane.getChildren().add(profileController);
     }
     @FXML
     public void navigateToRegister(){
-        RegisterController registerController = new RegisterController();
+        RegisterController registerController = new RegisterController(rootPane);
         rootPane.getChildren().clear();
         rootPane.getChildren().add(registerController);
     }

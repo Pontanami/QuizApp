@@ -27,7 +27,6 @@ public class LoginController extends AnchorPane implements Initializable {
 
     @FXML
     AnchorPane rootpane;
-    MainViewController mv;
     @FXML
     AnchorPane parent;
 
@@ -51,13 +50,22 @@ public class LoginController extends AnchorPane implements Initializable {
         String email = emailField.getText();
         String pw = passwordField.getText();
         ur.loginUser(email, pw);
-        mv.navigateToMyProfile();
+        navigateToMyProfile();
+    }
+
+    @FXML
+    private void navigateToMyProfile(){
+        MyProfileController mpc = new MyProfileController(parent);
+        parent.getChildren().clear();
+        parent.getChildren().add(mpc);
     }
 
 
     @FXML
     private void register(){
-        mv.navigateToRegister();
+        RegisterController rc = new RegisterController(parent);
+        parent.getChildren().clear();
+        parent.getChildren().add(rc);
     }
 
 

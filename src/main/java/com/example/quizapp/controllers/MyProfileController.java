@@ -25,9 +25,12 @@ public class MyProfileController extends AnchorPane implements Initializable {
     @FXML
     TextField emailField;
 
+    @FXML
+    AnchorPane parent;
+
     MainViewController mv;
 
-    public MyProfileController(){
+    public MyProfileController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -36,17 +39,24 @@ public class MyProfileController extends AnchorPane implements Initializable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        this.parent = parent;
         nameText.setText(currentUser.getName());
         emailField.setText(currentUser.getEmail());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //mv = MainViewController.getInstance();
     }
 
     @FXML
     private void signOut(){
-        mv.navigateToLogin();
+       navigateToLogin();
+    }
+
+    @FXML
+    private void navigateToLogin(){
+        LoginController lc = new LoginController(parent);
+        parent.getChildren().clear();
+        parent.getChildren().add(lc);
     }
 }

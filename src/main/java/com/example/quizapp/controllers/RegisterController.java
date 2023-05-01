@@ -22,7 +22,10 @@ public class RegisterController extends AnchorPane{
     @FXML
     Button registerBtn;
 
-    public RegisterController(){
+    @FXML
+    AnchorPane parent;
+
+    public RegisterController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -31,6 +34,7 @@ public class RegisterController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        this.parent = parent;
     }
 
 
@@ -40,6 +44,14 @@ public class RegisterController extends AnchorPane{
         String pw = pwField.getText();
         String email = emailField.getText();
         ur.createUser(name, email, pw);
+        navigateToLogin();
+    }
+
+    @FXML
+    private void navigateToLogin(){
+        LoginController lc = new LoginController(parent);
+        parent.getChildren().clear();
+        parent.getChildren().add(lc);
     }
 }
 
