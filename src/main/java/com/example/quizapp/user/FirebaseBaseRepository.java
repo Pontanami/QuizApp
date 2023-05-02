@@ -15,14 +15,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public abstract class FirebaseBaseRepository<T, E> {
 
-    private FirebaseConnection conn;
     private final Firestore db;
 
     /**
      * Creates the connection to firestore
      */
     protected FirebaseBaseRepository(){
-        conn = FirebaseConnection.getInstance();
+        FirebaseConnection.getInstance();
         db = FirestoreClient.getFirestore();
     }
 
@@ -57,9 +56,27 @@ public abstract class FirebaseBaseRepository<T, E> {
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
+            System.out.println("Failed to reach Firebase in getQueryResult" + e);
+            return objects;
         }
         return objects;
+    }
+
+    /**
+     * Method to get a single result of a query from the Firestore database
+     * @param q the {@link Query} to get the result from
+     * @return  a single object {@link T} that was retrieved from the database
+     */
+    public T getSingleQueryResult(Query q){
+        List<T> list = getQueryResult(q);
+        if (list.isEmpty())
+            return null;
+        else if (list.size() > 1){
+            System.out.println("More than one result found");
+            return null;
+        }
+        else
+            return list.get(0);
     }
     /**
      * Method to delete a document from the Firestore database
