@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="343.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.MultiChoiceController">
+   <children>
+      <Pane id="info-rec" fx:id="quizPane" prefHeight="343.0" prefWidth="1131.0" stylesheets="@mainColor.css">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <children>
+            <Label fx:id="multiQuestion" alignment="CENTER" layoutX="280.0" layoutY="38.0" prefHeight="44.0" prefWidth="619.0" text="Question" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="choice1" layoutX="523.0" layoutY="111.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice1" textFill="#fcf7f7">
+               <toggleGroup>
+                  <ToggleGroup fx:id="choices" />
+               </toggleGroup>
+               <font>
+                  <Font name="Arial Bold" size="20.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="choice2" layoutX="523.0" layoutY="169.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice2" textFill="#f5f0f0" toggleGroup="$choices">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="choice3" layoutX="523.0" layoutY="223.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice3" textFill="#fcf9f9" toggleGroup="$choices">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="choice4" layoutX="523.0" layoutY="276.0" mnemonicParsing="false" styleClass="radioButton" stylesheets="@multiChoiceCSS.css" text="choice4" textFill="#fcf8f8" toggleGroup="$choices">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

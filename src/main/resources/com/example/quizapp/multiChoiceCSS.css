@@ -1,0 +1,14 @@
+.radioButton {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+    -fx-text-fill: white;
+}
+
+#answer{
+    -fx-text-fill: rgba(60,157,35,1) 100%;
+}
+
+#wrongAnswer{
+    -fx-text-fill: rgba(237,32,84,1) 100%;
+}

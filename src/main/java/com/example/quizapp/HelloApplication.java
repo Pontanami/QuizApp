@@ -4,12 +4,11 @@ import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.multiChoice.EliminateChoiceHint;
 import com.example.quizapp.multiChoice.MultiChoice;
 import com.example.quizapp.model.*;
-import com.example.quizapp.user.FirebaseUserRepository;
 import com.example.quizapp.user.IUserRepository;
 import com.example.quizapp.model.Flashcard;
-import com.example.quizapp.multiChoice.MultiChoice;
-import com.example.quizapp.user.User;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +23,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, IllegalAccessException {
+        /*
         boolean running = true;
         while(running) {
             userRepo = FirebaseUserRepository.getAuth();
@@ -58,8 +58,8 @@ public class HelloApplication extends Application {
                     UserQuery.UserQueryBuilder userQ = new UserQuery.UserQueryBuilder().setName(name);
                     List<User> users = userRepo.getUsers(userQ.build());
                     for (User user : users)
-                    System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
-                            " id=" + user.getId());
+                        System.out.println("User: name=" + user.getName() + " email=" + user.getEmail() +
+                                " id=" + user.getId());
                 }
                 case "4" -> {
                     List<String> users = new ArrayList<>();
@@ -83,16 +83,26 @@ public class HelloApplication extends Application {
                 }
             }
 
-        }
+        }*/
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("takeQuiz.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1920, 940);
 
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        //stage.setTitle("Hello!");
-        //stage.setScene(scene);
-        //stage.show();
+        String css = Objects.requireNonNull(this.getClass().getResource("multiChoiceCSS.css")).toExternalForm();
+        scene.getStylesheets().add(css);
+
+        TakeQuizController controller = fxmlLoader.getController();
+        //controller.setAsFlashCardQuiz();
+        //controller.setAsMultiChoiceQuiz();
+        //controller.initializeData(quiz2);
+
+        stage.setTitle("Quiz App");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
+        launch(args);
+        System.exit(0);
         boolean running = true;
         while (running){
             Scanner in = new Scanner(System.in);
@@ -216,8 +226,8 @@ public class HelloApplication extends Application {
                 case "q" -> running = false;
             }
 
-            }
-            System.out.println();
+        }
+        System.out.println();
     }
 
     private static void constructFlashcard(Scanner in, Quiz quiz) {
@@ -250,7 +260,7 @@ public class HelloApplication extends Application {
         } else {
             quiz.addQuestion(new Flashcard(question, answer, hint));
         }
-            System.out.println();
+        System.out.println();
 
     }
 

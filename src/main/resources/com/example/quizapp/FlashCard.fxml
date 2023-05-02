@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.model.FlashCardController">
+   <children>
+      <AnchorPane fx:id="clickablePane" onMouseClicked="#rotate" prefHeight="343.0" prefWidth="1131.0" styleClass="button" stylesheets="@mainColor.css">
+          <children>
+              <Label id="labelChangable" fx:id="txtLabel" alignment="CENTER" layoutX="366.0" layoutY="73.0" prefHeight="180.0" prefWidth="390.0" textAlignment="CENTER" textFill="#f8f5f5" wrapText="true">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font></Label>
+          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
+   </children>
+</AnchorPane>
