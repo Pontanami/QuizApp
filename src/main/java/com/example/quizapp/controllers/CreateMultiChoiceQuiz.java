@@ -151,7 +151,7 @@ public class CreateMultiChoiceQuiz extends AnchorPane implements IQuizManager<Cr
     @FXML
     private void navigateToMenu(){
         rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateQuiz());
+        rootpane.getChildren().add(new CreateQuiz(rootpane));
     }
 
     /**

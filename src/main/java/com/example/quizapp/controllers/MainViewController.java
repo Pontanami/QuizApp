@@ -32,6 +32,13 @@ public class MainViewController extends AnchorPane implements Initializable {
     }
 
     @FXML
+    public void navigateToCreateQuiz(){
+        CreateQuiz createQuizController = new CreateQuiz(rootPane);
+        rootPane.getChildren().clear();
+        rootPane.getChildren().add(createQuizController);
+    }
+
+    @FXML
     public void navigateToLogin(){
         rootPane.getChildren().clear();
         rootPane.getChildren().add(loginController);

@@ -151,7 +151,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     @FXML
     private void navigateToMenu(){
         rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateQuiz());
+        rootpane.getChildren().add(new CreateQuiz(rootpane));
     }
 
     /**

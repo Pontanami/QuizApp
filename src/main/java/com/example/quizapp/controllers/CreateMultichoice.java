@@ -9,11 +9,10 @@ import com.example.quizapp.multiChoice.MultiChoice;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.*;
@@ -23,7 +22,7 @@ public class CreateMultichoice extends AnchorPane implements ICreateQuestion<Str
     private IQuizManager questionManager;
     @FXML private TextField questionField;
     @FXML private ComboBox hintDropdown;
-    @FXML private TextField hintField;
+    @FXML private TextArea hintArea;
     private String chosenHint;
 
     @FXML private TextField choice1;
@@ -83,7 +82,7 @@ public class CreateMultichoice extends AnchorPane implements ICreateQuestion<Str
      */
     private IHint getHint(String hint, List<String> incorrectChoices, String answer){
         Map<String, IHint> hints = new HashMap<>();
-        hints.put(TextHint.class.getSimpleName(), new TextHint(hintField.getText()));
+        hints.put(TextHint.class.getSimpleName(), new TextHint(hintArea.getText()));
         hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(answerField.getText()));
         hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(answerField.getText()));
         hints.put(EliminateChoiceHint.class.getSimpleName(), new EliminateChoiceHint(incorrectChoices, answer));
