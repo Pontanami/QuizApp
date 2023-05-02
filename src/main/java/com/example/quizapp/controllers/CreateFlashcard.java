@@ -23,6 +23,10 @@ public class CreateFlashcard extends AnchorPane implements ICreateQuestion<Strin
     @FXML private TextField hintField;
     private String chosenHint;
 
+    /**
+     * Creates a CreateFlashcard object with a question manager.
+     * @param questionManager the responsible components for all CreateFlashcard controllers.
+     */
     public CreateFlashcard(IQuizManager questionManager) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcard.fxml"));
         fxmlLoader.setRoot(this);
@@ -46,12 +50,20 @@ public class CreateFlashcard extends AnchorPane implements ICreateQuestion<Strin
         });
     }
 
+    /**
+     * This method creates the Quizable object
+     * @return the created flashcard
+     */
     public IQuizable<String> createQuestion(){
-
         IHint hint = getHint(chosenHint);
         return new Flashcard(frontSide.getText(), backSide.getText(), hint);
     }
 
+    /**
+     * This method fetches the specified Hint object
+     * @param hint key for getting the hint object
+     * @return hint object
+     */
     private IHint getHint(String hint){
         Map<String, IHint> hints = new HashMap<>();
         hints.put(TextHint.class.getSimpleName(), new TextHint(hintField.getText()));
@@ -60,6 +72,9 @@ public class CreateFlashcard extends AnchorPane implements ICreateQuestion<Strin
         return hints.get(hint);
     }
 
+    /**
+     * This method removes question from the quiz
+     */
     @FXML
     public void removeQuestion(){
         questionManager.removeQuestion(this);
