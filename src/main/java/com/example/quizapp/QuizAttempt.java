@@ -21,6 +21,10 @@ public class QuizAttempt {
         }
     }
 
+    public Quiz getQuiz(){
+        return quiz;
+    }
+
     public IQuizable<?> nextQuestion(){
         if (isInvalidQuestionsSize()){
             return getCurrentQuestion();
