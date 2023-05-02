@@ -45,7 +45,7 @@ public class TakeQuizController{
     private boolean isMultiChoice = false;
     private boolean isFlashCard = false;
     private int points = 0;
-    private Quiz quiz;
+    private QuizAttempt quiz;
 
     /**
      * Establishes the type of questions withing the quiz as {@link Flashcard}.
@@ -67,11 +67,11 @@ public class TakeQuizController{
      * Initializes the values needed when starting a quiz.
      * @param quiz The {@link Quiz} instance needed to control a quiz.
      */
-    public void initializeData(Quiz quiz){
+    public void initializeData(QuizAttempt quiz){
         this.quiz = quiz;
-        quizName.setText(quiz.getName());
+        quizName.setText(quiz.getQuiz().getName());
         quizPrevious.setDisable(true);
-        quizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
+        quizPoints.setText("Points: " + points + "/" + quiz.getQuiz().getQuestions().size());
         showQuestion();
     }
 
@@ -80,7 +80,7 @@ public class TakeQuizController{
      */
     public void showNext(){
         quiz.nextQuestion();
-        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(quiz.getQuestions().size()-1).getQuestion())){
+        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())){
             quizNext.setVisible(false);
             finishButton.setVisible(true);
         }
@@ -96,7 +96,7 @@ public class TakeQuizController{
         quiz.prevQuestion();
         quizNext.setVisible(true);
         finishButton.setVisible(false);
-        if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuestions().get(0).getQuestion())){
+        if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(0).getQuestion())){
             quizPrevious.setDisable(true);
         }
         showQuestion();
@@ -127,7 +127,7 @@ public class TakeQuizController{
     public void showAnswer(){
         if (specificController.revealAnswer()){
             points++;
-            quizPoints.setText("Points: " + points + "/" + quiz.getQuestions().size());
+            quizPoints.setText("Points: " + points + "/" + quiz.getQuiz().getQuestions().size());
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
@@ -174,7 +174,7 @@ public class TakeQuizController{
      * increases the progress bar by one step. The size of the step depends on the total number of questions a quiz has.
      */
     public void increaseProgress(){
-        int numberOfQuestions = quiz.getQuestions().size();
+        int numberOfQuestions = quiz.getQuiz().getQuestions().size();
         double progressStep = 1.0 / numberOfQuestions;
 
         progress = progress.setScale(2, RoundingMode.HALF_EVEN);
