@@ -6,12 +6,14 @@ import com.example.quizapp.QuizSearch;
 
 import com.example.quizapp.user.FirebaseQuizRepository;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,7 +30,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
     @FXML
     private TextField inputField;
 
-    /*public QuizCollection() {
+    @FXML
+    private AnchorPane parentPane;
+
+    public QuizCollection(AnchorPane parentPane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizCollection.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -37,8 +42,8 @@ public class QuizCollection extends AnchorPane implements Initializable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
-    }*/
+        this.parentPane = parentPane;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -56,7 +61,7 @@ public class QuizCollection extends AnchorPane implements Initializable {
     private void populateQuizResults(){
         quizFlowpane.getChildren().clear();
         for (Quiz quiz : quizList) {
-            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
+            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz, parentPane);
             quizFlowpane.getChildren().add(quizThumbnail);
         }
     }

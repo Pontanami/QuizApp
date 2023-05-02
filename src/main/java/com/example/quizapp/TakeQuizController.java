@@ -27,7 +27,7 @@ import java.util.List;
  * @see TakeQuizController#setAsFlashCardQuiz()
  * @see TakeQuizController#setAsMultiChoiceQuiz()
  */
-public class TakeQuizController{
+public class TakeQuizController extends AnchorPane {
     @FXML private Label quizName;
     @FXML private Button quizAnswer;
     @FXML private Button quizHint;
@@ -46,6 +46,21 @@ public class TakeQuizController{
     private boolean isFlashCard = false;
     private int points = 0;
     private QuizAttempt quiz;
+
+    @FXML
+    private AnchorPane parentPane;
+    public TakeQuizController(AnchorPane parentPane){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        this.parentPane = parentPane;
+    }
 
     /**
      * Establishes the type of questions withing the quiz as {@link Flashcard}.

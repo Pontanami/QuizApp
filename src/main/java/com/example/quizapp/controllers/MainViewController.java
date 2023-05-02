@@ -28,7 +28,8 @@ public class MainViewController extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loginController = new LoginController(rootPane);
-        navigateToLogin();
+        //navigateToLogin();
+        navigateToQuizCollection();
     }
 
     @FXML
@@ -47,6 +48,13 @@ public class MainViewController extends AnchorPane implements Initializable {
         RegisterController registerController = new RegisterController(rootPane);
         rootPane.getChildren().clear();
         rootPane.getChildren().add(registerController);
+    }
+
+    @FXML
+    public void navigateToQuizCollection() {
+        QuizCollection quizCollection = new QuizCollection(rootPane);
+        rootPane.getChildren().clear();
+        rootPane.getChildren().add(quizCollection);
     }
 
 }
