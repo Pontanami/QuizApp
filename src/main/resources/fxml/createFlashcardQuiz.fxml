@@ -4,23 +4,50 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="tagPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: GRAY;">
+      <AnchorPane fx:id="tagPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
          <children>
-            <Button layoutX="30.0" layoutY="636.0" mnemonicParsing="false" onAction="#navigateToFlashcard" prefHeight="35.0" prefWidth="100.0" text="BACK" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="638.0">
+            <Text layoutX="567.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="System Bold" size="60.0" />
+               </font>
+            </Text>
+            <Text layoutX="1173.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Applied tags">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <ScrollPane hbarPolicy="NEVER" layoutX="317.0" layoutY="203.0" prefHeight="305.0" prefWidth="630.0" vbarPolicy="ALWAYS">
+               <content>
+                  <FlowPane fx:id="tagBox" prefHeight="305.0" prefWidth="630.0" />
+               </content>
+            </ScrollPane>
+            <ScrollPane hbarPolicy="NEVER" layoutX="1149.0" layoutY="191.0" prefHeight="305.0" prefWidth="190.0">
+               <content>
+                  <VBox fx:id="appliedTagBox" prefHeight="305.0" prefWidth="190.0" />
+               </content>
+            </ScrollPane>
+            <Button layoutX="43.0" layoutY="637.0" mnemonicParsing="false" onAction="#navigateToFlashcard" prefHeight="35.0" prefWidth="100.0" text="BACK" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="638.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="1359.0" layoutY="638.0" mnemonicParsing="false" onAction="#createQuiz" prefHeight="35.0" prefWidth="100.0" text="CREATE QUIZ">
+               <font>
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="flashcardPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name">
+            <TextField fx:id="quizName" alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name">
                <font>
                   <Font size="23.0" />
                </font>
@@ -40,7 +67,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#createFlashcard" prefHeight="51.0" prefWidth="1497.0" style="-fx-background-color: blue;" text="Add a new Flashcard" textFill="WHITE">
+            <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="51.0" prefWidth="1497.0" style="-fx-background-color: blue;" text="Add a new Flashcard" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

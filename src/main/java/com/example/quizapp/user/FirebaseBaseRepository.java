@@ -5,13 +5,6 @@ import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.auth.oauth2.GoogleCredentials;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.CompletableFuture;
@@ -20,24 +13,16 @@ import java.util.concurrent.CompletableFuture;
  * Base class for all repositories that handles the connection to the Firestore database
  * @author Alex, Felix, Pontus
  */
-public abstract class FirebaseBaseRepository<T> {
+public abstract class FirebaseBaseRepository<T, E> {
 
+    private FirebaseConnection conn;
     private final Firestore db;
 
     /**
      * Creates the connection to firestore
      */
     protected FirebaseBaseRepository(){
-        try {
-            InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .build();
-
-            FirebaseApp.initializeApp(options);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        conn = FirebaseConnection.getInstance();
         db = FirestoreClient.getFirestore();
     }
 
@@ -62,8 +47,10 @@ public abstract class FirebaseBaseRepository<T> {
         try {
             QuerySnapshot querySnapshot = query.get();
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-            if (documents.isEmpty())
-                throw new RuntimeException("No documents found");
+            if (documents.isEmpty()) {
+                System.out.println("No documents found");
+                return objects;
+            }
             else {
                 for (DocumentSnapshot doc : documents){
                     objects.add(createObject(doc));
@@ -128,4 +115,12 @@ public abstract class FirebaseBaseRepository<T> {
      * @return an object of type T
      */
     abstract T createObject(DocumentSnapshot doc);
+
+
+    /**
+     * Method to create an query of type E from a {@link FetchQuery}
+     * @param query the query we want to fetch from
+     * @return a Query containing the searchpath
+     */
+    abstract Query createQuery(E query) throws IllegalAccessException;
 }
