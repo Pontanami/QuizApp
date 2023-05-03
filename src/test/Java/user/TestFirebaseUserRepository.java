@@ -1,7 +1,7 @@
 package user;
 
-import com.example.quizapp.UserQuery;
-import com.example.quizapp.user.FirebaseUserRepository;
+import com.example.quizapp.user.UserQuery;
+import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.user.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

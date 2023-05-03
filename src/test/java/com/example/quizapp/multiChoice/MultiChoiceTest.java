@@ -1,14 +1,13 @@
 
 package com.example.quizapp.multiChoice;
 
-import com.example.quizapp.model.IHint;
-import org.junit.jupiter.api.Test;
+import com.example.quizapp.hints.EliminateChoiceHint;
+import com.example.quizapp.quiz.multichoice.MultiChoice;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 class MultiChoiceTest {

@@ -1,14 +1,15 @@
 package com.example.quizapp;
 
-import com.example.quizapp.interfaces.IQuizable;
-import com.example.quizapp.model.Flashcard;
-import com.example.quizapp.model.OneLetterHint;
-import com.example.quizapp.model.Subject;
-import com.example.quizapp.model.TextHint;
-import com.example.quizapp.user.FirebaseQuizRepository;
+import com.example.quizapp.quiz.IQuizable;
+import com.example.quizapp.quiz.flashcard.Flashcard;
+import com.example.quizapp.hints.OneLetterHint;
+import com.example.quizapp.quiz.tags.Subject;
+import com.example.quizapp.hints.TextHint;
+import com.example.quizapp.firebase.FirebaseQuizRepository;
+import com.example.quizapp.quiz.Quiz;
+import com.example.quizapp.quiz.QuizQuery;
 import com.example.quizapp.user.User;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
