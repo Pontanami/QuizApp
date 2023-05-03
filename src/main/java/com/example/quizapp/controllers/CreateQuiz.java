@@ -1,15 +1,20 @@
 package com.example.quizapp.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class CreateQuiz extends AnchorPane{
 
     @FXML
-    AnchorPane rootpane;
+    AnchorPane mainAnchorPane;
+    @FXML
+    AnchorPane createAnchorPane;
 
-   /* public CreateQuiz(AnchorPane rootpane){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createQuiz.fxml"));
+    public CreateQuiz(AnchorPane rootpane){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -19,16 +24,24 @@ public class CreateQuiz extends AnchorPane{
             throw new RuntimeException(exception);
         }
 
-        this.rootpane = rootpane;
-    }*/
+        this.mainAnchorPane = rootpane;
+    }
+
+    @FXML
+    public void navigateToCreateMultiChoice() {
+        createAnchorPane.getChildren().clear();
+        createAnchorPane.getChildren().add(new CreateMultiChoiceQuiz(mainAnchorPane));
+        createAnchorPane.toFront();
+    }
 
     /**
      * This method navigates to the CreateFlashcard section of the page
      */
     @FXML
     public void navigateToCreateFlashcard() {
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
+        createAnchorPane.getChildren().clear();
+        createAnchorPane.getChildren().add(new CreateFlashCardQuiz(mainAnchorPane));
+        createAnchorPane.toFront();
     }
 
     /**
@@ -36,21 +49,26 @@ public class CreateQuiz extends AnchorPane{
      */
     @FXML
     public void navigateBack() {
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateQuiz());
+        createAnchorPane.getChildren().clear();
+        createAnchorPane.getChildren().add(new CreateQuiz(mainAnchorPane));
+        createAnchorPane.toFront();
     }
 
     @FXML
     public void navigateBackd() {
-        rootpane.toFront();
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
+        createAnchorPane.toFront();
+        createAnchorPane.getChildren().clear();
+        createAnchorPane.getChildren().add(new CreateFlashCardQuiz(mainAnchorPane));
+        createAnchorPane.toFront();
+
     }
 
     @FXML
     public void navigateNext() {
-        rootpane.toBack();
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateFlashCardQuiz(rootpane));
+        createAnchorPane.toBack();
+        createAnchorPane.getChildren().clear();
+        createAnchorPane.getChildren().add(new CreateFlashCardQuiz(mainAnchorPane));
+        createAnchorPane.toFront();
+
     }
 }

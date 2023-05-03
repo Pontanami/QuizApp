@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<CreateFlashcard>, Initializable, IObserver {
+public class CreateMultiChoiceQuiz extends AnchorPane implements IQuizManager<CreateMultichoice>, Initializable, IObserver {
     private AnchorPane rootpane;
 
     @FXML
@@ -36,10 +36,10 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     @FXML
     private VBox items;
 
-    private List<CreateFlashcard> questions = new ArrayList<>();
+    private List<CreateMultichoice> questions = new ArrayList<>();
 
     @FXML
-    private ScrollPane flashcardScrollpane;
+    private ScrollPane multichoiceScrollpane;
 
     @FXML
     private FlowPane tagBox;
@@ -57,11 +57,11 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
 
 
     /**
-     * Creates a CreateFlashCardQuiz
+     * Creates a CreateMultiChoiceQuiz
      * @param rootpane parent pane of the object
      */
-    public CreateFlashCardQuiz(AnchorPane rootpane) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
+    public CreateMultiChoiceQuiz(AnchorPane rootpane) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createMultiChoiceQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -80,18 +80,18 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     @FXML
     @Override
     public void addQuestion(){
-        CreateFlashcard flashcard = new CreateFlashcard(this);
-        questions.add(flashcard);
+        CreateMultichoice multichoice = new CreateMultichoice(this);
+        questions.add(multichoice);
         updateCreatedQuestions();
     }
 
     /**
      * This method removes a question controller from CreateFlashCardQuiz
-     * @param flashcard to be removed
+     * @param multichoice to be removed
      */
     @Override
-    public void removeQuestion(ICreateQuestion<CreateFlashcard> flashcard){
-        questions.remove(flashcard);
+    public void removeQuestion(ICreateQuestion<CreateMultichoice> multichoice){
+        questions.remove(multichoice);
         updateCreatedQuestions();
     }
 
@@ -110,7 +110,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
     }
 
     /**
-     * This method updates all CreateFlashCard controllers in scrollpane
+     * This method updates all CreateMultiChoice controllers in scrollpane
      */
     private void updateCreatedQuestions(){
         items.getChildren().clear();
@@ -118,7 +118,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
             items.getChildren().add(item);
         }
 
-        flashcardScrollpane.setContent(items);
+        multichoiceScrollpane.setContent(items);
     }
 
     /**
@@ -183,7 +183,7 @@ public class CreateFlashCardQuiz extends AnchorPane implements IQuizManager<Crea
         tagBox.getChildren().clear();
         for (Subject subject : Subject.values()){
             if (!quiz.getTags().contains(subject))
-            tagBox.getChildren().add(new Tag(subject, quiz));
+                tagBox.getChildren().add(new Tag(subject, quiz));
         }
     }
 }
