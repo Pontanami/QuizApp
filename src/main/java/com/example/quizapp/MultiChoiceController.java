@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Flow;
 
@@ -32,6 +34,7 @@ public class MultiChoiceController implements IAnswerable {
     public void initializeData(MultiChoice ques){
         this.ques = ques;
         choiceAnswers = ques.getChoices();
+        Collections.shuffle(choiceAnswers);
         hintAnswers = ques.showHint();
         init();
     }

@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.controllers.QuizCollection;
 import com.example.quizapp.interfaces.IAnswerable;
 import com.example.quizapp.model.FlashCardController;
 import com.example.quizapp.model.Flashcard;
@@ -27,7 +28,7 @@ import java.util.List;
  * @see TakeQuizController#setAsFlashCardQuiz()
  * @see TakeQuizController#setAsMultiChoiceQuiz()
  */
-public class TakeQuizController{
+public class TakeQuizController extends AnchorPane {
     @FXML private Label quizName;
     @FXML private Button quizAnswer;
     @FXML private Button quizHint;
@@ -46,6 +47,21 @@ public class TakeQuizController{
     private boolean isFlashCard = false;
     private int points = 0;
     private QuizAttempt quiz;
+
+    @FXML
+    private AnchorPane parentPane;
+    public TakeQuizController(AnchorPane parentPane){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        this.parentPane = parentPane;
+    }
 
     /**
      * Establishes the type of questions withing the quiz as {@link Flashcard}.
@@ -69,6 +85,11 @@ public class TakeQuizController{
      */
     public void initializeData(QuizAttempt quiz){
         this.quiz = quiz;
+        if (quiz.getCurrentQuestion() instanceof Flashcard) {
+            setAsFlashCardQuiz();
+        } else {
+            setAsMultiChoiceQuiz();
+        }
         quizName.setText(quiz.getQuiz().getName());
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + points + "/" + quiz.getQuiz().getQuestions().size());
@@ -139,6 +160,10 @@ public class TakeQuizController{
     }
 
     private void showQuestion() {
+        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())){
+            quizNext.setVisible(false);
+            finishButton.setVisible(true);
+        }
         if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
             quizHint.setDisable(true);
@@ -190,7 +215,9 @@ public class TakeQuizController{
      * @see Platform#exit()
      */
     public void finish(){
-        Platform.exit();
+        QuizCollection quizCollection = new QuizCollection(parentPane);
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(quizCollection);
     }
 
 }

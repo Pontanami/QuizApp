@@ -50,14 +50,13 @@ public class LoginController extends AnchorPane implements Initializable {
         String email = emailField.getText();
         String pw = passwordField.getText();
         ur.loginUser(email, pw);
-        navigateToMyProfile();
+        navigateToQuizCollection();
     }
 
-    @FXML
-    private void navigateToMyProfile(){
-        MyProfileController mpc = new MyProfileController(parent);
+    private void navigateToQuizCollection() {
+        QuizCollection quizCollection = new QuizCollection(parent);
         parent.getChildren().clear();
-        parent.getChildren().add(mpc);
+        parent.getChildren().add(quizCollection);
     }
 
 

@@ -14,10 +14,12 @@ module com.example.quizapp {
 
     opens com.example.quizapp to javafx.fxml, com.google.gson;
     exports com.example.quizapp;
+    opens com.example.quizapp.multiChoice to com.google.gson;
     exports com.example.quizapp.user;
     opens com.example.quizapp.user to javafx.fxml;
     exports com.example.quizapp.interfaces;
     opens com.example.quizapp.interfaces to javafx.fxml;
-    exports com.example.quizapp.model to google.cloud.firestore;
-    opens com.example.quizapp.model to com.google.gson;
+    exports com.example.quizapp.model to google.cloud.firestore, javafx.fxml;
+
+    opens com.example.quizapp.model to com.google.gson, javafx.fxml;
 }
