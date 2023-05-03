@@ -49,7 +49,8 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         this.questionManager = questionManager;
 
         hintDropdown.setItems(FXCollections.observableArrayList(
-                EliminateChoiceHint.class.getSimpleName())
+                EliminateChoiceHint.class.getSimpleName(),
+                TextHint.class.getSimpleName())
         );
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {

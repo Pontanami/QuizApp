@@ -2,9 +2,13 @@ package com.example.quizapp.quiz.multichoice;
 
 import com.example.quizapp.quiz.takeQuiz.IAnswerable;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +20,7 @@ import java.util.List;
 public class MultiChoiceController implements IAnswerable {
     @FXML private Label multiQuestion;
     @FXML private RadioButton choice1, choice2, choice3, choice4;
+    @FXML private Pane quizPane;
 
     private final RadioButton[] radioButtons = new RadioButton[4];
     private MultiChoice ques;
@@ -30,8 +35,17 @@ public class MultiChoiceController implements IAnswerable {
         this.ques = ques;
         choiceAnswers = ques.getChoices();
         Collections.shuffle(choiceAnswers);
-        hintAnswers = ques.showHint();
+        hints();
         init();
+    }
+
+    private void hints(){
+        if (ques.showHint().size() > 1){
+            hintAnswers = ques.showHint();
+        }else {
+            hintAnswers = new ArrayList<>();
+            hintAnswers.add(ques.showHint().get(0));
+        }
     }
 
     private void init() {
@@ -66,8 +80,28 @@ public class MultiChoiceController implements IAnswerable {
      */
     @Override
     public void showHint() {
-        choiceAnswers = hintAnswers;
-        init();
+        Alert a;
+        if (hintAnswers != null && hintAnswers.size() > 1){
+            choiceAnswers = hintAnswers;
+            init();
+        }
+        else {
+            if (hintAnswers.get(0).equals("No hint available")) {
+                a = new Alert(Alert.AlertType.ERROR);
+                a.setHeaderText("Hint type: " + "MISSING");
+            }else {
+                String[] hintName = ques.getHint().getClass().getName().split("\\.");
+                a = new Alert(Alert.AlertType.INFORMATION);
+                a.setHeaderText("Hint type: " + hintName[hintName.length - 1]);
+            }
+            a.setTitle("Hint");
+            a.setContentText(hintAnswers.get(0));
+
+            Parent parentPane = quizPane.getParent();
+            parentPane.setOpacity(0.2);
+            a.showAndWait();
+            parentPane.setOpacity(1);
+        }
     }
 
     /**
