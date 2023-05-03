@@ -21,6 +21,15 @@ module com.example.quizapp {
     exports com.example.quizapp.quiz;
     opens com.example.quizapp.quiz to javafx.fxml, com.google.gson, google.cloud.firestore;
 
+    exports com.example.quizapp.quiz.flashcard;
+    opens com.example.quizapp.quiz.flashcard to javafx.fxml, com.google.gson, google.cloud.firestore;
+
+    exports com.example.quizapp.quiz.multichoice;
+    opens com.example.quizapp.quiz.multichoice to javafx.fxml, com.google.gson, google.cloud.firestore;
+
+    exports com.example.quizapp.quiz.tags;
+    opens com.example.quizapp.quiz.tags to javafx.fxml, com.google.gson, google.cloud.firestore;
+
     exports com.example.quizapp.user;
     opens com.example.quizapp.user to javafx.fxml;
 
