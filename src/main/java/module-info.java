@@ -9,17 +9,21 @@ module com.example.quizapp {
     requires google.cloud.core;
     requires com.google.gson;
 
-    exports com.example.quizapp.controllers;
-    opens com.example.quizapp.controllers to javafx.fxml;
+    exports com.example.quizapp.firebase;
+    opens com.example.quizapp.firebase to javafx.fxml, google.cloud.firestore, com.google.gson;
 
-    opens com.example.quizapp to javafx.fxml, com.google.gson;
-    exports com.example.quizapp;
-    opens com.example.quizapp.multiChoice to com.google.gson;
-    exports com.example.quizapp.user;
-    opens com.example.quizapp.user to javafx.fxml;
+    exports com.example.quizapp.hints;
+    opens com.example.quizapp.hints to javafx.fxml, google.cloud.firestore, com.google.gson;
+
     exports com.example.quizapp.interfaces;
     opens com.example.quizapp.interfaces to javafx.fxml;
-    exports com.example.quizapp.model to google.cloud.firestore, javafx.fxml;
 
-    opens com.example.quizapp.model to com.google.gson, javafx.fxml;
+    exports com.example.quizapp.quiz;
+    opens com.example.quizapp.quiz to javafx.fxml, com.google.gson, google.cloud.firestore;
+
+    exports com.example.quizapp.user;
+    opens com.example.quizapp.user to javafx.fxml;
+
+    exports com.example.quizapp;
+    opens com.example.quizapp to javafx.fxml, com.google.gson;
 }

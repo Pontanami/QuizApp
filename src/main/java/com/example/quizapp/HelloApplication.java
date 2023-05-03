@@ -1,23 +1,11 @@
 package com.example.quizapp;
 
-import com.example.quizapp.controllers.LoginController;
-import com.example.quizapp.controllers.MainViewController;
-import com.example.quizapp.interfaces.IQuizable;
-import com.example.quizapp.multiChoice.EliminateChoiceHint;
-import com.example.quizapp.multiChoice.MultiChoice;
-import com.example.quizapp.model.*;
-import com.example.quizapp.user.IUserRepository;
-import com.example.quizapp.model.Flashcard;
+import com.example.quizapp.firebase.IUserRepository;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class HelloApplication extends Application {
 

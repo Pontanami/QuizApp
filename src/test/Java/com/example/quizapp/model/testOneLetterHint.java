@@ -1,6 +1,6 @@
 package com.example.quizapp.model;
 
-import com.example.quizapp.model.OneLetterHint;
+import com.example.quizapp.hints.OneLetterHint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

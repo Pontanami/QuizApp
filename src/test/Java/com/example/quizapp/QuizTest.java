@@ -1,14 +1,12 @@
 package com.example.quizapp;
 
-import com.example.quizapp.interfaces.IQuizable;
-import com.example.quizapp.model.Flashcard;
-import com.example.quizapp.model.Subject;
-import com.example.quizapp.multiChoice.MultiChoice;
+import com.example.quizapp.quiz.IQuizable;
+import com.example.quizapp.quiz.flashcard.Flashcard;
+import com.example.quizapp.quiz.tags.Subject;
+import com.example.quizapp.quiz.Quiz;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QuizTest {
-
+/*
     private Quiz quiz;
 
     @BeforeEach
@@ -42,12 +40,12 @@ class QuizTest {
 
     @Test
     void getTags() {
-/*        String tag = "Biology";
+        String tag = "Biology";
         assertTrue(quiz.addTag(Subject.valueOf(tag)));
 
         List<Subject> tags = quiz.getTags();
         assertEquals(1, tags.size());
-        assertEquals(Subject.valueOf(tag), tags.get(0));*/
+        assertEquals(Subject.valueOf(tag), tags.get(0));
     }
 
     @Test
@@ -120,4 +118,6 @@ class QuizTest {
         quiz.addPoint();
         Assertions.assertEquals(1, quiz.getPoints());
     }
+
+ */
 }

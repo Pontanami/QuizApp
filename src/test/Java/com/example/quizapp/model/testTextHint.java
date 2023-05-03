@@ -1,9 +1,8 @@
 package com.example.quizapp.model;
 
-import com.example.quizapp.model.TextHint;
+import com.example.quizapp.hints.TextHint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 
 public class testTextHint {
 
