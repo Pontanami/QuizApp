@@ -13,7 +13,7 @@
             <Image url="@../img/einstein.jpg" />
          </image>
       </ImageView>
-      <Text fx:id="quizName" fill="WHITE" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 1;" text="Quiz Name" textAlignment="CENTER" wrappingWidth="250.0">
+      <Text fx:id="quizName" fill="#ff01c8" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quiz Name" textAlignment="CENTER" wrappingWidth="250.0">
          <font>
             <Font size="25.0" />
          </font>
