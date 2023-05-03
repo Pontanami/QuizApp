@@ -103,13 +103,17 @@ public class TakeQuizController extends AnchorPane {
      */
     public void showNext(){
         quiz.nextQuestion();
-        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())){
-            quizNext.setVisible(false);
-            finishButton.setVisible(true);
-        }
+        switchNextAndFinishBtn();
         quizPrevious.setDisable(false);
         showQuestion();
         isAnswered();
+    }
+
+    private void switchNextAndFinishBtn() {
+        if (quiz.isQuizFinished()) {
+            quizNext.setVisible(false);
+            finishButton.setVisible(true);
+        }
     }
 
     /**
@@ -119,7 +123,7 @@ public class TakeQuizController extends AnchorPane {
         quiz.prevQuestion();
         quizNext.setVisible(true);
         finishButton.setVisible(false);
-        if(quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(0).getQuestion())){
+        if(quiz.getCurrentQuestionIndex() == 0){
             quizPrevious.setDisable(true);
         }
         showQuestion();
@@ -162,10 +166,8 @@ public class TakeQuizController extends AnchorPane {
     }
 
     private void showQuestion() {
-        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())){
-            quizNext.setVisible(false);
-            finishButton.setVisible(true);
-        }
+        //quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())
+        switchNextAndFinishBtn();
         if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
             quizHint.setDisable(true);
