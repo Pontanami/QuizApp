@@ -55,15 +55,6 @@ public class CreateQuiz extends AnchorPane{
     }
 
     @FXML
-    public void navigateBackd() {
-        createAnchorPane.toFront();
-        createAnchorPane.getChildren().clear();
-        createAnchorPane.getChildren().add(new CreateFlashCardQuiz(mainAnchorPane));
-        createAnchorPane.toFront();
-
-    }
-
-    @FXML
     public void navigateNext() {
         createAnchorPane.toBack();
         createAnchorPane.getChildren().clear();

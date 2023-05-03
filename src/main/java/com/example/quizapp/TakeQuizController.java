@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.controllers.QuizCollection;
 import com.example.quizapp.interfaces.IAnswerable;
 import com.example.quizapp.model.FlashCardController;
 import com.example.quizapp.model.Flashcard;
@@ -84,6 +85,11 @@ public class TakeQuizController extends AnchorPane {
      */
     public void initializeData(QuizAttempt quiz){
         this.quiz = quiz;
+        if (quiz.getCurrentQuestion() instanceof Flashcard) {
+            setAsFlashCardQuiz();
+        } else {
+            setAsMultiChoiceQuiz();
+        }
         quizName.setText(quiz.getQuiz().getName());
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + points + "/" + quiz.getQuiz().getQuestions().size());
@@ -154,6 +160,10 @@ public class TakeQuizController extends AnchorPane {
     }
 
     private void showQuestion() {
+        if (quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())){
+            quizNext.setVisible(false);
+            finishButton.setVisible(true);
+        }
         if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
             quizHint.setDisable(true);
@@ -205,7 +215,9 @@ public class TakeQuizController extends AnchorPane {
      * @see Platform#exit()
      */
     public void finish(){
-        Platform.exit();
+        QuizCollection quizCollection = new QuizCollection(parentPane);
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(quizCollection);
     }
 
 }

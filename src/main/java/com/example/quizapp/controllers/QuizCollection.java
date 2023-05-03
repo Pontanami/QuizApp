@@ -4,6 +4,7 @@ import com.example.quizapp.Quiz;
 import com.example.quizapp.QuizQuery;
 import com.example.quizapp.QuizSearch;
 
+import com.example.quizapp.interfaces.IQuizable;
 import com.example.quizapp.user.FirebaseQuizRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,10 +44,11 @@ public class QuizCollection extends AnchorPane implements Initializable {
             throw new RuntimeException(exception);
         }
         this.parentPane = parentPane;
+        quizList = getAllQuizzes();
+        populateQuizResults();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         quizFlowpane.setHgap(10);
         quizFlowpane.setVgap(10);
     }
@@ -58,12 +60,30 @@ public class QuizCollection extends AnchorPane implements Initializable {
         populateQuizResults();
     }
 
+    private List<Quiz> getAllQuizzes() {
+        return QuizSearch.search(firebaseQuizRepository.getQuiz(new QuizQuery.QuizQueryBuilder()), "");
+    }
+
     private void populateQuizResults(){
         quizFlowpane.getChildren().clear();
         for (Quiz quiz : quizList) {
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz, parentPane);
             quizFlowpane.getChildren().add(quizThumbnail);
         }
+    }
+
+    @FXML
+    public void navigateToProfile() {
+        MyProfileController profileController = new MyProfileController(parentPane);
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(profileController);
+    }
+
+    @FXML
+    public void navigateToCreateQuiz() {
+        CreateQuiz createQuiz = new CreateQuiz(parentPane);
+        parentPane.getChildren().clear();
+        parentPane.getChildren().add(createQuiz);
     }
 
 

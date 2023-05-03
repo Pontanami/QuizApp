@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="questionField" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter question">
          <font>
@@ -37,6 +37,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TextArea fx:id="hintField" layoutX="1062.0" layoutY="7.0" prefHeight="63.0" prefWidth="202.0" wrapText="true" />
+      <TextArea fx:id="hintArea" layoutX="1062.0" layoutY="7.0" prefHeight="63.0" prefWidth="202.0" wrapText="true" />
    </children>
 </fx:root>

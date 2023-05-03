@@ -47,9 +47,6 @@ public class CreateMultichoice extends AnchorPane implements ICreateQuestion<Str
         this.questionManager = questionManager;
 
         hintDropdown.setItems(FXCollections.observableArrayList(
-                HalfWordHint.class.getSimpleName(),
-                OneLetterHint.class.getSimpleName(),
-                TextHint.class.getSimpleName(),
                 EliminateChoiceHint.class.getSimpleName())
         );
 
@@ -64,14 +61,15 @@ public class CreateMultichoice extends AnchorPane implements ICreateQuestion<Str
      */
     public IQuizable<String> createQuestion(){
         String answer = answerField.getText();
-        List<String> incorrectChoices = new ArrayList<>();
-        incorrectChoices.add(choice1.getText());
-        incorrectChoices.add(choice2.getText());
-        incorrectChoices.add(choice3.getText());
+        List<String> choices = new ArrayList<>();
+        choices.add(choice1.getText());
+        choices.add(choice2.getText());
+        choices.add(choice3.getText());
+        choices.add(answer);
 
-        IHint hint = getHint(chosenHint, incorrectChoices, answer);
+        IHint hint = getHint(chosenHint,choices, answer);
 
-        IQuizable multiChoiceQuestion = new MultiChoice(questionField.getText(), answer, incorrectChoices, hint);
+        IQuizable multiChoiceQuestion = new MultiChoice(questionField.getText(), answer, choices, hint);
         return multiChoiceQuestion;
     }
 

@@ -44,7 +44,7 @@ public class QuizThumbnail extends AnchorPane {
     public void navigateToQuiz() {
         TakeQuizController takeQuizController = new TakeQuizController(grandParentPane);
         takeQuizController.initializeData(new QuizAttempt(quiz));
-        takeQuizController.setAsFlashCardQuiz();
+
         grandParentPane.getChildren().clear();
         grandParentPane.getChildren().add(takeQuizController);
     }

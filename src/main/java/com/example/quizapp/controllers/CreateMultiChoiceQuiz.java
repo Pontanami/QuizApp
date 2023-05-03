@@ -143,6 +143,13 @@ public class CreateMultiChoiceQuiz extends AnchorPane implements IQuizManager<Cr
         //TODO remove line below
         userRepository.loginUser("test", "test");
         quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
+        navigateToQuizCollection();
+    }
+
+    private void navigateToQuizCollection() {
+        QuizCollection quizCollection = new QuizCollection(rootpane);
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(quizCollection);
     }
 
     /**
