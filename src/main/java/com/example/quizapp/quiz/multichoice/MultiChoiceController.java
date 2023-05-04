@@ -81,7 +81,7 @@ public class MultiChoiceController implements IAnswerable {
     @Override
     public void showHint() {
         Alert a;
-        if (hintAnswers != null && hintAnswers.size() > 1){
+        if (hintAnswers.size() > 1){
             choiceAnswers = hintAnswers;
             init();
         }

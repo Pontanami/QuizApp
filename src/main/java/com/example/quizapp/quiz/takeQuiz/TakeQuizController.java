@@ -26,7 +26,7 @@ import java.util.List;
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
  * The method initializeData() should be called. One of the methods setAsFlashCardQuiz() or setAsMultiChoiceQuiz()
  * should also be called when initializing the controller.
- * @see TakeQuizController#initializeData(Quiz)
+ * @see TakeQuizController#initializeData(QuizAttempt)
  * @see TakeQuizController#setAsFlashCardQuiz()
  * @see TakeQuizController#setAsMultiChoiceQuiz()
  */
@@ -166,7 +166,6 @@ public class TakeQuizController extends AnchorPane {
     }
 
     private void showQuestion() {
-        //quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())
         switchNextAndFinishBtn();
         if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
@@ -175,14 +174,14 @@ public class TakeQuizController extends AnchorPane {
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
-                if (isMultiChoice) { //Maybe do a check with instanceOF?
+                if (isMultiChoice) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
                     pane = fxmlLoader.load();
 
                     MultiChoiceController controller = fxmlLoader.getController();
                     controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
                     specificController = controller;
-                } else if (isFlashCard){ //Maybe do a check with instanceOF?
+                } else if (isFlashCard){
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
                     pane = fxmlLoader.load();
 
