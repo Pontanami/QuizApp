@@ -30,6 +30,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
     @FXML
     private AnchorPane parentPane;
 
+    /**
+     *
+     * @param parentPane
+     */
     public QuizCollection(AnchorPane parentPane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizCollection.fxml"));
         fxmlLoader.setRoot(this);

@@ -13,9 +13,8 @@ public class EliminateChoiceHint implements IHint<List<String>> {
     String correctChoice;
 
     /**
-     * 
-     * @param choices
-     * @param correctChoice
+     * @param choices The list of all choices that choices are going to get eliminated from.
+     * @param correctChoice The answer that represents the correct choice. Should be an element in the list.
      */
     public EliminateChoiceHint(List<String> choices, String correctChoice){
         this.choices = choices;

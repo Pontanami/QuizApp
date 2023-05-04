@@ -11,6 +11,13 @@ public class MultiChoice implements IQuizable<Object> {
     private final String answer;
     private IHint<List<String>> hint;
 
+    /**
+     * Creates a {@link MultiChoice} question instance
+     * @param question The question
+     * @param answer The correct choice/answer
+     * @param choices The choices
+     * @param hint A hint of the type {@link IHint}
+     */
     public MultiChoice(String question, String answer, List<String> choices, IHint hint){
         this.choices = choices;
         this.answer = answer;
@@ -18,6 +25,9 @@ public class MultiChoice implements IQuizable<Object> {
         this.hint = hint;
     }
 
+    /**
+     * @return The list of all given choices
+     */
     public List<String> getChoices() {
         return choices;
     }
