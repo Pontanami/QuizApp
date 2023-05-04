@@ -1,12 +1,12 @@
 package com.example.quizapp.model;
 
-import com.example.quizapp.quiz.flashcard.FlashcardValidator;
+import com.example.quizapp.quiz.InputValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class testFlashcardValidator {
+public class testInputValidator {
 
-    private FlashcardValidator validator = new FlashcardValidator();
+    private InputValidator validator = new InputValidator();
 
     @Test
     public void testValidate_shouldReturnTrue(){

@@ -8,6 +8,7 @@ import com.example.quizapp.quiz.ICreateQuestion;
 import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.quiz.IQuizable;
 import com.example.quizapp.hints.EliminateChoiceHint;
+import com.example.quizapp.quiz.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,12 +50,19 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         this.questionManager = questionManager;
 
         hintDropdown.setItems(FXCollections.observableArrayList(
-                EliminateChoiceHint.class.getSimpleName())
+                EliminateChoiceHint.class.getSimpleName(),
+                "No Hint")
         );
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {
             chosenHint = (String) newVal;
         });
+
+        InputValidator.createValidationTextField(choice1);
+        InputValidator.createValidationTextField(choice2);
+        InputValidator.createValidationTextField(choice3);
+        InputValidator.createValidationTextField(questionField);
+        InputValidator.createValidationTextField(answerField);
     }
 
     /**
@@ -86,6 +94,7 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(answerField.getText()));
         hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(answerField.getText()));
         hints.put(EliminateChoiceHint.class.getSimpleName(), new EliminateChoiceHint(incorrectChoices, answer));
+        hints.put("No Hint", null);
 
         return hints.get(hint);
     }

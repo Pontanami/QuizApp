@@ -4,6 +4,7 @@ import com.example.quizapp.hints.HalfWordHint;
 import com.example.quizapp.hints.IHint;
 import com.example.quizapp.hints.OneLetterHint;
 import com.example.quizapp.hints.TextHint;
+import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.quiz.ICreateQuestion;
 import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.quiz.IQuizable;
@@ -45,12 +46,24 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
         hintDropdown.setItems(FXCollections.observableArrayList(
                 HalfWordHint.class.getSimpleName(),
                 OneLetterHint.class.getSimpleName(),
-                TextHint.class.getSimpleName())
+                TextHint.class.getSimpleName(),
+                "No Hint")
         );
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {
             chosenHint = (String) newVal;
+
+            if(chosenHint.equals(TextHint.class.getSimpleName())){
+                hintField.setVisible(true);
+            } else {
+                hintField.setVisible(false);
+                hintField.setText("");
+            }
         });
+
+        InputValidator.createValidationTextField(frontSide);
+        InputValidator.createValidationTextField(backSide);
+        InputValidator.createValidationTextField(hintField);
     }
 
     /**
@@ -72,6 +85,8 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
         hints.put(TextHint.class.getSimpleName(), new TextHint(hintField.getText()));
         hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(frontSide.getText()));
         hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(frontSide.getText()));
+        hints.put("No Hint", null);
+
         return hints.get(hint);
     }
 

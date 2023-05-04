@@ -1,5 +1,6 @@
 package com.example.quizapp.quiz.multichoice;
 
+import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.quiz.takeQuiz.IAnswerable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

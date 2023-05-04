@@ -1,14 +1,10 @@
 package com.example.quizapp.quiz.flashcard;
 
 
-import com.example.quizapp.quiz.QuizCollection;
-import com.example.quizapp.quiz.CreateQuizController;
+import com.example.quizapp.quiz.*;
 import com.example.quizapp.quiz.tags.Tag;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.tags.Subject;
-import com.example.quizapp.quiz.Quiz;
-import com.example.quizapp.quiz.ICreateQuestion;
-import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.firebase.IQuizRepository;
@@ -75,6 +71,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
         this.rootpane = rootpane;
         quiz.subscribe(this);
+        InputValidator.createValidationTextField(quizName);
     }
 
     /**
