@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,9 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane parent;
 
+    @FXML
+    Text errorText;
+
     public LoginController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setRoot(this);
@@ -41,25 +45,11 @@ public class LoginController extends AnchorPane implements Initializable {
             throw new RuntimeException(exception);
         }
         this.parent = parent;
+        errorText.setVisible(false);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
-    @FXML
-    public void login(){
-        String email = emailField.getText();
-        String pw = passwordField.getText();
-        ur.loginUser(email, pw);
-        navigateToQuizCollection();
-    }
-
-    private void navigateToQuizCollection() {
-        QuizCollection quizCollection = new QuizCollection(parent);
-        parent.getChildren().clear();
-        parent.getChildren().add(quizCollection);
-    }
-
 
     @FXML
     private void register(){
@@ -68,6 +58,25 @@ public class LoginController extends AnchorPane implements Initializable {
         parent.getChildren().add(rc);
     }
 
-
+    private void navigateToQuizCollection() {
+        QuizCollection quizCollection = new QuizCollection(parent);
+        parent.getChildren().clear();
+        parent.getChildren().add(quizCollection);
+    }
+    @FXML
+    public void login() {
+        errorText.setVisible(false);
+        String email = emailField.getText();
+        String pw = passwordField.getText();
+        passwordField.clear();
+        emailField.clear();
+        try {
+            ur.loginUser(email, pw);
+            navigateToQuizCollection();
+        } catch (IllegalArgumentException e) {
+            errorText.setText(e.getMessage());
+            errorText.setVisible(true);
+        }
+    }
 }
 
