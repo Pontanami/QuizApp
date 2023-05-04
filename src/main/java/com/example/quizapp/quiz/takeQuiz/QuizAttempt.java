@@ -7,6 +7,9 @@ import java.util.List;
 
 public class QuizAttempt {
     private final Quiz quiz;
+
+
+
     private int currentQuestionIndex = 0;
     private int points = 0;
 
@@ -78,5 +81,13 @@ public class QuizAttempt {
      */
     public int getPoints(){
         return points;
+    }
+
+    public int getCurrentQuestionIndex() {
+        return currentQuestionIndex;
+    }
+
+    public boolean isQuizFinished(){
+        return currentQuestionIndex >= quiz.getQuestions().size()-1;
     }
 }
