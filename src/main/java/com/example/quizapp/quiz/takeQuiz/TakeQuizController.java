@@ -47,7 +47,6 @@ public class TakeQuizController extends AnchorPane {
     private IAnswerable specificController;
     private boolean isMultiChoice = false;
     private boolean isFlashCard = false;
-    private int points = 0;
     private QuizAttempt quiz;
 
     @FXML
@@ -94,7 +93,7 @@ public class TakeQuizController extends AnchorPane {
         }
         quizName.setText(quiz.getQuiz().getName());
         quizPrevious.setDisable(true);
-        quizPoints.setText("Points: " + points + "/" + quiz.getQuiz().getQuestions().size());
+        quizPoints.setText("Points: " + quiz.getPoints() + "/" + quiz.getQuiz().getQuestions().size());
         showQuestion();
     }
 
@@ -153,8 +152,8 @@ public class TakeQuizController extends AnchorPane {
      */
     public void showAnswer(){
         if (specificController.revealAnswer()){
-            points++;
-            quizPoints.setText("Points: " + points + "/" + quiz.getQuiz().getQuestions().size());
+            quiz.addPoint();
+            quizPoints.setText("Points: " + quiz.getPoints() + "/" + quiz.getQuiz().getQuestions().size());
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
