@@ -1,5 +1,6 @@
 package com.example.quizapp.user;
 
+import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane parent;
 
-    public LoginController(AnchorPane parent){
+    public LoginController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -39,8 +40,7 @@ public class LoginController extends AnchorPane implements Initializable {
             fxmlLoader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
-        }
-        this.parent = parent;
+        };
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,16 +51,21 @@ public class LoginController extends AnchorPane implements Initializable {
         String email = emailField.getText();
         String pw = passwordField.getText();
         ur.loginUser(email, pw);
-        navigateToQuizCollection();
+        HomeController homeC = new HomeController();
+        rootpane.getChildren().clear();
+        rootpane.getChildren().add(homeC);
+        rootpane.getChildren().remove(-1);
+        //navigateToQuizCollection();
     }
 
+    /*
     private void navigateToQuizCollection() {
         QuizCollection quizCollection = new QuizCollection(parent);
         parent.getChildren().clear();
         parent.getChildren().add(quizCollection);
     }
 
-
+*/
     @FXML
     private void register(){
         RegisterController rc = new RegisterController(parent);

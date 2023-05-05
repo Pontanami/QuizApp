@@ -1,6 +1,7 @@
 package com.example.quizapp;
 
 import com.example.quizapp.firebase.IUserRepository;
+import com.example.quizapp.mainview.HomeController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,10 +14,11 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, IllegalAccessException {       
-        MainViewController mv = new MainViewController();
+        HomeController mv = new HomeController();
         Scene scene = new Scene(mv, 1920, 1080);
 
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 

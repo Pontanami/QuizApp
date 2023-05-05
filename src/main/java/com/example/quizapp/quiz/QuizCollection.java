@@ -68,6 +68,7 @@ public class QuizCollection extends AnchorPane implements Initializable {
         }
     }
 
+
     @FXML
     public void navigateToProfile() {
         MyProfileController profileController = new MyProfileController(parentPane);

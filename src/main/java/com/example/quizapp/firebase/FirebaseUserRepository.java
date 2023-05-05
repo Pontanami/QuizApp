@@ -190,4 +190,8 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQue
         }
         return generatedPassword;
     }
+
+    public void signOut(){
+        currentUser = null;
+    }
 }

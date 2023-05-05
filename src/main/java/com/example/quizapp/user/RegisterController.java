@@ -49,9 +49,11 @@ public class RegisterController extends AnchorPane{
 
     @FXML
     private void navigateToLogin(){
-        LoginController lc = new LoginController(parent);
+        /*LoginController lc = new LoginController(parent);
         parent.getChildren().clear();
         parent.getChildren().add(lc);
+
+         */
     }
 }
 

@@ -38,4 +38,6 @@ module com.example.quizapp {
 
     exports com.example.quizapp;
     opens com.example.quizapp to javafx.fxml, com.google.gson;
+
+    opens com.example.quizapp.mainview to javafx.fxml;
 }

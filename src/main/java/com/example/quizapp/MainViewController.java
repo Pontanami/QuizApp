@@ -32,7 +32,7 @@ public class MainViewController extends AnchorPane implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loginController = new LoginController(rootPane);
+        //loginController = new LoginController(rootPane);
         navigateToLogin();
     }
 

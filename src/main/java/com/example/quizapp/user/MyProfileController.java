@@ -55,8 +55,8 @@ public class MyProfileController extends AnchorPane implements Initializable {
 
     @FXML
     private void navigateToLogin(){
-        LoginController lc = new LoginController(parent);
-        parent.getChildren().clear();
-        parent.getChildren().add(lc);
+        //LoginController lc = new LoginController(parent);
+        //parent.getChildren().clear();
+        //parent.getChildren().add(lc);
     }
 }
