@@ -1,5 +1,6 @@
 package com.example.quizapp.mainview;
 
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.quiz.CreateQuizController;
 import com.example.quizapp.quiz.QuizCollection;
@@ -19,20 +20,7 @@ public class MenuController extends AnchorPane{
     @FXML
     Button ProfileBtn, QuizColBtn, CreateQuizBtn, LogoutBtn;
 
-    @FXML
-    BorderPane parent;
-
-    public MenuController(BorderPane parent){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/menu.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-        this.parent = parent;
-    }
+    NavigationStack navigationStack = NavigationStack.getInstance();
 
     public MenuController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/menu.fxml"));
@@ -48,33 +36,22 @@ public class MenuController extends AnchorPane{
 
     @FXML
     public void NavigateToProfile(){
-        MyProfileController pc = new MyProfileController(new AnchorPane());
-        parent.getChildren().clear();
-        parent.getChildren().add(pc);
+        navigationStack.pushView(new MyProfileController());
     }
 
     @FXML
     public void NavigateToQuizCollection(){
-        QuizCollection quizCollection = new QuizCollection(new AnchorPane());
-        parent.getChildren().clear();
-        parent.getChildren().add(quizCollection);
+        navigationStack.pushView(new QuizCollection());
     }
 
     @FXML
     public void NavigateToCreateQuiz(){
-        CreateQuizController createQuiz = new CreateQuizController(new AnchorPane());
-        parent.getChildren().clear();
-        parent.getChildren().add(createQuiz);
+        navigationStack.pushView(new CreateQuizController());
     }
 
     @FXML
     public void logout(){
-        FirebaseUserRepository.getAuth().signOut();
-        LoginController lc = new LoginController();
-        parent.getChildren().clear();
-        parent.setCenter(lc);
-
-        //parent.getChildren().clear();
-        //parent.getChildren().add(lc);
+        navigationStack.clearAll();
+        navigationStack.pushView(new LoginController());
     }
 }

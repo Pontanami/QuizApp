@@ -150,4 +150,8 @@ public class NavigationStack extends AnchorPane {
     public void setHeader(AnchorPane pane){
         menuPane.setTop(pane);
     }
+
+    public void clearAll(){
+        menuPane.getChildren().clear();
+    }
 }
