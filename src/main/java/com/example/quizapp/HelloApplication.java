@@ -15,7 +15,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage){
-        LoginController mv = new LoginController();
+        NavigationStack mv = NavigationStack.getInstance();
+        mv.pushView(new LoginController());
         Scene scene = new Scene(mv, 1920, 1080);
 
         stage.setScene(scene);

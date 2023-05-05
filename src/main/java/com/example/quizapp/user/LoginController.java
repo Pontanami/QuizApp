@@ -2,6 +2,7 @@ package com.example.quizapp.user;
 
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.mainview.HomeController;
+import com.example.quizapp.mainview.MenuController;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import javafx.fxml.FXML;
@@ -33,6 +34,8 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane parent;
 
+    NavigationStack navigationStack = NavigationStack.getInstance();
+
     public LoginController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setRoot(this);
@@ -48,14 +51,13 @@ public class LoginController extends AnchorPane implements Initializable {
     }
 
     @FXML
-    public void login(){
+    public void login() {
         String email = emailField.getText();
         String pw = passwordField.getText();
         ur.loginUser(email, pw);
-        backPane.getChildren().clear();
-        NavigationStack navigation = new NavigationStack();
-        backPane.getChildren().add(navigation);
-        //navigateToQuizCollection();
+        navigationStack.pushView(new HomeController());
+        navigationStack.setHeader(new MenuController());
+        navigationStack.removeView(this);
     }
 
     /*

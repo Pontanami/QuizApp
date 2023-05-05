@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import com.example.quizapp.firebase.FirebaseConnection;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.mainview.MenuController;
 import javafx.application.Application;
@@ -20,7 +21,12 @@ import java.io.IOException;
  */
 public class NavigationStack extends AnchorPane {
 
-    private static StackPane stackPane;
+    private final StackPane stackPane;
+
+    private static NavigationStack instance;
+
+    @FXML
+    BorderPane menuPane;
 
     public void start(Stage primaryStage){
         /*
@@ -40,9 +46,14 @@ public class NavigationStack extends AnchorPane {
 
     }
 
-    @FXML
-    BorderPane menuPane;
-    public NavigationStack(){
+    public static NavigationStack getInstance(){
+        if (instance == null)
+            instance = new NavigationStack();
+
+        return instance;
+    }
+
+    private NavigationStack(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -51,24 +62,21 @@ public class NavigationStack extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        MenuController headerController = new MenuController();
-        menuPane.setTop(headerController);
         stackPane = new StackPane();
         menuPane.setCenter(stackPane);
-
     }
     /**
      * Loads a view into the stackpane
      * @param controller the controller of the view to be loaded
      */
-    public static void loadView(AnchorPane controller){
+    public void loadView(AnchorPane controller){
         stackPane.getChildren().add(controller);
     }
     /**
      * Pushes a view onto the stackpane
      * @param controller the controller of the view to be pushed
      */
-    public static void pushView(AnchorPane controller) {
+    public void pushView(AnchorPane controller) {
         if (stackPane.getChildren().contains(controller)) {
             return;
         }
@@ -90,7 +98,7 @@ public class NavigationStack extends AnchorPane {
     /**
      * Pops a view from the stackpane
      */
-    public static void popView() {
+    public void popView() {
         if (stackPane.getChildren().size() <= 1) {
             return;
         }
@@ -102,7 +110,7 @@ public class NavigationStack extends AnchorPane {
     /**
      * Pops to the root view
      */
-    public static void popToRoot(){
+    public void popToRoot(){
         if (stackPane.getChildren().size() <= 1) {
             return;
         }
@@ -114,7 +122,7 @@ public class NavigationStack extends AnchorPane {
      * Pops to a specified view
      * @param controller the controller of the view to be popped to
      */
-    public static void goBackToSpecifiedView(AnchorPane controller){
+    public void goBackToSpecifiedView(AnchorPane controller){
         int index = stackPane.getChildren().indexOf(controller);
         if (index == -1) {
             return;
@@ -127,7 +135,7 @@ public class NavigationStack extends AnchorPane {
      * Removes a view from the stackpane
      * @param controller the controller of the view to be removed
      */
-    public static void removeView(AnchorPane controller){
+    public void removeView(AnchorPane controller){
         stackPane.getChildren().remove(controller);
     }
 
@@ -135,7 +143,11 @@ public class NavigationStack extends AnchorPane {
      * Gets the ViewStack
      * @return A {@link ObservableList} of {@link Node} representing the viewstack
      */
-    public static ObservableList<Node> getViewStack(){
+    public ObservableList<Node> getViewStack(){
         return stackPane.getChildren();
+    }
+
+    public void setHeader(AnchorPane pane){
+        menuPane.setTop(pane);
     }
 }
