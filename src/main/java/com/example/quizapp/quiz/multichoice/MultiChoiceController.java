@@ -89,8 +89,8 @@ public class MultiChoiceController implements IAnswerable {
     }
 
     /**
-     * Reveals the answer for the current instance of MultiChoice
-     * @return true if answered correctly false otherwise
+     * Reveals the answer for the current instance of {@link MultiChoice}
+     * @return true if answered correctly, false otherwise
      */
     @Override
     public boolean revealAnswer(){

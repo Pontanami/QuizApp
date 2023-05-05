@@ -38,6 +38,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
     private CheckComboBox<Subject> tagsCheckComboBox = new CheckComboBox<>();
 
 
+    /**
+     * Represents the "sub view" that includes all {@link QuizThumbnail} objects.
+     * @param parentPane The {@link AnchorPane} to populate and navigate from
+     */
     public QuizCollection(AnchorPane parentPane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizCollection.fxml"));
         fxmlLoader.setRoot(this);
@@ -63,6 +67,9 @@ public class QuizCollection extends AnchorPane implements Initializable {
     }
 
 
+    /**
+     * Searches for quizzes by name, and updates the collection accordingly
+     */
     @FXML
     public void searchQuizzes() {
         String query = inputField.getText();
@@ -90,6 +97,9 @@ public class QuizCollection extends AnchorPane implements Initializable {
         }
     }
 
+    /**
+     * Navigate to the profile page
+     */
     @FXML
     public void navigateToProfile() {
         MyProfileController profileController = new MyProfileController(parentPane);
@@ -97,6 +107,9 @@ public class QuizCollection extends AnchorPane implements Initializable {
         parentPane.getChildren().add(profileController);
     }
 
+    /**
+     * Navigate to creating a new {@link Quiz}
+     */
     @FXML
     public void navigateToCreateQuiz() {
         CreateQuizController createQuizController = new CreateQuizController(parentPane);
