@@ -85,6 +85,18 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         return multiChoiceQuestion;
     }
 
+    public boolean isAbleToCreate() {
+        boolean ableToCreate = true;
+
+        for(var field : textFields){
+            if(!validator.isValidTextField(field)){
+                ableToCreate = false;
+            }
+        }
+
+        return ableToCreate;
+    }
+
     /**
      * This method fetches the specified Hint object
      * @param hint key for getting the hint object

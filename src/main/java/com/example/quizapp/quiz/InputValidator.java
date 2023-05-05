@@ -49,7 +49,6 @@ public class InputValidator {
 
     public TextField createValidationTextField(TextField textField){
         validationFields.put(textField, false);
-        textField.getStyleClass().add("incorrectField");
 
         textField.textProperty().addListener((arg0, oldValue, newValue) -> {
             if(!Objects.equals(oldValue, newValue)){
@@ -74,7 +73,6 @@ public class InputValidator {
                 } else{
                     requiredError.setVisible(false);
                 }
-
             }
         });
 

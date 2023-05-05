@@ -126,7 +126,16 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
      */
     @FXML
     public void navigateToTagPane() {
-        tagPane.toFront();
+        boolean canNavigate = true;
+        for(var item : questions) {
+            if(!item.isAbleToCreate()){
+                canNavigate = false;
+            }
+        }
+
+        if(canNavigate && !quizName.getText().isEmpty()){
+            tagPane.toFront();
+        }
     }
 
     /**
