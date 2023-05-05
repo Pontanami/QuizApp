@@ -219,7 +219,7 @@ public class TakeQuizController extends AnchorPane {
     }
 
     /**
-     * Go back to the {@link QuizCollection} That was given when creating this instance of {@link TakeQuizController}.
+     * Navigate back to the given {@link QuizCollection} when instantiating.
      */
     public void finish(){
         QuizCollection quizCollection = new QuizCollection(parentPane);
