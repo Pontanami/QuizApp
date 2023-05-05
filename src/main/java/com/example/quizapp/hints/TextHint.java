@@ -1,7 +1,7 @@
 package com.example.quizapp.hints;
 
-public class TextHint implements IHint {
-    private String hint;
+public class TextHint implements IHint<String> {
+    private final String hint;
 
     /**
      * Creates a hint where the user gives text as hint
