@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,8 +71,8 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     private IHint getHint(String hint){
         Map<String, IHint> hints = new HashMap<>();
         hints.put(TextHint.class.getSimpleName(), new TextHint(hintField.getText()));
-        hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(frontSide.getText()));
-        hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(frontSide.getText()));
+        hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(backSide.getText()));
+        hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(backSide.getText()));
         return hints.get(hint);
     }
 
