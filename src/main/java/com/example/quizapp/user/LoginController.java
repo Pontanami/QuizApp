@@ -40,8 +40,8 @@ public class LoginController extends AnchorPane {
     Text errorText;
 
     /**
-     * Contructor for the controller of the login screen, it loads the fxml file
-     * @param parent the parent anchorpane, which is the rootpane of the application which it gets from MainView
+     * Represents the user login view. Loads the correct fxml file using {@link FXMLLoader}
+     * @param parent The {@link AnchorPane} to populate/ navigate to
      */
     public LoginController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
