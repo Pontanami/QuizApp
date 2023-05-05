@@ -158,6 +158,7 @@ public class NavigationStack extends AnchorPane {
     public void clearAll(){
         menuPane.getChildren().clear();
         menuPane.setCenter(stackPane);
+        stackPane.getChildren().clear();
         stackClasses.clear();
     }
 }
