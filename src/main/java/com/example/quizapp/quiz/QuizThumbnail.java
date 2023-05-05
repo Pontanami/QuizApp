@@ -1,5 +1,5 @@
 package com.example.quizapp.quiz;
-
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.quiz.takeQuiz.TakeQuizController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,15 +19,14 @@ public class QuizThumbnail extends AnchorPane {
     @FXML
     private Text quizName;
 
-    @FXML
-    private AnchorPane grandParentPane;
+    NavigationStack navigation = NavigationStack.getInstance();
 
     /**
      * Represents one single thumbnail for one single {@link Quiz} instance.
      * @param quiz The {@link Quiz} to create a thumbnail for.
-     * @param grandParentPane The {@link AnchorPane} to populate and navigate from.
      */
-    public QuizThumbnail(Quiz quiz, AnchorPane grandParentPane) {
+
+    public QuizThumbnail(Quiz quiz) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizThumbnail.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -36,7 +35,6 @@ public class QuizThumbnail extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.grandParentPane = grandParentPane;
         this.quiz = quiz;
         quizName.setText(quiz.getName());
     }
@@ -47,8 +45,6 @@ public class QuizThumbnail extends AnchorPane {
      */
     @FXML
     public void navigateToQuiz() {
-        TakeQuizController takeQuizController = new TakeQuizController(grandParentPane, quiz);
-        grandParentPane.getChildren().clear();
-        grandParentPane.getChildren().add(takeQuizController);
+        navigation.pushView(new TakeQuizController(quiz));
     }
 }
