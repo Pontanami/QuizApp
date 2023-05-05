@@ -47,6 +47,7 @@ public class TakeQuizController extends AnchorPane{
     private AnchorPane parentPane;
     /**
      * @param parentPane The {@link AnchorPane} that is going to include all interchanging {@link com.example.quizapp.quiz.IQuizable} questions.
+     * @param quiz The quiz to view/take
      */
     public TakeQuizController(AnchorPane parentPane, Quiz quiz){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
@@ -151,7 +152,6 @@ public class TakeQuizController extends AnchorPane{
     }
 
     private void showQuestion() {
-        //quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())
         switchNextAndFinishBtn();
         if (answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
