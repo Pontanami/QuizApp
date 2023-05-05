@@ -10,9 +10,6 @@ import java.io.IOException;
 public class HomeController extends AnchorPane{
 
     @FXML
-    BorderPane menuPane;
-
-    @FXML
     AnchorPane parent;
 
     public HomeController(){
@@ -24,6 +21,5 @@ public class HomeController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        menuPane.setTop(new MenuController(menuPane));
     }
 }

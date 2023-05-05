@@ -34,6 +34,18 @@ public class MenuController extends AnchorPane{
         this.parent = parent;
     }
 
+    public MenuController(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/menu.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+
     @FXML
     public void NavigateToProfile(){
         MyProfileController pc = new MyProfileController(new AnchorPane());

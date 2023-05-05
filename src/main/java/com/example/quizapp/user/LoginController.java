@@ -1,5 +1,6 @@
 package com.example.quizapp.user;
 
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.firebase.FirebaseUserRepository;
@@ -28,7 +29,7 @@ public class LoginController extends AnchorPane implements Initializable {
     Button registerBtn;
 
     @FXML
-    AnchorPane rootpane;
+    AnchorPane backPane;
     @FXML
     AnchorPane parent;
 
@@ -51,10 +52,9 @@ public class LoginController extends AnchorPane implements Initializable {
         String email = emailField.getText();
         String pw = passwordField.getText();
         ur.loginUser(email, pw);
-        HomeController homeC = new HomeController();
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(homeC);
-        rootpane.getChildren().remove(-1);
+        backPane.getChildren().clear();
+        NavigationStack navigation = new NavigationStack();
+        backPane.getChildren().add(navigation);
         //navigateToQuizCollection();
     }
 

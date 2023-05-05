@@ -1,23 +1,31 @@
 package com.example.quizapp;
 
+import com.example.quizapp.mainview.HomeController;
+import com.example.quizapp.mainview.MenuController;
 import javafx.application.Application;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * This class is responsible for managing the navigation stack
  * @author Pontus
  */
-public class NavigationStack extends Application {
+public class NavigationStack extends AnchorPane {
 
     private static StackPane stackPane;
 
-    @Override
     public void start(Stage primaryStage){
         /*
+
+
         BorderPane root = new BorderPane();
         HeaderController headerController = new HeaderController();
         root.setTop(headerController);
@@ -29,6 +37,24 @@ public class NavigationStack extends Application {
 
         primaryStage.show();
         */
+
+    }
+
+    @FXML
+    BorderPane menuPane;
+    public NavigationStack(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        MenuController headerController = new MenuController();
+        menuPane.setTop(headerController);
+        stackPane = new StackPane();
+        menuPane.setCenter(stackPane);
 
     }
     /**
@@ -43,6 +69,9 @@ public class NavigationStack extends Application {
      * @param controller the controller of the view to be pushed
      */
     public static void pushView(AnchorPane controller) {
+        if (stackPane.getChildren().contains(controller)) {
+            return;
+        }
         try {
             loadView(controller);
         }catch (Exception e) {
@@ -108,8 +137,5 @@ public class NavigationStack extends Application {
      */
     public static ObservableList<Node> getViewStack(){
         return stackPane.getChildren();
-    }
-    public static void main(String[] args) {
-        launch(args);
     }
 }
