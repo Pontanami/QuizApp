@@ -30,6 +30,10 @@ public class MyProfileController extends AnchorPane implements Initializable {
 
     MainViewController mv;
 
+    /**
+     * Represents the profile pag view. Loads the correct fxml file using {@link FXMLLoader}.
+     * @param parent The {@link AnchorPane} to populate and navigate from/to.
+     */
     public MyProfileController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
         fxmlLoader.setRoot(this);

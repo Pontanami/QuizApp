@@ -5,31 +5,37 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <fx:root fx:id="backPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="940.0" prefWidth="1928.0" style="-fx-background-color: #FFFFFF;">
+      <AnchorPane layoutY="8.0" prefHeight="940.0" prefWidth="1928.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <PasswordField fx:id="passwordField" layoutX="708.0" layoutY="523.0" prefHeight="61.0" prefWidth="829.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
+            <PasswordField fx:id="passwordField" layoutX="600.0" layoutY="523.0" prefHeight="70.0" prefWidth="800.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
                <font>
                   <Font size="28.0" />
                </font>
             </PasswordField>
-            <Button fx:id="loginBtn" layoutX="887.0" layoutY="636.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
+            <Button fx:id="loginBtn" layoutX="720.0" layoutY="700.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
-            <TextField fx:id="emailField" layoutX="711.0" layoutY="405.0" prefHeight="81.0" prefWidth="821.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
+            <TextField fx:id="emailField" layoutX="600.0" layoutY="405.0" prefHeight="70.0" prefWidth="800.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
                <font>
                   <Font size="33.0" />
                </font>
             </TextField>
-            <Button fx:id="registerBtn" layoutX="1174.0" layoutY="636.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
+            <Button fx:id="registerBtn" layoutX="1070.0" layoutY="700.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
+            <Text fx:id="errorText" fill="#e80e0e" layoutX="600.0" layoutY="645.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="800.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="528.0">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

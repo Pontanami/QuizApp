@@ -1,8 +1,8 @@
 package com.example.quizapp.hints;
 
-public class OneLetterHint implements IHint {
+public class OneLetterHint implements IHint<String> {
 
-    private String answer;
+    private final String answer;
     private int hintLength;
 
     /**

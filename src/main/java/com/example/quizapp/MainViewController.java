@@ -20,6 +20,9 @@ public class MainViewController extends AnchorPane implements Initializable {
     AnchorPane rootPane;
     LoginController loginController;
 
+    /**
+     * Represents the main page view. Loads the correct fxml file using {@link FXMLLoader}
+     */
     public MainViewController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml"));
         fxmlLoader.setRoot(this);
@@ -35,25 +38,39 @@ public class MainViewController extends AnchorPane implements Initializable {
         //loginController = new LoginController(rootPane);
         navigateToLogin();
     }
-
+    /**
+     * Navigate to the quiz creation view
+     * @see CreateQuizController
+     */
     @FXML
     public void navigateToCreateQuiz(){
         CreateQuizController createQuizController = new CreateQuizController(rootPane);
         rootPane.getChildren().clear();
         rootPane.getChildren().add(createQuizController);
     }
-
+    /**
+     * Navigate to the user login view
+     * @see LoginController
+     */
     @FXML
     public void navigateToLogin(){
         rootPane.getChildren().clear();
         rootPane.getChildren().add(loginController);
     }
+    /**
+     * Navigate to the profile page view
+     * @see MyProfileController
+     */
     @FXML
     public void navigateToMyProfile(){
         MyProfileController profileController = new MyProfileController(rootPane);
         rootPane.getChildren().clear();
         rootPane.getChildren().add(profileController);
     }
+    /**
+     * Navigate to the user registration view
+     * @see RegisterController
+     */
     @FXML
     public void navigateToRegister(){
         RegisterController registerController = new RegisterController(rootPane);
@@ -61,6 +78,10 @@ public class MainViewController extends AnchorPane implements Initializable {
         rootPane.getChildren().add(registerController);
     }
 
+    /**
+     * Navigate to the quiz collection view
+     * @see QuizCollection
+     */
     @FXML
     public void navigateToQuizCollection() {
         QuizCollection quizCollection = new QuizCollection(rootPane);

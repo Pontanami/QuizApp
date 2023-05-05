@@ -25,6 +25,10 @@ public class RegisterController extends AnchorPane{
     @FXML
     AnchorPane parent;
 
+    /**
+     * Represents the user registration view. Loads the correct fxml file using {@link FXMLLoader}.
+     * @param parent The {@link AnchorPane} to populate/ navigate to
+     */
     public RegisterController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
         fxmlLoader.setRoot(this);
