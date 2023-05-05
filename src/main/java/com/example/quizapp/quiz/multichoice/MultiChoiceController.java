@@ -25,7 +25,6 @@ public class MultiChoiceController implements IAnswerable {
     private final RadioButton[] radioButtons = new RadioButton[4];
     private MultiChoice ques;
     private List<String> choiceAnswers;
-    private List<String> hintAnswers;
 
     /**
      * Initialize the values for the current object with the specified MultiChoice instance
