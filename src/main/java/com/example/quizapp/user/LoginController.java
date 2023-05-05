@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController extends AnchorPane implements Initializable {
+/**
+ * Controller for the login screen
+ * @author Alexander Persson, Felix Erngård, Nils Bengtsson Svanstedt
+ */
+public class LoginController extends AnchorPane {
     FirebaseUserRepository ur = FirebaseUserRepository.getAuth();
 
     @FXML
@@ -35,6 +39,10 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     Text errorText;
 
+    /**
+     * Contructor for the controller of the login screen, it loads the fxml file
+     * @param parent the parent anchorpane, which is the rootpane of the application which it gets from MainView
+     */
     public LoginController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setRoot(this);
@@ -47,10 +55,10 @@ public class LoginController extends AnchorPane implements Initializable {
         this.parent = parent;
         errorText.setVisible(false);
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
 
+    /**
+     * Displays the register screen where the user can register a new account
+     */
     @FXML
     private void register(){
         RegisterController rc = new RegisterController(parent);
@@ -58,11 +66,18 @@ public class LoginController extends AnchorPane implements Initializable {
         parent.getChildren().add(rc);
     }
 
+    /**
+     * Navigate to the quiz collection screen
+     */
     private void navigateToQuizCollection() {
         QuizCollection quizCollection = new QuizCollection(parent);
         parent.getChildren().clear();
         parent.getChildren().add(quizCollection);
     }
+
+    /**
+     * Login the user if the email and password is correct, otherwise display an error message
+     */
     @FXML
     public void login() {
         errorText.setVisible(false);
