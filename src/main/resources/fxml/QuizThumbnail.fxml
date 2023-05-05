@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true">
          <image>
-            <Image url="@../img/einstein.jpg" />
+            <Image url="@../img/quizImage.jpg" />
          </image>
       </ImageView>
       <Text fx:id="quizName" fill="WHITE" layoutY="51.0" stroke="BLACK" strokeType="OUTSIDE" text="Quiz Name" textAlignment="CENTER" wrappingWidth="250.0">
