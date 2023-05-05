@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class EliminateChoiceHint implements IHint<List<String>> {
 
-    List<String> choices;
-    String correctChoice;
+    private final List<String> choices;
+    private final String correctChoice;
 
     /**
      * @param choices The list of all choices that choices are going to get eliminated from.
