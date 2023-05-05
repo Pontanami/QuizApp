@@ -34,16 +34,17 @@ public class HomeController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        populateMyQuizzes();
     }
 
     private void populateMyQuizzes(){
         FirebaseQuizRepository quizRepository = new FirebaseQuizRepository();
         String userID = userRepository.getCurrentUser().getId();
-        QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setId(userID);
+        QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setCreatedBy(userID);
         myQuizFlow.getChildren().clear();
         for (Quiz quiz : quizRepository.getQuiz(query)) {
-            //QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
-            //myQuizFlow.getChildren().add(quizThumbnail);
+            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
+            myQuizFlow.getChildren().add(quizThumbnail);
         }
     }
 }

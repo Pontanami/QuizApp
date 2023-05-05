@@ -43,12 +43,12 @@ public class TakeQuizController extends AnchorPane{
     private BigDecimal progress = new BigDecimal("0.0");
     private IAnswerable specificController;
     private QuizAttempt quizAttempt;
+    NavigationStack navigationStack = NavigationStack.getInstance();
 
     /**
      * @param quiz The quiz to view/take
      */
     public TakeQuizController(Quiz quiz){
-    NavigationStack navigationStack = NavigationStack.getInstance();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
         fxmlLoader.setRoot(this);
@@ -61,6 +61,9 @@ public class TakeQuizController extends AnchorPane{
         }
         this.quizAttempt = new QuizAttempt(quiz);
         quizName.setText(quiz.getName());
+        quizPrevious.setDisable(true);
+        quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
+        showQuestion();
     }
 
 
@@ -200,10 +203,7 @@ public class TakeQuizController extends AnchorPane{
      * Navigate back to the given {@link QuizCollection} when instantiating.
      */
     public void finish(){
-        navigationStack
-        QuizCollection quizCollection = new QuizCollection(parentPane);
-        parentPane.getChildren().clear();
-        parentPane.getChildren().add(quizCollection);
+        navigationStack.popView();
+        navigationStack.popView();
     }
-
 }

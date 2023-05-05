@@ -16,5 +16,6 @@
       <Button fx:id="QuizColBtn" layoutX="644.0" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToQuizCollection" text="QuizCollection" AnchorPane.rightAnchor="339.0" />
       <Button fx:id="CreateQuizBtn" layoutX="816.0" layoutY="51.0" mnemonicParsing="false" onAction="#NavigateToCreateQuiz" text="CreateQuiz" AnchorPane.rightAnchor="185.0" />
       <Button fx:id="LogoutBtn" layoutX="957.0" layoutY="48.0" mnemonicParsing="false" onAction="#logout" text="Logout" AnchorPane.rightAnchor="67.0" />
+      <Button fx:id="ProfileBtn1" layoutX="558.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="back" />
    </children>
 </fx:root>

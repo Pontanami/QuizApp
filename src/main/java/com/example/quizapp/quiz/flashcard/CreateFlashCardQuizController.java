@@ -1,6 +1,7 @@
 package com.example.quizapp.quiz.flashcard;
 
 
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.CreateQuizController;
 import com.example.quizapp.quiz.tags.Tag;
@@ -57,13 +58,13 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
     private IQuizRepository quizRepository = new FirebaseQuizRepository();
     private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+    NavigationStack navigationStack = NavigationStack.getInstance();
 
 
     /**
      * Creates a CreateFlashCardQuiz
-     * @param rootpane parent pane of the object
      */
-    public CreateFlashCardQuizController(AnchorPane rootpane) {
+    public CreateFlashCardQuizController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcardQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -73,7 +74,6 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
             throw new RuntimeException(exception);
         }
 
-        this.rootpane = rootpane;
         quiz.subscribe(this);
     }
 
@@ -150,9 +150,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
     }
 
     private void navigateToQuizCollection() {
-        QuizCollection quizCollection = new QuizCollection(rootpane);
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(quizCollection);
+        navigationStack.pushView(new QuizCollection());
     }
 
     /**
@@ -160,8 +158,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
      */
     @FXML
     private void navigateToMenu(){
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateQuizController(rootpane));
+        navigationStack.popView();
     }
 
     /**

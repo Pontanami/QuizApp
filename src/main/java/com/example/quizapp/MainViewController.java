@@ -44,7 +44,7 @@ public class MainViewController extends AnchorPane implements Initializable {
      */
     @FXML
     public void navigateToCreateQuiz(){
-        CreateQuizController createQuizController = new CreateQuizController(rootPane);
+        CreateQuizController createQuizController = new CreateQuizController();
         rootPane.getChildren().clear();
         rootPane.getChildren().add(createQuizController);
     }
@@ -63,7 +63,7 @@ public class MainViewController extends AnchorPane implements Initializable {
      */
     @FXML
     public void navigateToMyProfile(){
-        MyProfileController profileController = new MyProfileController(rootPane);
+        MyProfileController profileController = new MyProfileController();
         rootPane.getChildren().clear();
         rootPane.getChildren().add(profileController);
     }
@@ -73,7 +73,7 @@ public class MainViewController extends AnchorPane implements Initializable {
      */
     @FXML
     public void navigateToRegister(){
-        RegisterController registerController = new RegisterController(rootPane);
+        RegisterController registerController = new RegisterController();
         rootPane.getChildren().clear();
         rootPane.getChildren().add(registerController);
     }
@@ -84,7 +84,7 @@ public class MainViewController extends AnchorPane implements Initializable {
      */
     @FXML
     public void navigateToQuizCollection() {
-        QuizCollection quizCollection = new QuizCollection(rootPane);
+        QuizCollection quizCollection = new QuizCollection();
         rootPane.getChildren().clear();
         rootPane.getChildren().add(quizCollection);
     }

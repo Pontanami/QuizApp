@@ -12,15 +12,14 @@ import java.io.IOException;
 public class CreateQuizController extends AnchorPane{
 
     @FXML
-    AnchorPane mainAnchorPane;
-    @FXML
     AnchorPane createAnchorPane;
 
     /**
      * @param rootpane The {@link AnchorPane} that is going to include all interchanging navigable components.
      */
     NavigationStack navigation = NavigationStack.getInstance();
-    public CreateQuizController(AnchorPane rootpane){
+
+    public CreateQuizController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -31,7 +30,6 @@ public class CreateQuizController extends AnchorPane{
             throw new RuntimeException(exception);
         }
 
-        this.mainAnchorPane = rootpane;
     }
 
     /**

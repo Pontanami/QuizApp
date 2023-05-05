@@ -96,24 +96,4 @@ public class QuizCollection extends AnchorPane implements Initializable {
             quizFlowpane.getChildren().add(quizThumbnail);
         }
     }
-
-
-    /**
-     * Navigate to the profile page
-     */
-
-    @FXML
-    public void navigateToProfile() {
-        navigationStack.pushView(new MyProfileController());
-    }
-
-    /**
-     * Navigate to creating a new {@link Quiz}
-     */
-    @FXML
-    public void navigateToCreateQuiz() {
-        navigationStack.pushView(new CreateQuizController());
-    }
-
-
 }

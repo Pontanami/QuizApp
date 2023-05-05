@@ -54,4 +54,9 @@ public class MenuController extends AnchorPane{
         navigationStack.clearAll();
         navigationStack.pushView(new LoginController());
     }
+
+    @FXML
+    public void goBack(){
+        navigationStack.popView();
+    }
 }

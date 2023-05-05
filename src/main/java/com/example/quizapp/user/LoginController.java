@@ -61,9 +61,7 @@ public class LoginController extends AnchorPane {
      */
     @FXML
     private void register(){
-        RegisterController rc = new RegisterController(parent);
-        parent.getChildren().clear();
-        parent.getChildren().add(rc);
+        navigationStack.pushView(new RegisterController());
     }
 
     /**
