@@ -1,19 +1,19 @@
 package com.example.quizapp.quiz;
 
+import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.quiz.tags.Subject;
 import com.example.quizapp.user.MyProfileController;
-import com.example.quizapp.firebase.FirebaseQuizRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
+import javafx.scene.CacheHint;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.controlsfx.control.CheckComboBox;
 import javafx.scene.layout.FlowPane;
+import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,6 +83,9 @@ public class QuizCollection extends AnchorPane implements Initializable {
         quizFlowpane.getChildren().clear();
         for (Quiz quiz : quizList) {
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz, parentPane);
+            quizThumbnail.setCache(true);
+            quizThumbnail.setCacheShape(true);
+            quizThumbnail.setCacheHint(CacheHint.SPEED);
             quizFlowpane.getChildren().add(quizThumbnail);
         }
     }
