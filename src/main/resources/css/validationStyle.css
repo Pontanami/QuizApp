@@ -1,0 +1,31 @@
+
+.incorrectField{
+    -fx-primary-color: #007acc;
+    -fx-secondary-color: #4B6EAF;
+    -fx-grey-color: #b9b9b9;
+    -fx-focus-color: -fx-secondary-color;
+    -fx-accent: -fx-primary-color;
+    -fx-border-color: -fx-grey-color, rgba(240, 136, 136, 0.8);
+    -fx-prompt-text-fill: #D6D6D6;
+}
+
+.correctField{
+    -fx-primary-color: #007acc;
+    -fx-secondary-color: #4B6EAF;
+    -fx-grey-color: #b9b9b9;
+    -fx-focus-color: -fx-secondary-color;
+    -fx-accent: -fx-primary-color;
+    -fx-border-color: -fx-grey-color, rgba(162, 245, 183, 0.8);
+    -fx-prompt-text-fill: #D6D6D6;
+}
+
+.normal-text-field{
+    -fx-primary-color: #007acc;
+    -fx-secondary-color: #4B6EAF;
+    -fx-grey-color: #b9b9b9;
+    -fx-focus-color: -fx-secondary-color;
+    -fx-accent: -fx-primary-color;
+    -fx-border-color: -fx-grey-color;
+    -fx-prompt-text-fill: #D6D6D6;
+    -fx-background-color: -fx-grey-color, white;
+}

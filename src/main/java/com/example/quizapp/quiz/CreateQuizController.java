@@ -51,25 +51,4 @@ public class CreateQuizController extends AnchorPane{
         createAnchorPane.getChildren().add(new CreateFlashCardQuizController(mainAnchorPane));
         createAnchorPane.toFront();
     }
-
-    /**
-     * This method navigates to the next view
-     */
-    @FXML
-    public void navigateBack() {
-        createAnchorPane.getChildren().clear();
-        createAnchorPane.getChildren().add(new CreateQuizController(mainAnchorPane));
-        createAnchorPane.toFront();
-    }
-
-    /**
-     * This method navigates to the next view
-     */
-    @FXML
-    public void navigateNext() {
-        createAnchorPane.toBack();
-        createAnchorPane.getChildren().clear();
-        createAnchorPane.getChildren().add(new CreateFlashCardQuizController(mainAnchorPane));
-        createAnchorPane.toFront();
-    }
 }

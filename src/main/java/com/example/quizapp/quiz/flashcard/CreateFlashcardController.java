@@ -4,6 +4,7 @@ import com.example.quizapp.hints.HalfWordHint;
 import com.example.quizapp.hints.IHint;
 import com.example.quizapp.hints.OneLetterHint;
 import com.example.quizapp.hints.TextHint;
+import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.quiz.ICreateQuestion;
 import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.quiz.IQuizable;
@@ -13,10 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CreateFlashcardController extends AnchorPane implements ICreateQuestion<String> {
 
@@ -26,6 +28,10 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     @FXML private ComboBox hintDropdown;
     @FXML private TextField hintField;
     private String chosenHint;
+    private List<TextField> textFields = new ArrayList<>();
+    private @FXML Text requiredError;
+
+    private InputValidator inputValidator;
 
     /**
      * Creates a CreateFlashcard object with a question manager.
@@ -42,16 +48,32 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
         }
 
         this.questionManager = questionManager;
+        this.inputValidator = new InputValidator(requiredError);
 
         hintDropdown.setItems(FXCollections.observableArrayList(
+                "No Hint",
                 HalfWordHint.class.getSimpleName(),
                 OneLetterHint.class.getSimpleName(),
                 TextHint.class.getSimpleName())
         );
+        hintDropdown.getSelectionModel().selectFirst();
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {
             chosenHint = (String) newVal;
+
+            if(chosenHint.equals(TextHint.class.getSimpleName())){
+                hintField.setVisible(true);
+                inputValidator.setSomething(hintField, false);
+            } else {
+                hintField.setVisible(false);
+                hintField.setText(null);
+                inputValidator.setSomething(hintField, true);
+            }
         });
+
+        textFields.add(inputValidator.createValidationTextField(frontSide));
+        textFields.add(inputValidator.createValidationTextField(backSide));
+        textFields.add(inputValidator.createValidationTextFieldValidStart(hintField));
     }
 
     /**
@@ -61,6 +83,16 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     public IQuizable<String> createQuestion(){
         IHint hint = getHint(chosenHint);
         return new Flashcard(frontSide.getText(), backSide.getText(), hint);
+    }
+
+    public boolean isAbleToCreate() {
+        for(var field : textFields){
+            if(!inputValidator.isValidTextField(field)){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -73,6 +105,8 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
         hints.put(TextHint.class.getSimpleName(), new TextHint(hintField.getText()));
         hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(backSide.getText()));
         hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(backSide.getText()));
+        hints.put("No Hint", null);
+
         return hints.get(hint);
     }
 

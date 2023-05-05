@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1477.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="frontSide" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter question">
+      <TextField fx:id="frontSide" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter question" stylesheets="@../css/validationStyle.css">
          <font>
             <Font size="20.0" />
          </font>
@@ -21,7 +21,7 @@
          </font>
       </Text>
       <Line endX="-40.4000244140625" endY="147.00003051757812" layoutX="756.0" layoutY="53.0" startX="-40.4000244140625" startY="-52.99998474121094" strokeWidth="0.5" />
-      <TextField fx:id="backSide" layoutX="755.0" layoutY="6.0" prefHeight="63.0" prefWidth="660.0" promptText="Enter answer">
+      <TextField fx:id="backSide" layoutX="755.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter answer" stylesheets="@../css/validationStyle.css">
          <font>
             <Font size="20.0" />
          </font>
@@ -31,16 +31,21 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="1421.0" layoutY="6.0" mnemonicParsing="false" onAction="#removeQuestion" prefHeight="63.0" prefWidth="65.0" text="X" textFill="#ff4949">
+      <Button layoutX="1398.0" layoutY="5.0" mnemonicParsing="false" onAction="#removeQuestion" prefHeight="63.0" prefWidth="65.0" text="X" textFill="#ff4949">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Button>
-      <ComboBox fx:id="hintDropdown" layoutX="1336.0" layoutY="78.0" prefHeight="54.0" prefWidth="150.0" promptText="CHOOSE HINT" />
-      <TextField fx:id="hintField" layoutX="951.0" layoutY="80.0" prefHeight="54.0" prefWidth="374.0" promptText="Enter hint">
+      <ComboBox fx:id="hintDropdown" layoutX="1313.0" layoutY="79.0" prefHeight="54.0" prefWidth="150.0" promptText="CHOOSE HINT" />
+      <TextField fx:id="hintField" layoutX="951.0" layoutY="80.0" prefHeight="54.0" prefWidth="357.0" promptText="Enter hint" stylesheets="@../css/validationStyle.css" visible="false">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
+      <Text fx:id="requiredError" fill="RED" layoutX="1192.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*all fields requiered to create question" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </fx:root>
