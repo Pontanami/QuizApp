@@ -27,9 +27,6 @@ import java.util.List;
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
  * The method initializeData() should be called. One of the methods setAsFlashCardQuiz() or setAsMultiChoiceQuiz()
  * should also be called when initializing the controller.
- * @see TakeQuizController#initializeData(QuizAttempt)
- * @see TakeQuizController#setAsFlashCardQuiz()
- * @see TakeQuizController#setAsMultiChoiceQuiz()
  */
 public class TakeQuizController extends AnchorPane{
     @FXML private Label quizName;
