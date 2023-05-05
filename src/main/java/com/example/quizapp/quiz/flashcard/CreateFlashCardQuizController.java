@@ -2,6 +2,7 @@ package com.example.quizapp.quiz.flashcard;
 
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.CreateQuizController;
 import com.example.quizapp.quiz.tags.Tag;
@@ -150,7 +151,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
     }
 
     private void navigateToQuizCollection() {
-        navigationStack.pushView(new QuizCollection());
+        navigationStack.pushView(new HomeController());
     }
 
     /**

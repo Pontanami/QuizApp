@@ -2,6 +2,7 @@ package com.example.quizapp.quiz.multichoice;
 
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.CreateQuizController;
 import com.example.quizapp.quiz.tags.Tag;
@@ -30,6 +31,9 @@ import java.util.ResourceBundle;
 
 public class CreateMultiChoiceQuizController extends AnchorPane implements IQuizManager<CreateMultichoiceController>, Initializable, IObserver {
     private AnchorPane rootpane;
+
+    @FXML
+    private AnchorPane parentPane;
 
     @FXML
     private AnchorPane tagPane;
@@ -128,9 +132,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
      * This method is used to navigate to TagPane
      */
     @FXML
-    public void navigateToTagPane() {
-        tagPane.toFront();
-    }
+    public void navigateToTagPane() {tagPane.toFront();}
 
     /**
      * This method adds all questions to the quiz and pushes the quiz to repository
@@ -151,7 +153,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
     private void navigateToQuizCollection() {
         //navigation.goBackToSpecifiedView(new QuizCollection());
-        navigation.pushView(new QuizCollection());
+        navigation.pushView(new HomeController());
     }
 
     /**
