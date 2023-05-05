@@ -3,10 +3,10 @@ package com.example.quizapp.quiz.takeQuiz;
 import com.example.quizapp.HelloApplication;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizCollection;
-import com.example.quizapp.quiz.multichoice.MultiChoiceController;
 import com.example.quizapp.quiz.flashcard.FlashCardController;
 import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.MultiChoice;
+import com.example.quizapp.quiz.multichoice.MultiChoiceController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,13 +25,8 @@ import java.util.List;
 
 /**
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
- * The method initializeData() should be called. One of the methods setAsFlashCardQuiz() or setAsMultiChoiceQuiz()
- * should also be called when initializing the controller.
- * @see TakeQuizController#initializeData(Quiz)
- * @see TakeQuizController#setAsFlashCardQuiz()
- * @see TakeQuizController#setAsMultiChoiceQuiz()
  */
-public class TakeQuizController extends AnchorPane {
+public class TakeQuizController extends AnchorPane{
     @FXML private Label quizName;
     @FXML private Button quizAnswer;
     @FXML private Button quizHint;
@@ -45,13 +41,11 @@ public class TakeQuizController extends AnchorPane {
     private final List<String> answeredQuestions = new ArrayList<>();
     private BigDecimal progress = new BigDecimal("0.0");
     private IAnswerable specificController;
-    private boolean isMultiChoice = false;
-    private boolean isFlashCard = false;
-    private QuizAttempt quiz;
+    private QuizAttempt quizAttempt;
 
     @FXML
     private AnchorPane parentPane;
-    public TakeQuizController(AnchorPane parentPane){
+    public TakeQuizController(AnchorPane parentPane, Quiz quiz){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -62,46 +56,19 @@ public class TakeQuizController extends AnchorPane {
             throw new RuntimeException(exception);
         }
         this.parentPane = parentPane;
-    }
-
-    /**
-     * Establishes the type of questions withing the quiz as {@link Flashcard}.
-     */
-    public void setAsFlashCardQuiz(){
-        isFlashCard = true;
-        isMultiChoice = false;
-    }
-
-    /**
-     * Establishes the type of questions withing the quiz as {@link MultiChoice}.
-     */
-    public void setAsMultiChoiceQuiz(){
-        isMultiChoice = true;
-        isFlashCard = false;
-    }
-
-    /**
-     * Initializes the values needed when starting a quiz.
-     * @param quiz The {@link Quiz} instance needed to control a quiz.
-     */
-    public void initializeData(QuizAttempt quiz){
-        this.quiz = quiz;
-        if (quiz.getCurrentQuestion() instanceof Flashcard) {
-            setAsFlashCardQuiz();
-        } else {
-            setAsMultiChoiceQuiz();
-        }
-        quizName.setText(quiz.getQuiz().getName());
+        this.quizAttempt = new QuizAttempt(quiz);
+        quizName.setText(quiz.getName());
         quizPrevious.setDisable(true);
-        quizPoints.setText("Points: " + quiz.getPoints() + "/" + quiz.getQuiz().getQuestions().size());
+        quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
         showQuestion();
     }
+
 
     /**
      * Displays the next question according to the order specified in the given questions list.
      */
     public void showNext(){
-        quiz.nextQuestion();
+        quizAttempt.nextQuestion();
         switchNextAndFinishBtn();
         quizPrevious.setDisable(false);
         showQuestion();
@@ -109,7 +76,7 @@ public class TakeQuizController extends AnchorPane {
     }
 
     private void switchNextAndFinishBtn() {
-        if (quiz.isQuizFinished()) {
+        if (quizAttempt.isQuizFinished()) {
             quizNext.setVisible(false);
             finishButton.setVisible(true);
         }
@@ -119,10 +86,10 @@ public class TakeQuizController extends AnchorPane {
      * Displays the previous question according to the order specified in the given questions list.
      */
     public void showPrevious(){
-        quiz.prevQuestion();
+        quizAttempt.prevQuestion();
         quizNext.setVisible(true);
         finishButton.setVisible(false);
-        if(quiz.getCurrentQuestionIndex() == 0){
+        if(quizAttempt.getCurrentQuestionIndex() == 0){
             quizPrevious.setDisable(true);
         }
         showQuestion();
@@ -130,7 +97,7 @@ public class TakeQuizController extends AnchorPane {
     }
 
     private void retrieveQuestion() {
-        quizHolder.setCenter(previousNodes.get(quiz.getCurrentQuestion().getQuestion()));
+        quizHolder.setCenter(previousNodes.get(quizAttempt.getCurrentQuestion().getQuestion()));
     }
     /**
      * Calls the showHint() method from a controller of the type {@link IAnswerable}.
@@ -152,44 +119,60 @@ public class TakeQuizController extends AnchorPane {
      */
     public void showAnswer(){
         if (specificController.revealAnswer()){
-            quiz.addPoint();
-            quizPoints.setText("Points: " + quiz.getPoints() + "/" + quiz.getQuiz().getQuestions().size());
+            quizAttempt.addPoint();
+            quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
-        answeredQuestions.add(quiz.getCurrentQuestion().getQuestion());
+        answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
     }
 
     private void isAnswered(){
-        quizAnswer.setDisable(answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion()));
+        quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
+    }
+
+    /**
+     * Checks if the quiz is a {@link Flashcard} quiz.
+     * @return true if the quiz is a {@link Flashcard} quiz, false otherwise.
+     */
+    private boolean isFlashCardQuiz() {
+        return quizAttempt.getQuiz().getQuestions().get(0) instanceof Flashcard;
+    }
+
+    /**
+     * Checks if the quiz is a {@link MultiChoice} quiz.
+     * @return true if the quiz is a {@link MultiChoice} quiz, false otherwise.
+     */
+    private boolean isMultiChoiceQuiz() {
+        return quizAttempt.getQuiz().getQuestions().get(0) instanceof MultiChoice;
     }
 
     private void showQuestion() {
         //quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())
         switchNextAndFinishBtn();
-        if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
+        if (answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
             quizHint.setDisable(true);
         } else {
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
-                if (isMultiChoice) { //Maybe do a check with instanceOF?
+                if (isMultiChoiceQuiz()) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
                     pane = fxmlLoader.load();
 
                     MultiChoiceController controller = fxmlLoader.getController();
-                    controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
+                    controller.initializeData((MultiChoice) quizAttempt.getCurrentQuestion());
                     specificController = controller;
-                } else if (isFlashCard){ //Maybe do a check with instanceOF?
+                } else if (isFlashCardQuiz()) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
                     pane = fxmlLoader.load();
 
                     FlashCardController controller = fxmlLoader.getController();
-                    controller.initializeData((Flashcard) quiz.getCurrentQuestion());
+                    controller.initializeData((Flashcard) quizAttempt.getCurrentQuestion());
                     specificController = controller;
                 }
-                previousNodes.put(quiz.getCurrentQuestion().getQuestion(), pane);
+                previousNodes.put(quizAttempt.getCurrentQuestion().getQuestion(), pane);
                 increaseProgress();
                 quizHolder.setCenter(pane);
             } catch (IOException e){
@@ -198,11 +181,12 @@ public class TakeQuizController extends AnchorPane {
         }
     }
 
+
     /**
      * increases the progress bar by one step. The size of the step depends on the total number of questions a quiz has.
      */
     public void increaseProgress(){
-        int numberOfQuestions = quiz.getQuiz().getQuestions().size();
+        int numberOfQuestions = quizAttempt.getQuiz().getQuestions().size();
         double progressStep = 1.0 / numberOfQuestions;
 
         progress = progress.setScale(2, RoundingMode.HALF_EVEN);
