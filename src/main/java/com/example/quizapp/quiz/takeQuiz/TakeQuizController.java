@@ -26,7 +26,7 @@ import java.util.List;
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
  * The method initializeData() should be called. One of the methods setAsFlashCardQuiz() or setAsMultiChoiceQuiz()
  * should also be called when initializing the controller.
- * @see TakeQuizController#initializeData(Quiz)
+ * @see TakeQuizController#initializeData(QuizAttempt)
  * @see TakeQuizController#setAsFlashCardQuiz()
  * @see TakeQuizController#setAsMultiChoiceQuiz()
  */
@@ -52,6 +52,10 @@ public class TakeQuizController extends AnchorPane {
 
     @FXML
     private AnchorPane parentPane;
+
+    /**
+     * @param parentPane The {@link AnchorPane} that is going to include all interchanging {@link com.example.quizapp.quiz.IQuizable} questions.
+     */
     public TakeQuizController(AnchorPane parentPane){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
         fxmlLoader.setRoot(this);
@@ -82,8 +86,8 @@ public class TakeQuizController extends AnchorPane {
     }
 
     /**
-     * Initializes the values needed when starting a quiz.
-     * @param quiz The {@link Quiz} instance needed to control a quiz.
+     * Initializes the values needed when starting a quiz attempt.
+     * @param quiz The {@link QuizAttempt} instance needed to navigate the attempt.
      */
     public void initializeData(QuizAttempt quiz){
         this.quiz = quiz;
@@ -166,7 +170,6 @@ public class TakeQuizController extends AnchorPane {
     }
 
     private void showQuestion() {
-        //quiz.getCurrentQuestion().getQuestion().equals(quiz.getQuiz().getQuestions().get(quiz.getQuiz().getQuestions().size()-1).getQuestion())
         switchNextAndFinishBtn();
         if (answeredQuestions.contains(quiz.getCurrentQuestion().getQuestion())){
             retrieveQuestion();
@@ -175,14 +178,14 @@ public class TakeQuizController extends AnchorPane {
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
-                if (isMultiChoice) { //Maybe do a check with instanceOF?
+                if (isMultiChoice) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
                     pane = fxmlLoader.load();
 
                     MultiChoiceController controller = fxmlLoader.getController();
                     controller.initializeData((MultiChoice) quiz.getCurrentQuestion());
                     specificController = controller;
-                } else if (isFlashCard){ //Maybe do a check with instanceOF?
+                } else if (isFlashCard){
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
                     pane = fxmlLoader.load();
 
@@ -215,8 +218,7 @@ public class TakeQuizController extends AnchorPane {
     }
 
     /**
-     * Calls {@link Platform} class's exit method.
-     * @see Platform#exit()
+     * Navigate back to the given {@link QuizCollection} when instantiating.
      */
     public void finish(){
         QuizCollection quizCollection = new QuizCollection(parentPane);

@@ -5,8 +5,8 @@ import com.example.quizapp.quiz.IQuizable;
 
 public class Flashcard implements IQuizable<String> {
 
-    private String question;
-    private String answer;
+    private final String question;
+    private final String answer;
     private IHint<String> hint;
 
     /**

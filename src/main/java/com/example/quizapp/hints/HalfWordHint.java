@@ -2,8 +2,7 @@ package com.example.quizapp.hints;
 
 public class HalfWordHint implements IHint<String> {
 
-
-    private String answer;
+    private final String answer;
 
     /**
      * Creates a strategy for half of the word hint

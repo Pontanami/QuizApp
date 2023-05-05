@@ -31,6 +31,10 @@ public class LoginController extends AnchorPane implements Initializable {
     @FXML
     AnchorPane parent;
 
+    /**
+     * Represents the user login view. Loads the correct fxml file using {@link FXMLLoader}
+     * @param parent The {@link AnchorPane} to populate/ navigate to
+     */
     public LoginController(AnchorPane parent){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setRoot(this);
@@ -46,6 +50,9 @@ public class LoginController extends AnchorPane implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
+    /**
+     * Attempts to log in using the given credentials. Navigates to {@link QuizCollection} if the credentials are valid.
+     */
     @FXML
     public void login(){
         String email = emailField.getText();
