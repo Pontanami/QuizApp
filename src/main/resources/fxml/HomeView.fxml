@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1450.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="270.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recently taken">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <ScrollPane hbarPolicy="NEVER" layoutX="270.0" layoutY="178.0" prefHeight="260.0" prefWidth="925.0" vbarPolicy="ALWAYS">
+         <content>
+            <FlowPane fx:id="recentQuizFlow" prefHeight="260.0" prefWidth="925.0" />
+         </content>
+      </ScrollPane>
+      <Text layoutX="270.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My quizzes">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <ScrollPane hbarPolicy="NEVER" layoutX="270.0" layoutY="545.0" prefHeight="260.0" prefWidth="925.0" vbarPolicy="ALWAYS">
+         <content>
+            <FlowPane fx:id="myQuizFlow" prefHeight="260.0" prefWidth="925.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>
