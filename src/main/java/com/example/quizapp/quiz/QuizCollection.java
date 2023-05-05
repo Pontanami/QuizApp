@@ -1,19 +1,19 @@
 package com.example.quizapp.quiz;
 
+import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.quiz.tags.Subject;
 import com.example.quizapp.user.MyProfileController;
-import com.example.quizapp.firebase.FirebaseQuizRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
+import javafx.scene.CacheHint;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import org.controlsfx.control.CheckComboBox;
 import javafx.scene.layout.FlowPane;
+import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +38,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
     private CheckComboBox<Subject> tagsCheckComboBox = new CheckComboBox<>();
 
 
+    /**
+     * Represents the "sub view" that includes all {@link QuizThumbnail} objects.
+     * @param parentPane The {@link AnchorPane} to populate and navigate from
+     */
     public QuizCollection(AnchorPane parentPane) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizCollection.fxml"));
         fxmlLoader.setRoot(this);
@@ -63,6 +67,9 @@ public class QuizCollection extends AnchorPane implements Initializable {
     }
 
 
+    /**
+     * Searches for quizzes by name, and updates the collection accordingly
+     */
     @FXML
     public void searchQuizzes() {
         String query = inputField.getText();
@@ -83,10 +90,16 @@ public class QuizCollection extends AnchorPane implements Initializable {
         quizFlowpane.getChildren().clear();
         for (Quiz quiz : quizList) {
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz, parentPane);
+            quizThumbnail.setCache(true);
+            quizThumbnail.setCacheShape(true);
+            quizThumbnail.setCacheHint(CacheHint.SPEED);
             quizFlowpane.getChildren().add(quizThumbnail);
         }
     }
 
+    /**
+     * Navigate to the profile page
+     */
     @FXML
     public void navigateToProfile() {
         MyProfileController profileController = new MyProfileController(parentPane);
@@ -94,6 +107,9 @@ public class QuizCollection extends AnchorPane implements Initializable {
         parentPane.getChildren().add(profileController);
     }
 
+    /**
+     * Navigate to creating a new {@link Quiz}
+     */
     @FXML
     public void navigateToCreateQuiz() {
         CreateQuizController createQuizController = new CreateQuizController(parentPane);

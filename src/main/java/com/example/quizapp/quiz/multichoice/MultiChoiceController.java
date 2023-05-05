@@ -3,9 +3,13 @@ package com.example.quizapp.quiz.multichoice;
 import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.quiz.takeQuiz.IAnswerable;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,11 +21,11 @@ import java.util.List;
 public class MultiChoiceController implements IAnswerable {
     @FXML private Label multiQuestion;
     @FXML private RadioButton choice1, choice2, choice3, choice4;
+    @FXML private Pane quizPane;
 
     private final RadioButton[] radioButtons = new RadioButton[4];
     private MultiChoice ques;
     private List<String> choiceAnswers;
-    private List<String> hintAnswers;
 
     /**
      * Initialize the values for the current object with the specified MultiChoice instance
@@ -31,7 +35,6 @@ public class MultiChoiceController implements IAnswerable {
         this.ques = ques;
         choiceAnswers = ques.getChoices();
         Collections.shuffle(choiceAnswers);
-        hintAnswers = ques.showHint();
         init();
     }
 
@@ -67,23 +70,41 @@ public class MultiChoiceController implements IAnswerable {
      */
     @Override
     public void showHint() {
-        choiceAnswers = hintAnswers;
-        init();
+        Alert a;
+        if (ques.getHint() != null){
+            choiceAnswers = ques.showHint();
+            init();
+        }
+        else {
+            a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Hint type: " + "MISSING");
+
+            a.setTitle("Hint");
+            a.setContentText("No hint is available");
+
+            Parent parentPane = quizPane.getParent();
+            parentPane.setOpacity(0.2);
+            a.showAndWait();
+            parentPane.setOpacity(1);
+        }
     }
 
     /**
-     * Reveals the answer for the current instance of MultiChoice
-     * @return true if answered correctly false otherwise
+     * Reveals the answer for the current instance of {@link MultiChoice}
+     * @return true if answered correctly, false otherwise
      */
     @Override
     public boolean revealAnswer(){
         boolean answer = false;
         boolean oneIsSelected = false;
-        for (RadioButton rb : radioButtons){
-            if (rb.isSelected()){
+
+        for (RadioButton rbs : radioButtons){
+            if (rbs.isSelected()){
                 oneIsSelected = true;
             }
+        }
 
+        for (RadioButton rb : radioButtons){
             if (rb.getText().equals(ques.getAnswer())){
                 if(rb.isSelected()){
                     answer = true;

@@ -73,7 +73,7 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     }
 
     /**
-     * This method creates the Quizable object
+     * This method creates the {@link IQuizable} object
      * @return the created flashcard
      */
     public IQuizable<String> createQuestion(){
