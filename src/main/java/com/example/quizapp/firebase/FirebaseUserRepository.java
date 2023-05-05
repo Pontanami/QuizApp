@@ -89,14 +89,14 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQue
         String hashed_password = generateHash(password);
         List<User> user = getQueryResult(q);
         if (user.isEmpty())
-            System.out.println("No matching user");
+            throw new IllegalArgumentException("User does not exist");
         else{
             if (Objects.equals(user.get(0).getPassword(), hashed_password)) {
                 currentUser = user.get(0);
                 System.out.println(currentUser.getName() + " logged in");
             }
             else
-                System.out.println("Wrong password for user");
+                throw new IllegalArgumentException("Wrong password");
         }
     }
 

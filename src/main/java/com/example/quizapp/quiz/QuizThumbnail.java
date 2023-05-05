@@ -1,6 +1,5 @@
 package com.example.quizapp.quiz;
 
-import com.example.quizapp.quiz.takeQuiz.QuizAttempt;
 import com.example.quizapp.quiz.takeQuiz.TakeQuizController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,9 +47,7 @@ public class QuizThumbnail extends AnchorPane {
      */
     @FXML
     public void navigateToQuiz() {
-        TakeQuizController takeQuizController = new TakeQuizController(grandParentPane);
-        takeQuizController.initializeData(new QuizAttempt(quiz));
-
+        TakeQuizController takeQuizController = new TakeQuizController(grandParentPane, quiz);
         grandParentPane.getChildren().clear();
         grandParentPane.getChildren().add(takeQuizController);
     }
