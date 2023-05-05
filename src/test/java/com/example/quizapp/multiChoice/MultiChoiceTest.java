@@ -27,6 +27,8 @@ class MultiChoiceTest {
         };
 
         MultiChoice mul = new MultiChoice(questionEx, answer1, expectedChoices, new EliminateChoiceHint(expectedChoices, answer1));
+        MultiChoice mul1 = new MultiChoice(questionEx, answer1, expectedChoices);
+
         Assertions.assertArrayEquals(expectedChoices.toArray(), mul.getChoices().toArray());
 
         Assertions.assertEquals(answer1, mul.getAnswer());
@@ -42,6 +44,8 @@ class MultiChoiceTest {
             }
         }
         Assertions.assertEquals(mul.getChoices().size()/2, counter);
+        Assertions.assertNotNull(mul.getHint());
+        Assertions.assertNull(mul1.getHint());
     }
 }
 
