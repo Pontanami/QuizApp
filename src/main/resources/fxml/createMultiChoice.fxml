@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="1473.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="1473.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="questionField" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter question" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css">
+      <TextField fx:id="questionField" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter question" stylesheets="@../css/validationStyle.css">
          <font>
             <Font size="20.0" />
          </font>
@@ -28,10 +28,10 @@
          </font>
       </Button>
       <ComboBox fx:id="hintDropdown" layoutX="1264.0" layoutY="7.0" prefHeight="63.0" prefWidth="137.0" promptText="CHOOSE HINT" />
-      <TextField fx:id="choice1" layoutX="750.0" layoutY="8.0" promptText="Choice 1" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
-      <TextField fx:id="choice2" layoutX="906.0" layoutY="8.0" promptText="Choice 2" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
-      <TextField fx:id="choice3" layoutX="750.0" layoutY="44.0" promptText="Choice 3" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
-      <TextField fx:id="answerField" layoutX="905.0" layoutY="44.0" prefWidth="150.0" promptText="CorrectAnswer" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
+      <TextField fx:id="choice1" layoutX="750.0" layoutY="8.0" promptText="Choice 1" stylesheets="@../css/validationStyle.css" />
+      <TextField fx:id="choice2" layoutX="906.0" layoutY="8.0" promptText="Choice 2" stylesheets="@../css/validationStyle.css" />
+      <TextField fx:id="choice3" layoutX="750.0" layoutY="44.0" promptText="Choice 3" stylesheets="@../css/validationStyle.css" />
+      <TextField fx:id="answerField" layoutX="905.0" layoutY="44.0" prefWidth="150.0" promptText="CorrectAnswer" stylesheets="@../css/validationStyle.css" />
       <Text layoutX="750.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choices" wrappingWidth="180.1324806213379">
          <font>
             <Font name="System Bold" size="18.0" />

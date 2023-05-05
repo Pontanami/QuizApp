@@ -51,26 +51,29 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
         this.inputValidator = new InputValidator(requiredError);
 
         hintDropdown.setItems(FXCollections.observableArrayList(
+                "No Hint",
                 HalfWordHint.class.getSimpleName(),
                 OneLetterHint.class.getSimpleName(),
-                TextHint.class.getSimpleName(),
-                "No Hint")
+                TextHint.class.getSimpleName())
         );
+        hintDropdown.getSelectionModel().selectFirst();
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {
             chosenHint = (String) newVal;
 
             if(chosenHint.equals(TextHint.class.getSimpleName())){
                 hintField.setVisible(true);
+                inputValidator.setSomething(hintField, false);
             } else {
                 hintField.setVisible(false);
                 hintField.setText(null);
+                inputValidator.setSomething(hintField, true);
             }
         });
 
         textFields.add(inputValidator.createValidationTextField(frontSide));
         textFields.add(inputValidator.createValidationTextField(backSide));
-        textFields.add(inputValidator.createValidationTextField(hintField));
+        textFields.add(inputValidator.createValidationTextFieldValidStart(hintField));
     }
 
     /**
@@ -83,15 +86,13 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     }
 
     public boolean isAbleToCreate() {
-        boolean ableToCreate = true;
-
         for(var field : textFields){
             if(!inputValidator.isValidTextField(field)){
-                ableToCreate = false;
+                return false;
             }
         }
 
-        return ableToCreate;
+        return true;
     }
 
     /**

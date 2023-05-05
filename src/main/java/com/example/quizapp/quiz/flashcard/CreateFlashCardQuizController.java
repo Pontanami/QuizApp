@@ -72,7 +72,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
         this.rootpane = rootpane;
         quiz.subscribe(this);
-        validator.createValidationHeader(quizName);
+        validator.createValidationTextField(quizName);
     }
 
     /**
@@ -115,7 +115,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
      */
     private void updateCreatedQuestions(){
         items.getChildren().clear();
-        for (var item : questions){
+        for (CreateFlashcardController item : questions){
             items.getChildren().add(item);
         }
 
@@ -127,16 +127,19 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
      */
     @FXML
     public void navigateToTagPane() {
-        boolean canNavigate = true;
-        for(var item : questions) {
-            if(!item.isAbleToCreate()){
-                canNavigate = false;
+        if(isValid() && !quizName.getText().isEmpty()){
+            tagPane.toFront();
+        }
+    }
+
+    private boolean isValid(){
+        for(CreateFlashcardController question : questions) {
+            if(!question.isAbleToCreate()){
+                return false;
             }
         }
 
-        if(canNavigate && !quizName.getText().isEmpty()){
-            tagPane.toFront();
-        }
+        return true;
     }
 
     /**

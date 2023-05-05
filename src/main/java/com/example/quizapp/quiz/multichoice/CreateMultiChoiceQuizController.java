@@ -2,6 +2,7 @@ package com.example.quizapp.quiz.multichoice;
 
 
 import com.example.quizapp.quiz.*;
+import com.example.quizapp.quiz.flashcard.CreateFlashcardController;
 import com.example.quizapp.quiz.tags.Tag;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.tags.Subject;
@@ -71,7 +72,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
         this.rootpane = rootpane;
         quiz.subscribe(this);
-        validator.createValidationHeader(quizName);
+        validator.createValidationTextField(quizName);
     }
 
     /**
@@ -126,16 +127,19 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
      */
     @FXML
     public void navigateToTagPane() {
-        boolean canNavigate = true;
-        for(var item : questions) {
-            if(!item.isAbleToCreate()){
-                canNavigate = false;
+        if(isValid() && !quizName.getText().isEmpty()){
+            tagPane.toFront();
+        }
+    }
+
+    private boolean isValid(){
+        for(CreateMultichoiceController question : questions) {
+            if(!question.isAbleToCreate()){
+                return false;
             }
         }
 
-        if(canNavigate && !quizName.getText().isEmpty()){
-            tagPane.toFront();
-        }
+        return true;
     }
 
     /**
