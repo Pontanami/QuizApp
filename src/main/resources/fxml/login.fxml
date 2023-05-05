@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutY="8.0" prefHeight="940.0" prefWidth="1928.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -16,7 +16,7 @@
                   <Font size="28.0" />
                </font>
             </PasswordField>
-            <Button fx:id="loginBtn" layoutX="700.0" layoutY="670.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
+            <Button fx:id="loginBtn" layoutX="720.0" layoutY="700.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
                <font>
                   <Font size="31.0" />
                </font>
@@ -26,14 +26,14 @@
                   <Font size="33.0" />
                </font>
             </TextField>
-            <Button fx:id="registerBtn" layoutX="1020.0" layoutY="670.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
+            <Button fx:id="registerBtn" layoutX="1070.0" layoutY="700.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
-            <Text fx:id="errorText" fill="#e80e0e" layoutX="774.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error för fan" textAlignment="CENTER">
+            <Text fx:id="errorText" fill="#e80e0e" layoutX="600.0" layoutY="645.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="800.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="528.0">
                <font>
-                  <Font size="62.0" />
+                  <Font size="33.0" />
                </font>
             </Text>
          </children>

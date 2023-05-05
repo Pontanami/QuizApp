@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,6 +76,8 @@ public class LoginController extends AnchorPane implements Initializable {
         } catch (IllegalArgumentException e) {
             errorText.setText(e.getMessage());
             errorText.setVisible(true);
+            emailField.setBorder(Border.stroke(javafx.scene.paint.Color.RED));
+            passwordField.setBorder(Border.stroke(javafx.scene.paint.Color.RED));
         }
     }
 }
