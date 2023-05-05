@@ -1,16 +1,11 @@
 package com.example.quizapp.quiz.flashcard;
 
-
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.mainview.HomeController;
-import com.example.quizapp.quiz.QuizCollection;
-import com.example.quizapp.quiz.CreateQuizController;
+import com.example.quizapp.quiz.*;
 import com.example.quizapp.quiz.tags.Tag;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.tags.Subject;
-import com.example.quizapp.quiz.Quiz;
-import com.example.quizapp.quiz.ICreateQuestion;
-import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.firebase.IQuizRepository;
@@ -59,7 +54,11 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
     private IQuizRepository quizRepository = new FirebaseQuizRepository();
     private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+
     NavigationStack navigationStack = NavigationStack.getInstance();
+
+    private InputValidator validator = new InputValidator();
+
 
 
     /**
@@ -76,6 +75,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
         }
 
         quiz.subscribe(this);
+        validator.createValidationTextField(quizName);
     }
 
     /**
@@ -118,7 +118,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
      */
     private void updateCreatedQuestions(){
         items.getChildren().clear();
-        for (var item : questions){
+        for (CreateFlashcardController item : questions){
             items.getChildren().add(item);
         }
 
@@ -130,7 +130,19 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
      */
     @FXML
     public void navigateToTagPane() {
-        tagPane.toFront();
+        if(isValid() && !quizName.getText().isEmpty()){
+            tagPane.toFront();
+        }
+    }
+
+    private boolean isValid(){
+        for(CreateFlashcardController question : questions) {
+            if(!question.isAbleToCreate()){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -139,9 +151,11 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
     @FXML
     private void createQuiz(){
         quiz.setName(quizName.getText());
-        for (var item : questions) {
-            var question = item.createQuestion();
-            quiz.addQuestion(question);
+        for (CreateFlashcardController question : questions) {
+            if(question.isAbleToCreate()){
+                IQuizable createdQuestion = question.createQuestion();
+                quiz.addQuestion(createdQuestion);
+            }
         }
 
         //TODO remove line below

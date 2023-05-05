@@ -8,6 +8,7 @@ import com.example.quizapp.quiz.ICreateQuestion;
 import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.quiz.IQuizable;
 import com.example.quizapp.hints.EliminateChoiceHint;
+import com.example.quizapp.quiz.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.*;
 
@@ -26,11 +27,13 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
     @FXML private ComboBox hintDropdown;
     @FXML private TextArea hintArea;
     private String chosenHint;
-
     @FXML private TextField choice1;
     @FXML private TextField choice2;
     @FXML private TextField choice3;
     @FXML private TextField answerField;
+    private List<TextField> textFields = new ArrayList<>();
+    @FXML private Text requiredError;
+    private InputValidator validator;
 
     /**
      * Creates a CreateMultiChoice object with a question manager.
@@ -46,15 +49,24 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
             throw new RuntimeException(exception);
         }
 
+        this.validator = new InputValidator(requiredError);
         this.questionManager = questionManager;
 
         hintDropdown.setItems(FXCollections.observableArrayList(
+                "No Hint",
                 EliminateChoiceHint.class.getSimpleName())
         );
+        hintDropdown.getSelectionModel().selectFirst();
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {
             chosenHint = (String) newVal;
         });
+
+        textFields.add(validator.createValidationTextField(choice1));
+        textFields.add(validator.createValidationTextField(choice2));
+        textFields.add(validator.createValidationTextField(choice3));
+        textFields.add(validator.createValidationTextField(questionField));
+        textFields.add(validator.createValidationTextField(answerField));
     }
 
     /**
@@ -70,9 +82,20 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         choices.add(answer);
 
         IHint hint = getHint(chosenHint,choices, answer);
-
         IQuizable multiChoiceQuestion = new MultiChoice(questionField.getText(), answer, choices, hint);
         return multiChoiceQuestion;
+    }
+
+    public boolean isAbleToCreate() {
+        boolean ableToCreate = true;
+
+        for(var field : textFields){
+            if(!validator.isValidTextField(field)){
+                ableToCreate = false;
+            }
+        }
+
+        return ableToCreate;
     }
 
     /**
@@ -86,6 +109,7 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(answerField.getText()));
         hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(answerField.getText()));
         hints.put(EliminateChoiceHint.class.getSimpleName(), new EliminateChoiceHint(incorrectChoices, answer));
+        hints.put("No Hint", null);
 
         return hints.get(hint);
     }

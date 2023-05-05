@@ -3,14 +3,10 @@ package com.example.quizapp.quiz.multichoice;
 
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.mainview.HomeController;
-import com.example.quizapp.quiz.QuizCollection;
-import com.example.quizapp.quiz.CreateQuizController;
+import com.example.quizapp.quiz.*;
 import com.example.quizapp.quiz.tags.Tag;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.tags.Subject;
-import com.example.quizapp.quiz.Quiz;
-import com.example.quizapp.quiz.ICreateQuestion;
-import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.firebase.IQuizRepository;
@@ -65,6 +61,8 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
     private NavigationStack navigation = NavigationStack.getInstance();
 
+    private InputValidator validator = new InputValidator();
+
 
     /**
      * Creates a CreateMultiChoiceQuiz
@@ -79,6 +77,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
             throw new RuntimeException(exception);
         }
         quiz.subscribe(this);
+        validator.createValidationTextField(quizName);
     }
 
     /**
@@ -132,7 +131,21 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
      * This method is used to navigate to TagPane
      */
     @FXML
-    public void navigateToTagPane() {tagPane.toFront();}
+    public void navigateToTagPane() {
+        if(isValid() && !quizName.getText().isEmpty()){
+            tagPane.toFront();
+        }
+    }
+
+    private boolean isValid(){
+        for(CreateMultichoiceController question : questions) {
+            if(!question.isAbleToCreate()){
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     /**
      * This method adds all questions to the quiz and pushes the quiz to repository
