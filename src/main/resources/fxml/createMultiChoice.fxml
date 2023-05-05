@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="1473.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="questionField" layoutX="40.0" layoutY="6.0" prefHeight="63.0" prefWidth="638.0" promptText="Enter question" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css">
          <font>
@@ -22,12 +22,12 @@
          </font>
       </Text>
       <Line endX="-40.4000244140625" endY="75.29994201660156" layoutX="756.0" layoutY="53.0" startX="-40.4000244140625" startY="-52.99998474121094" strokeWidth="0.5" />
-      <Button layoutX="1421.0" layoutY="6.0" mnemonicParsing="false" onAction="#removeQuestion" prefHeight="63.0" prefWidth="65.0" text="X" textFill="#ff4949">
+      <Button layoutX="1402.0" layoutY="7.0" mnemonicParsing="false" onAction="#removeQuestion" prefHeight="63.0" prefWidth="65.0" text="X" textFill="#ff4949">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Button>
-      <ComboBox fx:id="hintDropdown" layoutX="1283.0" layoutY="6.0" prefHeight="63.0" prefWidth="137.0" promptText="CHOOSE HINT" />
+      <ComboBox fx:id="hintDropdown" layoutX="1264.0" layoutY="7.0" prefHeight="63.0" prefWidth="137.0" promptText="CHOOSE HINT" />
       <TextField fx:id="choice1" layoutX="750.0" layoutY="8.0" promptText="Choice 1" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
       <TextField fx:id="choice2" layoutX="906.0" layoutY="8.0" promptText="Choice 2" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
       <TextField fx:id="choice3" layoutX="750.0" layoutY="44.0" promptText="Choice 3" styleClass="normal-text-field" stylesheets="@../css/validationStyle.css" />
@@ -38,5 +38,10 @@
          </font>
       </Text>
       <TextArea fx:id="hintArea" layoutX="1062.0" layoutY="7.0" prefHeight="63.0" prefWidth="202.0" visible="false" wrapText="true" />
+      <Text fx:id="requiredError" fill="RED" layoutX="1189.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*all fields requiered to create question" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </fx:root>

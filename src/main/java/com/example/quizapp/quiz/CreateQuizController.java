@@ -49,7 +49,7 @@ public class CreateQuizController extends AnchorPane{
     /**
      * This method navigates back one page
      */
-    @FXML
+    /*@FXML
     public void navigateBack() {
         createAnchorPane.getChildren().clear();
         createAnchorPane.getChildren().add(new CreateQuizController(mainAnchorPane));
@@ -64,4 +64,5 @@ public class CreateQuizController extends AnchorPane{
         createAnchorPane.toFront();
 
     }
+     */
 }

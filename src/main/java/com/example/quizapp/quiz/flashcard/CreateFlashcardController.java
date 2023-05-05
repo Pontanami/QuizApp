@@ -14,9 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CreateFlashcardController extends AnchorPane implements ICreateQuestion<String> {
 
@@ -26,6 +27,10 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     @FXML private ComboBox hintDropdown;
     @FXML private TextField hintField;
     private String chosenHint;
+    private List<TextField> textFields = new ArrayList<>();
+    private @FXML Text requiredError;
+
+    private InputValidator inputValidator;
 
     /**
      * Creates a CreateFlashcard object with a question manager.
@@ -42,6 +47,7 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
         }
 
         this.questionManager = questionManager;
+        this.inputValidator = new InputValidator(requiredError);
 
         hintDropdown.setItems(FXCollections.observableArrayList(
                 HalfWordHint.class.getSimpleName(),
@@ -57,13 +63,13 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
                 hintField.setVisible(true);
             } else {
                 hintField.setVisible(false);
-                hintField.setText("");
+                hintField.setText(null);
             }
         });
 
-        InputValidator.createValidationTextField(frontSide);
-        InputValidator.createValidationTextField(backSide);
-        InputValidator.createValidationTextField(hintField);
+        textFields.add(inputValidator.createValidationTextField(frontSide));
+        textFields.add(inputValidator.createValidationTextField(backSide));
+        textFields.add(inputValidator.createValidationTextField(hintField));
     }
 
     /**
@@ -73,6 +79,18 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
     public IQuizable<String> createQuestion(){
         IHint hint = getHint(chosenHint);
         return new Flashcard(frontSide.getText(), backSide.getText(), hint);
+    }
+
+    public boolean isAbleToCreate() {
+        boolean ableToCreate = true;
+
+        for(var field : textFields){
+            if(!inputValidator.isValidTextField(field)){
+                ableToCreate = false;
+            }
+        }
+
+        return ableToCreate;
     }
 
     /**

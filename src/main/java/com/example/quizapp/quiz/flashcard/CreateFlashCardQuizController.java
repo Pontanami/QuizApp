@@ -53,6 +53,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
     private IQuizRepository quizRepository = new FirebaseQuizRepository();
     private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+    private InputValidator validator = new InputValidator();
 
 
     /**
@@ -71,7 +72,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
         this.rootpane = rootpane;
         quiz.subscribe(this);
-        InputValidator.createValidationTextField(quizName);
+        validator.createValidationHeader(quizName);
     }
 
     /**
@@ -135,9 +136,11 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
     @FXML
     private void createQuiz(){
         quiz.setName(quizName.getText());
-        for (var item : questions) {
-            var question = item.createQuestion();
-            quiz.addQuestion(question);
+        for (CreateFlashcardController question : questions) {
+            if(question.isAbleToCreate()){
+                IQuizable createdQuestion = question.createQuestion();
+                quiz.addQuestion(createdQuestion);
+            }
         }
 
         //TODO remove line below

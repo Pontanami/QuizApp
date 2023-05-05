@@ -53,7 +53,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
     private IQuizRepository quizRepository = new FirebaseQuizRepository();
     private IUserRepository userRepository = FirebaseUserRepository.getAuth();
-
+    private InputValidator validator = new InputValidator();
 
     /**
      * Creates a CreateMultiChoiceQuiz
@@ -71,7 +71,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
         this.rootpane = rootpane;
         quiz.subscribe(this);
-        InputValidator.createValidationTextField(quizName);
+        validator.createValidationHeader(quizName);
     }
 
     /**
