@@ -1,12 +1,8 @@
 package com.example.quizapp.quiz.multichoice;
 
-import com.example.quizapp.hints.EliminateChoiceHint;
 import com.example.quizapp.quiz.IQuizable;
 import com.example.quizapp.hints.IHint;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MultiChoice implements IQuizable<Object> {
@@ -14,14 +10,17 @@ public class MultiChoice implements IQuizable<Object> {
     private final String question;
     private final String answer;
     private IHint<List<String>> hint;
-
+    /**
+     * Creates a {@link MultiChoice} question instance
+     * @param question The question
+     * @param answer The correct choice/answer
+     * @param choices The choices
+     */
     public MultiChoice(String question, String answer, List<String> choices){
         this.choices = choices;
         this.answer = answer;
         this.question = question;
     }
-
-    public MultiChoice(String question, String answer, List<String> choices, IHint<List<String>> hint){
     /**
      * Creates a {@link MultiChoice} question instance
      * @param question The question
@@ -29,7 +28,7 @@ public class MultiChoice implements IQuizable<Object> {
      * @param choices The choices
      * @param hint A hint of the type {@link IHint}
      */
-    public MultiChoice(String question, String answer, List<String> choices, IHint hint){
+    public MultiChoice(String question, String answer, List<String> choices, IHint<List<String>> hint){
         this.choices = choices;
         this.answer = answer;
         this.question = question;
@@ -53,6 +52,9 @@ public class MultiChoice implements IQuizable<Object> {
         return hint.showHint();
     }
 
+    /**
+     * @return The hint object
+     */
     public IHint<List<String>> getHint() {
         return hint;
     }
