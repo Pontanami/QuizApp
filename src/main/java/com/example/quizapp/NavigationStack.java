@@ -76,8 +76,6 @@ public class NavigationStack extends AnchorPane {
             for (int i = 0; i < stackPane.getChildren().size() - 1; i++) {
                 stackPane.getChildren().get(i).setVisible(false);
             }
-            System.out.println(stackPane.getChildren());
-            System.out.println(stackClasses);
         }
     }
     /**
@@ -91,8 +89,6 @@ public class NavigationStack extends AnchorPane {
         stackPane.getChildren().remove(lastIndex);
         stackClasses.remove(lastIndex);
         stackPane.getChildren().get(lastIndex - 1).setVisible(true);
-        System.out.println(stackPane.getChildren());
-
     }
     /**
      * Pops to the root of the application, in other words out homeView

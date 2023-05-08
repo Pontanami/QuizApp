@@ -9,6 +9,7 @@ import com.example.quizapp.user.User;
 import com.example.quizapp.user.UserQuery;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.CacheHint;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -44,6 +45,9 @@ public class HomeController extends AnchorPane{
         myQuizFlow.getChildren().clear();
         for (Quiz quiz : quizRepository.getQuiz(query)) {
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
+            quizThumbnail.setCache(true);
+            quizThumbnail.setCacheShape(true);
+            quizThumbnail.setCacheHint(CacheHint.SPEED);
             myQuizFlow.getChildren().add(quizThumbnail);
         }
     }

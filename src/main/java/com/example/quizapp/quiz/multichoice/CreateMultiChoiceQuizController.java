@@ -165,7 +165,6 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
     }
 
     private void navigateToQuizCollection() {
-        //navigation.goBackToSpecifiedView(new QuizCollection());
         navigation.pushView(new HomeController());
     }
 
