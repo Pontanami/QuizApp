@@ -1,8 +1,8 @@
 package com.example.quizapp.user;
 
-import com.example.quizapp.MainViewController;
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseUserRepository;
+import com.example.quizapp.quiz.InputValidator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,13 +20,22 @@ public class MyProfileController extends AnchorPane implements Initializable {
 
     User currentUser = ur.getCurrentUser();
     @FXML
-    Text nameText;
+    TextField nameField;
     @FXML
     Button signOutBtn;
     @FXML
     TextField emailField;
 
-    MainViewController mv;
+    @FXML
+    private Button updateBtn;
+
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Text requiredText;
+    private InputValidator validator;
+
+
 
     /**
      * Represents the profile pag view. Loads the correct fxml file using {@link FXMLLoader}.
@@ -43,8 +52,12 @@ public class MyProfileController extends AnchorPane implements Initializable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        nameText.setText(currentUser.getName());
+        nameField.setText(currentUser.getName());
         emailField.setText(currentUser.getEmail());
+
+        validator = new InputValidator(requiredText);
+        validator.createValidationTextFieldValidStart(nameField);
+        validator.createValidationTextFieldValidStart(emailField);
     }
 
     @Override
@@ -57,8 +70,33 @@ public class MyProfileController extends AnchorPane implements Initializable {
     }
 
     @FXML
+    private void updateProfile(){
+        boolean isValid = validator.validFields();
+
+        if (isValid && userDetailsChanged()){
+            String name = nameField.getText();
+            String email = emailField.getText();
+            ur.patchUser(name, email);
+        }
+    }
+
+    private boolean userDetailsChanged(){
+        boolean changedName = !currentUser.getName().equals(nameField.getText());
+        boolean changedEmail = !currentUser.getEmail().equals(emailField.getText());
+        return changedName || changedEmail;
+    }
+
+    @FXML
     private void navigateToLogin(){
         navigationStack.clearAll();
         navigationStack.pushView(new LoginController());
+    }
+
+    @FXML
+    private void enableEdit(){
+        editBtn.setVisible(false);
+        updateBtn.setVisible(true);
+        nameField.setEditable(true);
+        emailField.setEditable(true);
     }
 }

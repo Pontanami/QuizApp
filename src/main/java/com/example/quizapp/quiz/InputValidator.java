@@ -1,6 +1,5 @@
 package com.example.quizapp.quiz;
 
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -30,8 +29,18 @@ public class InputValidator {
         });
     }
 
-    public void setSomething(TextField textField, boolean isCorrect){
-        textField.getStyleClass().add("incorrectField");
+    public boolean validFields() {
+        for(var isValid : validationFields.values()){
+            if(!isValid){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void setFieldValid(TextField textField, boolean isCorrect){
+        //textField.getStyleClass().add("incorrectField");
         validationFields.put(textField, isCorrect);
         updateRequiredErrorVisibility();
     }
