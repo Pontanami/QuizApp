@@ -1,6 +1,7 @@
 package com.example.quizapp.quiz.takeQuiz;
 
 import com.example.quizapp.HelloApplication;
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.flashcard.FlashCardController;
@@ -42,14 +43,13 @@ public class TakeQuizController extends AnchorPane{
     private BigDecimal progress = new BigDecimal("0.0");
     private IAnswerable specificController;
     private QuizAttempt quizAttempt;
+    NavigationStack navigationStack = NavigationStack.getInstance();
 
-    @FXML
-    private AnchorPane parentPane;
     /**
-     * @param parentPane The {@link AnchorPane} that is going to include all interchanging {@link com.example.quizapp.quiz.IQuizable} questions.
      * @param quiz The quiz to view/take
      */
-    public TakeQuizController(AnchorPane parentPane, Quiz quiz){
+    public TakeQuizController(Quiz quiz){
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -59,7 +59,6 @@ public class TakeQuizController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.parentPane = parentPane;
         this.quizAttempt = new QuizAttempt(quiz);
         quizName.setText(quiz.getName());
         quizPrevious.setDisable(true);
@@ -204,9 +203,7 @@ public class TakeQuizController extends AnchorPane{
      * Navigate back to the given {@link QuizCollection} when instantiating.
      */
     public void finish(){
-        QuizCollection quizCollection = new QuizCollection(parentPane);
-        parentPane.getChildren().clear();
-        parentPane.getChildren().add(quizCollection);
+        navigationStack.popView();
+        navigationStack.popView();
     }
-
 }

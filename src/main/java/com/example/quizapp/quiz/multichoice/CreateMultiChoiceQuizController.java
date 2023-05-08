@@ -1,8 +1,9 @@
 package com.example.quizapp.quiz.multichoice;
 
 
+import com.example.quizapp.NavigationStack;
+import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.*;
-import com.example.quizapp.quiz.flashcard.CreateFlashcardController;
 import com.example.quizapp.quiz.tags.Tag;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.tags.Subject;
@@ -26,6 +27,9 @@ import java.util.ResourceBundle;
 
 public class CreateMultiChoiceQuizController extends AnchorPane implements IQuizManager<CreateMultichoiceController>, Initializable, IObserver {
     private AnchorPane rootpane;
+
+    @FXML
+    private AnchorPane parentPane;
 
     @FXML
     private AnchorPane tagPane;
@@ -54,13 +58,16 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
     private IQuizRepository quizRepository = new FirebaseQuizRepository();
     private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+
+    private NavigationStack navigation = NavigationStack.getInstance();
+
     private InputValidator validator = new InputValidator();
+
 
     /**
      * Creates a CreateMultiChoiceQuiz
-     * @param rootpane parent pane of the object
      */
-    public CreateMultiChoiceQuizController(AnchorPane rootpane) {
+    public CreateMultiChoiceQuizController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createMultiChoiceQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -69,8 +76,6 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
-        this.rootpane = rootpane;
         quiz.subscribe(this);
         validator.createValidationTextField(quizName);
     }
@@ -160,9 +165,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
     }
 
     private void navigateToQuizCollection() {
-        QuizCollection quizCollection = new QuizCollection(rootpane);
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(quizCollection);
+        navigation.pushView(new HomeController());
     }
 
     /**
@@ -170,8 +173,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
      */
     @FXML
     private void navigateToMenu(){
-        rootpane.getChildren().clear();
-        rootpane.getChildren().add(new CreateQuizController(rootpane));
+       navigation.popView();
     }
 
     /**

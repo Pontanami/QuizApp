@@ -1,6 +1,7 @@
 package com.example.quizapp.user;
 
 import com.example.quizapp.MainViewController;
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,16 +26,15 @@ public class MyProfileController extends AnchorPane implements Initializable {
     @FXML
     TextField emailField;
 
-    @FXML
-    AnchorPane parent;
-
     MainViewController mv;
 
     /**
      * Represents the profile pag view. Loads the correct fxml file using {@link FXMLLoader}.
-     * @param parent The {@link AnchorPane} to populate and navigate from/to.
      */
-    public MyProfileController(AnchorPane parent){
+
+    NavigationStack navigationStack = NavigationStack.getInstance();
+
+    public MyProfileController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -43,7 +43,6 @@ public class MyProfileController extends AnchorPane implements Initializable {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.parent = parent;
         nameText.setText(currentUser.getName());
         emailField.setText(currentUser.getEmail());
     }
@@ -59,8 +58,7 @@ public class MyProfileController extends AnchorPane implements Initializable {
 
     @FXML
     private void navigateToLogin(){
-        LoginController lc = new LoginController(parent);
-        parent.getChildren().clear();
-        parent.getChildren().add(lc);
+        navigationStack.clearAll();
+        navigationStack.pushView(new LoginController());
     }
 }

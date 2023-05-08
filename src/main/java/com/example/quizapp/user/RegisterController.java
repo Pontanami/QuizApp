@@ -1,5 +1,6 @@
 package com.example.quizapp.user;
 
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,14 +23,12 @@ public class RegisterController extends AnchorPane{
     @FXML
     Button registerBtn;
 
-    @FXML
-    AnchorPane parent;
+    NavigationStack navigationStack = NavigationStack.getInstance();
 
     /**
      * Represents the user registration view. Loads the correct fxml file using {@link FXMLLoader}.
-     * @param parent The {@link AnchorPane} to populate/ navigate to
      */
-    public RegisterController(AnchorPane parent){
+    public RegisterController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -38,7 +37,7 @@ public class RegisterController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.parent = parent;
+
     }
 
 
@@ -53,9 +52,7 @@ public class RegisterController extends AnchorPane{
 
     @FXML
     private void navigateToLogin(){
-        LoginController lc = new LoginController(parent);
-        parent.getChildren().clear();
-        parent.getChildren().add(lc);
+        navigationStack.popView();
     }
 }
 

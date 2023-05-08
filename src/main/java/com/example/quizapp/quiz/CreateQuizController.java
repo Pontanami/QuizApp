@@ -1,5 +1,6 @@
 package com.example.quizapp.quiz;
 
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.quiz.flashcard.CreateFlashCardQuizController;
 import com.example.quizapp.quiz.multichoice.CreateMultiChoiceQuizController;
 import javafx.fxml.FXML;
@@ -11,14 +12,14 @@ import java.io.IOException;
 public class CreateQuizController extends AnchorPane{
 
     @FXML
-    AnchorPane mainAnchorPane;
-    @FXML
     AnchorPane createAnchorPane;
 
     /**
      * @param rootpane The {@link AnchorPane} that is going to include all interchanging navigable components.
      */
-    public CreateQuizController(AnchorPane rootpane){
+    NavigationStack navigation = NavigationStack.getInstance();
+
+    public CreateQuizController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createQuiz.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -29,7 +30,6 @@ public class CreateQuizController extends AnchorPane{
             throw new RuntimeException(exception);
         }
 
-        this.mainAnchorPane = rootpane;
     }
 
     /**
@@ -37,9 +37,7 @@ public class CreateQuizController extends AnchorPane{
      */
     @FXML
     public void navigateToCreateMultiChoice() {
-        createAnchorPane.getChildren().clear();
-        createAnchorPane.getChildren().add(new CreateMultiChoiceQuizController(mainAnchorPane));
-        createAnchorPane.toFront();
+        navigation.pushView(new CreateMultiChoiceQuizController());
     }
 
     /**
@@ -47,8 +45,6 @@ public class CreateQuizController extends AnchorPane{
      */
     @FXML
     public void navigateToCreateFlashcard() {
-        createAnchorPane.getChildren().clear();
-        createAnchorPane.getChildren().add(new CreateFlashCardQuizController(mainAnchorPane));
-        createAnchorPane.toFront();
+        navigation.pushView(new CreateFlashCardQuizController());
     }
 }
