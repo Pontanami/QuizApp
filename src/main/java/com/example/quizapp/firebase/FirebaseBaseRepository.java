@@ -127,6 +127,25 @@ public abstract class FirebaseBaseRepository<T, E> {
         return future;
     }
 
+    protected CompletableFuture<Void> patchDataToDb(Map<String, Object> data, CollectionReference col, String id){
+        CompletableFuture<Void> future = new CompletableFuture<>();
+
+        ApiFuture<WriteResult> result = col.document(id).update(data);
+        ApiFutures.addCallback(result, new ApiFutureCallback<>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("Failed to reach Firebase in addDataToDb");
+                future.completeExceptionally(throwable);
+            }
+            @Override
+            public void onSuccess(WriteResult writeResult) {
+                System.out.println("Reached Firebase");
+                future.complete(null);
+            }
+        });
+        return future;
+    }
+
     /**
      * Method to create an object of type T from a {@link DocumentSnapshot}
      * @param doc the {@link DocumentSnapshot} retrieved from Firestore

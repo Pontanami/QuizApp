@@ -63,11 +63,11 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
 
             if(chosenHint.equals(TextHint.class.getSimpleName())){
                 hintField.setVisible(true);
-                inputValidator.setSomething(hintField, false);
+                inputValidator.setFieldValid(hintField, false);
             } else {
                 hintField.setVisible(false);
                 hintField.setText(null);
-                inputValidator.setSomething(hintField, true);
+                inputValidator.setFieldValid(hintField, true);
             }
         });
 

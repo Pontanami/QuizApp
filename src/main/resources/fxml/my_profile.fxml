@@ -6,23 +6,48 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="nameText" layoutX="201.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="204.13671875">
-         <font>
-            <Font size="53.0" />
-         </font>
-      </Text>
-      <Button fx:id="signOutBtn" layoutX="431.0" layoutY="642.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Button>
-      <Text layoutX="218.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="84.13671875">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <TextField fx:id="emailField" layoutX="282.0" layoutY="152.0" />
+      <AnchorPane layoutX="517.0" layoutY="119.0" prefHeight="408.0" prefWidth="942.0" style="-fx-background-color: lightgrey; -fx-background-radius: 15;">
+         <children>
+            <Button fx:id="signOutBtn" layoutX="26.0" layoutY="335.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Button fx:id="updateBtn" layoutX="792.0" layoutY="337.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="50.0" prefWidth="130.0" text="Update" visible="false">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Button fx:id="editBtn" layoutX="792.0" layoutY="337.0" mnemonicParsing="false" onAction="#enableEdit" prefHeight="50.0" prefWidth="130.0" text="Edit">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Text layoutX="30.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile" wrappingWidth="328.73338623046874">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nameField" editable="false" layoutX="30.0" layoutY="138.0" promptText="John Doe" stylesheets="@../css/validationStyle.css" />
+            <Text layoutX="30.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="50.302482604980355">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="emailField" editable="false" layoutX="222.0" layoutY="136.0" promptText="john.doe@gmail.com" stylesheets="@../css/validationStyle.css" />
+            <Text layoutX="222.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="50.302482604980355">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="requiredText" fill="RED" layoutX="28.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* all field are required to save" visible="false" wrappingWidth="221.9373779296875">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </fx:root>

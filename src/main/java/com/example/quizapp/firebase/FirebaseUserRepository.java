@@ -145,6 +145,28 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQue
         System.out.println("User removed");
 
     }
+
+    public void patchUser(String name, String email) {
+        if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email)).size() > 0)
+            System.out.println("email is not unique, already exists");
+        else {
+            Map<String, Object> data = new HashMap<>();
+            data.put("id", currentUser.getId());
+            data.put("name", name);
+            data.put("email", email);
+            data.put("password", currentUser.getPassword());
+            CompletableFuture<Void> future = patchDataToDb(data, colRef, currentUser.getId());
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+
+            }
+            currentUser = new User(currentUser.getId(), name, email, currentUser.getPassword());
+            System.out.println("User updated");
+        }
+    }
+
     /*
     remove user with help of callbacks, might be something we want to use
     public void removeUser(String id, OnSuccess callback){
