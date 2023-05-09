@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * Base class for all repositories that handles the connection to the Firestore database
  * @author Alex, Felix, Pontus
  */
-public abstract class FirebaseBaseRepository<T, E> {
+abstract class FirebaseBaseRepository<T, E> {
 
     private final Firestore db;
 

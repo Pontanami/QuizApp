@@ -1,20 +1,26 @@
 package com.example.quizapp;
 
+import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
 import com.example.quizapp.firebase.IUserRepository;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.user.LoginController;
+import com.google.cloud.Timestamp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class HelloApplication extends Application {
 
     private IUserRepository userRepo;
+    private FirebaseTakenQuizRepository qr = new FirebaseTakenQuizRepository();
 
     @Override
     public void start(Stage stage){
+        //qr.uploadTakenQuiz("123", "test", 3);
+        List quizzes = qr.getTakenQuizzes();
         NavigationStack mv = NavigationStack.getInstance();
         mv.pushView(new LoginController());
         Scene scene = new Scene(mv, 1920, 1080);

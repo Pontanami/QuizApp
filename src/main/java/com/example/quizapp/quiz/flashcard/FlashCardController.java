@@ -63,9 +63,9 @@ public class FlashCardController implements IAnswerable {
     public void showHint() {
         Alert a;
         if (card.getWordHint() != null) {
-            String[] hintName = card.getWordHint().getClass().getName().split("\\.");
+            String hintName = card.getWordHint().getClass().getSimpleName();
             a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("Hint type: " + hintName[hintName.length - 1]);
+            a.setHeaderText("Hint type: " + hintName);
         } else {
             a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Hint type: " + "MISSING");
