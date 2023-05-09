@@ -1,16 +1,16 @@
 package com.example.quizapp.quiz;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
+
 
 public class TakenQuiz {
 
     private String quizId;
     private String userId;
     private int score;
-    private LocalDateTime date;
+    private Date date;
 
-    public TakenQuiz(String quizId, String userId, int score, LocalDateTime date) {
+    public TakenQuiz(String quizId, String userId, int score, Date date) {
         this.quizId = quizId;
         this.userId = userId;
         this.score = score;
@@ -29,7 +29,7 @@ public class TakenQuiz {
         return score;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 }

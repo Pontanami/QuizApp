@@ -7,6 +7,7 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,12 +28,11 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository{
 
     public void uploadTakenQuiz(String quizId, String userId, int score) {
         String docID = getDocumentID(colref);
-        LocalDateTime date = LocalDateTime.now();
         Map<String, Object> data = new HashMap<>();
         data.put("quizId", quizId);
         data.put("userId", userId);
         data.put("score", score);
-        data.put("date", date.toString());
+        data.put("date", Timestamp.now());
         CompletableFuture<Void> future = addDataToDb(data, colref, docID);
         try {
             future.get();
@@ -46,10 +46,11 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository{
     @Override
     Object createObject(DocumentSnapshot doc) {
          DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+         Timestamp timestamp = (Timestamp) doc.get("date");
          return new TakenQuiz(doc.get("quizId").toString(),
                                 doc.get("userId").toString(),
                                 Math.toIntExact((Long) doc.get("score")),
-                                LocalDateTime.parse((CharSequence) doc.get("date"),formatter));
+                               doc.getDate("date"));
     }
 
     @Override
@@ -60,6 +61,14 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository{
     public List<TakenQuiz> getTakenQuizzes(){
         List<TakenQuiz> takenQuizs = new ArrayList<>();
         takenQuizs = getQueryResult(colref);
+
+        return takenQuizs;
+    }
+
+    public List<TakenQuiz> getTakenQuizzesLimited(){
+        List<TakenQuiz> takenQuizs = new ArrayList<>();
+        Query q = colref.orderBy("date", Query.Direction.DESCENDING).limit(2);
+        takenQuizs = getQueryResult(q);
 
         return takenQuizs;
     }
