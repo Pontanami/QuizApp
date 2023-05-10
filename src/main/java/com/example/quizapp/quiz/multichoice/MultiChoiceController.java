@@ -26,6 +26,7 @@ public class MultiChoiceController implements IAnswerable {
     private final RadioButton[] radioButtons = new RadioButton[4];
     private MultiChoice ques;
     private List<String> choiceAnswers;
+    private String givenAnswer;
 
     /**
      * Initialize the values for the current object with the specified MultiChoice instance
@@ -100,6 +101,7 @@ public class MultiChoiceController implements IAnswerable {
 
         for (RadioButton rbs : radioButtons){
             if (rbs.isSelected()){
+                givenAnswer = rbs.getText();
                 oneIsSelected = true;
             }
         }
@@ -107,6 +109,7 @@ public class MultiChoiceController implements IAnswerable {
         for (RadioButton rb : radioButtons){
             if (rb.getText().equals(ques.getAnswer())){
                 if(rb.isSelected()){
+                    givenAnswer = rb.getText();
                     answer = true;
                 }
                 else if (!oneIsSelected){
@@ -120,6 +123,11 @@ public class MultiChoiceController implements IAnswerable {
             }
         }
         return answer;
+    }
+
+    @Deprecated
+    public String usersAnswer() {
+        return givenAnswer;
     }
 
 }

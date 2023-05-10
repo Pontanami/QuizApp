@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root prefHeight="940.0" prefWidth="1450.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="resultPane" layoutX="-3.0" layoutY="117.0" prefHeight="758.0" prefWidth="1452.0">
+         <content>
+            <VBox fx:id="container" prefHeight="744.0" prefWidth="1453.0">
+               <children>
+                  <VBox fx:id="takenQuizHolder" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="takenQuizQ" alignment="CENTER" prefHeight="118.0" prefWidth="1451.0" text="Q">
+                           <font>
+                              <Font name="Arial" size="48.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="takenQuizA" alignment="CENTER" prefHeight="106.0" prefWidth="1451.0" text="Q">
+                           <font>
+                              <Font name="Arial" size="48.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content></ScrollPane>
+      <Label fx:id="resultLabel" alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="114.0" prefWidth="968.0" text="Result">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="percentLabel" alignment="CENTER" layoutX="970.0" layoutY="1.0" prefHeight="117.0" prefWidth="478.0" text="Procent">
+         <font>
+            <Font name="Arial Bold" size="48.0" />
+         </font>
+      </Label>
+   </children>
+</fx:root>
