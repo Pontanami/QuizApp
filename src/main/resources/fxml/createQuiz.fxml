@@ -5,22 +5,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="680.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="createAnchorPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" />
-      <AnchorPane prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="createAnchorPane" prefHeight="300.0" prefWidth="680.0" />
+      <AnchorPane prefHeight="300.0" prefWidth="680.0">
          <children>
-            <Button layoutX="294.0" layoutY="251.0" mnemonicParsing="false" onAction="#navigateToCreateFlashcard" prefHeight="156.0" prefWidth="298.0" text="Flashcard">
+            <Button layoutY="100.0" mnemonicParsing="false" onAction="#navigateToCreateFlashcard" prefHeight="156.0" prefWidth="298.0" text="Flashcard" AnchorPane.leftAnchor="0.0">
                <font>
                   <Font name="Arial Black" size="28.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="471.0" layoutY="155.0" prefHeight="74.0" prefWidth="496.0" text="Create Quiz" textAlignment="RIGHT">
+            <Label alignment="CENTER" layoutY="5.0" prefHeight="73.0" prefWidth="680.0" text="Create Quiz" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font name="Arial Black" size="36.0" />
                </font>
             </Label>
-            <Button layoutX="841.0" layoutY="251.0" mnemonicParsing="false" onAction="#navigateToCreateMultiChoice" prefHeight="156.0" prefWidth="298.0" text="Multiple choice">
+            <Button layoutY="100.0" mnemonicParsing="false" onAction="#navigateToCreateMultiChoice" prefHeight="156.0" prefWidth="298.0" text="Multiple choice" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font name="Arial Black" size="28.0" />
                </font>
