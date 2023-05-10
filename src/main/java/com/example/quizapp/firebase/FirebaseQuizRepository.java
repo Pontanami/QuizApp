@@ -88,6 +88,21 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
     }
 
     /**
+     * Method for getting a single quiz from the database
+     * @param query the query we want to use to get the quiz
+     * @return a {@link Quiz} object that matches the query
+     */
+    public Quiz getSingleQuiz(QuizQuery.QuizQueryBuilder query){
+        Quiz quiz = null;
+        try {
+            quiz = getSingleQueryResult(createQuery(query.build()));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return quiz;
+    }
+
+    /**
      * Method for uploading a quiz to the database
      * @param quiz the {@link Quiz} we want to upload
      * @param currentUser the {@link User} that is uploading the quiz
@@ -111,6 +126,10 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         }
     }
 
+    /**
+     * Method for removing a quiz from the database
+     * @param id the id of the quiz we want to remove
+     */
     public void removeQuiz(String id){
         CompletableFuture<Void> future = deleteFromDb(colref, id);
         try {
