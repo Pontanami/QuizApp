@@ -9,8 +9,7 @@ import com.example.quizapp.quiz.flashcard.FlashCardController;
 import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.MultiChoice;
 import com.example.quizapp.quiz.multichoice.MultiChoiceController;
-import com.google.cloud.Tuple;
-import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -18,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Pair;
 
 import java.io.IOException;
 import java.math.BigDecimal;
