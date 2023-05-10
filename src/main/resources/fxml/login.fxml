@@ -7,33 +7,48 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="backPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="backPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/login.css" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutY="8.0" prefHeight="940.0" prefWidth="1928.0" style="-fx-background-color: #FFFFFF;">
+      <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <PasswordField fx:id="passwordField" layoutX="600.0" layoutY="523.0" prefHeight="70.0" prefWidth="800.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
+            <Text layoutX="771.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="QuizApp">
                <font>
-                  <Font size="28.0" />
+                  <Font size="96.0" />
                </font>
-            </PasswordField>
-            <Button fx:id="loginBtn" layoutX="720.0" layoutY="700.0" mnemonicParsing="false" onAction="#login" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Log in" textFill="#fffdfd">
-               <font>
-                  <Font size="31.0" />
-               </font>
-            </Button>
-            <TextField fx:id="emailField" layoutX="600.0" layoutY="405.0" prefHeight="70.0" prefWidth="800.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
+            </Text>
+            <TextField fx:id="emailField" layoutX="560.0" layoutY="405.0" prefHeight="70.0" prefWidth="800.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
                <font>
                   <Font size="33.0" />
                </font>
             </TextField>
-            <Button fx:id="registerBtn" layoutX="1070.0" layoutY="700.0" mnemonicParsing="false" onAction="#register" prefHeight="84.0" prefWidth="209.0" styleClass="loginBtn" stylesheets="@../css/my_profile.css" text="Register" textFill="#fffdfd">
+            <PasswordField fx:id="passwordField" layoutX="560.0" layoutY="550.0" prefHeight="70.0" prefWidth="800.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </PasswordField>
+            <Button fx:id="loginBtn" layoutX="693.0" layoutY="700.0" mnemonicParsing="false" onAction="#login" prefHeight="85.0" prefWidth="200.0" styleClass="loginBtn" stylesheets="@../css/button.css" text="Log in" textFill="#fffdfd">
                <font>
                   <Font size="31.0" />
                </font>
             </Button>
-            <Text fx:id="errorText" fill="#e80e0e" layoutX="600.0" layoutY="645.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="800.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="528.0">
+            <Button fx:id="registerBtn" layoutX="1027.0" layoutY="700.0" mnemonicParsing="false" onAction="#register" prefHeight="85.0" prefWidth="200.0" styleClass="loginBtn" stylesheets="@../css/button.css" text="Register" textFill="#fffdfd">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Button>
+            <Text fx:id="errorText" fill="#e80e0e" layoutX="560.0" layoutY="670.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="800.0">
                <font>
                   <Font size="33.0" />
+               </font>
+            </Text>
+            <Text layoutX="564.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Email">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <Text layoutX="564.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Password">
+               <font>
+                  <Font size="21.0" />
                </font>
             </Text>
          </children>
