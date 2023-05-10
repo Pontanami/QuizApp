@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="tagPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="tagPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text layoutX="567.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS">
                <font>
@@ -47,12 +47,12 @@
       </AnchorPane>
       <AnchorPane fx:id="flashcardPane" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField fx:id="quizName" alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name" stylesheets="@../css/validationStyle.css">
+            <TextField fx:id="quizName" alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name" stylesheets="@../css/validationStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="23.0" />
                </font>
             </TextField>
-            <ScrollPane fx:id="multichoiceScrollpane" layoutY="104.0" prefHeight="515.0" prefWidth="1498.0">
+            <ScrollPane fx:id="multichoiceScrollpane" layoutY="104.0" prefHeight="515.0" prefWidth="1498.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="104.0">
                <content>
                   <VBox fx:id="items" prefHeight="200.0" prefWidth="100.0" />
                </content>
@@ -62,12 +62,12 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="1237.0" layoutY="638.0" mnemonicParsing="false" onAction="#navigateToTagPane" prefHeight="35.0" prefWidth="111.0" text="NEXT">
+            <Button layoutX="1237.0" layoutY="638.0" mnemonicParsing="false" onAction="#navigateToTagPane" prefHeight="35.0" prefWidth="111.0" text="NEXT" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="152.0" AnchorPane.topAnchor="638.0">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="51.0" prefWidth="1497.0" style="-fx-background-color: blue;" text="Add a new MultiChoice Question" textFill="WHITE">
+            <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="51.0" prefWidth="1497.0" style="-fx-background-color: grey;" text="Add a new MultiChoice Question" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="24.0" />
                </font>
