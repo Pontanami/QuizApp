@@ -143,8 +143,9 @@ public class TakeQuizController extends AnchorPane{
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
-        takenQuiz[questionIndex] = new Triplet<>(quizAttempt.getCurrentQuestion().getQuestion(),
-                specificController.usersAnswer(), mark);
+        takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), specificController.usersAnswer(),
+                mark);
+
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
     }
 
@@ -174,6 +175,8 @@ public class TakeQuizController extends AnchorPane{
             retrieveQuestion();
             quizHint.setDisable(true);
         } else {
+            takenQuiz[questionIndex] = new Triplet<>(quizAttempt.getCurrentQuestion().getQuestion(),
+                    "", ' ');
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
@@ -223,6 +226,7 @@ public class TakeQuizController extends AnchorPane{
     public void finish(){
         navigationStack.pushView(new QuizResultController(takenQuiz, quizAttempt.getPoints(),
                 quizAttempt.getQuiz().getQuestions().size()));
+        navigationStack.removeView(this);
         //navigationStack.popView();
     }
 
