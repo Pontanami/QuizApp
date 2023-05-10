@@ -1,19 +1,12 @@
 package com.example.quizapp.firebase;
 
-import com.example.quizapp.quiz.TakenQuiz;
-import com.example.quizapp.user.User;
+import com.example.quizapp.quiz.takeQuiz.TakenQuiz;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.TemporalAccessor;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -65,9 +58,9 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository{
         return takenQuizs;
     }
 
-    public List<TakenQuiz> getTakenQuizzesLimited(){
+    public List<TakenQuiz> getTakenQuizzesLimited(int amount){
         List<TakenQuiz> takenQuizs = new ArrayList<>();
-        Query q = colref.orderBy("date", Query.Direction.DESCENDING).limit(2);
+        Query q = colref.orderBy("date", Query.Direction.DESCENDING).limit(amount);
         takenQuizs = getQueryResult(q);
 
         return takenQuizs;

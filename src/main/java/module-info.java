@@ -33,7 +33,7 @@ module com.example.quizapp {
     opens com.example.quizapp.quiz.tags to javafx.fxml, com.google.gson, google.cloud.firestore;
 
     exports com.example.quizapp.quiz.takeQuiz;
-    opens com.example.quizapp.quiz.takeQuiz to javafx.fxml, com.google.gson;
+    opens com.example.quizapp.quiz.takeQuiz to com.google.gson, google.cloud.firestore, javafx.fxml;
 
     exports com.example.quizapp.user;
     opens com.example.quizapp.user to javafx.fxml;

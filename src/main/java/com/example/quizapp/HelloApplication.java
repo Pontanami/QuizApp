@@ -19,11 +19,13 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage){
-       // qr.uploadTakenQuiz("123", "test", 3);
-        //qr.uploadTakenQuiz("456", "test2", 5);
-       // qr.uploadTakenQuiz("789", "test3", 2);
+       /* qr.uploadTakenQuiz("123", "test", 3);
+        qr.uploadTakenQuiz("456", "test2", 5);
+        qr.uploadTakenQuiz("789", "test3", 2);
         List quizzes = qr.getTakenQuizzes();
         List quiz = qr.getTakenQuizzesLimited();
+
+        */
         NavigationStack mv = NavigationStack.getInstance();
         mv.pushView(new LoginController());
         Scene scene = new Scene(mv, 1920, 1080);

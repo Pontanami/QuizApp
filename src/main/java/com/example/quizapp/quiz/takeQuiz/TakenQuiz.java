@@ -1,4 +1,4 @@
-package com.example.quizapp.quiz;
+package com.example.quizapp.quiz.takeQuiz;
 
 import java.util.Date;
 
