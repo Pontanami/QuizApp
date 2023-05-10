@@ -116,8 +116,8 @@ public class QuizResultController extends AnchorPane {
      * Navigates back to the home screen
      */
     public void navigateToHome(){
-        navigationStack.removeView(this);
         navigationStack.popView();
+        navigationStack.removeView(this);
     }
 
 
