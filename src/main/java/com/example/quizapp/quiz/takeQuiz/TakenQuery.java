@@ -68,7 +68,7 @@ public class TakenQuery extends FetchQuery {
          * @param password the password we want to search in the database for
          * @return a UserQueryBuilder object containing information used to query the password of the user
          */
-        public TakenQuery.TakenQueryBuilder setquizId(Date date){
+        public TakenQuery.TakenQueryBuilder setDate(Date date){
             this.date = date;
             return this;
         }

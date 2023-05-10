@@ -2,12 +2,18 @@ package com.example.quizapp.quiz.takeQuiz;
 
 import com.example.quizapp.HelloApplication;
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
+import com.example.quizapp.firebase.FirebaseUserRepository;
+import com.example.quizapp.interfaces.IObservable;
+import com.example.quizapp.interfaces.IObserver;
+import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.flashcard.FlashCardController;
 import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.MultiChoice;
 import com.example.quizapp.quiz.multichoice.MultiChoiceController;
+import com.example.quizapp.user.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +33,7 @@ import java.util.List;
 /**
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
  */
-public class TakeQuizController extends AnchorPane{
+public class TakeQuizController extends AnchorPane implements IObservable {
     @FXML private Label quizName;
     @FXML private Button quizAnswer;
     @FXML private Button quizHint;
@@ -44,6 +50,7 @@ public class TakeQuizController extends AnchorPane{
     private IAnswerable specificController;
     private QuizAttempt quizAttempt;
     NavigationStack navigationStack = NavigationStack.getInstance();
+    private List<IObserver> observers = new ArrayList<>();
 
     /**
      * @param quiz The quiz to view/take
@@ -64,6 +71,7 @@ public class TakeQuizController extends AnchorPane{
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
         showQuestion();
+        subscribe((IObserver) navigationStack.getSpecificView(new HomeController()));
     }
 
 
@@ -203,7 +211,27 @@ public class TakeQuizController extends AnchorPane{
      * Navigate back to the given {@link QuizCollection} when instantiating.
      */
     public void finish(){
+        FirebaseTakenQuizRepository qr = new FirebaseTakenQuizRepository();
+        User currentuser = FirebaseUserRepository.getAuth().getCurrentUser();
+        qr.uploadTakenQuiz(quizAttempt.getQuiz().getId(), currentuser.getId(), quizAttempt.getPoints());
+        notifySubscribers();
         navigationStack.popView();
         navigationStack.popView();
+    }
+
+    @Override
+    public void subscribe(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unsubscribe(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifySubscribers() {
+        for (IObserver observer : observers)
+            observer.update();
     }
 }

@@ -141,6 +141,17 @@ public class NavigationStack extends AnchorPane {
     }
 
     /**
+     * returns a specific view from the stack
+     * @param controller thecontroller we want to return
+     * @returnThe view we wanted to get from the stack
+     */
+    public Node getSpecificView(AnchorPane controller){
+        String classname = controller.getClass().getSimpleName();
+        int index = stackClasses.indexOf(classname);
+        return stackPane.getChildren().get(index);
+    }
+
+    /**
      * Updates the header menu
      * @param pane the menu we want to update to
      */

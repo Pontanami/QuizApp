@@ -1,10 +1,15 @@
 package com.example.quizapp.mainview;
 
 import com.example.quizapp.firebase.FirebaseQuizRepository;
+import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
 import com.example.quizapp.firebase.FirebaseUserRepository;
+import com.example.quizapp.interfaces.IObservable;
+import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizQuery;
 import com.example.quizapp.quiz.QuizThumbnail;
+import com.example.quizapp.quiz.takeQuiz.TakenQuery;
+import com.example.quizapp.quiz.takeQuiz.TakenQuiz;
 import com.example.quizapp.user.User;
 import com.example.quizapp.user.UserQuery;
 import javafx.fxml.FXML;
@@ -16,15 +21,20 @@ import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 
-public class HomeController extends AnchorPane{
+public class HomeController extends AnchorPane implements IObserver {
 
     @FXML
     AnchorPane parent;
 
     @FXML
+    FlowPane recentQuizFlow;
+
+    @FXML
     FlowPane myQuizFlow;
 
     FirebaseUserRepository userRepository = FirebaseUserRepository.getAuth();
+    FirebaseQuizRepository quizRepository = new FirebaseQuizRepository();
+    String userID = userRepository.getCurrentUser().getId();
 
     public HomeController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/HomeView.fxml"));
@@ -35,20 +45,35 @@ public class HomeController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        populateMyRecentQuizzes();
         populateMyQuizzes();
     }
 
     private void populateMyQuizzes(){
-        FirebaseQuizRepository quizRepository = new FirebaseQuizRepository();
-        String userID = userRepository.getCurrentUser().getId();
+
         QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setCreatedBy(userID);
         myQuizFlow.getChildren().clear();
         for (Quiz quiz : quizRepository.getQuiz(query)) {
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
-            quizThumbnail.setCache(true);
-            quizThumbnail.setCacheShape(true);
-            quizThumbnail.setCacheHint(CacheHint.SPEED);
             myQuizFlow.getChildren().add(quizThumbnail);
         }
+    }
+
+    private void populateMyRecentQuizzes(){
+        Quiz quiz;
+        FirebaseTakenQuizRepository takenQuizRepo = new FirebaseTakenQuizRepository();
+        TakenQuery.TakenQueryBuilder query = new TakenQuery.TakenQueryBuilder().setuserId(userID).setOrder("date").setLimit(3);
+        recentQuizFlow.getChildren().clear();
+        for (TakenQuiz takenQuiz : takenQuizRepo.getTakenQuizzes(query)) {
+            quiz = quizRepository.getSingleQuiz(new QuizQuery.QuizQueryBuilder().setId(takenQuiz.getQuizId()));
+            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
+            recentQuizFlow.getChildren().add(quizThumbnail);
+        }
+    }
+
+    @Override
+    public void update() {
+        populateMyRecentQuizzes();
+        populateMyQuizzes();
     }
 }

@@ -28,10 +28,10 @@ public class HelloApplication extends Application {
         List quiz = qr.getTakenQuizzesLimited();
         */
 
-        TakenQuery.TakenQueryBuilder query = new TakenQuery.TakenQueryBuilder().setOrder("userId").setLimit(2);
+        //TakenQuery.TakenQueryBuilder query = new TakenQuery.TakenQueryBuilder().setquizId("abc").setOrder("date").setLimit(2);
 
-        List<TakenQuiz> quizzes= qr.getTakenQuizzes(query);
-        System.out.println(quizzes);
+        //List<TakenQuiz> quizzes= qr.getTakenQuizzes(query);
+        //System.out.println(quizzes);
 
         NavigationStack mv = NavigationStack.getInstance();
         mv.pushView(new LoginController());
