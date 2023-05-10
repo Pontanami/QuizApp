@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="181.0" prefWidth="1208.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="181.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="132.0" prefWidth="1208.0" style="-fx-background-color: #FFAA55;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -22,7 +22,7 @@
             <Button fx:id="LogoutBtn" layoutY="48.0" mnemonicParsing="false" onAction="#logout" text="Logout" AnchorPane.rightAnchor="67.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="ProfileBtn1" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: transparent;">
+      <Button fx:id="ProfileBtn1" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="41.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
                <image>
