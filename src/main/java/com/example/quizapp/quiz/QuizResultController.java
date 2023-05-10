@@ -84,6 +84,7 @@ public class QuizResultController extends AnchorPane {
             container.getChildren().add(questionBox);
         }
 
+
         resultPane.setContent(container);
 
     }
