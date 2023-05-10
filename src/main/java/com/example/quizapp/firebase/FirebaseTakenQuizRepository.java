@@ -29,10 +29,11 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository<TakenQui
      */
     @Override
     TakenQuiz createObject(DocumentSnapshot doc) {
-         return new TakenQuiz(doc.get("quizId").toString(),
-                                doc.get("userId").toString(),
-                                Math.toIntExact((Long) doc.get("score")),
-                               doc.getDate("date"));
+         return new TakenQuiz(doc.getId(),
+                              doc.get("userId").toString(),
+                              Math.toIntExact((Long) doc.get("score")),
+                              doc.getDate("date"));
+
     }
 
     /**
@@ -63,18 +64,28 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository<TakenQui
      */
     @Override
     public void uploadTakenQuiz(String quizId, String userId, int score) {
-        String docID = getDocumentID(colref);
         Map<String, Object> data = new HashMap<>();
         data.put("quizId", quizId);
         data.put("userId", userId);
         data.put("score", score);
         data.put("date", Timestamp.now());
-        CompletableFuture<Void> future = addDataToDb(data, colref, docID);
+
+        CompletableFuture<Void> future;
+        TakenQuery.TakenQueryBuilder quizQuery = new TakenQuery.TakenQueryBuilder().setquizId(quizId);
+        if(getTakenQuizzes(quizQuery).size() > 0) {
+            int prevScore = getTakenQuizzes(quizQuery).get(0).getScore();
+            if(prevScore > score)
+                data.put("score", prevScore);
+            future = patchDataToDb(data, colref, quizId);
+        }
+        else{
+            future = addDataToDb(data, colref, quizId);
+        }
+
         try {
             future.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-
         }
     }
 
