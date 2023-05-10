@@ -20,7 +20,6 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(mv, 1920, 1080);
 
         stage.setScene(scene);
-        stage.setFullScreen(true);
         stage.show();
     }
 

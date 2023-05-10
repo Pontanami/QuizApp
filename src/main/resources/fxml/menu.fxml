@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1450.0" style="-fx-background-color: #FFAA55;" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="181.0" prefWidth="1208.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="29.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quizapp" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="26.400001525878906">
-         <font>
-            <Font name="Apple SD Gothic Neo Regular" size="64.0" />
-         </font>
-      </Text>
-      <Button fx:id="ProfileBtn" layoutX="535.0" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToProfile" text="Profile" AnchorPane.rightAnchor="493.5" />
-      <Button fx:id="QuizColBtn" layoutX="644.0" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToQuizCollection" text="QuizCollection" AnchorPane.rightAnchor="339.0" />
-      <Button fx:id="CreateQuizBtn" layoutX="816.0" layoutY="51.0" mnemonicParsing="false" onAction="#NavigateToCreateQuiz" text="CreateQuiz" AnchorPane.rightAnchor="185.0" />
-      <Button fx:id="LogoutBtn" layoutX="957.0" layoutY="48.0" mnemonicParsing="false" onAction="#logout" text="Logout" AnchorPane.rightAnchor="67.0" />
-      <Button fx:id="ProfileBtn1" layoutX="558.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="back" />
+      <AnchorPane prefHeight="132.0" prefWidth="1208.0" style="-fx-background-color: #FFAA55;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quizapp" y="39.0" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="11.400001525878906">
+               <font>
+                  <Font name="Apple SD Gothic Neo Regular" size="64.0" />
+               </font>
+            </Text>
+            <Button fx:id="ProfileBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToProfile" text="Profile" AnchorPane.rightAnchor="493.5" />
+            <Button fx:id="QuizColBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToQuizCollection" text="QuizCollection" AnchorPane.rightAnchor="339.0" />
+            <Button fx:id="CreateQuizBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToCreateQuiz" text="CreateQuiz" AnchorPane.rightAnchor="185.0" />
+            <Button fx:id="LogoutBtn" layoutY="48.0" mnemonicParsing="false" onAction="#logout" text="Logout" AnchorPane.rightAnchor="67.0" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="ProfileBtn1" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" prefWidth="42.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="41.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/backarrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </fx:root>
