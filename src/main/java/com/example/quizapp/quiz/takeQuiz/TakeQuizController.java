@@ -14,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -37,6 +39,8 @@ public class TakeQuizController extends AnchorPane{
     @FXML private Button quizNext;
     @FXML private Button quizPrevious;
     @FXML private Label quizPoints;
+    @FXML private ImageView correct;
+    @FXML private ImageView wrong;
 
     private final HashMap<String, AnchorPane> previousNodes = new HashMap<>();
     private final List<String> answeredQuestions = new ArrayList<>();
@@ -120,18 +124,38 @@ public class TakeQuizController extends AnchorPane{
      * according to the response of the controller. Disables answer and hint buttons.
      * @see IAnswerable#revealAnswer()
      */
-    public void showAnswer(){
-        if (specificController.revealAnswer()){
-            quizAttempt.addPoint();
-            quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
-        }
-        quizAnswer.setDisable(true);
+    public void disablePointButtons(){
+        correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like_disabled.png"))));
+        wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike_disabled.png"))));
         quizHint.setDisable(true);
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
     }
 
+    @FXML
+    private void correctAnswer(){
+
+        if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
+            quizAttempt.addPoint();
+            quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
+
+            disablePointButtons();
+        }
+    }
+
+    @FXML
+    private void wrongAnswer(){
+        disablePointButtons();
+    }
+
     private void isAnswered(){
-        quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
+        if(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())){
+            correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like_disabled.png"))));
+            wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike_disabled.png"))));
+        }
+        else{
+            correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like.png"))));
+            wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike.png"))));
+        }
     }
 
     /**
