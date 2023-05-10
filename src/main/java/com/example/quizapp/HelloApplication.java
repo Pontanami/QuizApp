@@ -7,7 +7,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.awt.*;
+
 
 public class HelloApplication extends Application {
 
@@ -23,6 +24,7 @@ public class HelloApplication extends Application {
         mv.pushView(new LoginController());
         Scene scene = new Scene(mv, screenWidth, screenHeight);
 
+        stage.centerOnScreen();
         stage.setScene(scene);
         stage.setMinWidth(850);
         stage.setMinHeight(850);
