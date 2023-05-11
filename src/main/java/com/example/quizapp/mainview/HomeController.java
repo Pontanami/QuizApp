@@ -21,6 +21,7 @@ import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.List;
 
 public class HomeController extends AnchorPane implements IObserver {
 
@@ -46,43 +47,31 @@ public class HomeController extends AnchorPane implements IObserver {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        double a = System.currentTimeMillis();
         populateMyRecentQuizzes();
         populateMyQuizzes();
-        double b = System.currentTimeMillis();
-        System.out.println(b-a + " homecontroller");
     }
 
     private void populateMyQuizzes(){
-        double a = System.currentTimeMillis();
         QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setCreatedBy(userID);
         myQuizFlow.getChildren().clear();
-        double c = System.currentTimeMillis();
-        System.out.println(c-a + " populateMyQuizzes");
         for (Quiz quiz : quizRepository.getQuiz(query)) {
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
             myQuizFlow.getChildren().add(quizThumbnail);
         }
-        double b = System.currentTimeMillis();
-        System.out.println(b-c + " populateMyQuizzes");
     }
 
     private void populateMyRecentQuizzes(){
-        double a = System.currentTimeMillis();
         Quiz quiz;
         FirebaseTakenQuizRepository takenQuizRepo = new FirebaseTakenQuizRepository();
         TakenQuery.TakenQueryBuilder query = new TakenQuery.TakenQueryBuilder().setuserId(userID).setOrder("date").setLimit(3);
+        QuizQuery.QuizQueryBuilder emptyQuery = new QuizQuery.QuizQueryBuilder();
+        List<Quiz> allQuizzes = quizRepository.getQuiz(emptyQuery);
         recentQuizFlow.getChildren().clear();
-        double b = System.currentTimeMillis();
-        System.out.println(b-a + " populateMyRecentQuizzes");
-
         for (TakenQuiz takenQuiz : takenQuizRepo.getTakenQuizzes(query)) {
-            quiz = quizRepository.getSingleQuiz(new QuizQuery.QuizQueryBuilder().setId(takenQuiz.getQuizId()));
+            quiz = allQuizzes.stream().filter(q -> q.getId().equals(takenQuiz.getQuizId())).findFirst().orElse(null);
             QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
             recentQuizFlow.getChildren().add(quizThumbnail);
         }
-        double c = System.currentTimeMillis();
-        System.out.println(c-b + " populateMyRecentQuizzes");
     }
 
     @Override
