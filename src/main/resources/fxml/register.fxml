@@ -5,8 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../css/my_profile.css" type="AnchorPane" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="emailField" layoutX="665.0" layoutY="477.0" prefHeight="101.0" prefWidth="613.0" promptText="Email">
          <font>
@@ -23,10 +24,15 @@
             <Font size="41.0" />
          </font>
       </PasswordField>
-      <Button fx:id="registerBtn" layoutX="842.0" layoutY="760.0" mnemonicParsing="false" onAction="#register" stylesheets="@../css/button.css" text="Register">
+      <Button fx:id="registerBtn" layoutX="864.0" layoutY="795.0" mnemonicParsing="false" onAction="#register" text="Register">
          <font>
             <Font size="39.0" />
          </font>
       </Button>
+      <Text fx:id="errorText" fill="#eb0808" layoutX="666.0" layoutY="760.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" visible="false" wrappingWidth="616.0">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
    </children>
 </fx:root>
