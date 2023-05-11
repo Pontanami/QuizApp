@@ -111,12 +111,13 @@ public class TakeQuizController extends AnchorPane{
      * @see IAnswerable#showHint()
      */
     public void showHint(){
-        if (quizAnswer.isDisabled()){
+        /*if (quizAnswer.isDisabled()){
             quizHint.setDisable(true);
         } else {
             specificController.showHint();
             quizHint.setDisable(true);
-        }
+        }*/
+        specificController.showHint();
     }
 
     /**
@@ -158,6 +159,16 @@ public class TakeQuizController extends AnchorPane{
         }
     }
 
+    public void showAnswer(){
+        if (specificController.revealAnswer()){
+            quizAttempt.addPoint();
+            quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
+        }
+        quizAnswer.setDisable(true);
+        quizHint.setDisable(true);
+        answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
+    }
+
     /**
      * Checks if the quiz is a {@link Flashcard} quiz.
      * @return true if the quiz is a {@link Flashcard} quiz, false otherwise.
@@ -184,6 +195,8 @@ public class TakeQuizController extends AnchorPane{
             AnchorPane pane = new AnchorPane();
             try {
                 if (isMultiChoiceQuiz()) {
+                    wrong.setVisible(false);
+                    correct.setVisible(false);
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
                     pane = fxmlLoader.load();
 
@@ -191,6 +204,7 @@ public class TakeQuizController extends AnchorPane{
                     controller.initializeData((MultiChoice) quizAttempt.getCurrentQuestion());
                     specificController = controller;
                 } else if (isFlashCardQuiz()) {
+                    quizAnswer.setVisible(false);
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
                     pane = fxmlLoader.load();
 

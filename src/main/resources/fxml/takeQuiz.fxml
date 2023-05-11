@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="mainPane" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../com/example/quizapp/mainColor.css" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="mainPane" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../com/example/quizapp/mainColor.css" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="quizName" layoutX="386.0" layoutY="93.0" prefHeight="74.0" prefWidth="763.0" text="Name">
          <font>
@@ -64,5 +64,13 @@
             <Image url="@../img/like.png" />
          </image>
       </ImageView>
+      <Button fx:id="quizAnswer" layoutX="388.0" layoutY="682.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Show Answer" textFill="#fcf9f9">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </fx:root>
