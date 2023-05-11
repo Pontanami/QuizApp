@@ -148,15 +148,26 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQue
 
     }
 
-    public void patchUser(String name, String email) {
-        if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email)).size() > 0)
-            System.out.println("email is not unique, already exists");
-        else {
+    public void patchUser(String name, String email, String password) {
             Map<String, Object> data = new HashMap<>();
+            if (Objects.equals(email, currentUser.getEmail())){
+                data.put("email", currentUser.getEmail());
+            }else if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email)).size() > 0){
+                throw new IllegalArgumentException("A user with this email address already exists");
+            } else {
+                data.put("email", email);
+            }
             data.put("id", currentUser.getId());
             data.put("name", name);
             data.put("email", email);
-            data.put("password", currentUser.getPassword());
+            if (!password.isEmpty()) {
+                data.put("password", generateHash(password));
+                System.out.println("password changed");
+            }
+            else {
+                data.put("password", currentUser.getPassword());
+                System.out.println("password not changed");
+            }
             CompletableFuture<Void> future = patchDataToDb(data, colRef, currentUser.getId());
             try {
                 future.get();
@@ -167,7 +178,6 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQue
             currentUser = new User(currentUser.getId(), name, email, currentUser.getPassword());
             System.out.println("User updated");
         }
-    }
 
     /*
     remove user with help of callbacks, might be something we want to use

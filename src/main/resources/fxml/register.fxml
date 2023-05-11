@@ -7,24 +7,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/register.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="emailField" layoutX="665.0" layoutY="477.0" prefHeight="101.0" prefWidth="613.0" promptText="Email">
+      <TextField fx:id="emailField" layoutX="650.0" layoutY="450.0" prefHeight="100.0" prefWidth="620.0" promptText="Email">
          <font>
             <Font size="47.0" />
          </font>
       </TextField>
-      <TextField fx:id="nameField" layoutX="658.0" layoutY="297.0" prefHeight="103.0" prefWidth="626.0" promptText="Name">
+      <TextField fx:id="nameField" layoutX="650.0" layoutY="300.0" prefHeight="100.0" prefWidth="620.0" promptText="Name">
          <font>
             <Font size="49.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="pwField" layoutX="666.0" layoutY="643.0" prefHeight="87.0" prefWidth="616.0" promptText="Password">
+      <PasswordField fx:id="pwField" layoutX="650.0" layoutY="643.0" prefHeight="100.0" prefWidth="620.0" promptText="Password">
          <font>
             <Font size="41.0" />
          </font>
       </PasswordField>
-      <Button fx:id="registerBtn" layoutX="864.0" layoutY="795.0" mnemonicParsing="false" onAction="#register" text="Register">
+      <Button fx:id="registerBtn" layoutX="864.0" layoutY="795.0" mnemonicParsing="false" onAction="#register" stylesheets="@../css/button.css" text="Register">
          <font>
             <Font size="39.0" />
          </font>

@@ -3,3 +3,7 @@ TextField, PasswordField {
     -fx-border-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
     -fx-border-radius: 8px;
 }
+
+AnchorPane {
+    -fx-background-color: #FFFFFF;
+}

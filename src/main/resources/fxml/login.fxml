@@ -16,12 +16,12 @@
                   <Font size="96.0" />
                </font>
             </Text>
-            <TextField fx:id="emailField" layoutX="560.0" layoutY="405.0" prefHeight="70.0" prefWidth="800.0" promptText="Email" styleClass="textfield" stylesheets="@../css/my_profile.css">
+            <TextField fx:id="emailField" layoutX="560.0" layoutY="405.0" prefHeight="70.0" prefWidth="800.0" promptText="Email" styleClass="textfield" stylesheets="@../css/register.css">
                <font>
                   <Font size="33.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="560.0" layoutY="550.0" prefHeight="70.0" prefWidth="800.0" promptText="Password" styleClass="textfield" stylesheets="@../css/my_profile.css">
+            <PasswordField fx:id="passwordField" layoutX="560.0" layoutY="550.0" prefHeight="70.0" prefWidth="800.0" promptText="Password" styleClass="textfield" stylesheets="@../css/register.css">
                <font>
                   <Font size="28.0" />
                </font>
