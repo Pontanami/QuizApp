@@ -9,12 +9,14 @@ public class TakenQuiz {
     private String userId;
     private int score;
     private Date date;
+    private String id;
 
-    public TakenQuiz(String quizId, String userId, int score, Date date) {
+    public TakenQuiz(String quizId, String userId, int score, Date date, String id) {
         this.quizId = quizId;
         this.userId = userId;
         this.score = score;
         this.date = date;
+        this.id = id;
     }
 
     public String getQuizId() {
@@ -31,5 +33,8 @@ public class TakenQuiz {
 
     public Date getDate() {
         return date;
+    }
+    public String getId() {
+        return id;
     }
 }

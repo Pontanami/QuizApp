@@ -71,7 +71,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
         showQuestion();
-        subscribe((IObserver) navigationStack.getSpecificView(new HomeController()));
+        subscribe((IObserver) navigationStack.getSpecificView(HomeController.class));
     }
 
 

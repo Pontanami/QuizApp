@@ -9,5 +9,6 @@ public interface ITakenQuizRepository {
 
   void uploadTakenQuiz(String quizId, String userId, int score);
   List<TakenQuiz> getTakenQuizzes(TakenQuery.TakenQueryBuilder query);
+  void removeTakenQuiz(String quizId, String userId);
 
 }

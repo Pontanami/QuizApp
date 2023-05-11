@@ -29,10 +29,11 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository<TakenQui
      */
     @Override
     TakenQuiz createObject(DocumentSnapshot doc) {
-         return new TakenQuiz(doc.getId(),
+         return new TakenQuiz(doc.get("quizId").toString(),
                               doc.get("userId").toString(),
                               Math.toIntExact((Long) doc.get("score")),
-                              doc.getDate("date"));
+                              doc.getDate("date"),
+                              doc.getId());
 
     }
 
@@ -71,17 +72,21 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository<TakenQui
         data.put("date", Timestamp.now());
 
         CompletableFuture<Void> future;
-        TakenQuery.TakenQueryBuilder quizQuery = new TakenQuery.TakenQueryBuilder().setquizId(quizId);
-        if(getTakenQuizzes(quizQuery).size() > 0) {
-            int prevScore = getTakenQuizzes(quizQuery).get(0).getScore();
+        TakenQuery.TakenQueryBuilder quizQuery = new TakenQuery.TakenQueryBuilder().setquizId(quizId).setuserId(userId);
+        List<TakenQuiz> takenQuizzes = getTakenQuizzes(quizQuery);
+        if(takenQuizzes.size() > 0) {
+            int prevScore = takenQuizzes.get(0).getScore();
             if(prevScore > score)
                 data.put("score", prevScore);
-            future = patchDataToDb(data, colref, quizId);
+            String id = takenQuizzes.get(0).getId();
+            data.put("id", id);
+            future = patchDataToDb(data, colref, id);
         }
         else{
-            future = addDataToDb(data, colref, quizId);
+            String docID = getDocumentID(colref);
+            data.put("id", docID);
+            future = addDataToDb(data, colref, docID);
         }
-
         try {
             future.get();
         } catch (InterruptedException | ExecutionException e) {
@@ -104,5 +109,25 @@ public class FirebaseTakenQuizRepository extends FirebaseBaseRepository<TakenQui
         }
 
         return takenQuizs;
+    }
+
+    /**
+     * Method for removing a taken quiz from the database
+     * @param quizId the id of the quiz that was taken
+     * @param userId the id of the user that took the quiz
+     */
+    @Override
+    public void removeTakenQuiz(String quizId, String userId){
+        TakenQuery.TakenQueryBuilder quizQuery = new TakenQuery.TakenQueryBuilder().setquizId(quizId).setuserId(userId);
+        List<TakenQuiz> takenQuizzes = getTakenQuizzes(quizQuery);
+        if(takenQuizzes.size() == 0)
+            return;
+        String docId = takenQuizzes.get(0).getId();
+        CompletableFuture<Void> future = deleteFromDb(colref, docId);
+        try {
+            future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
