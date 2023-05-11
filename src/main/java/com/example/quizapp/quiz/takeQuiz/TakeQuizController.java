@@ -157,6 +157,8 @@ public class TakeQuizController extends AnchorPane{
             correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like.png"))));
             wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike.png"))));
         }
+
+        quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
     }
 
     public void showAnswer(){
