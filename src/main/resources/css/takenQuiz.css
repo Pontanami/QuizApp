@@ -14,3 +14,16 @@
     -fx-background-radius: 5px;
     -fx-opacity: 0.3;
 }
+
+#quizPane, #clickablePane {
+    -fx-border-color: Black;
+    -fx-border-width: 2px;
+    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+}
+
+.radioButton {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+    -fx-text-fill: white;
+}
