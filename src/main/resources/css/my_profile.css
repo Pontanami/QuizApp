@@ -1,7 +1,5 @@
-.header {
-    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
-}
-
-.loginBtn {
-    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+TextField, PasswordField {
+    -fx-border-width: 2px;
+    -fx-border-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+    -fx-border-radius: 8px;
 }

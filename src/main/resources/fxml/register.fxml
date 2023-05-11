@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../css/my_profile.css" type="AnchorPane" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="emailField" layoutX="665.0" layoutY="477.0" prefHeight="101.0" prefWidth="613.0" promptText="Email">
          <font>
@@ -23,7 +23,7 @@
             <Font size="41.0" />
          </font>
       </PasswordField>
-      <Button fx:id="registerBtn" layoutX="842.0" layoutY="760.0" mnemonicParsing="false" onAction="#register" text="Register">
+      <Button fx:id="registerBtn" layoutX="842.0" layoutY="760.0" mnemonicParsing="false" onAction="#register" stylesheets="@../css/button.css" text="Register">
          <font>
             <Font size="39.0" />
          </font>
