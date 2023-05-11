@@ -69,7 +69,7 @@ public class QuizResultController extends AnchorPane {
 
             String givenAnswer = takenQuiz[i].getValue1();
             Label answerLabel;
-            if (!givenAnswer.equals("")){
+            if (givenAnswer != null && !givenAnswer.equals("")){
                 answerLabel = new Label("Your answer: " + takenQuiz[i].getValue1());
             }else {
                 answerLabel = new Label("Not answered");
@@ -85,7 +85,7 @@ public class QuizResultController extends AnchorPane {
 
             questionBox.getChildren().addAll(questionLabel, answerLabel);
 
-            style(questionBox, questionLabel, answerLabel, i);
+            style(givenAnswer, questionBox, questionLabel, answerLabel, i);
 
             container.getChildren().add(questionBox);
         }
@@ -95,14 +95,14 @@ public class QuizResultController extends AnchorPane {
 
     }
 
-    private void style(VBox holder, Label q, Label ans, int number){
+    private void style(String answer, VBox holder, Label q, Label ans, int number){
         char mark = takenQuiz[number].getValue2();
         if (mark == 'C'){
             holder.setStyle("-fx-border-width: 2px;");
             holder.setStyle("-fx-border-color: Green");
             q.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-insets: 0;");
             ans.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-insets: 0;");
-        } else if (mark == 'F'){
+        } else if (mark == 'F' && answer != null){
             holder.setStyle("-fx-border-color: RED");
             q.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-insets: 0;");
             ans.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-insets: 0;");
