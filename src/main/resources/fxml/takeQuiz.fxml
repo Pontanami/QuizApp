@@ -8,23 +8,23 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="mainPane" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../com/example/quizapp/mainColor.css" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="mainPane" maxWidth="1000.0" minWidth="200.0" prefHeight="761.0" stylesheets="@../com/example/quizapp/mainColor.css" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="quizName" layoutX="386.0" layoutY="93.0" prefHeight="74.0" prefWidth="763.0" text="Name">
+      <Label fx:id="quizName" layoutX="14.0" layoutY="15.0" prefHeight="74.0" prefWidth="763.0" text="Name" AnchorPane.leftAnchor="14.0">
          <font>
             <Font name="Arial" size="50.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="quizProgress" layoutX="387.0" layoutY="209.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" stylesheets="@../com/example/quizapp/mainColor.css" />
-      <BorderPane fx:id="quizHolder" layoutX="389.0" layoutY="305.0" prefHeight="343.0" prefWidth="1131.0" />
-      <Button fx:id="quizPrevious" layoutX="386.0" layoutY="770.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" text="Previous" textFill="#fffdfd">
+      <ProgressBar fx:id="quizProgress" layoutX="15.0" layoutY="131.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" stylesheets="@../com/example/quizapp/mainColor.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+      <BorderPane fx:id="quizHolder" layoutX="17.0" layoutY="227.0" minWidth="100.0" prefHeight="343.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Button fx:id="quizPrevious" layoutX="14.0" layoutY="692.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" text="Previous" textFill="#fffdfd" AnchorPane.leftAnchor="4.0">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="finishButton" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#finish" prefHeight="65.0" prefWidth="235.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Finish" textFill="#fffbfb">
+      <Button fx:id="finishButton" layoutX="918.0" layoutY="690.0" mnemonicParsing="false" onAction="#finish" prefHeight="65.0" prefWidth="235.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Finish" textFill="#fffbfb" AnchorPane.rightAnchor="4.0">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -32,14 +32,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="quizNext" layoutX="1288.0" layoutY="768.0" mnemonicParsing="false" onAction="#showNext" prefHeight="65.0" prefWidth="235.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Next" textFill="#fffbfb">
+      <Button fx:id="quizNext" layoutX="918.0" layoutY="690.0" mnemonicParsing="false" onAction="#showNext" prefHeight="65.0" prefWidth="235.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Next" textFill="#fffbfb" AnchorPane.rightAnchor="4.0">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="quizHint" layoutX="388.0" layoutY="648.0" mnemonicParsing="false" onAction="#showHint" prefHeight="34.0" prefWidth="1133.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Hint" textFill="#fcf9f9">
+      <Button fx:id="quizHint" layoutX="16.0" layoutY="570.0" maxHeight="1000.0" maxWidth="500.0" mnemonicParsing="false" onAction="#showHint" prefHeight="34.0" prefWidth="1133.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Hint" textFill="#fcf9f9" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -47,7 +47,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="quizAnswer" layoutX="388.0" layoutY="681.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Show Answer" textFill="#fffefe">
+      <Button fx:id="quizAnswer" layoutX="16.0" layoutY="603.0" mnemonicParsing="false" onAction="#showAnswer" prefHeight="34.0" prefWidth="1133.0" stylesheets="@../com/example/quizapp/mainColor.css" text="Show Answer" textFill="#fffefe" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
@@ -55,7 +55,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="quizPoints" layoutX="1161.0" layoutY="92.0" prefHeight="74.0" prefWidth="355.0" text="Points: ">
+      <Label fx:id="quizPoints" layoutX="828.0" layoutY="14.0" prefHeight="74.0" prefWidth="260.0" text="Points: " AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Arial" size="50.0" />
          </font>
