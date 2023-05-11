@@ -1,0 +1,16 @@
+.progress-bar {
+    -fx-accent: linear-gradient(to right, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+}
+
+.progress-bar .bar {
+    -fx-background-color: linear-gradient(to right, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5px;
+}
+
+.progress-bar .track {
+    -fx-background-color: #4d4d4d;
+    -fx-background-insets: 1;
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.3;
+}
