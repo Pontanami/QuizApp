@@ -5,14 +5,23 @@ import com.example.quizapp.NavigationStack;
 import com.example.quizapp.user.MyProfileController;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.quiz.tags.Subject;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.CacheHint;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import org.controlsfx.control.CheckComboBox;
@@ -64,6 +73,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
         final ObservableList<Subject> tags = FXCollections.observableArrayList();
         tags.addAll(Arrays.asList(Subject.values()));
         tagsCheckComboBox.getItems().addAll(tags);
+        tagsCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<Subject>) change -> searchQuizzes());
+        inputField.textProperty().addListener((observableValue, s, t1) -> searchQuizzes());
+        inputField.textProperty().addListener(observable -> searchQuizzes());
+        //inputField.setOnAction(actionEvent -> searchQuizzes());
     }
 
 

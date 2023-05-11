@@ -128,6 +128,7 @@ public class TakeQuizController extends AnchorPane{
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
+        increaseProgress();
     }
 
     private void isAnswered(){
@@ -175,7 +176,6 @@ public class TakeQuizController extends AnchorPane{
                     specificController = controller;
                 }
                 previousNodes.put(quizAttempt.getCurrentQuestion().getQuestion(), pane);
-                increaseProgress();
                 quizHolder.setCenter(pane);
             } catch (IOException e){
                 e.printStackTrace();
