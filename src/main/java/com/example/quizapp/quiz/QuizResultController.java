@@ -23,7 +23,7 @@ public class QuizResultController extends AnchorPane {
     @FXML ScrollPane resultPane;
     @FXML VBox container;
 
-    private final Triplet<String, String, Character>[] takenQuiz;
+    private final Triplet<String, String, String>[] takenQuiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
 
     /**
@@ -33,7 +33,7 @@ public class QuizResultController extends AnchorPane {
      * @param points the total points obtained
      * @param fullScore the total score of the entire quiz
      */
-    public QuizResultController(Triplet<String, String, Character>[] takenQuiz, int points, int fullScore){
+    public QuizResultController(Triplet<String, String, String>[] takenQuiz, int points, int fullScore){
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizSummery.fxml"));
         fxmlLoader.setRoot(this);
@@ -68,9 +68,15 @@ public class QuizResultController extends AnchorPane {
             Label questionLabel = new Label("Q " + (i+1) + ": " + takenQuiz[i].getValue0());
 
             String givenAnswer = takenQuiz[i].getValue1();
+            String correctAnswer = takenQuiz[i].getValue2();
             Label answerLabel;
             if (givenAnswer != null && !givenAnswer.equals("")){
-                answerLabel = new Label("Your answer: " + takenQuiz[i].getValue1());
+                if (givenAnswer.equals(correctAnswer)){
+                    answerLabel = new Label("Your answer is: " + givenAnswer);
+                }else {
+                    answerLabel = new Label("Your answer is: " + givenAnswer +
+                            ", but the correct answer is: " + correctAnswer);
+                }
             }else {
                 answerLabel = new Label("Not answered");
             }
@@ -96,13 +102,14 @@ public class QuizResultController extends AnchorPane {
     }
 
     private void style(String answer, VBox holder, Label q, Label ans, int number){
-        char mark = takenQuiz[number].getValue2();
-        if (mark == 'C'){
+        String correctAnswer = takenQuiz[number].getValue2();
+
+        if (answer != null && answer.equals(correctAnswer) && !correctAnswer.equals("")){
             holder.setStyle("-fx-border-width: 2px;");
             holder.setStyle("-fx-border-color: Green");
             q.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-insets: 0;");
             ans.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-insets: 0;");
-        } else if (mark == 'F' && answer != null){
+        } else if (answer != null && !answer.equals("")){
             holder.setStyle("-fx-border-color: RED");
             q.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-insets: 0;");
             ans.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-insets: 0;");

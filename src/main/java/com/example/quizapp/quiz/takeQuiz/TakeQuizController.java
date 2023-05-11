@@ -46,8 +46,9 @@ public class TakeQuizController extends AnchorPane{
     private BigDecimal progress = new BigDecimal("0.0");
     private IAnswerable specificController;
     private final QuizAttempt quizAttempt;
+    private final Quiz quiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
-    private final Triplet<String, String, Character>[] takenQuiz;
+    private final Triplet<String, String, String>[] takenQuiz;
     private int questionIndex = 0;
 
     /**
@@ -64,6 +65,7 @@ public class TakeQuizController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        this.quiz = quiz;
         this.quizAttempt = new QuizAttempt(quiz);
         quizName.setText(quiz.getName());
         quizPrevious.setDisable(true);
@@ -130,19 +132,14 @@ public class TakeQuizController extends AnchorPane{
      * @see IAnswerable#revealAnswer()
      */
     public void showAnswer(){
-        char mark;
         if (specificController.revealAnswer()){
-            mark = 'C';
             quizAttempt.addPoint();
             quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
-        }
-        else {
-            mark = 'F';
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
         takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), specificController.usersAnswer(),
-                mark);
+                (String)quizAttempt.getCurrentQuestion().getAnswer());
 
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
     }
@@ -173,8 +170,8 @@ public class TakeQuizController extends AnchorPane{
             retrieveQuestion();
             quizHint.setDisable(true);
         } else {
-            takenQuiz[questionIndex] = new Triplet<>(quizAttempt.getCurrentQuestion().getQuestion(),
-                    "", ' ');
+            takenQuiz[questionIndex] = new Triplet<String, String, String>(quizAttempt.getCurrentQuestion().getQuestion(),
+                    "", "");
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
