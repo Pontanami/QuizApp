@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="parentPane" maxWidth="1507.0" minHeight="600.0" minWidth="400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="parentPane" maxWidth="1507.0" minHeight="600.0" minWidth="400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="tagPane" layoutX="10.0" layoutY="10.0" prefHeight="700.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -47,12 +47,12 @@
       </AnchorPane>
       <AnchorPane fx:id="flashcardPane" layoutX="10.0" layoutY="10.0" prefHeight="700.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField fx:id="quizName" alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name" styleClass="text-field" stylesheets="@../css/validationStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <TextField fx:id="quizName" alignment="CENTER" prefHeight="51.0" prefWidth="1498.0" promptText="Quiz Name" styleClass="text-field" stylesheets="@../css/validationStyle.css" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                <font>
                   <Font size="23.0" />
                </font>
             </TextField>
-            <ScrollPane fx:id="multichoiceScrollpane" fitToWidth="true" hbarPolicy="NEVER" layoutY="94.0" minHeight="490.0" prefHeight="490.0" prefWidth="1507.0" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="94.0">
+            <ScrollPane fx:id="multichoiceScrollpane" fitToWidth="true" hbarPolicy="NEVER" layoutY="94.0" minHeight="490.0" prefHeight="490.0" prefWidth="1507.0" AnchorPane.bottomAnchor="118.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="94.0">
                <content>
                   <VBox fx:id="items" prefHeight="511.0" prefWidth="1506.0" spacing="10.0" />
                </content>
@@ -67,7 +67,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="51.0" prefWidth="1497.0" style="-fx-background-color: grey;" text="Create Multi Choice Question" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="51.0" prefWidth="1497.0" style="-fx-background-color: grey;" text="Create Multi Choice Question" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                <font>
                   <Font size="24.0" />
                </font>
