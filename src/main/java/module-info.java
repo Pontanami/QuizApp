@@ -39,7 +39,7 @@ module com.example.quizapp {
     opens com.example.quizapp.user to javafx.fxml;
 
     exports com.example.quizapp;
-    opens com.example.quizapp to javafx.fxml, com.google.gson;
 
     opens com.example.quizapp.mainview to javafx.fxml;
+    opens com.example.quizapp to com.google.gson, google.cloud.firestore, javafx.fxml;
 }
