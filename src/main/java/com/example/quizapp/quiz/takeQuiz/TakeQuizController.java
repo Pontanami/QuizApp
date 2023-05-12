@@ -187,6 +187,14 @@ public class TakeQuizController extends AnchorPane{
         return quizAttempt.getQuiz().getQuestions().get(0) instanceof MultiChoice;
     }
 
+    @FXML
+    private void showButtons(){
+        if (isFlashCardQuiz()){
+            wrong.setVisible(true);
+            correct.setVisible(true);
+        }
+    }
+
     private void showQuestion() {
         switchNextAndFinishBtn();
         if (answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())){
@@ -207,6 +215,8 @@ public class TakeQuizController extends AnchorPane{
                     specificController = controller;
                 } else if (isFlashCardQuiz()) {
                     quizAnswer.setVisible(false);
+                    wrong.setVisible(false);
+                    correct.setVisible(false);
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
                     pane = fxmlLoader.load();
 

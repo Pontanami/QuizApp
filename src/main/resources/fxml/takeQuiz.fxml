@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="mainPane" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../com/example/quizapp/mainColor.css" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="mainPane" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../com/example/quizapp/mainColor.css" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="quizName" layoutX="386.0" layoutY="93.0" prefHeight="74.0" prefWidth="763.0" text="Name">
          <font>
@@ -18,7 +18,7 @@
          </font>
       </Label>
       <ProgressBar fx:id="quizProgress" layoutX="387.0" layoutY="209.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" stylesheets="@../com/example/quizapp/mainColor.css" />
-      <BorderPane fx:id="quizHolder" layoutX="389.0" layoutY="305.0" prefHeight="343.0" prefWidth="1131.0" />
+      <BorderPane fx:id="quizHolder" layoutX="389.0" layoutY="305.0" onMouseClicked="#showButtons" prefHeight="343.0" prefWidth="1131.0" />
       <Button fx:id="quizPrevious" layoutX="386.0" layoutY="770.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" text="Previous" textFill="#fffdfd">
          <font>
             <Font name="Arial Bold" size="24.0" />
