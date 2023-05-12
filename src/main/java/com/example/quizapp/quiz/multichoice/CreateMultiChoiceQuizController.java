@@ -3,7 +3,6 @@ package com.example.quizapp.quiz.multichoice;
 
 import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.NavigationStack;
-import com.example.quizapp.interfaces.ICreateQuizObserver;
 import com.example.quizapp.interfaces.IObservable;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.*;
@@ -219,7 +218,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
     @Override
     public void unsubscribe(IObserver observer) {
-        observers.remove((ICreateQuizObserver) observer);
+        observers.remove((IObserver) observer);
     }
 
     @Override
