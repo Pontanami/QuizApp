@@ -62,6 +62,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
             final ObservableList<Subject> tags = FXCollections.observableArrayList();
             tags.addAll(Arrays.asList(Subject.values()));
             tagsCheckComboBox.getItems().addAll(tags);
+            inputField.textProperty().addListener((obs, newVal, oldVal) -> searchQuizzes());
+            //inputField.setOnAction(obs -> searchQuizzes());
+            tagsCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<Subject>) change -> searchQuizzes());
+
         }
 
 
