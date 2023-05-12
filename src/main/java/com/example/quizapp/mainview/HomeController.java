@@ -41,6 +41,8 @@ public class HomeController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        myQuizFlow.setHgap(10);
+        myQuizFlow.setVgap(10);
         populateMyQuizzes();
     }
 

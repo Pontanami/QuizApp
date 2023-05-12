@@ -1,0 +1,6 @@
+.body{
+    -fx-background-radius: 20;
+    -fx-border-width: 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 2, 2);
+    -fx-background-color: linear-gradient(to bottom right, rgba(133, 53, 208, 1) 48%, rgba(76, 20, 139, 1) 94%);
+}
