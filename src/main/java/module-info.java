@@ -9,6 +9,7 @@ module com.example.quizapp {
     requires google.cloud.core;
     requires com.google.gson;
     requires org.controlsfx.controls;
+    requires java.desktop;
     requires javatuples;
 
     exports com.example.quizapp.firebase;
