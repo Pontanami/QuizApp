@@ -2,6 +2,7 @@ package com.example.quizapp.quiz.takeQuiz;
 
 import com.example.quizapp.HelloApplication;
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.mainview.MenuController;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.QuizResultController;
@@ -142,6 +143,7 @@ public class TakeQuizController extends AnchorPane{
                 (String)quizAttempt.getCurrentQuestion().getAnswer());
 
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
+        increaseProgress();
     }
 
     private void isAnswered(){
@@ -191,7 +193,6 @@ public class TakeQuizController extends AnchorPane{
                     specificController = controller;
                 }
                 previousNodes.put(quizAttempt.getCurrentQuestion().getQuestion(), pane);
-                increaseProgress();
                 quizHolder.setCenter(pane);
             } catch (IOException e){
                 e.printStackTrace();
@@ -223,7 +224,6 @@ public class TakeQuizController extends AnchorPane{
                 quizAttempt.getQuiz().getQuestions().size()));
         navigationStack.removeView(this);
     }
-
     private void questionIndexController(Character c){
         if (c.equals('n')){
             questionIndex++;

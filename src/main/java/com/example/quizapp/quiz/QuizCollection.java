@@ -2,9 +2,10 @@ package com.example.quizapp.quiz;
 
 
 import com.example.quizapp.NavigationStack;
-import com.example.quizapp.quiz.tags.Subject;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
+import com.example.quizapp.quiz.tags.Subject;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +39,7 @@ public class QuizCollection extends AnchorPane implements Initializable {
 
     /**
      * Represents the "sub view" that includes all {@link QuizThumbnail} objects.
-     */;
-
+     */
     public QuizCollection() {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizCollection.fxml"));
             fxmlLoader.setRoot(this);
@@ -62,6 +62,10 @@ public class QuizCollection extends AnchorPane implements Initializable {
             final ObservableList<Subject> tags = FXCollections.observableArrayList();
             tags.addAll(Arrays.asList(Subject.values()));
             tagsCheckComboBox.getItems().addAll(tags);
+            inputField.textProperty().addListener((obs, newVal, oldVal) -> searchQuizzes());
+            //inputField.setOnAction(obs -> searchQuizzes());
+            tagsCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<Subject>) change -> searchQuizzes());
+
         }
 
 

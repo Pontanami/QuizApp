@@ -157,7 +157,7 @@ class QuizTest {
         List<Subject> tags = new ArrayList<>(){
             {
                 add(Subject.Biology);
-                add(Subject.Biochemistry);
+                add(Subject.Physics);
             }
         };
 
