@@ -8,6 +8,7 @@ import com.example.quizapp.quiz.QuizThumbnail;
 import com.example.quizapp.user.User;
 import com.example.quizapp.user.UserQuery;
 import javafx.fxml.FXML;
+import com.example.quizapp.NavigationStack;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.CacheHint;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +26,11 @@ public class HomeController extends AnchorPane{
     FlowPane myQuizFlow;
 
     FirebaseUserRepository userRepository = FirebaseUserRepository.getAuth();
+
+    NavigationStack navigationStack = NavigationStack.getInstance();
+    public void navigateBack() {
+        navigationStack.popView();
+    }
 
     public HomeController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/HomeView.fxml"));

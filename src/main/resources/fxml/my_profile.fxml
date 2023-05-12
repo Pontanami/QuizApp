@@ -6,39 +6,38 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1920.0" stylesheets="@../css/my_profile.css" type="AnchorPane" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="rootpane" maxHeight="1000.0" maxWidth="800.0" prefHeight="418.0" prefWidth="954.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="517.0" layoutY="119.0" prefHeight="408.0" prefWidth="942.0" style="-fx-background-radius: 15; -fx-border-width: 1px; -fx-border-color: lightgrey; -fx-border-radius: 15;">
+      <AnchorPane layoutX="6.0" minWidth="600.0" prefHeight="408.0" prefWidth="942.0" style="-fx-background-color: lightgrey; -fx-background-radius: 15;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <TextField fx:id="pwField" editable="false" layoutX="29.0" layoutY="202.0" stylesheets="@../css/validationStyle.css" />
-            <Button fx:id="signOutBtn" layoutX="26.0" layoutY="335.0" mnemonicParsing="false" onAction="#signOut" stylesheets="@../css/button.css" text="Sign Out">
+            <Button fx:id="signOutBtn" layoutX="26.0" layoutY="335.0" mnemonicParsing="false" onAction="#signOut" prefHeight="50.0" prefWidth="130.0" text="Sign Out">
                <font>
                   <Font size="23.0" />
                </font>
             </Button>
-            <Button fx:id="updateBtn" layoutX="792.0" layoutY="337.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="50.0" prefWidth="130.0" stylesheets="@../css/button.css" text="Update" visible="false">
+            <Button fx:id="updateBtn" layoutX="792.0" layoutY="337.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="50.0" prefWidth="130.0" text="Update" visible="false">
                <font>
                   <Font size="23.0" />
                </font>
             </Button>
-            <Button fx:id="editBtn" layoutX="792.0" layoutY="337.0" mnemonicParsing="false" onAction="#enableEdit" prefHeight="50.0" prefWidth="130.0" stylesheets="@../css/button.css" text="Edit">
+            <Button fx:id="editBtn" layoutX="792.0" layoutY="337.0" mnemonicParsing="false" onAction="#enableEdit" prefHeight="50.0" prefWidth="130.0" text="Edit" AnchorPane.rightAnchor="31.599999999999994">
                <font>
                   <Font size="23.0" />
                </font>
             </Button>
-            <Text layoutX="30.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="My Profile" wrappingWidth="328.73338623046874">
+            <Text layoutX="30.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile" wrappingWidth="328.73338623046874">
                <font>
                   <Font size="40.0" />
                </font>
             </Text>
-            <TextField fx:id="nameField" editable="false" layoutX="30.0" layoutY="138.0" stylesheets="@../css/validationStyle.css" />
-            <Text layoutX="30.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Name" wrappingWidth="50.302482604980355">
+            <TextField fx:id="nameField" editable="false" layoutX="30.0" layoutY="138.0" promptText="John Doe" stylesheets="@../css/validationStyle.css" />
+            <Text layoutX="30.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="50.302482604980355">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="emailField" editable="false" layoutX="222.0" layoutY="136.0" stylesheets="@../css/validationStyle.css" />
-            <Text layoutX="222.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Email" wrappingWidth="50.302482604980355">
+            <TextField fx:id="emailField" editable="false" layoutX="222.0" layoutY="136.0" promptText="john.doe@gmail.com" stylesheets="@../css/validationStyle.css" />
+            <Text layoutX="222.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="50.302482604980355">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -46,11 +45,6 @@
             <Text fx:id="requiredText" fill="RED" layoutX="28.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* all field are required to save" visible="false" wrappingWidth="221.9373779296875">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="32.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="New password" wrappingWidth="118.30248260498036">
-               <font>
-                  <Font name="System Bold" size="14.0" />
                </font>
             </Text>
          </children>

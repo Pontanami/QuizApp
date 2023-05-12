@@ -159,9 +159,6 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
             }
         }
 
-        //TODO remove line below
-        userRepository.loginUser("test", "test");
-        quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
         navigateToQuizCollection();
     }
 
