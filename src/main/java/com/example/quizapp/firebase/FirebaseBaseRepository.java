@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * Base class for all repositories that handles the connection to the Firestore database
  * @author Alex, Felix, Pontus
  */
-public abstract class FirebaseBaseRepository<T, E> {
+abstract class FirebaseBaseRepository<T, E> {
 
     private final Firestore db;
 
@@ -127,6 +127,13 @@ public abstract class FirebaseBaseRepository<T, E> {
         return future;
     }
 
+    /**
+     * Method to patch/update data to the Firestore database
+     * @param data the data to be patched
+     * @param col the collection to patch the data to
+     * @param id the id of the document
+     * @return a {@link CompletableFuture} that will be completed when the data has been patched
+     */
     protected CompletableFuture<Void> patchDataToDb(Map<String, Object> data, CollectionReference col, String id){
         CompletableFuture<Void> future = new CompletableFuture<>();
 
@@ -134,7 +141,7 @@ public abstract class FirebaseBaseRepository<T, E> {
         ApiFutures.addCallback(result, new ApiFutureCallback<>() {
             @Override
             public void onFailure(Throwable throwable) {
-                System.out.println("Failed to reach Firebase in addDataToDb");
+                System.out.println("Failed to reach Firebase in patchDataToDb");
                 future.completeExceptionally(throwable);
             }
             @Override
