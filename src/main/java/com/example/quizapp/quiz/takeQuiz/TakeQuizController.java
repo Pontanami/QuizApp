@@ -74,7 +74,6 @@ public class TakeQuizController extends AnchorPane{
         int quizSize = quiz.getQuestions().size();
         takenQuiz = new Triplet[quizSize];
         showQuestion();
-        navigationStack.setHeader(null);
     }
 
 
@@ -224,7 +223,6 @@ public class TakeQuizController extends AnchorPane{
         navigationStack.pushView(new QuizResultController(takenQuiz, quizAttempt.getPoints(),
                 quizAttempt.getQuiz().getQuestions().size()));
         navigationStack.removeView(this);
-        navigationStack.setHeader(new MenuController());
     }
     private void questionIndexController(Character c){
         if (c.equals('n')){
