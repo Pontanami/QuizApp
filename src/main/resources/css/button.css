@@ -14,6 +14,10 @@ Button:hover, .close:hover {
     -fx-background-radius: 8px;
 }
 
+ComboBox {
+    -fx-text-fill: #FFFFFF;
+}
+
 .combo-box-popup .list-view
 {
     -fx-background-color: transparent, transparent;
