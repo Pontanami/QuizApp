@@ -59,7 +59,6 @@ public class NavigationStack extends AnchorPane {
      */
     public void pushView(AnchorPane controller) {
         String className = controller.getClass().getSimpleName();
-
         if(stackClasses.contains(className))
             goToSpecifiedView(stackClasses.indexOf(className));
         else {
@@ -138,6 +137,17 @@ public class NavigationStack extends AnchorPane {
      */
     public ObservableList<Node> getViewStack(){
         return stackPane.getChildren();
+    }
+
+    /**
+     * returns a specific view from the stack
+     * @param controller thecontroller we want to return
+     * @returnThe view we wanted to get from the stack
+     */
+    public Node getSpecificView(Class controller){
+        String classname = controller.getSimpleName();
+        int index = stackClasses.indexOf(classname);
+        return stackPane.getChildren().get(index);
     }
 
     /**

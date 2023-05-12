@@ -6,7 +6,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#navigateToQuiz" prefHeight="250.0" prefWidth="250.0" styleClass="body" stylesheets="@../css/Thumbnail.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="quizName" fill="WHITE" layoutY="118.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quiz Name" textAlignment="CENTER" wrappingWidth="250.0">
+      <Text fx:id="quizName" fill="WHITE" layoutY="118.0" text="Quiz Name" textAlignment="CENTER" wrappingWidth="250.0">
          <font>
             <Font size="25.0" />
          </font>
