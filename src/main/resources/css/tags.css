@@ -1,0 +1,12 @@
+.body{
+    -fx-background-color: white;
+}
+
+.box{
+    -fx-background-color: #F5F5F5;
+    -fx-background-radius: 20;
+}
+
+.scroll-pane{
+    -fx-background-color: transparent;
+}
