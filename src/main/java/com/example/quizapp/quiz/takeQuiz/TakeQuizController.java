@@ -222,7 +222,6 @@ public class TakeQuizController extends AnchorPane{
         navigationStack.pushView(new QuizResultController(takenQuiz, quizAttempt.getPoints(),
                 quizAttempt.getQuiz().getQuestions().size()));
         navigationStack.removeView(this);
-        //navigationStack.popView();
     }
 
     private void questionIndexController(Character c){

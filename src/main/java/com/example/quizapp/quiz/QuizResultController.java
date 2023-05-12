@@ -61,9 +61,8 @@ public class QuizResultController extends AnchorPane {
     }
 
     private void allQuestions(){
-        int n = takenQuiz.length;
 
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < takenQuiz.length; i++){
             VBox questionBox = new VBox();
             Label questionLabel = new Label("Q " + (i+1) + ": " + takenQuiz[i].getValue0());
 
@@ -90,7 +89,6 @@ public class QuizResultController extends AnchorPane {
 
             container.getChildren().add(questionBox);
         }
-
 
         resultPane.setContent(container);
 
