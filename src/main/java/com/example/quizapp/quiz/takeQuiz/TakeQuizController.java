@@ -2,6 +2,7 @@ package com.example.quizapp.quiz.takeQuiz;
 
 import com.example.quizapp.HelloApplication;
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.mainview.MenuController;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizCollection;
 import com.example.quizapp.quiz.flashcard.FlashCardController;
@@ -64,6 +65,7 @@ public class TakeQuizController extends AnchorPane{
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
         showQuestion();
+        navigationStack.setHeader(null);
     }
 
 
@@ -205,5 +207,6 @@ public class TakeQuizController extends AnchorPane{
     public void finish(){
         navigationStack.popView();
         navigationStack.popView();
+        navigationStack.setHeader(new MenuController());
     }
 }
