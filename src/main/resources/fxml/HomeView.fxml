@@ -6,27 +6,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1450.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1450.0" styleClass="body" stylesheets="@../css/home.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="270.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recently taken">
+      <Text layoutX="270.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Recently taken">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <ScrollPane hbarPolicy="NEVER" layoutX="270.0" layoutY="178.0" prefHeight="260.0" prefWidth="925.0" vbarPolicy="ALWAYS">
+      <ScrollPane hbarPolicy="NEVER" layoutX="270.0" layoutY="178.0" prefHeight="260.0" prefWidth="925.0" styleClass="flow" vbarPolicy="ALWAYS">
          <content>
-            <FlowPane fx:id="recentQuizFlow" prefHeight="260.0" prefWidth="925.0" />
+            <FlowPane fx:id="recentQuizFlow" prefHeight="260.0" prefWidth="925.0" styleClass="flow" />
          </content>
       </ScrollPane>
-      <Text layoutX="270.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My quizzes">
+      <Text layoutX="270.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="My quizzes">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
       <ScrollPane hbarPolicy="NEVER" layoutX="270.0" layoutY="545.0" prefHeight="260.0" prefWidth="925.0" vbarPolicy="ALWAYS">
          <content>
-            <FlowPane fx:id="myQuizFlow" prefHeight="260.0" prefWidth="925.0" />
+            <FlowPane fx:id="myQuizFlow" prefHeight="260.0" prefWidth="925.0" styleClass="flow" stylesheets="@../css/home.css" />
          </content>
       </ScrollPane>
    </children>

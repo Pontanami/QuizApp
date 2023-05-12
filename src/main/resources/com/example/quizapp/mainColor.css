@@ -1,6 +1,7 @@
 /*.colorable{
     -fx-background-color: white;
 }
+/*
 .button {
     -fx-background-color: #2c2c2c, linear-gradient(#4d4d4d 0%, #3a3a3a 25%, #2c2c2c 100%);
     -fx-background-insets: 0, 1 1 2 1;
@@ -29,7 +30,7 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
-}
+}*/
 
 .progress-bar {
     -fx-accent: #2c2c2c;
