@@ -42,7 +42,7 @@ public class TakeQuizController extends AnchorPane{
     private final List<String> answeredQuestions = new ArrayList<>();
     private BigDecimal progress = new BigDecimal("0.0");
     private IAnswerable specificController;
-    private QuizAttempt quizAttempt;
+    private final QuizAttempt quizAttempt;
     NavigationStack navigationStack = NavigationStack.getInstance();
 
     /**
