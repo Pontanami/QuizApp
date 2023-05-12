@@ -10,6 +10,7 @@ module com.example.quizapp {
     requires com.google.gson;
     requires org.controlsfx.controls;
     requires java.desktop;
+    requires javatuples;
 
     exports com.example.quizapp.firebase;
     opens com.example.quizapp.firebase to javafx.fxml, google.cloud.firestore, com.google.gson;
