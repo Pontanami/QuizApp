@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="925.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="850.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="850.0" styleClass="body" stylesheets="@../css/home.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recently taken" AnchorPane.leftAnchor="0.0">
+      <Text layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Recently taken" AnchorPane.leftAnchor="0.0">
 <font>
 <Font size="30.0" />
 </font>
         </Text>
-<ScrollPane hbarPolicy="NEVER" layoutY="43.0" prefHeight="260.0" prefWidth="925.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<ScrollPane hbarPolicy="NEVER" layoutY="43.0" prefHeight="260.0" prefWidth="850.0" style="-fx-background-color: white;" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 <content>
-   <FlowPane fx:id="recentQuizFlow" prefHeight="260.0" prefWidth="925.0" />
+   <FlowPane fx:id="recentQuizFlow" prefHeight="260.0" prefWidth="850.0" styleClass="flow" />
 </content>
 </ScrollPane>
-<Text layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My quizzes" AnchorPane.leftAnchor="0.0">
+<Text layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="My quizzes" AnchorPane.leftAnchor="0.0">
 <font>
    <Font size="30.0" />
 </font>
 </Text>
-<ScrollPane hbarPolicy="NEVER" layoutY="344.0" prefHeight="260.0" prefWidth="925.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<ScrollPane hbarPolicy="NEVER" layoutY="344.0" prefHeight="260.0" prefWidth="850.0" style="-fx-background-color: white;" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 <content>
-   <FlowPane fx:id="myQuizFlow" prefHeight="260.0" prefWidth="925.0" />
+   <FlowPane fx:id="myQuizFlow" prefHeight="260.0" prefWidth="850.0" styleClass="flow" />
 </content>
 </ScrollPane>
         </children>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -8,7 +9,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.CheckComboBox?>
-<fx:root fx:id="rootPane" maxHeight="1000.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="800.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root fx:id="rootPane" maxHeight="1000.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="800.0" styleClass="body" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <CheckComboBox fx:id="tagsCheckComboBox" layoutX="573.0" layoutY="68.0" prefHeight="45.0" prefWidth="132.0" showCheckedCount="true" title="Tags" />
       <Text layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quiz Collection">
@@ -16,16 +18,20 @@
             <Font size="40.0" />
          </font>
       </Text>
-      <TextField fx:id="inputField" layoutY="68.0" prefHeight="45.0" prefWidth="548.0" promptText="Search for quiz">
+      <TextField fx:id="inputField" layoutY="68.0" prefHeight="45.0" prefWidth="548.0" promptText="Search for quiz" styleClass="searchbar">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
       <ScrollPane fx:id="quizScrollpane" hbarPolicy="NEVER" layoutY="137.0" prefHeight="381.0" prefWidth="800.0">
          <content>
-            <FlowPane fx:id="quizFlowpane" prefHeight="381.0" prefWidth="800.0" />
+            <FlowPane fx:id="quizFlowpane" prefHeight="381.0" prefWidth="800.0" styleClass="flow" />
          </content>
       </ScrollPane>
       <Button layoutX="729.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchQuizzes" prefHeight="45.0" prefWidth="71.0" text="Search" />
    </children>
+   <stylesheets>
+      <URL value="@../css/button.css" />
+      <URL value="@../css/QuizCollect.css" />
+   </stylesheets>
 </fx:root>
