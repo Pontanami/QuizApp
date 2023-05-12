@@ -1,0 +1,23 @@
+.bg_color {
+    -fx-background-color: linear-gradient(to right, rgba(133, 53, 208, 1) 48%, rgba(76, 20, 139, 1) 94%);
+}
+
+.menu-button{
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 80;
+    -fx-font-size: 20;
+}
+
+.menu-button:hover{
+    -fx-underline: true;
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+}
+
+.menu-button:pressed{
+    -fx-underline: true;
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+    -fx-background-color: #e3c8ff;
+}

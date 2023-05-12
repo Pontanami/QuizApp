@@ -7,19 +7,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="181.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="181.0" styleClass="body" stylesheets="@../css/menu.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="132.0" prefWidth="1208.0" style="-fx-background-color: #FFAA55;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane prefHeight="132.0" prefWidth="1208.0" styleClass="bg_color" stylesheets="@../css/menu.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quizapp" y="39.0" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="11.400001525878906">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quizapp" y="39.0" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="11.400001525878906">
                <font>
                   <Font name="Apple SD Gothic Neo Regular" size="64.0" />
                </font>
             </Text>
-            <Button fx:id="ProfileBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToProfile" text="Profile" AnchorPane.rightAnchor="493.5" />
-            <Button fx:id="QuizColBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToQuizCollection" text="QuizCollection" AnchorPane.rightAnchor="339.0" />
-            <Button fx:id="CreateQuizBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToCreateQuiz" text="CreateQuiz" AnchorPane.rightAnchor="185.0" />
-            <Button fx:id="LogoutBtn" layoutY="48.0" mnemonicParsing="false" onAction="#logout" text="Logout" AnchorPane.rightAnchor="67.0" />
+            <Button fx:id="ProfileBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToProfile" styleClass="menu-button" text="Profile" AnchorPane.rightAnchor="493.5" />
+            <Button fx:id="QuizColBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToQuizCollection" styleClass="menu-button" text="QuizCollection" AnchorPane.rightAnchor="339.0" />
+            <Button fx:id="CreateQuizBtn" layoutY="48.0" mnemonicParsing="false" onAction="#NavigateToCreateQuiz" styleClass="menu-button" text="CreateQuiz" AnchorPane.rightAnchor="185.0" />
+            <Button fx:id="LogoutBtn" layoutY="48.0" mnemonicParsing="false" onAction="#logout" styleClass="menu-button" text="Logout" AnchorPane.rightAnchor="67.0" />
          </children>
       </AnchorPane>
       <Button fx:id="ProfileBtn1" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" style="-fx-background-color: transparent;">
