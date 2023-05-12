@@ -5,12 +5,11 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1000.0" maxWidth="1000.0" minHeight="100.0" minWidth="100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.quiz.multichoice.MultiChoiceController">
    <children>
-      <Pane id="info-rec" fx:id="quizPane" stylesheets="@mainColor.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="quizPane" fx:id="quizPane" stylesheets="@../../../css/takenQuiz.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -41,6 +40,6 @@
                   <Font size="14.0" />
                </font></RadioButton>
          </children>
-      </Pane>
+      </AnchorPane>
    </children>
 </AnchorPane>
