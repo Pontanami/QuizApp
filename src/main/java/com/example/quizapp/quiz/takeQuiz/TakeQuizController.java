@@ -14,7 +14,6 @@ import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.MultiChoice;
 import com.example.quizapp.quiz.multichoice.MultiChoiceController;
 import com.example.quizapp.user.User;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -215,8 +214,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         User currentuser = FirebaseUserRepository.getAuth().getCurrentUser();
         qr.uploadTakenQuiz(quizAttempt.getQuiz().getId(), currentuser.getId(), quizAttempt.getPoints());
         notifySubscribers();
-        navigationStack.popView();
-        navigationStack.popView();
+        navigationStack.popToRoot();
     }
 
     @Override

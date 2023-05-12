@@ -1,6 +1,8 @@
 package com.example.quizapp.quiz.flashcard;
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.interfaces.ICreateQuizObserver;
+import com.example.quizapp.interfaces.IObservable;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.*;
 import com.example.quizapp.quiz.tags.Tag;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CreateFlashCardQuizController extends AnchorPane implements IQuizManager<CreateFlashcardController>, Initializable, IObserver {
+public class CreateFlashCardQuizController extends AnchorPane implements IQuizManager<CreateFlashcardController>, Initializable, IObserver, IObservable {
     private AnchorPane rootpane;
 
     @FXML
@@ -59,7 +61,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
     private InputValidator validator = new InputValidator();
 
-
+    private List<IObserver> observers = new ArrayList<>();
 
     /**
      * Creates a CreateFlashCardQuiz
@@ -76,6 +78,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
 
         quiz.subscribe(this);
         validator.createValidationTextField(quizName);
+        subscribe((IObserver) navigationStack.getSpecificView(HomeController.class));
     }
 
     /**
@@ -157,15 +160,13 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
                 quiz.addQuestion(createdQuestion);
             }
         }
-
-        //TODO remove line below
-        userRepository.loginUser("test", "test");
         quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
+        notifySubscribers();
         navigateToQuizCollection();
     }
 
     private void navigateToQuizCollection() {
-        navigationStack.pushView(new HomeController());
+        navigationStack.popToRoot();
     }
 
     /**
@@ -209,4 +210,20 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
         }
     }
 
+    @Override
+    public void subscribe(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unsubscribe(IObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifySubscribers() {
+        for (IObserver observer : observers){
+            observer.update();
+        }
+    }
 }
