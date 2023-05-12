@@ -85,4 +85,5 @@ public class InputValidator {
     public boolean isValidTextField(TextField textField){
         return validationFields.get(textField);
     }
+
 }

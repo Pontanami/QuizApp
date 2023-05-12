@@ -25,7 +25,8 @@ public class MyProfileController extends AnchorPane implements Initializable {
     Button signOutBtn;
     @FXML
     TextField emailField;
-
+    @FXML
+    TextField pwField;
     @FXML
     private Button updateBtn;
 
@@ -76,14 +77,23 @@ public class MyProfileController extends AnchorPane implements Initializable {
         if (isValid && userDetailsChanged()){
             String name = nameField.getText();
             String email = emailField.getText();
-            ur.patchUser(name, email);
+            String password = pwField.getText();
+            try {
+                ur.patchUser(name, email, password);
+            }catch (Exception e){
+                requiredText.setText(e.getMessage());
+                requiredText.setVisible(true);
+            }
+            pwField.clear();
         }
     }
 
     private boolean userDetailsChanged(){
         boolean changedName = !currentUser.getName().equals(nameField.getText());
         boolean changedEmail = !currentUser.getEmail().equals(emailField.getText());
-        return changedName || changedEmail;
+        boolean changedPw = !pwField.getText().isEmpty();
+        System.out.println(changedName + " " + changedEmail + " " + changedPw);
+        return changedName || changedEmail || changedPw;
     }
 
     @FXML
@@ -98,5 +108,6 @@ public class MyProfileController extends AnchorPane implements Initializable {
         updateBtn.setVisible(true);
         nameField.setEditable(true);
         emailField.setEditable(true);
+        pwField.setEditable(true);
     }
 }
