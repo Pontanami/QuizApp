@@ -81,13 +81,8 @@ public class QuizResultController extends AnchorPane {
                 answerLabel = new Label("Not answered");
             }
 
-
-            questionLabel.setFont(new Font("Arial", 48));
-            answerLabel.setFont(new Font("Arial", 48));
-            questionLabel.setPrefSize(1450, 106);
-            answerLabel.setPrefSize(1450,94);
-            questionLabel.setAlignment(Pos.CENTER);
-            answerLabel.setAlignment(Pos.CENTER);
+            questionLabel.setId("questionLabel");
+            answerLabel.setId("answeringLabel");
 
             questionBox.getChildren().addAll(questionLabel, answerLabel);
 
@@ -105,17 +100,15 @@ public class QuizResultController extends AnchorPane {
         String correctAnswer = takenQuiz[number].getValue2();
 
         if (answer != null && answer.equals(correctAnswer) && !correctAnswer.equals("")){
-            holder.setStyle("-fx-border-width: 2px;");
-            holder.setStyle("-fx-border-color: Green");
-            q.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-insets: 0;");
-            ans.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-insets: 0;");
+            q.setId("correctQ");
+            ans.setId("correctA");
+            holder.setId("correctHolder");
         } else if (answer != null && !answer.equals("")){
-            holder.setStyle("-fx-border-color: RED");
-            q.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-insets: 0;");
-            ans.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-insets: 0;");
+            q.setId("incorrectQ");
+            ans.setId("incorrectA");
+            holder.setId("incorrectHolder");
         } else {
-            holder.setStyle("-fx-border-width: 2px;");
-            holder.setStyle("-fx-border-color: Black");
+            holder.setId("NoAnswer");
         }
     }
 

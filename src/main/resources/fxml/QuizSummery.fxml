@@ -9,7 +9,7 @@
 
 <fx:root prefHeight="940.0" prefWidth="1450.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="resultPane" layoutX="-3.0" layoutY="117.0" prefHeight="600.0" prefWidth="1450.0">
+      <ScrollPane fx:id="resultPane" layoutX="-3.0" layoutY="117.0" prefHeight="600.0" prefWidth="1450.0" stylesheets="@../css/quizSummery.css">
          <content>
             <VBox fx:id="container" prefWidth="1453.0" />
          </content></ScrollPane>
