@@ -1,6 +1,7 @@
 package com.example.quizapp.quiz.multichoice;
 
 
+import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.interfaces.ICreateQuizObserver;
 import com.example.quizapp.interfaces.IObservable;

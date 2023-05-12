@@ -1,5 +1,6 @@
 package com.example.quizapp.quiz.flashcard;
 
+import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.interfaces.ICreateQuizObserver;
 import com.example.quizapp.interfaces.IObservable;
@@ -162,6 +163,7 @@ public class CreateFlashCardQuizController extends AnchorPane implements IQuizMa
         }
         quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
         notifySubscribers();
+
         navigateToQuizCollection();
     }
 

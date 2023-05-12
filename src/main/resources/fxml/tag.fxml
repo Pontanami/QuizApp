@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: D9D9D9;" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="150.0" stylesheets="@../css/button.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="tagButton" layoutX="-1.0" mnemonicParsing="false" onAction="#tagClicked" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="tagButton">
+      <Button fx:id="tagButton" layoutX="-1.0" mnemonicParsing="false" onAction="#tagClicked" prefHeight="40.0" prefWidth="150.0" text="tagButton">
          <font>
             <Font size="17.0" />
          </font>

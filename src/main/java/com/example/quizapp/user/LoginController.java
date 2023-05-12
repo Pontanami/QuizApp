@@ -4,6 +4,8 @@ import com.example.quizapp.NavigationStack;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.mainview.MenuController;
 import com.example.quizapp.firebase.FirebaseUserRepository;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -54,6 +56,8 @@ public class LoginController extends AnchorPane {
 
         };
         errorText.setVisible(false);
+        emailField.setOnAction(actionEvent -> login());
+        passwordField.setOnAction(actionEvent -> login());
     }
 
     /**
