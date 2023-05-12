@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
         mv.pushView(new LoginController());
         Scene scene = new Scene(mv, 1920, 1080);
 
+
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
