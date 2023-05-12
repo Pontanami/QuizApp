@@ -58,8 +58,10 @@ public class FirebaseUserRepository extends FirebaseBaseRepository<User, UserQue
      */
     public void createUser(String name, String email, String password) {
         if (getUsers(new UserQuery.UserQueryBuilder().setEmail(email)).size() > 0)
-            System.out.println("email is not unique, already exists");
-        else {
+            throw new IllegalArgumentException("A user with this email address already exists");
+        else if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            throw new RuntimeException("All fields are required");
+        } else {
             String docID = getDocumentID(colRef);
             String hashed_password = generateHash(password);
             Map<String, Object> data = new HashMap<>();

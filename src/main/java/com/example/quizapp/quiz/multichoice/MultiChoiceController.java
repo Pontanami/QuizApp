@@ -1,6 +1,5 @@
 package com.example.quizapp.quiz.multichoice;
 
-import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.quiz.takeQuiz.IAnswerable;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -9,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

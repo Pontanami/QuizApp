@@ -2,12 +2,14 @@ package com.example.quizapp.user;
 
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseUserRepository;
+import com.example.quizapp.quiz.InputValidator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -25,6 +27,9 @@ public class RegisterController extends AnchorPane{
 
     NavigationStack navigationStack = NavigationStack.getInstance();
 
+    @FXML
+    private Text errorText;
+
     /**
      * Represents the user registration view. Loads the correct fxml file using {@link FXMLLoader}.
      */
@@ -37,7 +42,6 @@ public class RegisterController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
     }
 
 
@@ -46,8 +50,13 @@ public class RegisterController extends AnchorPane{
         String name = nameField.getText();
         String pw = pwField.getText();
         String email = emailField.getText();
-        ur.createUser(name, email, pw);
-        navigateToLogin();
+        try {
+            ur.createUser(name, email, pw);
+            navigateToLogin();
+        } catch (Exception e){
+            errorText.setText(e.getMessage());
+            errorText.setVisible(true);
+        }
     }
 
     @FXML
