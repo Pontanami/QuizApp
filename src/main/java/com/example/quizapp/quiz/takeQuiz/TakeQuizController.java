@@ -5,11 +5,12 @@ import com.example.quizapp.NavigationStack;
 import com.example.quizapp.mainview.MenuController;
 import com.example.quizapp.quiz.Quiz;
 import com.example.quizapp.quiz.QuizCollection;
+import com.example.quizapp.quiz.QuizResultController;
 import com.example.quizapp.quiz.flashcard.FlashCardController;
 import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.MultiChoice;
 import com.example.quizapp.quiz.multichoice.MultiChoiceController;
-import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -24,6 +25,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.javatuples.Triplet;
 
 /**
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
@@ -43,8 +46,11 @@ public class TakeQuizController extends AnchorPane{
     private final List<String> answeredQuestions = new ArrayList<>();
     private BigDecimal progress = new BigDecimal("0.0");
     private IAnswerable specificController;
-    private QuizAttempt quizAttempt;
+    private final QuizAttempt quizAttempt;
+    private final Quiz quiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
+    private final Triplet<String, String, String>[] takenQuiz;
+    private int questionIndex = 0;
 
     /**
      * @param quiz The quiz to view/take
@@ -60,10 +66,13 @@ public class TakeQuizController extends AnchorPane{
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        this.quiz = quiz;
         this.quizAttempt = new QuizAttempt(quiz);
         quizName.setText(quiz.getName());
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
+        int quizSize = quiz.getQuestions().size();
+        takenQuiz = new Triplet[quizSize];
         showQuestion();
         navigationStack.setHeader(null);
     }
@@ -73,6 +82,7 @@ public class TakeQuizController extends AnchorPane{
      * Displays the next question according to the order specified in the given questions list.
      */
     public void showNext(){
+        questionIndexController('n');
         quizAttempt.nextQuestion();
         switchNextAndFinishBtn();
         quizPrevious.setDisable(false);
@@ -91,6 +101,7 @@ public class TakeQuizController extends AnchorPane{
      * Displays the previous question according to the order specified in the given questions list.
      */
     public void showPrevious(){
+        questionIndexController('p');
         quizAttempt.prevQuestion();
         quizNext.setVisible(true);
         finishButton.setVisible(false);
@@ -129,6 +140,9 @@ public class TakeQuizController extends AnchorPane{
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
+        takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), specificController.usersAnswer(),
+                (String)quizAttempt.getCurrentQuestion().getAnswer());
+
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
         increaseProgress();
     }
@@ -159,6 +173,8 @@ public class TakeQuizController extends AnchorPane{
             retrieveQuestion();
             quizHint.setDisable(true);
         } else {
+            takenQuiz[questionIndex] = new Triplet<String, String, String>(quizAttempt.getCurrentQuestion().getQuestion(),
+                    "", "");
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
@@ -205,8 +221,18 @@ public class TakeQuizController extends AnchorPane{
      * Navigate back to the given {@link QuizCollection} when instantiating.
      */
     public void finish(){
-        navigationStack.popView();
-        navigationStack.popView();
+        navigationStack.pushView(new QuizResultController(takenQuiz, quizAttempt.getPoints(),
+                quizAttempt.getQuiz().getQuestions().size()));
+        navigationStack.removeView(this);
         navigationStack.setHeader(new MenuController());
+    }
+    private void questionIndexController(Character c){
+        if (c.equals('n')){
+            questionIndex++;
+        }else {
+            if (questionIndex > 0){
+                questionIndex--;
+            }
+        }
     }
 }

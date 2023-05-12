@@ -7,7 +7,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.awt.*;
+
 
 public class HelloApplication extends Application {
 
@@ -15,12 +16,18 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
         NavigationStack mv = NavigationStack.getInstance();
         mv.pushView(new LoginController());
-        Scene scene = new Scene(mv, 1920, 1080);
+        Scene scene = new Scene(mv, screenWidth, screenHeight);
 
+        stage.centerOnScreen();
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setMinWidth(850);
+        stage.setMinHeight(850);
         stage.show();
     }
 

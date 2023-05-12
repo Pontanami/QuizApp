@@ -1,0 +1,32 @@
+.label{
+    -fx-font-size: 48px;
+    -fx-font-family: Arial;
+    -fx-pref-height: 106px;
+    -fx-pref-width: 1450px;
+    -fx-alignment: Center;
+}
+
+#correctQ, #correctA{
+    -fx-background-color: rgba(0, 255, 0, 0.5);
+    -fx-background-insets: 0;
+}
+
+#correctHolder{
+    -fx-border-width: 2px;
+    -fx-border-color: Green;
+}
+
+#incorrectQ, #incorrectA{
+    -fx-background-color: rgba(255, 0, 0, 0.5);
+    -fx-background-insets: 0;
+}
+
+#incorrectHolder{
+    -fx-border-width: 2px;
+    -fx-border-color: Red;
+}
+
+#NoAnswer{
+    -fx-border-width: 1px;
+    -fx-border-color: Black;
+}
