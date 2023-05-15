@@ -1,7 +1,8 @@
-.header {
-    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+AnchorPane {
+    -fx-background-color: #FFFFFF;
 }
 
-.loginBtn {
-    -fx-background-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+TextField {
+    -fx-background-color: rgba(124,79,255,0.16);
+    -fx-text-fill: black;
 }

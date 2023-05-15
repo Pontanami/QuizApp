@@ -7,24 +7,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1500.0" styleClass="body" stylesheets="@../css/tags.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="567.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TAGS">
+      <Text layoutX="567.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="TAGS">
          <font>
             <Font name="System Bold" size="60.0" />
          </font>
       </Text>
-      <Text layoutX="1173.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Applied tags">
+      <Text layoutX="1173.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Applied tags">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
       <HBox layoutX="567.0" layoutY="603.0" prefHeight="100.0" prefWidth="200.0" />
-      <ScrollPane layoutX="317.0" layoutY="203.0" prefHeight="304.0" prefWidth="679.0">
+      <ScrollPane layoutX="317.0" layoutY="203.0" prefHeight="304.0" prefWidth="679.0" style="-fx-background-color: white;" stylesheets="@../css/QuizCollect.css">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="299.0" prefWidth="677.0" styleClass="flow" />
         </content>
       </ScrollPane>
-      <VBox layoutX="1098.0" layoutY="203.0" prefHeight="304.0" prefWidth="309.0" />
+      <VBox layoutX="1098.0" layoutY="203.0" prefHeight="304.0" prefWidth="309.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>
