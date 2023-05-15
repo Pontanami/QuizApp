@@ -5,7 +5,7 @@
 .menu-button{
     -fx-background-color: transparent;
     -fx-text-fill: #FFFFFF;
-    -fx-pref-width: 80;
+    -fx-pref-width: 180;
     -fx-font-size: 20;
 }
 
