@@ -5,14 +5,19 @@ import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.quiz.takeQuiz.TakenQuery;
 import com.example.quizapp.quiz.takeQuiz.TakenQuiz;
 import com.example.quizapp.user.User;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.util.*;
 import java.io.IOException;
 
-public class LeaderboardController {
+public class LeaderboardController extends AnchorPane {
     private final FirebaseTakenQuizRepository takenQuizRepo = new FirebaseTakenQuizRepository();
     private final FirebaseUserRepository userRepo = FirebaseUserRepository.getAuth();
+    @FXML
+    VBox lbBox;
 
     public LeaderboardController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Leaderboard.fxml"));
@@ -30,15 +35,14 @@ public class LeaderboardController {
         java.util.List<User> users = userRepo.getUsers();
 
         List<Map.Entry<String, Integer>> sortedTotalScoresList = getTotalScores(takenQuizList, users);
+        sortedTotalScoresList.sort(Map.Entry.comparingByValue());
+        Collections.reverse(sortedTotalScoresList);
 
-        /* Print out values
-        for (Map.Entry<String, Integer> entry : sortedTotalScoresList) {
-            String username = entry.getKey();
-            int totalScore = entry.getValue();
-            System.out.println(username + ": " + totalScore + " score");
+        for (int i = 0; i < sortedTotalScoresList.size(); i++) {
+            String username = sortedTotalScoresList.get(i).getKey();
+            int totalScore = sortedTotalScoresList.get(i).getValue();
+            lbBox.getChildren().add(new LeaderboardItemController(i+1 , username, totalScore));
         }
-
-         */
 
     }
 

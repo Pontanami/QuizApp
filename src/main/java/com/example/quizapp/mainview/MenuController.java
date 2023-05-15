@@ -1,5 +1,6 @@
 package com.example.quizapp.mainview;
 
+import com.example.quizapp.LeaderboardController;
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.quiz.CreateQuizController;
@@ -18,7 +19,7 @@ import java.io.IOException;
 public class MenuController extends AnchorPane{
 
     @FXML
-    Button ProfileBtn, QuizColBtn, CreateQuizBtn, LogoutBtn;
+    Button ProfileBtn, QuizColBtn, CreateQuizBtn, LogoutBtn, lbBtn;
 
     NavigationStack navigationStack = NavigationStack.getInstance();
 
@@ -47,6 +48,11 @@ public class MenuController extends AnchorPane{
     @FXML
     public void NavigateToCreateQuiz(){
         navigationStack.pushView(new CreateQuizController());
+    }
+
+    @FXML
+    public void NavigateToLeaderboard(){
+        navigationStack.pushView(new LeaderboardController());
     }
 
     @FXML
