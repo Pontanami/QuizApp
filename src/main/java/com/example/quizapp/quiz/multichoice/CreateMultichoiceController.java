@@ -1,13 +1,8 @@
 package com.example.quizapp.quiz.multichoice;
 
-import com.example.quizapp.hints.HalfWordHint;
-import com.example.quizapp.hints.IHint;
-import com.example.quizapp.hints.OneLetterHint;
-import com.example.quizapp.hints.TextHint;
+import com.example.quizapp.hints.*;
 import com.example.quizapp.quiz.ICreateQuestion;
-import com.example.quizapp.quiz.IQuizManager;
 import com.example.quizapp.quiz.IQuizable;
-import com.example.quizapp.hints.EliminateChoiceHint;
 import com.example.quizapp.quiz.InputValidator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -17,12 +12,16 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CreateMultichoiceController extends AnchorPane implements ICreateQuestion<String> {
 
-    private IQuizManager questionManager;
+    private MultiChoiceQuizController questionManager;
     @FXML private TextField questionField;
     @FXML private ComboBox hintDropdown;
     @FXML private TextArea hintArea;
@@ -40,13 +39,17 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
      * @param questionManager the responsible components for all CreateMultiChoice controllers.
      */
     public CreateMultichoiceController(MultiChoiceQuizController questionManager) {
-        setup();
+        setup(questionManager);
         hintDropdown.getSelectionModel().selectFirst();
     }
 
     public CreateMultichoiceController(MultiChoiceQuizController questionManager, MultiChoice question){
-        setup();
-        hintDropdown.getSelectionModel().select(question.getHint().getClass());
+        setup(questionManager);
+        if (question.getHint() != null) {
+            hintDropdown.getSelectionModel().select(question.getHint().getClass().getSimpleName());
+        } else {
+            hintDropdown.getSelectionModel().selectFirst();
+        }
         questionField.setText(question.getQuestion());
         choice1.setText(question.getChoices().get(0));
         choice2.setText(question.getChoices().get(1));
@@ -54,7 +57,7 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
         answerField.setText(question.getAnswer());
     }
 
-    private void setup(){
+    private void setup(MultiChoiceQuizController questionManager) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createMultiChoice.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

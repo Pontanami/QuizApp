@@ -1,5 +1,6 @@
 package com.example.quizapp.quiz.multichoice;
 
+import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.firebase.IQuizRepository;
@@ -8,9 +9,11 @@ import com.example.quizapp.interfaces.IObservable;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.InputValidator;
+import com.example.quizapp.quiz.Quiz;
+import com.example.quizapp.quiz.tags.Subject;
+import com.example.quizapp.quiz.tags.Tag;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -18,17 +21,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import com.example.quizapp.NavigationStack;
-import com.example.quizapp.quiz.*;
-import com.example.quizapp.quiz.tags.Tag;
-
-import com.example.quizapp.quiz.tags.Subject;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class MultiChoiceQuizController extends AnchorPane implements IObserver, IObservable {
+public abstract class MultiChoiceQuizController extends AnchorPane implements IObserver, IObservable {
 
     @FXML
     private AnchorPane parentPane;
@@ -53,16 +49,16 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
 
     @FXML
     private TextField quizName;
-
     private InputValidator validator = new InputValidator();
-    private IQuizRepository quizRepository = new FirebaseQuizRepository();
-    private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+    protected IQuizRepository quizRepository = new FirebaseQuizRepository();
+    protected IUserRepository userRepository = FirebaseUserRepository.getAuth();
     private NavigationStack navigation = NavigationStack.getInstance();
 
     private List<CreateMultichoiceController> questions = new ArrayList<>();
 
     private List<IObserver> observers = new ArrayList<>();
     private Quiz quiz;
+
 
     public MultiChoiceQuizController(Quiz quiz){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createMultiChoiceQuiz.fxml"));
@@ -74,6 +70,7 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
             throw new RuntimeException(exception);
         }
         this.quiz = quiz;
+        quizName.setText(quiz.getName());
         quiz.subscribe(this);
         validator.createValidationTextField(quizName);
         subscribe((IObserver) navigation.getSpecificView(HomeController.class));
@@ -82,16 +79,23 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
         tagBox.setVgap(10);
         appliedTagBox.setSpacing(10);
 
+        for (Subject subject : quiz.getTags()) {
+            Tag tag = new Tag(subject, quiz);
+            appliedTagBox.getChildren().add(tag);
+        }
+
         createTagsInPane();
     }
 
 
+    @FXML
     public void addQuestion(CreateMultichoiceController multichoice){
         questions.add(multichoice);
         updateCreatedQuestions();
     }
 
-    public void removeQuestion(ICreateQuestion<CreateMultichoiceController> multichoice){
+    @FXML
+    public void removeQuestion(CreateMultichoiceController multichoice){
         questions.remove(multichoice);
         updateCreatedQuestions();
     }
@@ -102,7 +106,8 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
     @Override
     public void update(){
         appliedTagBox.getChildren().clear();
-        for (Subject subject : quiz.getTags()){
+
+        for (Subject subject : quiz.getTags()) {
             Tag tag = new Tag(subject, quiz);
             appliedTagBox.getChildren().add(tag);
         }
@@ -141,35 +146,16 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
         return true;
     }
 
-    /**
-     * This method adds all questions to the quiz and pushes the quiz to repository
-     */
-    @FXML
-    private void createQuiz(){
-        initQuizCreation();
-        quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
-        notifySubscribers();
-        navigateToQuizCollection();
-    }
-
-    protected void uploadQuiz(){
-        initQuizCreation();
-        quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
-        notifySubscribers();
-        navigateToQuizCollection();
-    }
-
-
-
-    private void initQuizCreation(){
+    protected void initQuizCreation(){
         quiz.setName(quizName.getText());
-                for (var item : questions) {
-                    var question = item.createQuestion();
-                    quiz.addQuestion(question);
-                }
+        quiz.getQuestions().clear();
+        for (var item : questions) {
+            var question = item.createQuestion();
+            quiz.addQuestion(question);
+        }
     }
 
-    private void navigateToQuizCollection() {
+    protected void navigateToQuizCollection() {
         navigation.popToRoot();
     }
 
@@ -217,4 +203,6 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
         }
     }
 
+    @FXML
+    protected abstract void submitQuiz();
 }

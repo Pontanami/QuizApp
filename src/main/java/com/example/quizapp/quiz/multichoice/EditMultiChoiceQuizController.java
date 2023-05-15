@@ -1,9 +1,7 @@
 package com.example.quizapp.quiz.multichoice;
 
 import com.example.quizapp.NavigationStack;
-import com.example.quizapp.interfaces.IObserver;
-import com.example.quizapp.mainview.HomeController;
-import com.example.quizapp.quiz.IQuizManager;
+import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.quiz.IQuizable;
 import com.example.quizapp.quiz.Quiz;
 import javafx.fxml.FXML;
@@ -17,7 +15,12 @@ public class EditMultiChoiceQuizController extends MultiChoiceQuizController {
         super(quiz);
         this.quiz = quiz;
         addExistingQuestions();
+    }
 
+    @FXML
+    public void addQuestion(){
+        CreateMultichoiceController multichoice = new CreateMultichoiceController(this);
+        addQuestion(multichoice);
     }
 
     private void addExistingQuestions(){
@@ -27,7 +30,11 @@ public class EditMultiChoiceQuizController extends MultiChoiceQuizController {
     }
 
     @Override
-    public void createQuiz(){
-        uploadQuiz();
+    protected void submitQuiz(){
+        initQuizCreation();
+        FirebaseQuizRepository quizRepository = new FirebaseQuizRepository();
+        quizRepository.updateQuiz(quiz);
+        notifySubscribers();
+        navigateToQuizCollection();
     }
 }

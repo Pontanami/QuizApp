@@ -20,6 +20,9 @@ public class QuizThumbnail extends AnchorPane {
     @FXML
     private Text quizName;
 
+    @FXML
+    private AnchorPane rootPane;
+
     NavigationStack navigation = NavigationStack.getInstance();
 
     /**
@@ -38,9 +41,20 @@ public class QuizThumbnail extends AnchorPane {
         }
         this.quiz = quiz;
         quizName.setText(quiz.getName());
-
-
+        if (isMyQuiz()) {
+            fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/editButton.fxml"));
+            EditButton editButton = new EditButton(quiz);
+            fxmlLoader.setController(editButton);
+            fxmlLoader.setRoot(editButton);
+            try {
+                AnchorPane editButton1 = fxmlLoader.load();
+                rootPane.getChildren().add(editButton1);
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
     }
+
 
 
     /**
@@ -54,4 +68,5 @@ public class QuizThumbnail extends AnchorPane {
     public boolean isMyQuiz() {
         return quiz.getCreatedBy().equals(FirebaseUserRepository.getAuth().getCurrentUser().getId());
     }
+
 }

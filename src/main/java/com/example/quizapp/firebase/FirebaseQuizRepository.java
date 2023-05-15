@@ -47,7 +47,22 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         Type listType = new TypeToken<ArrayList<IQuizable<?>>>(){}.getType();
         String json = doc.getString("quiz");
         List<IQuizable<?>> questionList = gson.fromJson(json, listType);
-        quiz = new Quiz((String)doc.get("name"), questionList, (List<Subject>) doc.get("tags"), (String)doc.get("id")
+
+        List<String> tagsStringList = (List<String>) doc.get("tags");
+
+        List<Subject> tags = new ArrayList<>();
+
+        if (tagsStringList != null) {
+            for (String tag : tagsStringList) {
+                try {
+                    tags.add(Subject.valueOf(tag));
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        quiz = new Quiz((String)doc.get("name"), questionList, tags, (String)doc.get("id")
                 , (String)doc.get("createdBy"));
         return quiz;
     }
