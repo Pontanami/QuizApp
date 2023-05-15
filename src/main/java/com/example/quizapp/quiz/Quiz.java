@@ -12,6 +12,7 @@ public class Quiz implements IObservable {
     private List<IQuizable<?>> questions = new ArrayList<>();
     private List<Subject> tags = new ArrayList<>();
     private String id, createdBy;
+    private int totalPoints, totalAttempts;
 
 
 
@@ -36,12 +37,14 @@ public class Quiz implements IObservable {
      * @param id The unique id of this specific quiz
      * @param createdBy The user creating the quiz
      */
-    public Quiz(String name, List<IQuizable<?>> questions, List<Subject> tags, String id, String createdBy){
+    public Quiz(String name, List<IQuizable<?>> questions, List<Subject> tags, String id, String createdBy, int totalPoints, int totalAttempts){
         this.name = name;
         this.questions = questions;
         this.tags = tags;
         this.id = id;
         this.createdBy = createdBy;
+        this.totalPoints = totalPoints;
+        this.totalAttempts = totalAttempts;
     }
 
     /**
@@ -159,5 +162,9 @@ public class Quiz implements IObservable {
     public String getCreatedBy() {
         return createdBy;
     }
+
+    public int getTotalPoints(){return totalPoints;}
+
+    public int getTotalAttempts(){return totalAttempts;}
 
 }

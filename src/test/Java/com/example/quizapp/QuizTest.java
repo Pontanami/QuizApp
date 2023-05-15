@@ -161,7 +161,7 @@ class QuizTest {
             }
         };
 
-        Quiz quiz1 = new Quiz("test name", questions, tags, "UIEFBJHWQNKICQW67271", "user1");
+        Quiz quiz1 = new Quiz("test name", questions, tags, "UIEFBJHWQNKICQW67271", "user1", 0, 0);
         Assertions.assertEquals("test name", quiz1.getName());
         quiz1.setName("this is a test name");
         Assertions.assertEquals("this is a test name", quiz1.getName());

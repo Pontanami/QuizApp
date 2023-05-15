@@ -2,6 +2,7 @@ package com.example.quizapp.quiz.takeQuiz;
 
 import com.example.quizapp.HelloApplication;
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
 import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.interfaces.IObservable;
@@ -229,11 +230,13 @@ public class TakeQuizController extends AnchorPane implements IObservable {
      */
     public void finish(){
         FirebaseTakenQuizRepository qr = new FirebaseTakenQuizRepository();
+        FirebaseQuizRepository quizRepo = new FirebaseQuizRepository();
+        quizRepo.updateQuizPoints(quiz, quizAttempt.getPoints());
         User currentuser = FirebaseUserRepository.getAuth().getCurrentUser();
         qr.uploadTakenQuiz(quizAttempt.getQuiz().getId(), currentuser.getId(), quizAttempt.getPoints());
         notifySubscribers();
        navigationStack.pushView(new QuizResultController(takenQuiz, quizAttempt.getPoints(),
-                quizAttempt.getQuiz().getQuestions().size()));
+                quizAttempt.getQuiz().getQuestions().size(), quiz.getId()));
         navigationStack.removeView(this);
     }
 
