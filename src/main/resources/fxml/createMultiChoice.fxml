@@ -9,29 +9,29 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="1.7976931348623157E308" prefHeight="133.0" prefWidth="812.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" prefHeight="133.0" prefWidth="812.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="questionField" layoutX="10.0" layoutY="5.0" prefHeight="63.0" prefWidth="262.0" promptText="Enter question" stylesheets="@../css/validationStyle.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="540.0">
+      <TextField fx:id="questionField" layoutX="3.0" layoutY="5.0" prefHeight="63.0" prefWidth="269.0" promptText="Enter question" stylesheets="@../css/validationStyle.css" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="540.0">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <Text layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Question" wrappingWidth="180.1324806213379" AnchorPane.leftAnchor="10.0">
+      <Text layoutX="4.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Question" wrappingWidth="180.1324806213379" AnchorPane.leftAnchor="4.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="747.0" mnemonicParsing="false" onAction="#removeQuestion" prefHeight="63.0" prefWidth="65.0" styleClass="close" text="X" textFill="WHITE" AnchorPane.rightAnchor="0.0">
+      <Button layoutX="747.0" layoutY="5.0" mnemonicParsing="false" onAction="#removeQuestion" prefHeight="63.0" prefWidth="65.0" styleClass="close" text="X" textFill="WHITE" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Button>
-      <ComboBox fx:id="hintDropdown" layoutX="608.0" layoutY="1.0" prefHeight="63.0" prefWidth="137.0" promptText="CHOOSE HINT" AnchorPane.rightAnchor="67.0" />
-      <TextField fx:id="choice1" layoutX="289.0" layoutY="7.0" promptText="Choice 1" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="374.0" />
-      <TextField fx:id="choice2" layoutX="445.0" layoutY="7.0" promptText="Choice 2" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="218.0" />
-      <TextField fx:id="choice3" layoutX="289.0" layoutY="42.0" promptText="Choice 3" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="374.0" />
-      <TextField fx:id="answerField" layoutX="444.0" layoutY="42.0" prefWidth="150.0" promptText="CorrectAnswer" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="218.0" />
-      <Text layoutX="290.1324806213379" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Choices" wrappingWidth="180.1324806213379" AnchorPane.rightAnchor="341.7350387573242">
+      <ComboBox fx:id="hintDropdown" layoutX="608.0" layoutY="5.0" prefHeight="61.0" prefWidth="138.0" promptText="CHOOSE HINT" AnchorPane.rightAnchor="67.0" />
+      <TextField fx:id="choice1" layoutX="285.0" layoutY="5.0" promptText="Choice 1" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="374.2" />
+      <TextField fx:id="choice2" layoutX="441.0" layoutY="5.0" promptText="Choice 2" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="218.20000000000005" />
+      <TextField fx:id="choice3" layoutX="285.0" layoutY="38.0" promptText="Choice 3" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="374.2" />
+      <TextField fx:id="answerField" layoutX="444.0" layoutY="38.0" promptText="CorrectAnswer" stylesheets="@../css/validationStyle.css" AnchorPane.rightAnchor="218.20000000000005" />
+      <Text layoutX="290.1324806213379" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Choices" wrappingWidth="180.1324806213379" AnchorPane.rightAnchor="346.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -54,8 +54,6 @@ public class HomeController extends AnchorPane implements IObserver {
             throw new RuntimeException(exception);
         }
         populateMyRecentQuizzes();
-        myQuizFlow.setHgap(10);
-        myQuizFlow.setVgap(10);
         populateMyQuizzes();
     }
 

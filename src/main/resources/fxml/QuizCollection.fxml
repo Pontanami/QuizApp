@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<fx:root fx:id="rootPane" maxHeight="1000.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="800.0" styleClass="body" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="850.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="850.0" styleClass="body" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <CheckComboBox fx:id="tagsCheckComboBox" layoutX="573.0" layoutY="68.0" prefHeight="45.0" prefWidth="132.0" showCheckedCount="true" title="Tags" />
       <Text layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quiz Collection">
@@ -23,9 +23,9 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <ScrollPane fx:id="quizScrollpane" hbarPolicy="NEVER" layoutY="137.0" prefHeight="381.0" prefWidth="800.0">
+      <ScrollPane fx:id="quizScrollpane" hbarPolicy="NEVER" layoutY="123.0" maxHeight="520.0" prefWidth="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="123.0">
          <content>
-            <FlowPane fx:id="quizFlowpane" prefHeight="381.0" prefWidth="800.0" styleClass="flow" />
+            <FlowPane fx:id="quizFlowpane" hgap="10.0" prefWidth="850.0" styleClass="flow" vgap="10.0" />
          </content>
       </ScrollPane>
       <Button layoutX="729.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchQuizzes" prefHeight="45.0" prefWidth="71.0" text="Search" />
