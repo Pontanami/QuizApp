@@ -1,5 +1,6 @@
 package com.example.quizapp.quiz;
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.firebase.FirebaseUserRepository;
 import com.example.quizapp.quiz.takeQuiz.TakeQuizController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,8 @@ public class QuizThumbnail extends AnchorPane {
         }
         this.quiz = quiz;
         quizName.setText(quiz.getName());
+
+
     }
 
 
@@ -46,5 +49,9 @@ public class QuizThumbnail extends AnchorPane {
     @FXML
     public void navigateToQuiz() {
         navigation.pushView(new TakeQuizController(quiz));
+    }
+
+    public boolean isMyQuiz() {
+        return quiz.getCreatedBy().equals(FirebaseUserRepository.getAuth().getCurrentUser().getId());
     }
 }

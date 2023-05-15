@@ -39,7 +39,22 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
      * Creates a CreateMultiChoice object with a question manager.
      * @param questionManager the responsible components for all CreateMultiChoice controllers.
      */
-    public CreateMultichoiceController(IQuizManager questionManager) {
+    public CreateMultichoiceController(MultiChoiceQuizController questionManager) {
+        setup();
+        hintDropdown.getSelectionModel().selectFirst();
+    }
+
+    public CreateMultichoiceController(MultiChoiceQuizController questionManager, MultiChoice question){
+        setup();
+        hintDropdown.getSelectionModel().select(question.getHint().getClass());
+        questionField.setText(question.getQuestion());
+        choice1.setText(question.getChoices().get(0));
+        choice2.setText(question.getChoices().get(1));
+        choice3.setText(question.getChoices().get(2));
+        answerField.setText(question.getAnswer());
+    }
+
+    private void setup(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createMultiChoice.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -56,7 +71,6 @@ public class CreateMultichoiceController extends AnchorPane implements ICreateQu
                 "No Hint",
                 EliminateChoiceHint.class.getSimpleName())
         );
-        hintDropdown.getSelectionModel().selectFirst();
 
         hintDropdown.valueProperty().addListener((obs, oldVal, newVal) -> {
             chosenHint = (String) newVal;

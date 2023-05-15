@@ -1,5 +1,7 @@
 package com.example.quizapp.quiz.multichoice;
 
+import com.example.quizapp.interfaces.IObservable;
+import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.quiz.takeQuiz.IAnswerable;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -8,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +20,7 @@ import java.util.Objects;
  * Method initializeData(MultiChoice ques) must be called with an instance of MultiChoice
  * @see MultiChoiceController#initializeData(MultiChoice)
  */
-public class MultiChoiceController implements IAnswerable {
+public class MultiChoiceController implements IAnswerable, IObservable {
     @FXML private Label multiQuestion;
     @FXML private RadioButton choice1, choice2, choice3, choice4;
     @FXML private Pane quizPane;
@@ -26,6 +29,7 @@ public class MultiChoiceController implements IAnswerable {
     private MultiChoice ques;
     private List<String> choiceAnswers;
     private String givenAnswer;
+    private List<IObserver> observers = new ArrayList<>();
 
     /**
      * Initialize the values for the current object with the specified MultiChoice instance
@@ -129,4 +133,21 @@ public class MultiChoiceController implements IAnswerable {
         return givenAnswer;
     }
 
+
+    @Override
+    public void subscribe(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unsubscribe(IObserver observer) {
+        observers.remove((IObserver) observer);
+    }
+
+    @Override
+    public void notifySubscribers() {
+        for (IObserver observer : observers){
+            observer.update();
+        }
+    }
 }
