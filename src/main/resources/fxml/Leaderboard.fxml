@@ -10,19 +10,19 @@
    <children>
       <AnchorPane maxHeight="1000.0" maxWidth="1000.0" prefHeight="1000.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ScrollPane hbarPolicy="NEVER" layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0">
+            <ScrollPane hbarPolicy="NEVER" layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0">
                <content>
-                  <VBox fx:id="lbBox" prefHeight="544.0" prefWidth="1060.0" />
+                  <VBox fx:id="lbBox" prefHeight="642.0" prefWidth="1060.0" />
                </content>
             </ScrollPane>
-            <Text layoutX="47.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Leaderboard" AnchorPane.bottomAnchor="701.2998046875" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="734.0263671875" AnchorPane.topAnchor="32.8076171875">
+            <Text layoutX="390.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);" text="Leaderboard" AnchorPane.bottomAnchor="934.2998046875" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="391.0263671875" AnchorPane.topAnchor="-0.1923828125">
                <font>
                   <Font size="53.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="154.0" maxHeight="50.0" maxWidth="1000.0" prefHeight="50.0" prefWidth="1000.0" styleClass="header" AnchorPane.bottomAnchor="750.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+      <AnchorPane layoutY="154.0" maxHeight="50.0" maxWidth="1000.0" prefHeight="50.0" prefWidth="1000.0" styleClass="header" AnchorPane.bottomAnchor="850.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
             <Text layoutX="269.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: linear-gradient(to bottom, rgba(133, 53, 208, 1) 48%, rgba(76, 20, 139, 1) 94%);" text="Position" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="950.0" AnchorPane.topAnchor="12.0">
                <font>

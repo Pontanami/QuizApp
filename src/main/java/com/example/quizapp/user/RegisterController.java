@@ -23,7 +23,7 @@ public class RegisterController extends AnchorPane{
     @FXML
     TextField nameField;
     @FXML
-    Button registerBtn;
+    Button registerBtn, backBtn;
 
     NavigationStack navigationStack = NavigationStack.getInstance();
 
@@ -63,5 +63,8 @@ public class RegisterController extends AnchorPane{
     private void navigateToLogin(){
         navigationStack.popView();
     }
+
+    @FXML
+    private void goBack(){navigationStack.popView();}
 }
 
