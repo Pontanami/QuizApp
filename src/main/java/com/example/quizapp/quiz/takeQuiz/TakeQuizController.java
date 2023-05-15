@@ -20,18 +20,23 @@ import com.example.quizapp.user.User;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.javatuples.Triplet;
 
@@ -48,6 +53,8 @@ public class TakeQuizController extends AnchorPane implements IObservable {
     @FXML private Button quizNext;
     @FXML private Button quizPrevious;
     @FXML private Label quizPoints;
+    @FXML private ImageView correct;
+    @FXML private ImageView wrong;
 
     private final HashMap<String, AnchorPane> previousNodes = new HashMap<>();
     private final List<String> answeredQuestions = new ArrayList<>();
@@ -123,17 +130,21 @@ public class TakeQuizController extends AnchorPane implements IObservable {
     private void retrieveQuestion() {
         quizHolder.setCenter(previousNodes.get(quizAttempt.getCurrentQuestion().getQuestion()));
     }
+
+    @FXML
+    private void showButtons(){
+        if (isFlashCardQuiz()){
+            wrong.setVisible(true);
+            correct.setVisible(true);
+        }
+    }
+
     /**
      * Calls the showHint() method from a controller of the type {@link IAnswerable}.
      * @see IAnswerable#showHint()
      */
     public void showHint(){
-        if (quizAnswer.isDisabled()){
-            quizHint.setDisable(true);
-        } else {
-            specificController.showHint();
-            quizHint.setDisable(true);
-        }
+        specificController.showHint();
     }
 
     /**
@@ -141,6 +152,49 @@ public class TakeQuizController extends AnchorPane implements IObservable {
      * according to the response of the controller. Disables answer and hint buttons.
      * @see IAnswerable#revealAnswer()
      */
+    public void disablePointButtons(){
+        correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like_disabled.png"))));
+        wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike_disabled.png"))));
+        quizHint.setDisable(true);
+        answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
+    }
+
+    @FXML
+    private void correctAnswer(){
+
+        if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
+            quizAttempt.addPoint();
+            quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
+            takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), (String)quizAttempt.getCurrentQuestion().getAnswer(),
+                    (String)quizAttempt.getCurrentQuestion().getAnswer());
+            disablePointButtons();
+        }
+    }
+
+    @FXML
+    private void wrongAnswer(){
+        if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
+            takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), "Not correct answer",
+                    "Correct Answer");
+        }
+        disablePointButtons();
+    }
+
+    private void isAnswered(){
+        if(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())){
+            correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like_disabled.png"))));
+            wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike_disabled.png"))));
+        }
+        else{
+            correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like.png"))));
+            wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike.png"))));
+            wrong.setVisible(false);
+            correct.setVisible(false);
+        }
+
+        quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
+    }
+
     public void showAnswer(){
         if (specificController.revealAnswer()){
             quizAttempt.addPoint();
@@ -153,10 +207,6 @@ public class TakeQuizController extends AnchorPane implements IObservable {
 
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
         increaseProgress();
-    }
-
-    private void isAnswered(){
-        quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
     }
 
     /**
@@ -189,11 +239,15 @@ public class TakeQuizController extends AnchorPane implements IObservable {
                 if (isMultiChoiceQuiz()) {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
                     pane = fxmlLoader.load();
-
+                    wrong.setVisible(false);
+                    correct.setVisible(false);
                     MultiChoiceController controller = fxmlLoader.getController();
                     controller.initializeData((MultiChoice) quizAttempt.getCurrentQuestion());
                     specificController = controller;
                 } else if (isFlashCardQuiz()) {
+                    quizAnswer.setVisible(false);
+                    wrong.setVisible(false);
+                    correct.setVisible(false);
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("FlashCard.fxml"));
                     pane = fxmlLoader.load();
 
@@ -254,7 +308,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
     public void notifySubscribers() {
         for (IObserver observer : observers)
             observer.update();
-        
+
     }
     private void questionIndexController(Character c){
         if (c.equals('n')){

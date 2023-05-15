@@ -54,6 +54,7 @@ public class QuizCollection extends AnchorPane implements Initializable {
             populateQuizResults();
         }
 
+
         @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
             quizFlowpane.setHgap(10);
@@ -83,11 +84,18 @@ public class QuizCollection extends AnchorPane implements Initializable {
             populateQuizResults();
         }
 
+        /**
+         * Returns all quizzes from the database
+         * @return a list of all quizzes
+         */
         private List<Quiz> getAllQuizzes () {
             QuizQuery.QuizQueryBuilder emptyQuery = new QuizQuery.QuizQueryBuilder();
             return QuizSearch.search(firebaseQuizRepository.getQuiz(emptyQuery), "");
         }
 
+        /**
+         * Populates the collection with {@link QuizThumbnail} objects
+         */
         private void populateQuizResults () {
             quizFlowpane.getChildren().clear();
             for (Quiz quiz : quizList) {

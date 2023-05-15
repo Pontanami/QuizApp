@@ -61,10 +61,17 @@ public class QuizAttempt {
         return getCurrentQuestion();
     }
 
+    /**
+     * Returns true if the amount of questions in the quiz is less than 2
+     * @return
+     */
     private boolean isInvalidQuestionsSize(){
-        return getQuestions().size() == 1 || getQuestions().size() == 0;
+        return getQuestions().size() < 2;
     }
 
+    /**
+     * @return The list of all {@link IQuizable} questions
+     */
     private List<IQuizable<?>> getQuestions(){
         return quiz.getQuestions();
     }
@@ -83,11 +90,17 @@ public class QuizAttempt {
         return points;
     }
 
+    /**
+     * @return The index of the current question
+     */
     public int getCurrentQuestionIndex() {
         return currentQuestionIndex;
     }
 
+    /**
+     * Returns true if the current question is the last question in the quiz
+     */
     public boolean isQuizFinished(){
-        return currentQuestionIndex >= quiz.getQuestions().size()-1;
+        return currentQuestionIndex == quiz.getQuestions().size()-1;
     }
 }
