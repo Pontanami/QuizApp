@@ -26,7 +26,7 @@ public class QuizResultController extends AnchorPane {
     @FXML Label percentLabel;
     @FXML ScrollPane resultPane;
     @FXML VBox container;
-    @FXML Text quizMean;
+    @FXML Label quizMean;
 
     private final Triplet<String, String, String>[] takenQuiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
@@ -52,7 +52,6 @@ public class QuizResultController extends AnchorPane {
 
         this.takenQuiz = takenQuiz;
 
-        resultPane.setPannable(true);
         resultPane.setFitToWidth(true);
         totalPoints(points, fullScore);
         allQuestions();
@@ -102,6 +101,10 @@ public class QuizResultController extends AnchorPane {
 
     private void style(String answer, VBox holder, Label q, Label ans, int number){
         String correctAnswer = takenQuiz[number].getValue2();
+        holder.setMinWidth(100);
+        holder.setMaxWidth(10000);
+        holder.setPrefWidth(USE_COMPUTED_SIZE);
+        holder.setMaxHeight(200);
 
         if (answer != null && answer.equals(correctAnswer) && !correctAnswer.equals("")){
             q.setId("correctQ");
