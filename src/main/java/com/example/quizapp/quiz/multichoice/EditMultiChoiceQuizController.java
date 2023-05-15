@@ -28,6 +28,6 @@ public class EditMultiChoiceQuizController extends MultiChoiceQuizController {
 
     @Override
     public void createQuiz(){
-
+        uploadQuiz();
     }
 }

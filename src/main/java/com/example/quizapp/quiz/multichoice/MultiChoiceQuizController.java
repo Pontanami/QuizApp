@@ -146,14 +146,27 @@ public class MultiChoiceQuizController extends AnchorPane implements IObserver, 
      */
     @FXML
     private void createQuiz(){
-        quiz.setName(quizName.getText());
-        for (var item : questions) {
-            var question = item.createQuestion();
-            quiz.addQuestion(question);
-        }
+        initQuizCreation();
         quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
         notifySubscribers();
         navigateToQuizCollection();
+    }
+
+    protected void uploadQuiz(){
+        initQuizCreation();
+        quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
+        notifySubscribers();
+        navigateToQuizCollection();
+    }
+
+
+
+    private void initQuizCreation(){
+        quiz.setName(quizName.getText());
+                for (var item : questions) {
+                    var question = item.createQuestion();
+                    quiz.addQuestion(question);
+                }
     }
 
     private void navigateToQuizCollection() {

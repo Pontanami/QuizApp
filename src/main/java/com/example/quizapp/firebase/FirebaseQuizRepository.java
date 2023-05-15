@@ -126,6 +126,15 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         }
     }
 
+    public void updateQuiz(Quiz quiz){
+        String json = gson.toJson(quiz.getQuestions(), new TypeToken<List<IQuizable<?>>>() {}.getType());
+        Map<String, Object> data = new HashMap<>();
+        data.put("quiz", json);
+        data.put("name", quiz.getName());
+        data.put("tags", quiz.getTags());
+        patchDataToDb(data, colref, quiz.getId());
+    }
+
     /**
      * Method for removing a quiz from the database
      * @param id the id of the quiz we want to remove
