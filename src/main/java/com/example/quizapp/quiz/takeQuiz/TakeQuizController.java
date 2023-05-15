@@ -11,6 +11,7 @@ import com.example.quizapp.quiz.multichoice.MultiChoiceController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -22,14 +23,16 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Represents the controller of one quiz that holds questions of either {@link Flashcard} or {@link MultiChoice} type.
  */
-public class TakeQuizController extends AnchorPane{
+public class TakeQuizController extends AnchorPane {
     @FXML private Label quizName;
     @FXML private Button quizAnswer;
     @FXML private Button quizHint;
@@ -106,6 +109,15 @@ public class TakeQuizController extends AnchorPane{
     private void retrieveQuestion() {
         quizHolder.setCenter(previousNodes.get(quizAttempt.getCurrentQuestion().getQuestion()));
     }
+
+    @FXML
+    private void showButtons(){
+        if (isFlashCardQuiz()){
+            wrong.setVisible(true);
+            correct.setVisible(true);
+        }
+    }
+
     /**
      * Calls the showHint() method from a controller of the type {@link IAnswerable}.
      * @see IAnswerable#showHint()
@@ -156,6 +168,8 @@ public class TakeQuizController extends AnchorPane{
         else{
             correct.setImage(new Image(String.valueOf(getClass().getResource("/img/like.png"))));
             wrong.setImage(new Image(String.valueOf(getClass().getResource("/img/like_dislike.png"))));
+            wrong.setVisible(false);
+            correct.setVisible(false);
         }
 
         quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
@@ -187,14 +201,6 @@ public class TakeQuizController extends AnchorPane{
         return quizAttempt.getQuiz().getQuestions().get(0) instanceof MultiChoice;
     }
 
-    @FXML
-    private void showButtons(){
-        if (isFlashCardQuiz()){
-            wrong.setVisible(true);
-            correct.setVisible(true);
-        }
-    }
-
     private void showQuestion() {
         switchNextAndFinishBtn();
         if (answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())){
@@ -205,11 +211,10 @@ public class TakeQuizController extends AnchorPane{
             AnchorPane pane = new AnchorPane();
             try {
                 if (isMultiChoiceQuiz()) {
-                    wrong.setVisible(false);
-                    correct.setVisible(false);
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("multiChoice.fxml"));
                     pane = fxmlLoader.load();
-
+                    wrong.setVisible(false);
+                    correct.setVisible(false);
                     MultiChoiceController controller = fxmlLoader.getController();
                     controller.initializeData((MultiChoice) quizAttempt.getCurrentQuestion());
                     specificController = controller;
@@ -256,4 +261,5 @@ public class TakeQuizController extends AnchorPane{
         navigationStack.popView();
         navigationStack.popView();
     }
+
 }
