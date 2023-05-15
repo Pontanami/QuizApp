@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="mainPane" maxWidth="1000.0" minWidth="200.0" prefHeight="761.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="mainPane" maxWidth="1000.0" minWidth="200.0" prefHeight="761.0" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="quizName" layoutX="14.0" layoutY="15.0" prefHeight="74.0" prefWidth="763.0" text="Name" AnchorPane.leftAnchor="14.0">
          <font>
@@ -19,7 +19,7 @@
          </font>
       </Label>
       <ProgressBar fx:id="quizProgress" layoutX="15.0" layoutY="131.0" prefHeight="43.0" prefWidth="1130.0" progress="0.0" stylesheets="@../css/takenQuiz.css" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
-      <BorderPane fx:id="quizHolder" layoutX="17.0" layoutY="227.0" minWidth="100.0" prefHeight="343.0" onMouseClicked="#showButtons" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <BorderPane fx:id="quizHolder" layoutX="17.0" layoutY="227.0" minWidth="100.0" onMouseClicked="#showButtons" prefHeight="343.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
       <Button fx:id="quizPrevious" layoutX="14.0" layoutY="692.0" mnemonicParsing="false" onAction="#showPrevious" prefHeight="65.0" prefWidth="235.0" text="Previous" textFill="#fffdfd" AnchorPane.leftAnchor="4.0">
          <font>
             <Font name="Arial Bold" size="24.0" />
@@ -50,12 +50,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fx:id="wrong" fitHeight="65.0" fitWidth="65.0" layoutX="829.0" layoutY="768.0" onMouseClicked="#wrongAnswer" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="840.0" AnchorPane.topAnchor="770.0">
+      <ImageView fx:id="wrong" fitHeight="65.0" fitWidth="65.0" layoutX="363.0" layoutY="682.0" onMouseClicked="#wrongAnswer" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="363.0" AnchorPane.topAnchor="682.0">
          <image>
             <Image url="@../img/like_dislike.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="correct" fitHeight="65.0" fitWidth="65.0" layoutX="998.0" layoutY="768.0" onMouseClicked="#correctAnswer" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="correct" fitHeight="65.0" fitWidth="65.0" layoutX="540.0" layoutY="682.0" onMouseClicked="#correctAnswer" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/like.png" />
          </image>

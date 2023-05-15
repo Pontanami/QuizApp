@@ -164,13 +164,18 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
             quizAttempt.addPoint();
             quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
-
+            takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), (String)quizAttempt.getCurrentQuestion().getAnswer(),
+                    (String)quizAttempt.getCurrentQuestion().getAnswer());
             disablePointButtons();
         }
     }
 
     @FXML
     private void wrongAnswer(){
+        if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
+            takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), "Not correct answer",
+                    "Correct Answer");
+        }
         disablePointButtons();
     }
 
@@ -201,10 +206,6 @@ public class TakeQuizController extends AnchorPane implements IObservable {
 
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
         increaseProgress();
-    }
-
-    private void isAnswered(){
-        quizAnswer.setDisable(answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion()));
     }
 
     /**
