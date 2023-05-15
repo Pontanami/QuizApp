@@ -1,0 +1,18 @@
+TextField, PasswordField {
+    -fx-border-width: 2px;
+    -fx-border-color: linear-gradient(to bottom, rgba(133,53,208,1) 48%, rgba(76,20,139,1) 94%);
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+AnchorPane {
+    -fx-background-color: #FFFFFF;
+}
+
+.scroll-bar .thumb{
+    -fx-background-color: linear-gradient(to bottom, rgba(133, 53, 208, 1) 48%, rgba(76, 20, 139, 1) 94%);
+    /*
+    -fx-background-color: #EEEEEE;
+    */
+    -fx-background-radius: 5em;
+}

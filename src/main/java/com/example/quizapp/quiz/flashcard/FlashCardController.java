@@ -27,6 +27,7 @@ public class FlashCardController implements IAnswerable {
     private int textIndex = 0;
     private final String[] termDef = new String[]{"no question to show", "no answer to show"};
     private Flashcard card;
+    private String answer;
 
     /**
      * Initialize the values for the current object with the specified FlashCard instance
@@ -63,9 +64,9 @@ public class FlashCardController implements IAnswerable {
     public void showHint() {
         Alert a;
         if (card.getWordHint() != null) {
-            String[] hintName = card.getWordHint().getClass().getName().split("\\.");
+            String hintName = card.getWordHint().getClass().getSimpleName();
             a = new Alert(Alert.AlertType.INFORMATION);
-            a.setHeaderText("Hint type: " + hintName[hintName.length - 1]);
+            a.setHeaderText("Hint type: " + hintName);
         } else {
             a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Hint type: " + "MISSING");
@@ -102,6 +103,7 @@ public class FlashCardController implements IAnswerable {
     @Override
     public boolean revealAnswer(){
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.NO, ButtonType.YES);
+        answer = card.getAnswer();
         a.setHeaderText("The answer is " + card.getAnswer() + ". Were you right?");
         a.setTitle("Answer");
 
@@ -110,6 +112,11 @@ public class FlashCardController implements IAnswerable {
         Optional<ButtonType> result = a.showAndWait();
         parentPane.setOpacity(1);
 
-        return result.get() == ButtonType.YES;
+        return result.isPresent() && result.get() == ButtonType.YES;
+    }
+
+    @Override
+    public String usersAnswer() {
+        return answer;
     }
 }

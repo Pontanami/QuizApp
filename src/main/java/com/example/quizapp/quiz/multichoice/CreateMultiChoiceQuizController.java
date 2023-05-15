@@ -1,7 +1,9 @@
 package com.example.quizapp.quiz.multichoice;
 
 
+import com.example.quizapp.quiz.InputValidator;
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.interfaces.IObservable;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.*;
 import com.example.quizapp.quiz.tags.Tag;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CreateMultiChoiceQuizController extends AnchorPane implements IQuizManager<CreateMultichoiceController>, Initializable, IObserver {
+public class CreateMultiChoiceQuizController extends AnchorPane implements IQuizManager<CreateMultichoiceController>, Initializable, IObserver, IObservable {
     private AnchorPane rootpane;
 
     @FXML
@@ -63,6 +65,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
 
     private InputValidator validator = new InputValidator();
 
+    private List<IObserver> observers = new ArrayList<>();
 
     /**
      * Creates a CreateMultiChoiceQuiz
@@ -78,6 +81,7 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
         }
         quiz.subscribe(this);
         validator.createValidationTextField(quizName);
+        subscribe((IObserver) navigation.getSpecificView(HomeController.class));
     }
 
     /**
@@ -157,15 +161,13 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
             var question = item.createQuestion();
             quiz.addQuestion(question);
         }
-
-        //TODO remove line below
-        userRepository.loginUser("test", "test");
         quizRepository.uploadQuiz(quiz, userRepository.getCurrentUser());
+        notifySubscribers();
         navigateToQuizCollection();
     }
 
     private void navigateToQuizCollection() {
-        navigation.pushView(new HomeController());
+        navigation.popToRoot();
     }
 
     /**
@@ -206,6 +208,23 @@ public class CreateMultiChoiceQuizController extends AnchorPane implements IQuiz
         for (Subject subject : Subject.values()){
             if (!quiz.getTags().contains(subject))
                 tagBox.getChildren().add(new Tag(subject, quiz));
+        }
+    }
+
+    @Override
+    public void subscribe(IObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unsubscribe(IObserver observer) {
+        observers.remove((IObserver) observer);
+    }
+
+    @Override
+    public void notifySubscribers() {
+        for (IObserver observer : observers){
+            observer.update();
         }
     }
 }

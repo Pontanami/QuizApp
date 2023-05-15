@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IQuizRepository {
     List<Quiz> getQuiz(QuizQuery.QuizQueryBuilder query);
+    Quiz getSingleQuiz(QuizQuery.QuizQueryBuilder query);
     void uploadQuiz(Quiz quiz, User currentUser);
     void removeQuiz(String id);
 }
