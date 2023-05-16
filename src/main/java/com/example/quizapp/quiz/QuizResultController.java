@@ -114,7 +114,6 @@ public class QuizResultController extends AnchorPane {
     }
 
     private void style(String answer, VBox holder, Label q, Label ans, int number){
-
         holder.setMinWidth(100);
         holder.setMaxWidth(10000);
         holder.setPrefWidth(USE_COMPUTED_SIZE);
@@ -150,6 +149,9 @@ public class QuizResultController extends AnchorPane {
         navigationStack.removeView(this);
     }
 
+    /**
+     * Navigates to take quiz screen with the new retake quiz
+     */
     public void retake(){
         navigationStack.pushView(new TakeQuizController(retakeQuiz));
         navigationStack.removeView(this);

@@ -63,7 +63,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
     private final QuizAttempt quizAttempt;
     private final Quiz quiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
-    private List<IObserver> observers = new ArrayList<>();
+    private final List<IObserver> observers = new ArrayList<>();
     private final String[] takenQuizAnswers;
     private int questionIndex = 0;
 
