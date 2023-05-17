@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root prefHeight="120.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@../css/leaderboardItem.css" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="2.0" layoutY="2.0" prefHeight="131.0" prefWidth="1060.0" stylesheets="@../css/leaderboardItem.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fx:id="posText" strokeType="OUTSIDE" strokeWidth="0.0" text="Pos" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="pointText" strokeType="OUTSIDE" strokeWidth="0.0" text="Points" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="722.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>

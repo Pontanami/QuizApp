@@ -45,6 +45,10 @@ public class LoginController extends AnchorPane {
     /**
      * Represents the user login view. Loads the correct fxml file using {@link FXMLLoader}
      */
+
+    /**
+     * Constructor for the login screen
+     */
     public LoginController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setRoot(this);

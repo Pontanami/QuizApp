@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MyProfileController extends AnchorPane implements Initializable {
+public class MyProfileController extends AnchorPane {
     FirebaseUserRepository ur = FirebaseUserRepository.getAuth();
 
     User currentUser = ur.getCurrentUser();
@@ -39,11 +39,16 @@ public class MyProfileController extends AnchorPane implements Initializable {
 
 
     /**
-     * Represents the profile pag view. Loads the correct fxml file using {@link FXMLLoader}.
+     * Represents the profile page view. Loads the correct fxml file using {@link FXMLLoader}.
      */
 
     NavigationStack navigationStack = NavigationStack.getInstance();
 
+    /**
+     * Constructor for the profile page
+     * Sets the name and email fields to the current user's name and email
+     * Sets up the validator for the text fields
+     */
     public MyProfileController(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/my_profile.fxml"));
         fxmlLoader.setRoot(this);
@@ -61,15 +66,18 @@ public class MyProfileController extends AnchorPane implements Initializable {
         validator.createValidationTextFieldValidStart(emailField);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
 
+    /**
+     * Signs out the user by navigating to the login page
+     */
     @FXML
     private void signOut(){
        navigateToLogin();
     }
 
+    /**
+     * Updates the user's profile if the fields are valid and the user has changed their details
+     */
     @FXML
     private void updateProfile(){
         boolean isValid = validator.validFields();
@@ -88,6 +96,10 @@ public class MyProfileController extends AnchorPane implements Initializable {
         }
     }
 
+    /**
+     * Checks if the user has changed their details
+     * @return true if the user has changed their details, false otherwise
+     */
     private boolean userDetailsChanged(){
         boolean changedName = !currentUser.getName().equals(nameField.getText());
         boolean changedEmail = !currentUser.getEmail().equals(emailField.getText());
@@ -96,12 +108,18 @@ public class MyProfileController extends AnchorPane implements Initializable {
         return changedName || changedEmail || changedPw;
     }
 
+    /**
+     * Navigates to the login page
+     */
     @FXML
     private void navigateToLogin(){
         navigationStack.clearAll();
         navigationStack.pushView(new LoginController());
     }
 
+    /**
+     * Enables the user to edit their profile
+     */
     @FXML
     private void enableEdit(){
         editBtn.setVisible(false);
