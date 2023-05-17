@@ -13,12 +13,19 @@ import javafx.scene.layout.VBox;
 import java.util.*;
 import java.io.IOException;
 
+/**
+ * Controller for the leaderboard page
+ */
 public class LeaderboardController extends AnchorPane {
     private final FirebaseTakenQuizRepository takenQuizRepo = new FirebaseTakenQuizRepository();
     private final FirebaseUserRepository userRepo = FirebaseUserRepository.getAuth();
     @FXML
     VBox lbBox;
 
+    /**
+     * Constructor for the leaderboard page
+     * Loads all leaderboard items and sorts them
+     */
     public LeaderboardController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Leaderboard.fxml"));
         fxmlLoader.setRoot(this);

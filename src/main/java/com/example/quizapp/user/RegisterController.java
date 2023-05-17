@@ -44,7 +44,9 @@ public class RegisterController extends AnchorPane{
         }
     }
 
-
+    /**
+     * Registers a new user with the given name, email and password
+     */
     @FXML
     private void register(){
         String name = nameField.getText();
@@ -59,11 +61,17 @@ public class RegisterController extends AnchorPane{
         }
     }
 
+    /**
+     * Navigates back to the login page
+     */
     @FXML
     private void navigateToLogin(){
         navigationStack.popView();
     }
 
+    /**
+     * Navigates back to the previous page
+     */
     @FXML
     private void goBack(){navigationStack.popView();}
 }
