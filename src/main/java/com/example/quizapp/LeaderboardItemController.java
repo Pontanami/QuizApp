@@ -11,6 +11,13 @@ public class LeaderboardItemController extends AnchorPane {
 
     @FXML
     Text posText, nameText, pointText;
+
+    /**
+     * Constructor for the leaderboard item
+     * @param pos the position of the user
+     * @param name the name of the user
+     * @param points the points of the user
+     */
     public LeaderboardItemController(int pos, String name, int points) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LeaderboardItem.fxml"));
         fxmlLoader.setRoot(this);

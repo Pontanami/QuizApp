@@ -13,12 +13,19 @@ import javafx.scene.layout.VBox;
 import java.util.*;
 import java.io.IOException;
 
+/**
+ * Controller for the leaderboard page
+ */
 public class LeaderboardController extends AnchorPane {
     private final FirebaseTakenQuizRepository takenQuizRepo = new FirebaseTakenQuizRepository();
     private final FirebaseUserRepository userRepo = FirebaseUserRepository.getAuth();
     @FXML
     VBox lbBox;
 
+    /**
+     * Constructor for the leaderboard page
+     * Loads all leaderboard items and sorts them
+     */
     public LeaderboardController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Leaderboard.fxml"));
         fxmlLoader.setRoot(this);
@@ -34,11 +41,12 @@ public class LeaderboardController extends AnchorPane {
         List<TakenQuiz> takenQuizList = takenQuizRepo.getTakenQuizzes(query);
         List<User> users = userRepo.getUsers();
 
-        List<Map.Entry<String, Integer>> sortedTotalScoresList = getTotalScores(takenQuizList, users, true);
+        List<Map.Entry<String, Integer>> totalScoresList = getTotalScores(takenQuizList, users, true);
+        Collections.sort(totalScoresList, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
 
-        for (int i = 0; i < sortedTotalScoresList.size(); i++) {
-            String username = sortedTotalScoresList.get(i).getKey();
-            int totalScore = sortedTotalScoresList.get(i).getValue();
+        for (int i = 0; i < totalScoresList.size(); i++) {
+            String username = totalScoresList.get(i).getKey();
+            int totalScore = totalScoresList.get(i).getValue();
             lbBox.getChildren().add(new LeaderboardItemController(i+1 , username, totalScore));
         }
 
