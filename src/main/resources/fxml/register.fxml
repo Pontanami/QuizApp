@@ -3,28 +3,30 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/register.css" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/register.css" type="AnchorPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="emailField" layoutX="650.0" layoutY="450.0" prefHeight="100.0" prefWidth="620.0" promptText="Email">
-         <font>
-            <Font size="47.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="nameField" layoutX="650.0" layoutY="300.0" prefHeight="100.0" prefWidth="620.0" promptText="Name">
+      <TextField fx:id="nameField" layoutX="650.0" layoutY="300.0" prefHeight="100.0" prefWidth="620.0" promptText="Name" AnchorPane.bottomAnchor="673.0" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="300.0">
          <font>
             <Font size="49.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="pwField" layoutX="650.0" layoutY="643.0" prefHeight="100.0" prefWidth="620.0" promptText="Password">
+      <TextField fx:id="emailField" layoutX="650.0" layoutY="450.0" prefHeight="100.0" prefWidth="620.0" promptText="Email" AnchorPane.bottomAnchor="523.0" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="450.0">
+         <font>
+            <Font size="47.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="pwField" layoutX="654.0" layoutY="608.0" prefHeight="100.0" prefWidth="620.0" promptText="Password" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="650.0" AnchorPane.topAnchor="600.0">
          <font>
             <Font size="41.0" />
          </font>
       </PasswordField>
-      <Button fx:id="registerBtn" layoutX="864.0" layoutY="795.0" mnemonicParsing="false" onAction="#register" stylesheets="@../css/button.css" text="Register">
+      <Button fx:id="registerBtn" layoutX="864.0" layoutY="795.0" mnemonicParsing="false" onAction="#register" stylesheets="@../css/button.css" text="Register" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="864.0" AnchorPane.rightAnchor="864.0" AnchorPane.topAnchor="795.0">
          <font>
             <Font size="39.0" />
          </font>
@@ -34,5 +36,14 @@
             <Font size="26.0" />
          </font>
       </Text>
+      <Button fx:id="backBtn" layoutX="84.0" layoutY="84.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="73.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="939.0" AnchorPane.leftAnchor="84.0" AnchorPane.topAnchor="84.0">
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="59.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/backarrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </fx:root>

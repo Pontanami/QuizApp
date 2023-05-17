@@ -18,9 +18,9 @@ public class TestQuizSearch {
     Flashcard flashcard1 = new Flashcard("What the capital of Sweden?", "Stockholm", new OneLetterHint("Stockholm"));
     Flashcard flashcard2 = new Flashcard("What is 1+1", "2", new TextHint("ett plus ett är två"));
     List<IQuizable<?>> questions = List.of(flashcard1, flashcard2);
-    Quiz quiz = new Quiz("Quiz1", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1");
-    Quiz quiz2 = new Quiz("ABC", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1");
-    Quiz quiz3 = new Quiz("Quiz3", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1");
+    Quiz quiz = new Quiz("Quiz1", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1", 0, 0);
+    Quiz quiz2 = new Quiz("ABC", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1", 0, 0);
+    Quiz quiz3 = new Quiz("Quiz3", questions, List.of(Subject.Mathematics, Subject.Economics), "1", "user1", 0, 0);
 
     List<Quiz> quizzes;
 

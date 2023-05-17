@@ -62,8 +62,9 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
             }
         }
 
-        quiz = new Quiz((String)doc.get("name"), questionList, tags, (String)doc.get("id")
-                , (String)doc.get("createdBy"));
+        quiz = new Quiz((String)doc.get("name"), questionList, tags,
+                (String)doc.get("id"), (String)doc.get("createdBy"),
+                Math.toIntExact((Long)doc.get("totalPoints")),Math.toIntExact((Long)doc.get("totalAttempts")));
         return quiz;
     }
      /**
@@ -131,6 +132,8 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         data.put("tags", quiz.getTags());
         data.put("id", docID);
         data.put("createdBy", currentUser.getId());
+        data.put("totalPoints", 0);
+        data.put("totalAttempts", 0);
 
         CompletableFuture<Void> future = addDataToDb(data, colref, docID);
         try {
@@ -150,6 +153,12 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         patchDataToDb(data, colref, quiz.getId());
     }
 
+    public void updateQuizPoints(Quiz quiz, int attemptPoints){
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalPoints", quiz.getTotalPoints() + attemptPoints);
+        data.put("totalAttempts", quiz.getTotalAttempts()+1);
+        patchDataToDb(data, colref, quiz.getId());
+    }
     /**
      * Method for removing a quiz from the database
      * @param id the id of the quiz we want to remove

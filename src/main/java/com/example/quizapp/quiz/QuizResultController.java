@@ -1,17 +1,21 @@
 package com.example.quizapp.quiz;
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.firebase.FirebaseQuizRepository;
+import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
+import com.example.quizapp.quiz.takeQuiz.TakenQuery;
+import com.example.quizapp.quiz.takeQuiz.TakenQuiz;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import org.javatuples.Triplet;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Represents the results of a quiz
@@ -22,6 +26,7 @@ public class QuizResultController extends AnchorPane {
     @FXML Label percentLabel;
     @FXML ScrollPane resultPane;
     @FXML VBox container;
+    @FXML Label quizMean;
 
     private final Triplet<String, String, String>[] takenQuiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
@@ -33,7 +38,7 @@ public class QuizResultController extends AnchorPane {
      * @param points the total points obtained
      * @param fullScore the total score of the entire quiz
      */
-    public QuizResultController(Triplet<String, String, String>[] takenQuiz, int points, int fullScore){
+    public QuizResultController(Triplet<String, String, String>[] takenQuiz, int points, int fullScore, String quizId){
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizSummery.fxml"));
         fxmlLoader.setRoot(this);
@@ -47,10 +52,10 @@ public class QuizResultController extends AnchorPane {
 
         this.takenQuiz = takenQuiz;
 
-        resultPane.setPannable(true);
         resultPane.setFitToWidth(true);
         totalPoints(points, fullScore);
         allQuestions();
+        displayQuizMean(quizId);
     }
 
     private void totalPoints(int score, int overAll){
@@ -96,6 +101,10 @@ public class QuizResultController extends AnchorPane {
 
     private void style(String answer, VBox holder, Label q, Label ans, int number){
         String correctAnswer = takenQuiz[number].getValue2();
+        holder.setMinWidth(100);
+        holder.setMaxWidth(10000);
+        holder.setPrefWidth(USE_COMPUTED_SIZE);
+        holder.setMaxHeight(200);
 
         if (answer != null && answer.equals(correctAnswer) && !correctAnswer.equals("")){
             q.setId("correctQ");
@@ -118,6 +127,14 @@ public class QuizResultController extends AnchorPane {
         navigationStack.removeView(this);
     }
 
+    private void displayQuizMean(String quizId){
+        FirebaseQuizRepository quizRepository = new FirebaseQuizRepository();
+        QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setId(quizId);
 
+        Quiz quiz = quizRepository.getSingleQuiz(query);
 
+        float mean = (float) quiz.getTotalPoints() / quiz.getTotalAttempts();
+
+        quizMean.setText(String.format("Quiz mean: %.2f", mean));
+    }
 }
