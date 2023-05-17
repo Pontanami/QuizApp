@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="100.0" prefHeight="550.0" prefWidth="778.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="100.0" prefHeight="550.0" prefWidth="778.0" type="AnchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane fx:id="resultPane" hbarPolicy="NEVER" layoutX="34.0" layoutY="93.0" maxHeight="408.0" maxWidth="1.7976931348623157E308" minHeight="31.0" minWidth="100.0" prefHeight="405.0" prefWidth="578.0" stylesheets="@../css/quizSummery.css" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="93.0">
          <content>
@@ -23,7 +23,7 @@
             <Font name="Arial Bold" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="homeButton" layoutX="250.0" layoutY="302.0" maxWidth="-Infinity" mnemonicParsing="false" onAction="#navigateToHome" prefHeight="31.0" prefWidth="278.0" text="Home" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="500.0">
+      <Button fx:id="homeButton" layoutX="424.0" layoutY="498.0" maxWidth="-Infinity" mnemonicParsing="false" onAction="#navigateToHome" prefHeight="43.0" prefWidth="185.0" text="Home" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="498.0">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -33,5 +33,10 @@
             <Font name="Arial Bold" size="26.0" />
          </font>
       </Label>
+      <Button fx:id="retakeButton" layoutX="176.0" layoutY="498.0" maxWidth="-Infinity" mnemonicParsing="false" onAction="#retake" prefHeight="43.0" prefWidth="185.0" text="Retake" AnchorPane.topAnchor="498.0">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+      </Button>
    </children>
 </fx:root>

@@ -3,10 +3,13 @@ package com.example.quizapp.quiz;
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
+import com.example.quizapp.quiz.tags.Subject;
+import com.example.quizapp.quiz.takeQuiz.TakeQuizController;
 import com.example.quizapp.quiz.takeQuiz.TakenQuery;
 import com.example.quizapp.quiz.takeQuiz.TakenQuiz;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +18,7 @@ import javafx.scene.text.Text;
 import org.javatuples.Triplet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,18 +31,25 @@ public class QuizResultController extends AnchorPane {
     @FXML ScrollPane resultPane;
     @FXML VBox container;
     @FXML Label quizMean;
+    @FXML Button retakeButton;
 
-    private final Triplet<String, String, String>[] takenQuiz;
+    private final String[] takenQuizAnswers;
+    private final Quiz quiz;
+    private final int points;
+    private Quiz retakeQuiz;
+    private final List<IQuizable<?>> questions;
+    private String correctAnswer;
+    private final int quizTotalPoints;
     NavigationStack navigationStack = NavigationStack.getInstance();
 
     /**
      *
      * Loads the QuizSummery fxml file and initialize values for the current object with the specified arguments
-     * @param takenQuiz the quiz that was taken
+     * @param takenQuizAnswers the list of answers for the quiz questions
      * @param points the total points obtained
-     * @param fullScore the total score of the entire quiz
+     * @param quiz the quiz that was taken
      */
-    public QuizResultController(Triplet<String, String, String>[] takenQuiz, int points, int fullScore, String quizId){
+    public QuizResultController(String[] takenQuizAnswers, int points, Quiz quiz, int quizTotalPoints){
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizSummery.fxml"));
         fxmlLoader.setRoot(this);
@@ -50,12 +61,16 @@ public class QuizResultController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        this.takenQuiz = takenQuiz;
-
+        this.takenQuizAnswers = takenQuizAnswers;
+        this.quiz = quiz;
+        this.points = points;
+        this.quizTotalPoints = quizTotalPoints;
+        questions = new ArrayList<>();
         resultPane.setFitToWidth(true);
-        totalPoints(points, fullScore);
+        totalPoints(points, quizTotalPoints);
         allQuestions();
-        displayQuizMean(quizId);
+        populateRetakeQuiz();
+        displayQuizMean(quiz.getId());
     }
 
     private void totalPoints(int score, int overAll){
@@ -67,12 +82,12 @@ public class QuizResultController extends AnchorPane {
 
     private void allQuestions(){
 
-        for (int i = 0; i < takenQuiz.length; i++){
+        for (int i = 0; i < takenQuizAnswers.length; i++){
             VBox questionBox = new VBox();
-            Label questionLabel = new Label("Q " + (i+1) + ": " + takenQuiz[i].getValue0());
+            Label questionLabel = new Label("Q " + (i+1) + ": " + quiz.getQuestions().get(i).getQuestion());
 
-            String givenAnswer = takenQuiz[i].getValue1();
-            String correctAnswer = takenQuiz[i].getValue2();
+            String givenAnswer = takenQuizAnswers[i];
+            correctAnswer = (String) quiz.getQuestions().get(i).getAnswer();
             Label answerLabel;
             if (givenAnswer != null && !givenAnswer.equals("")){
                 if (givenAnswer.equals(correctAnswer)){
@@ -95,16 +110,19 @@ public class QuizResultController extends AnchorPane {
             container.getChildren().add(questionBox);
         }
 
+        if (questions.size() == 0){
+            retakeButton.setVisible(false);
+        }
         resultPane.setContent(container);
 
     }
 
     private void style(String answer, VBox holder, Label q, Label ans, int number){
-        String correctAnswer = takenQuiz[number].getValue2();
         holder.setMinWidth(100);
         holder.setMaxWidth(10000);
         holder.setPrefWidth(USE_COMPUTED_SIZE);
         holder.setMaxHeight(200);
+
 
         if (answer != null && answer.equals(correctAnswer) && !correctAnswer.equals("")){
             q.setId("correctQ");
@@ -114,9 +132,17 @@ public class QuizResultController extends AnchorPane {
             q.setId("incorrectQ");
             ans.setId("incorrectA");
             holder.setId("incorrectHolder");
+            questions.add(quiz.getQuestions().get(number));
         } else {
             holder.setId("NoAnswer");
+            questions.add(quiz.getQuestions().get(number));
         }
+    }
+
+    private void populateRetakeQuiz(){
+        List<Subject> tags = new ArrayList<>(quiz.getTags());
+        retakeQuiz = new Quiz(quiz.getName(), questions, tags, quiz.getId(), quiz.getCreatedBy(),
+                questions.size(), quiz.getTotalAttempts());
     }
 
     /**
@@ -124,6 +150,15 @@ public class QuizResultController extends AnchorPane {
      */
     public void navigateToHome(){
         navigationStack.popView();
+        navigationStack.removeView(this);
+    }
+
+
+    /**
+     * Navigates to take quiz screen with the new retake quiz
+     */
+    public void retake(){
+        navigationStack.pushView(new TakeQuizController(retakeQuiz, points, quizTotalPoints));
         navigationStack.removeView(this);
     }
 

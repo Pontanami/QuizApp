@@ -63,14 +63,17 @@ public class TakeQuizController extends AnchorPane implements IObservable {
     private final QuizAttempt quizAttempt;
     private final Quiz quiz;
     NavigationStack navigationStack = NavigationStack.getInstance();
-    private List<IObserver> observers = new ArrayList<>();
-    private final Triplet<String, String, String>[] takenQuiz;
+    private final List<IObserver> observers = new ArrayList<>();
+    private final String[] takenQuizAnswers;
     private int questionIndex = 0;
+    private final int startPoints;
+    private final int quizTotalPoints;
+
 
     /**
      * @param quiz The quiz to view/take
      */
-    public TakeQuizController(Quiz quiz){
+    public TakeQuizController(Quiz quiz, int startPoints, int quizTotalPoints){
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/takeQuiz.fxml"));
         fxmlLoader.setRoot(this);
@@ -83,11 +86,13 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         }
         this.quiz = quiz;
         this.quizAttempt = new QuizAttempt(quiz);
+        this.startPoints = startPoints;
+        this.quizTotalPoints = quizTotalPoints;
         quizName.setText(quiz.getName());
         quizPrevious.setDisable(true);
         quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quiz.getQuestions().size());
         int quizSize = quiz.getQuestions().size();
-        takenQuiz = new Triplet[quizSize];
+        takenQuizAnswers = new String[quizSize];
         showQuestion();
         subscribe((IObserver) navigationStack.getSpecificView(HomeController.class));
     }
@@ -165,8 +170,8 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
             quizAttempt.addPoint();
             quizPoints.setText("Points: " + quizAttempt.getPoints() + "/" + quizAttempt.getQuiz().getQuestions().size());
-            takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), (String)quizAttempt.getCurrentQuestion().getAnswer(),
-                    (String)quizAttempt.getCurrentQuestion().getAnswer());
+            takenQuizAnswers[questionIndex] = (String)quizAttempt.getCurrentQuestion().getAnswer();
+
             disablePointButtons();
         }
     }
@@ -174,8 +179,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
     @FXML
     private void wrongAnswer(){
         if(!answeredQuestions.contains(quizAttempt.getCurrentQuestion().getQuestion())) {
-            takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), "Not correct answer",
-                    "Correct Answer");
+            takenQuizAnswers[questionIndex] = "Not correct answer";
         }
         disablePointButtons();
     }
@@ -202,8 +206,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         }
         quizAnswer.setDisable(true);
         quizHint.setDisable(true);
-        takenQuiz[questionIndex] = Triplet.with(takenQuiz[questionIndex].getValue0(), specificController.usersAnswer(),
-                (String)quizAttempt.getCurrentQuestion().getAnswer());
+        takenQuizAnswers[questionIndex] = specificController.usersAnswer();
 
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
         increaseProgress();
@@ -231,8 +234,6 @@ public class TakeQuizController extends AnchorPane implements IObservable {
             retrieveQuestion();
             quizHint.setDisable(true);
         } else {
-            takenQuiz[questionIndex] = new Triplet<String, String, String>(quizAttempt.getCurrentQuestion().getQuestion(),
-                    "", "");
             quizHint.setDisable(false);
             AnchorPane pane = new AnchorPane();
             try {
@@ -287,10 +288,10 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         FirebaseQuizRepository quizRepo = new FirebaseQuizRepository();
         quizRepo.updateQuizPoints(quiz, quizAttempt.getPoints());
         User currentuser = FirebaseUserRepository.getAuth().getCurrentUser();
-        qr.uploadTakenQuiz(quizAttempt.getQuiz().getId(), currentuser.getId(), quizAttempt.getPoints());
+        qr.uploadTakenQuiz(quizAttempt.getQuiz().getId(), currentuser.getId(), startPoints+quizAttempt.getPoints());
         notifySubscribers();
-       navigationStack.pushView(new QuizResultController(takenQuiz, quizAttempt.getPoints(),
-                quizAttempt.getQuiz().getQuestions().size(), quiz.getId()));
+        navigationStack.pushView(new QuizResultController(takenQuizAnswers, startPoints+quizAttempt.getPoints(),
+                quiz, quizTotalPoints));
         navigationStack.removeView(this);
     }
 
