@@ -1,6 +1,7 @@
 package com.example.quizapp.quiz;
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.quiz.flashcard.EditFlashCardQuiz;
 import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.EditMultiChoiceQuizController;
 import javafx.fxml.FXML;
@@ -34,7 +35,8 @@ public class EditButton extends AnchorPane {
     }
 
     private void editFlashcardQuiz() {
-
+        EditFlashCardQuiz editFlashCardQuiz = new EditFlashCardQuiz(quiz);
+        navigation.pushView(editFlashCardQuiz);
     }
 
     private void editMultiChoiceQuiz() {

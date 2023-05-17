@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
 public class CreateMultiChoiceQuizController extends MultiChoiceQuizController {
-    private AnchorPane rootpane;
 
     private Quiz quiz = new Quiz();
 
@@ -43,11 +42,4 @@ public class CreateMultiChoiceQuizController extends MultiChoiceQuizController {
         notifySubscribers();
         navigateToQuizCollection();
     }
-
-    /**
-     * This method removes a question controller from CreateFlashCardQuiz
-     * @param multichoice to be removed
-     */
-
-
 }
