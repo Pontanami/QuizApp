@@ -153,6 +153,7 @@ public class QuizResultController extends AnchorPane {
         navigationStack.removeView(this);
     }
 
+
     /**
      * Navigates to take quiz screen with the new retake quiz
      */
