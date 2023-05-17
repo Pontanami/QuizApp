@@ -223,6 +223,10 @@ public abstract class FlashCardQuizController extends AnchorPane implements IObs
         }
     }
 
+    protected Quiz getQuiz() {
+        return quiz;
+    }
+
     @FXML
     protected abstract void submitQuiz();
 }

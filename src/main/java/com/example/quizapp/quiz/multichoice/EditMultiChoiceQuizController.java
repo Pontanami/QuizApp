@@ -21,12 +21,18 @@ public class EditMultiChoiceQuizController extends MultiChoiceQuizController {
         addQuestion(multichoice);
     }
 
+    /**
+     * Adds all existing questions to the quiz
+     */
     private void addExistingQuestions(){
         for(IQuizable question : quiz.getQuestions()){
             addQuestion(new CreateMultichoiceController(this, (MultiChoice) question));
         }
     }
 
+    /**
+     * Adds all questions to the quiz and pushes the quiz to database
+     */
     @Override
     protected void submitQuiz(){
         initQuizCreation();

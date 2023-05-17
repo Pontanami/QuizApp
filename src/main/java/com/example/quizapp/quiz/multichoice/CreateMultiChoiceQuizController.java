@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class CreateMultiChoiceQuizController extends MultiChoiceQuizController {
 
-    private Quiz quiz = new Quiz();
+    private Quiz quiz;
 
     private NavigationStack navigation = NavigationStack.getInstance();
 
@@ -19,6 +19,7 @@ public class CreateMultiChoiceQuizController extends MultiChoiceQuizController {
      */
     public CreateMultiChoiceQuizController() {
         super(new Quiz());
+        quiz = getQuiz();
         subscribe((IObserver) navigation.getSpecificView(HomeController.class));
     }
 

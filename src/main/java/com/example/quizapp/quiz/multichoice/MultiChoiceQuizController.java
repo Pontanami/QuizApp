@@ -203,6 +203,10 @@ public abstract class MultiChoiceQuizController extends AnchorPane implements IO
         }
     }
 
+    protected Quiz getQuiz() {
+        return quiz;
+    }
+
     @FXML
     protected abstract void submitQuiz();
 }

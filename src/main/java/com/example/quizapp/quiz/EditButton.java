@@ -34,11 +34,17 @@ public class EditButton extends AnchorPane {
         }
     }
 
+    /**
+     * Navigates to the view of editing a {@link com.example.quizapp.quiz.flashcard.Flashcard} question
+     */
     private void editFlashcardQuiz() {
         EditFlashCardQuiz editFlashCardQuiz = new EditFlashCardQuiz(quiz);
         navigation.pushView(editFlashCardQuiz);
     }
 
+    /**
+     * Navigates to the view of editing a {@link com.example.quizapp.quiz.multichoice.MultiChoice} question
+     */
     private void editMultiChoiceQuiz() {
         EditMultiChoiceQuizController editMultiChoiceQuizController = new EditMultiChoiceQuizController(quiz);
         navigation.pushView(editMultiChoiceQuizController);

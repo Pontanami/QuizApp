@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 
 public class CreateFlashCardQuizController extends FlashCardQuizController {
 
-    private Quiz quiz = new Quiz();
+    private Quiz quiz;
 
     private NavigationStack navigation = NavigationStack.getInstance();
 
@@ -38,6 +38,7 @@ public class CreateFlashCardQuizController extends FlashCardQuizController {
      */
     public CreateFlashCardQuizController() {
         super(new Quiz());
+        this.quiz = getQuiz();
     }
 
     /**
