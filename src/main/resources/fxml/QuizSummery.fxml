@@ -7,26 +7,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="940.0" prefWidth="1450.0" stylesheets="@../css/quizSummery.css" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="100.0" prefHeight="550.0" prefWidth="778.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="resultPane" layoutX="-3.0" layoutY="117.0" prefHeight="600.0" prefWidth="1450.0" stylesheets="@../css/quizSummery.css">
+      <ScrollPane fx:id="resultPane" hbarPolicy="NEVER" layoutX="34.0" layoutY="93.0" maxHeight="408.0" maxWidth="1.7976931348623157E308" minHeight="31.0" minWidth="100.0" prefHeight="405.0" prefWidth="578.0" stylesheets="@../css/quizSummery.css" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="93.0">
          <content>
-            <VBox fx:id="container" prefWidth="1453.0" />
+            <VBox fx:id="container" minHeight="50.0" minWidth="50.0" />
          </content></ScrollPane>
-      <Label fx:id="resultLabel" alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="114.0" prefWidth="968.0" text="Result">
+      <Label fx:id="resultLabel" alignment="CENTER" prefHeight="62.0" prefWidth="778.0" text="Result" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Arial Bold" size="48.0" />
          </font>
       </Label>
-      <Label fx:id="percentLabel" alignment="CENTER" layoutX="970.0" layoutY="1.0" prefHeight="117.0" prefWidth="478.0" text="Procent">
+      <Label fx:id="percentLabel" alignment="CENTER" prefHeight="62.0" prefWidth="778.0" text="Procent" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Arial Bold" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="homeButton" layoutX="690.0" layoutY="758.0" mnemonicParsing="false" onAction="#navigateToHome" prefHeight="63.0" prefWidth="147.0" text="Home">
+      <Button fx:id="homeButton" layoutX="250.0" layoutY="302.0" maxWidth="-Infinity" mnemonicParsing="false" onAction="#navigateToHome" prefHeight="31.0" prefWidth="278.0" text="Home" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="500.0">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Button>
+      <Label fx:id="quizMean" alignment="CENTER" layoutX="-1.0" layoutY="54.0" prefHeight="31.0" prefWidth="778.0" text="Average Quiz Score" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0">
+         <font>
+            <Font name="Arial Bold" size="26.0" />
+         </font>
+      </Label>
    </children>
 </fx:root>

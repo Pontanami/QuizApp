@@ -1,8 +1,11 @@
 .label{
-    -fx-font-size: 48px;
+    -fx-font-size: 16px;
     -fx-font-family: Arial;
-    -fx-pref-height: 106px;
-    -fx-pref-width: 1450px;
+    -fx-pref-height: 20px;
+    -fx-max-height: 30;
+    -fx-min-width: 100px;
+    -fx-pref-width: 100px;
+    -fx-max-width: 10000px;
     -fx-alignment: Center;
 }
 
