@@ -61,7 +61,12 @@ public class HomeController extends AnchorPane implements IObserver {
         QuizQuery.QuizQueryBuilder query = new QuizQuery.QuizQueryBuilder().setCreatedBy(userID);
         myQuizFlow.getChildren().clear();
         for (Quiz quiz : quizRepository.getQuiz(query)) {
-            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
+            if (quiz == null){
+                System.out.println(2);
+                continue;
+            }
+            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz, myQuizFlow);
+            quizThumbnail.subscribe(this);
             myQuizFlow.getChildren().add(quizThumbnail);
         }
     }
@@ -75,7 +80,11 @@ public class HomeController extends AnchorPane implements IObserver {
         recentQuizFlow.getChildren().clear();
         for (TakenQuiz takenQuiz : takenQuizRepo.getTakenQuizzes(query)) {
             quiz = allQuizzes.stream().filter(q -> q.getId().equals(takenQuiz.getQuizId())).findFirst().orElse(null);
-            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz);
+            if(quiz == null){
+                System.out.println(1);
+                continue;
+            }
+            QuizThumbnail quizThumbnail = new QuizThumbnail(quiz, myQuizFlow);
             recentQuizFlow.getChildren().add(quizThumbnail);
         }
     }
