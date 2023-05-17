@@ -35,9 +35,11 @@ public class QuizResultController extends AnchorPane {
 
     private final String[] takenQuizAnswers;
     private final Quiz quiz;
+    private final int points;
     private Quiz retakeQuiz;
     private final List<IQuizable<?>> questions;
     private String correctAnswer;
+    private final int quizTotalPoints;
     NavigationStack navigationStack = NavigationStack.getInstance();
 
     /**
@@ -47,7 +49,7 @@ public class QuizResultController extends AnchorPane {
      * @param points the total points obtained
      * @param quiz the quiz that was taken
      */
-    public QuizResultController(String[] takenQuizAnswers, int points, Quiz quiz){
+    public QuizResultController(String[] takenQuizAnswers, int points, Quiz quiz, int quizTotalPoints){
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/QuizSummery.fxml"));
         fxmlLoader.setRoot(this);
@@ -61,9 +63,11 @@ public class QuizResultController extends AnchorPane {
 
         this.takenQuizAnswers = takenQuizAnswers;
         this.quiz = quiz;
+        this.points = points;
+        this.quizTotalPoints = quizTotalPoints;
         questions = new ArrayList<>();
         resultPane.setFitToWidth(true);
-        totalPoints(points, quiz.getTotalPoints());
+        totalPoints(points, quizTotalPoints);
         allQuestions();
         populateRetakeQuiz();
         displayQuizMean(quiz.getId());
@@ -153,7 +157,7 @@ public class QuizResultController extends AnchorPane {
      * Navigates to take quiz screen with the new retake quiz
      */
     public void retake(){
-        navigationStack.pushView(new TakeQuizController(retakeQuiz));
+        navigationStack.pushView(new TakeQuizController(retakeQuiz, points, quizTotalPoints));
         navigationStack.removeView(this);
     }
 

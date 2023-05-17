@@ -45,6 +45,6 @@ public class QuizThumbnail extends AnchorPane {
      */
     @FXML
     public void navigateToQuiz() {
-        navigation.pushView(new TakeQuizController(quiz));
+        navigation.pushView(new TakeQuizController(quiz, 0, quiz.getQuestions().size()));
     }
 }
