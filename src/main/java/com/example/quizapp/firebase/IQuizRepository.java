@@ -10,5 +10,6 @@ public interface IQuizRepository {
     List<Quiz> getQuiz(QuizQuery.QuizQueryBuilder query);
     Quiz getSingleQuiz(QuizQuery.QuizQueryBuilder query);
     void uploadQuiz(Quiz quiz, User currentUser);
+    void updateQuiz(Quiz quiz);
     void removeQuiz(String id);
 }

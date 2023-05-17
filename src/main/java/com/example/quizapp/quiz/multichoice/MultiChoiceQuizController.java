@@ -50,8 +50,6 @@ public abstract class MultiChoiceQuizController extends AnchorPane implements IO
     @FXML
     private TextField quizName;
     private InputValidator validator = new InputValidator();
-    protected IQuizRepository quizRepository = new FirebaseQuizRepository();
-    protected IUserRepository userRepository = FirebaseUserRepository.getAuth();
     private NavigationStack navigation = NavigationStack.getInstance();
 
     private List<CreateMultichoiceController> questions = new ArrayList<>();
@@ -88,13 +86,11 @@ public abstract class MultiChoiceQuizController extends AnchorPane implements IO
     }
 
 
-    @FXML
     public void addQuestion(CreateMultichoiceController multichoice){
         questions.add(multichoice);
         updateCreatedQuestions();
     }
 
-    @FXML
     public void removeQuestion(CreateMultichoiceController multichoice){
         questions.remove(multichoice);
         updateCreatedQuestions();

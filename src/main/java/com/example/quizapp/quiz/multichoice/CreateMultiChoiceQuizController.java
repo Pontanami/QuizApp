@@ -2,6 +2,10 @@ package com.example.quizapp.quiz.multichoice;
 
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.firebase.FirebaseQuizRepository;
+import com.example.quizapp.firebase.FirebaseUserRepository;
+import com.example.quizapp.firebase.IQuizRepository;
+import com.example.quizapp.firebase.IUserRepository;
 import com.example.quizapp.interfaces.IObserver;
 import com.example.quizapp.mainview.HomeController;
 import com.example.quizapp.quiz.Quiz;
@@ -13,6 +17,8 @@ public class CreateMultiChoiceQuizController extends MultiChoiceQuizController {
     private Quiz quiz;
 
     private NavigationStack navigation = NavigationStack.getInstance();
+    private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+    private IQuizRepository quizRepository = new FirebaseQuizRepository();
 
     /**
      * Creates a CreateMultiChoiceQuiz
@@ -23,14 +29,10 @@ public class CreateMultiChoiceQuizController extends MultiChoiceQuizController {
         subscribe((IObserver) navigation.getSpecificView(HomeController.class));
     }
 
-    /**
-     * This method adds a new CreateFlashcard controller to CreateFlashCardQuiz
-     */
 
     @FXML
     public void addQuestion(){
-        CreateMultichoiceController multichoice = new CreateMultichoiceController(this);
-        addQuestion(multichoice);
+        addQuestion(new CreateMultichoiceController(this));
     }
 
     /**

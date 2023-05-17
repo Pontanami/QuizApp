@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="1317.0" layoutY="601.0" mnemonicParsing="false" onAction="#submitQuiz" prefHeight="35.0" prefWidth="160.0" text="CREATE QUIZ" AnchorPane.bottomAnchor="66.0" AnchorPane.rightAnchor="30.0">
+            <Button layoutX="1317.0" layoutY="601.0" mnemonicParsing="false" onAction="#submitQuiz" prefHeight="35.0" prefWidth="160.0" text="SUBMIT QUIZ" AnchorPane.bottomAnchor="66.0" AnchorPane.rightAnchor="30.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

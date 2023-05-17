@@ -31,7 +31,8 @@ public class CreateFlashCardQuizController extends FlashCardQuizController {
 
     private Quiz quiz;
 
-    private NavigationStack navigation = NavigationStack.getInstance();
+    private IUserRepository userRepository = FirebaseUserRepository.getAuth();
+    private IQuizRepository quizRepository = new FirebaseQuizRepository();
 
     /**
      * Creates a CreateFlashCardQuiz

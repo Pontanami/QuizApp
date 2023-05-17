@@ -49,8 +49,8 @@ public abstract class FlashCardQuizController extends AnchorPane implements IObs
     private TextField quizName;
 
     private InputValidator validator = new InputValidator();
-    protected IQuizRepository quizRepository = new FirebaseQuizRepository();
-    protected IUserRepository userRepository = FirebaseUserRepository.getAuth();
+    private IQuizRepository quizRepository = new FirebaseQuizRepository();
+    private IUserRepository userRepository = FirebaseUserRepository.getAuth();
     private NavigationStack navigationStack = NavigationStack.getInstance();
 
     private List<CreateFlashcardController> questions = new ArrayList<>();
