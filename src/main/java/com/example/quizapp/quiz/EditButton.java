@@ -1,6 +1,7 @@
 package com.example.quizapp.quiz;
 
 import com.example.quizapp.NavigationStack;
+import com.example.quizapp.quiz.flashcard.Flashcard;
 import com.example.quizapp.quiz.multichoice.EditMultiChoiceQuizController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,18 @@ public class EditButton extends AnchorPane {
 
     @FXML
     private void editQuiz(){
+        if (quiz.getQuestions().get(0) instanceof Flashcard) {
+            editFlashcardQuiz();
+        } else {
+            editMultiChoiceQuiz();
+        }
+    }
+
+    private void editFlashcardQuiz() {
+
+    }
+
+    private void editMultiChoiceQuiz() {
         EditMultiChoiceQuizController editMultiChoiceQuizController = new EditMultiChoiceQuizController(quiz);
         navigation.pushView(editMultiChoiceQuizController);
     }
