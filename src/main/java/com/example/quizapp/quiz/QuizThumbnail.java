@@ -86,12 +86,12 @@ public class QuizThumbnail extends AnchorPane implements IObservable {
 
         if (isMyQuiz()) {
             fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/editButton.fxml"));
-            EditButton editButton = new EditButton(quiz);
-            fxmlLoader.setController(editButton);
-            fxmlLoader.setRoot(editButton);
+            EditButton editButtonController = new EditButton(quiz);
+            fxmlLoader.setController(editButtonController);
+            fxmlLoader.setRoot(editButtonController);
             try {
-                AnchorPane editButton1 = fxmlLoader.load();
-                rootPane.getChildren().add(editButton1);
+                AnchorPane editButton = fxmlLoader.load();
+                rootPane.getChildren().add(editButton);
             } catch (IOException exception) {
                 throw new RuntimeException(exception);
             }
