@@ -47,9 +47,24 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         Type listType = new TypeToken<ArrayList<IQuizable<?>>>(){}.getType();
         String json = doc.getString("quiz");
         List<IQuizable<?>> questionList = gson.fromJson(json, listType);
-        quiz = new Quiz((String)doc.get("name"), questionList, (List<Subject>) doc.get("tags"),
-                        (String)doc.get("id"), (String)doc.get("createdBy"),
-                         Math.toIntExact((Long)doc.get("totalPoints")),Math.toIntExact((Long)doc.get("totalAttempts")));
+
+        List<String> tagsStringList = (List<String>) doc.get("tags");
+
+        List<Subject> tags = new ArrayList<>();
+
+        if (tagsStringList != null) {
+            for (String tag : tagsStringList) {
+                try {
+                    tags.add(Subject.valueOf(tag));
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        quiz = new Quiz((String)doc.get("name"), questionList, tags,
+                (String)doc.get("id"), (String)doc.get("createdBy"),
+                Math.toIntExact((Long)doc.get("totalPoints")),Math.toIntExact((Long)doc.get("totalAttempts")));
         return quiz;
     }
      /**
@@ -129,13 +144,21 @@ public class FirebaseQuizRepository extends FirebaseBaseRepository<Quiz, QuizQue
         }
     }
 
+    public void updateQuiz(Quiz quiz){
+        String json = gson.toJson(quiz.getQuestions(), new TypeToken<List<IQuizable<?>>>() {}.getType());
+        Map<String, Object> data = new HashMap<>();
+        data.put("quiz", json);
+        data.put("name", quiz.getName());
+        data.put("tags", quiz.getTags());
+        patchDataToDb(data, colref, quiz.getId());
+    }
+
     public void updateQuizPoints(Quiz quiz, int attemptPoints){
         Map<String, Object> data = new HashMap<>();
         data.put("totalPoints", quiz.getTotalPoints() + attemptPoints);
         data.put("totalAttempts", quiz.getTotalAttempts()+1);
         patchDataToDb(data, colref, quiz.getId());
     }
-
     /**
      * Method for removing a quiz from the database
      * @param id the id of the quiz we want to remove

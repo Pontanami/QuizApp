@@ -1,13 +1,7 @@
 package com.example.quizapp.quiz.flashcard;
 
-import com.example.quizapp.hints.HalfWordHint;
-import com.example.quizapp.hints.IHint;
-import com.example.quizapp.hints.OneLetterHint;
-import com.example.quizapp.hints.TextHint;
-import com.example.quizapp.quiz.InputValidator;
-import com.example.quizapp.quiz.ICreateQuestion;
-import com.example.quizapp.quiz.IQuizManager;
-import com.example.quizapp.quiz.IQuizable;
+import com.example.quizapp.hints.*;
+import com.example.quizapp.quiz.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +16,7 @@ import java.util.*;
 
 public class CreateFlashcardController extends AnchorPane implements ICreateQuestion<String> {
 
-    private IQuizManager questionManager;
+    private FlashCardQuizController questionManager;
     @FXML private TextField frontSide;
     @FXML private TextField backSide;
     @FXML private ComboBox hintDropdown;
@@ -37,7 +31,25 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
      * Creates a CreateFlashcard object with a question manager.
      * @param questionManager the responsible components for all CreateFlashcard controllers.
      */
-    public CreateFlashcardController(IQuizManager questionManager) {
+    public CreateFlashcardController(FlashCardQuizController questionManager) {
+        setup(questionManager);
+        hintDropdown.getSelectionModel().selectFirst();
+    }
+
+    public CreateFlashcardController(FlashCardQuizController questionManager, Flashcard question) {
+        setup(questionManager);
+        if (question.getWordHint() != null) {
+            hintDropdown.getSelectionModel().select(question.getWordHint().getClass().getSimpleName());
+            if (question.getWordHint().getClass().getSimpleName().equals("TextHint"))
+                hintField.setText(question.showHint());
+        } else {
+            hintDropdown.getSelectionModel().selectFirst();
+        }
+        frontSide.setText(question.getQuestion());
+        backSide.setText(question.getAnswer());
+    }
+
+    private void setup(FlashCardQuizController questionManager) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/createFlashcard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -81,7 +93,7 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
      * @return the created flashcard
      */
     public IQuizable<String> createQuestion(){
-        IHint hint = getHint(chosenHint);
+        IHint<String> hint = getHint(chosenHint);
         return new Flashcard(frontSide.getText(), backSide.getText(), hint);
     }
 
@@ -100,8 +112,8 @@ public class CreateFlashcardController extends AnchorPane implements ICreateQues
      * @param hint key for getting the hint object
      * @return hint object
      */
-    private IHint getHint(String hint){
-        Map<String, IHint> hints = new HashMap<>();
+    private IHint<String> getHint(String hint){
+        Map<String, IHint<String>> hints = new HashMap<>();
         hints.put(TextHint.class.getSimpleName(), new TextHint(hintField.getText()));
         hints.put(OneLetterHint.class.getSimpleName(), new OneLetterHint(backSide.getText()));
         hints.put(HalfWordHint.class.getSimpleName(), new HalfWordHint(backSide.getText()));

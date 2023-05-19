@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#navigateToQuiz" onMouseEntered="#showX" onMouseExited="#hideX" prefHeight="250.0" prefWidth="250.0" styleClass="body" stylesheets="@../css/Thumbnail.css" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#navigateToQuiz" onMouseEntered="#showX" onMouseExited="#hideX" prefHeight="250.0" prefWidth="250.0" styleClass="body" stylesheets="@../css/Thumbnail.css" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView id="xImage" fitHeight="40.0" fitWidth="40.0" layoutX="203.0" layoutY="8.0" onMouseClicked="#removeQuiz" pickOnBounds="true" preserveRatio="true" fx:id="xImage">
          <cursor>

@@ -1,4 +1,5 @@
 package com.example.quizapp.quiz;
+
 import com.example.quizapp.NavigationStack;
 import com.example.quizapp.firebase.FirebaseQuizRepository;
 import com.example.quizapp.firebase.FirebaseTakenQuizRepository;
@@ -35,6 +36,9 @@ public class QuizThumbnail extends AnchorPane implements IObservable {
     @FXML
     private Text quizName;
 
+    @FXML
+    private AnchorPane rootPane;
+
     private final NavigationStack navigation = NavigationStack.getInstance();
     private final FirebaseQuizRepository quizRepository = new FirebaseQuizRepository();
     private final FirebaseTakenQuizRepository takenQuizRepo = new FirebaseTakenQuizRepository();
@@ -62,9 +66,8 @@ public class QuizThumbnail extends AnchorPane implements IObservable {
             throw new RuntimeException(exception);
         }
         this.quiz = quiz;
-        xImage.setImage(new Image(String.valueOf(getClass().getResource("/img/delete.png"))));
-
         quizName.setText(quiz.getName());
+        xImage.setImage(new Image(String.valueOf(getClass().getResource("/img/delete.png"))));
         xImage.setDisable(true);
         xImage.setVisible(false);
         xImage.setPreserveRatio(true);
@@ -81,6 +84,18 @@ public class QuizThumbnail extends AnchorPane implements IObservable {
         animationBack = new Timeline();
         animationBack.getKeyFrames().add(unHoverKeyFrame);
 
+        if (isMyQuiz()) {
+            fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/editButton.fxml"));
+            EditButton editButtonController = new EditButton(quiz);
+            fxmlLoader.setController(editButtonController);
+            fxmlLoader.setRoot(editButtonController);
+            try {
+                AnchorPane editButton = fxmlLoader.load();
+                rootPane.getChildren().add(editButton);
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
     }
     public QuizThumbnail(Quiz quiz, FlowPane myQuizFlow) {
         this(quiz);
@@ -94,6 +109,11 @@ public class QuizThumbnail extends AnchorPane implements IObservable {
     public void navigateToQuiz() {
         navigation.pushView(new TakeQuizController(quiz, 0, quiz.getQuestions().size()));
     }
+
+    public boolean isMyQuiz() {
+        return quiz.getCreatedBy().equals(FirebaseUserRepository.getAuth().getCurrentUser().getId());
+    }
+
 
     /**
      * removes the quiz where the red cross was clicked
