@@ -25,7 +25,7 @@ public class FirebaseConnection {
 
     private FirebaseConnection(){
         try {
-            InputStream serviceAccount = new FileInputStream("src/main/resources/com/example/quizapp/apiKey");
+            InputStream serviceAccount = getClass().getResourceAsStream("/com/example/quizapp/apiKey");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
