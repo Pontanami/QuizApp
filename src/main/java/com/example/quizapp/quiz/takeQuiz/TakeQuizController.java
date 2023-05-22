@@ -173,6 +173,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
             takenQuizAnswers[questionIndex] = (String)quizAttempt.getCurrentQuestion().getAnswer();
 
             disablePointButtons();
+            increaseProgress();
         }
     }
 
@@ -182,6 +183,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
             takenQuizAnswers[questionIndex] = "Not correct answer";
         }
         disablePointButtons();
+        increaseProgress();
     }
 
     private void isAnswered(){
@@ -210,6 +212,7 @@ public class TakeQuizController extends AnchorPane implements IObservable {
 
         answeredQuestions.add(quizAttempt.getCurrentQuestion().getQuestion());
         increaseProgress();
+
     }
 
     /**
