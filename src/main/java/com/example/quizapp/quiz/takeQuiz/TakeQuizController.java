@@ -97,7 +97,6 @@ public class TakeQuizController extends AnchorPane implements IObservable {
         subscribe((IObserver) navigationStack.getSpecificView(HomeController.class));
     }
 
-
     /**
      * Displays the next question according to the order specified in the given questions list.
      */
